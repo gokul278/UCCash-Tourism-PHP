@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>UCCASH TOURISM</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <a href="index.php"><img class=" me-3" src="img/logo.png" alt="UCCASH LOGO" style="width:130px"></a>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="index.php" class="nav-item nav-link">Home</a>
+                        <a href="about.php" class="nav-item nav-link active">About Us</a>
+                        <a href="services.php" class="nav-item nav-link">Services</a>
+                        <a href="places.php" class="nav-item nav-link">Places</a>
+                        <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Sign Up / Login</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="signup.php" class="dropdown-item">Sign Up</a>
+                                <a href="signin.php" class="dropdown-item">Sign In</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </nav>
+            </div>
+        <!-- Navbar & Hero End -->
+
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h3 class="text-white display-3 mb-4">About us - <span style="color: #f7c128;" >World's leading tour Booking</span> </h1>
+                    <h4 style="color: white;" >Book travel packages and enjoy your holidays with distinctive experience</h4>
+                    <br>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                    <li class="breadcrumb-item active text-white">About Us</li>
+                </ol>    
+            </div>
+        </div>
+        <!-- Header End -->
+
+        <!-- About Start -->
+        <div class="container-fluid about py-5">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-5">
+                        <div class="h-100" >
+                            <img src="img/about-img.jpg" class="img-fluid w-100 h-100" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-7" >
+                        <h5 class="section-about-title pe-3">About Us</h5>
+                        <h1 class="mb-4">Hi! Welcome to <span class="text-primary">UCCash Tour & Travels</span></h1>
+                        
+                        <br>
+                        <p style="text-align: justify;color: black;" class="mb-4">Our well-established travel agency has been in business for over a decade. We are experts in every aspect of this business and have earned the respect of many people over the years. Our firm is well versed in the difficulties and annoyances associated with obtaining mandatory documents . So here we are , bringing you the stress -free foldaway.</p>
+                        <p style="text-align: justify;color: black;" class="mb-4">We provide first-class service whether you are travelling Domestically or Internationally. We offer our clients the best in class service at reasonable prices. Our services are much more prompt and competent.</p>
+                        <p style="text-align: justify;color: black;" class="mb-4">People who have travelled with us attest to our extremely efficient and advanced services. they have shared their excellent travel experience with our company on our website. If you're interested in hearing more about it, please let us know and we'll get back to you as soon as possible.</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+        <!-- <services start> -->
+            
+            <section class="pt-5 pb-5">
+                <div class="container">
+                  <div class="row">
+                                  <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                                      <div class="services-block-three">
+                                            <a href="javascript:void(0)">
+                                              <div class="padding-15px-bottom">
+                                                  <i class="fa fa-address-card"></i>
+                                              </div>
+                                              <h4 style="color: black;">Bring Copies Of Your Orginals</h4>
+                                              <p class="xs-font-size13 xs-line-height-22">Its advisable to carry copies of all mandatory documents in your journey which helps in an emergency condition at any time.</p>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <div class="col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                                      <div class="services-block-three">
+                                          <a href="javascript:void(0)">
+                                              <div class="padding-15px-bottom">
+                                                  <i class="fa fa-flag"></i>
+                                              </div>
+                                              <h4 style="color: black;">Register Yourself</h4>
+                                              <p class="xs-font-size13 xs-line-height-22">For safe and haddle free travel experience register yourself with most trusted and worthable agency who were pioneer in the industry.</p>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <div class="services-block-three col-lg-4 col-md-6 margin-30px-bottom xs-margin-20px-bottom">
+                                      <div class="services-block-three">
+                                          <a href="javascript:void(0)">
+                                              <div class="padding-15px-bottom">
+                                                  <i class="fa fa-compass"></i>
+                                              </div>
+                                              <h4 style="color: black;">Get Guidelines</h4>
+                                              <p class="xs-font-size13 xs-line-height-22">Before starting a trip get full information about spots and make sure that you have full knowledge about the place of visits.</p>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <div class="services-block-three col-lg-4 col-md-6 sm-margin-30px-bottom xs-margin-20px-bottom">
+                                      <div class="services-block-three">
+                                          <a href="javascript:void(0)">
+                                              <div class="padding-15px-bottom">
+                                                  <i class="fa fa-building"></i>
+                                              </div>
+                                              <h4 style="color: black;">Book Your Hotel</h4>
+                                              <p class="xs-font-size13 xs-line-height-22">For enjoying your trip make book your hotels with top brands where we have our tie-ups with. We process the places in such a way.</p>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <div class="services-block-three col-lg-4 col-md-6 xs-margin-20px-bottom">
+                                      <div class="services-block-three">
+                                          <a href="javascript:void(0)">
+                                              <div class="padding-15px-bottom">
+                                                  <i class="fa fa-binoculars"></i>
+                                              </div>
+                                              <h4 style="color: black;">Tour Spots</h4>
+                                              <p class="xs-font-size13 xs-line-height-22">All our packages are planed with combaining unique destinations which were not bounded with in any other packages that we have.</p>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <div class="services-block-three col-lg-4 col-md-6">
+                                      <div class="services-block-three">
+                                          <a href="javascript:void(0)">
+                                              <div class="padding-15px-bottom">
+                                                  <i class="fa fa-bolt"></i>
+                                              </div>
+                                              <h4 style="color: black;">Instant Support</h4>
+                                              <p class="xs-font-size13 xs-line-height-22">Our team of support agents were work round the clock to provide instant support to the customers queries and make them feel good.</p>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- end -->
+                              </div>
+                </div>
+              </section>
+
+              <style>
+
+body{
+  background: #f5f5f5;
+}
+.services-block-three{
+  margin-bottom: 30px;
+}
+.services-block-three i {
+    font-size: 32px;
+}
+.services-block-three>a {
+    display: block;
+    border: 2px solid #d5d5d5;
+    border-radius: 4px;
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    position: relative;
+  margin-bottom:30px;
+
+}
+.services-block-three>a:before {
+    display: block;
+    content: "";
+    width: 9%;
+    height: 17%;
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    border-bottom: 2px solid #F7C128;
+    border-right: 2px solid #F7C128;
+    transition: all 0.5s ease 0s;
+    -webkit-transition: all 0.5s ease 0s;
+}
+.services-block-three>a:after {
+    display: block;
+    content: "";
+    width: 9%;
+    height: 17%;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    border-top: 2px solid #F7C128;
+    border-left: 2px solid #F7C128;
+    transition: all 0.5s ease 0s;
+    -webkit-transition: all 0.5s ease 0s;
+}
+.padding-15px-bottom {
+    padding-bottom: 15px;
+}
+.services-block-three h4 {
+    color: #6f6f6f;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+.services-block-three p {
+    margin-bottom: 0;
+  color: #757575;
+}
+.services-block-three>a:hover {
+    opacity: 1;
+    border-color: #d5d5d5;
+}
+a:hover, a:active {
+    color: #253d52 ;
+    text-decoration: none;
+}
+
+.services-block-three>a:hover:before, .services-block-three>a:hover:after {
+    width: 95%;
+    height: 90%;
+}
+              </style>
+        
+        <!-- </services end> -->
+
+        
+        <!-- Footer Start -->
+        <div class="container-fluid footer py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                   
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <a href="index.php"><img class=" me-3" src="img/logo2.png" alt="UCCASH LOGO" style="width:150px;height:100px;"></a>
+                            <br>
+                            <p style="text-align: justify;color: white;" >Leading tour and travels community, With over 50+ packages worldwide. Book travel packages and enjoy your holidays with distinctive experience.</p>
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Get In Touch</h4>
+                            <a href="#"><i class="fas fa-home me-2"></i> 1st Floor, Selvam Complex, Kurukkuppatti Junction, Tharamangalam, Salem DT, Tamilnadu, India, PIN-636502</a>
+                            <br>
+                            <a href="mailto:support@uccashtourism.com" target="_blank"><i class="fas fa-envelope me-2"></i> support@uccashtourism.com</a>
+                            <br>
+                            <a href="tel: +91 9842434284"><i class="fas fa-phone me-2"></i> +91 9842434284</a>
+                            <br>
+                            <div class="d-flex align-items-center">
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://www.whatsapp.com/channel/0029VaNZVU117En3yKTBiu2b" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://www.facebook.com/uccashtourism" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://t.me/uccashtourism" target="_blank"><i class="fab fa-telegram"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://twitter.com/uccashtourism" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://www.instagram.com/uccashtourism" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://www.youtube.com/@UCCASHTOURISM" target="_blank"><i class="fab fa-youtube"></i></a>
+                                <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://www.linkedin.com/in/uccashtourism/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Pages</h4>
+                            <a href="index.php"><i class="fas fa-angle-right me-2"></i> Home</a>
+                            <a href="about.php"><i class="fas fa-angle-right me-2"></i> About Us</a>
+                            <a href="services.php"><i class="fas fa-angle-right me-2"></i> Services</a>
+                            <a href="places.php"><i class="fas fa-angle-right me-2"></i> Places</a>
+                            <a href="contact.php"><i class="fas fa-angle-right me-2"></i> Contact Us</a>
+                            <a href="signup.php"><i class="fas fa-angle-right me-2"></i> Signup / Login</a>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="mb-4 text-white">Disclosure</h4>
+                            <a href="../UC User/img/UCCASH Tourism Privacy Policy.pdf"><i class="fas fa-angle-right me-2"></i> Privacy Policy</a>
+                            <a href="../UC User/img/UCCASH Tourism Terms and Conditions.pdf"><i class="fas fa-angle-right me-2"></i> Terms of Service</a>
+                            <a href="../UC User/img/UCCASH Tourism Payment Agreement.pdf"><i class="fas fa-angle-right me-2"></i> Payment Terms</a>
+                            <a href="#"><i class="fas fa-angle-right me-2"></i> Refund Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright text-body py-4">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div style="color: white;" class="col-md-6 text-center text-md-end mb-md-0">
+                        <i style="color: white;" class="fas fa-copyright me-2"></i><a  class="text-white" href="#"><span style="color: #f7c128;"><b>UCCASH TOURISM</b></span></a> , All right reserved.
+                    </div>
+                    <div style="color: white;" class="col-md-6 text-center text-md-start">
+                        
+                        Developed By <a class="text-white" href="https://cragx.netlify.app" target="_blank"><span style="color: #f7c128;"><b>Team CragX</b></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+
+</html>
