@@ -14,8 +14,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
-    
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -34,7 +35,8 @@
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner"
+            class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -49,27 +51,38 @@
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                         <div class="d-flex flex-column align-items-center mb-3">
                             <a href="#" class="">
-                                <img src="./img/user.png" style="width: 150px; height: 150px;" alt="User Image" class="me-2"> 
+                                <img src="./img/user.png" style="width: 150px; height: 150px;" alt="User Image"
+                                    class="me-2">
                             </a>
                             <br>
-                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome Dr. P. Balakrishnnan</h4>
+                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome Dr. P. Balakrishnnan
+                            </h4>
                         </div>
-                        
-                        
-                        
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="email" placeholder="">
-                            <label for="email">Email address</label>
-                        </div>
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="">
-                            <label for="floatingPassword">Password</label>
-                        </div>
-                       
-                        <div class="text-center">
-                            <a href="index.php" class="btn btn-primary py-2 px-4 mb-2" style="font-weight: bold; font-size: 20px;">Login</a>
-                        </div>
-                        
+
+
+
+                        <form id="loginfrm">
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" name="email" id="email" placeholder=""
+                                    onclick="clearerror()" required>
+                                <label for="email">Email address</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" name="password" id="password" onclick="clearerror()" placeholder=""
+                                    required>
+                                <label for="password">Password</label>
+                            </div>
+
+                            <div class="text-center">
+                                <button href="index.php" id="loginbtn" class="btn btn-primary py-2 px-4 mb-2"
+                                    style="font-weight: bold; font-size: 20px;">Login</button>
+                            </div>
+                            <br>
+                            <div class="mb-3" style="background-color:red;color:white;border-radius:10px" align="center"
+                                id="errormsg">
+                            </div>
+                        </form>
+
                         <br>
 
 
@@ -94,6 +107,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script src="./requiredFiles/js/index.js"></script>
 </body>
 
 </html>

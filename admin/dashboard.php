@@ -72,7 +72,7 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                     <a href="#" class="nav-item nav-link"><i class="fa fa-envelope me-2"></i>Support Mails</a>
                     <a href="travel coupon balance sheet.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Travel Coupon <p style="text-align: center;">Balance Sheet</p></a>
                     <a href="savings TP balance sheet.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Saving's Travel<p style="text-align: center;"> Point Balance Sheet</p></a>
-                    <a href="signin.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
+                    <a href="logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -189,11 +189,11 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0" style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="signin.php" class="dropdown-item">Log Out</a>
+                            <a href="logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -529,6 +529,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script src="./requiredFiles/js/dashboard.js"></script>
 </body>
 
 </html>
