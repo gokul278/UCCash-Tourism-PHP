@@ -36,6 +36,8 @@ const getData = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
+               
+
                 if (response.user_profileimg.length >= 1) {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
                 }
@@ -57,6 +59,7 @@ const getData = () => {
                 var datePart = parts[0].split("-");
                 var reorderedDate = datePart[2] + "/" + datePart[1] + "/" + datePart[0];
                 $("#created_at").html(reorderedDate);
+                $("#news").html(response.news);
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 

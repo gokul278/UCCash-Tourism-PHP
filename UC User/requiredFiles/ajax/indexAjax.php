@@ -30,6 +30,20 @@ if ($values["status"] == "success") {
             $response["user_referalStatus"] = $datarow["user_referalStatus"];
             $response["created_at"] = $datarow["created_at"];
             $response["status"] = "success";
+
+            $getlatestnews = $con->query("SELECT * FROM latestnews WHERE 1");
+            $resnews = $getlatestnews->fetch_assoc();
+            $response["news"] = $resnews["news"];
+
+            $getimage = $con->query("SELECT * FROM galleryimages");
+
+            $images = array();
+            foreach ($getimage as $rowimage) {
+                $images[] = $rowimage["imagename"];
+            }
+            
+            $response["galleryimages"] = $images;
+
             echo json_encode($response);
 
         }

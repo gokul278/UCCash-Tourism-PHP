@@ -171,7 +171,7 @@
                     <a href="savings TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-th me-2"></i>Saving's Travel<p style="text-align: center;"> Point Balance Sheet
                         </p></a>
-                    <a href="signin.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
+                    <a href="logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -220,7 +220,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="signin.php" class="dropdown-item">Log Out</a>
+                            <a href="logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>

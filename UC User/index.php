@@ -607,34 +607,21 @@
                     </div>
                     <br>
                     <div class="packages-carousel owl-carousel">
-                        <div class="packages-item">
-                            <div class="packages-img">
-                                <img src="img/honeymoon package.jpg" class="img-fluid w-100 rounded-top"
-                                    alt="honeymoon package" width="275" height="183" style="border-radius: 10px;">
-                            </div>
-                        </div>
+                        <?php
 
+                        include ("../requiredFiles/ajax/DBConnection.php");
 
-                        <div class="packages-item">
+                        $getimage = $con->query("SELECT * FROM galleryimages");
+                        foreach ($getimage as $rowimage) {
+                            echo ' <div class="packages-item">
                             <div class="packages-img">
-                                <img src="img/family package.jpg" class="img-fluid rounded-top" alt="family package"
-                                    width="275" height="183" style="border-radius: 10px;">
+                                <img src=".././admin/img/gallery/' . $rowimage["imagename"] . '" class="img-fluid w-100 rounded-top"
+                                    alt="' . $rowimage["imagename"] . '" width="275" height="183" style="border-radius: 10px;">
                             </div>
-                        </div>
+                        </div>';
+                        }
 
-                        <div class="packages-item">
-                            <div class="packages-img">
-                                <img src="img/singapore.jpg" class="img-fluid rounded-top" alt="family package"
-                                    width="275" height="183" style="border-radius: 10px;">
-                            </div>
-                        </div>
-
-                        <div class="packages-item">
-                            <div class="packages-img">
-                                <img src="img/manarola1.png" class="img-fluid rounded-top" alt="family package"
-                                    width="275" height="183" style="border-radius: 10px;">
-                            </div>
-                        </div>
+                        ?>
                     </div>
                 </div>
             </div>
@@ -648,9 +635,7 @@
                     onmouseover="this.stop();" onmouseout="this.start();">
 
                     <ul>
-                        <p style="text-align: center;">Welcome to UCCASH Tourism Partners, Important Notice: uccash
-                            Tourism is pleased to announce that $50 worth of UCC to your wallet for all active
-                            Distributor.</p>
+                        <p style="text-align: center;" id="news"></p>
                     </ul>
                 </marquee>
             </div>

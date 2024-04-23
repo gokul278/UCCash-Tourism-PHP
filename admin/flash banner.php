@@ -29,6 +29,13 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Simple Notifier -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 </head>
 
 <body>
@@ -54,7 +61,7 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -128,7 +135,7 @@
                     <a href="#" class="nav-item nav-link"><i class="fa fa-envelope me-2"></i>Support Mails</a>
                     <a href="travel coupon balance sheet.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Travel Coupon <p style="text-align: center;">Balance Sheet</p></a>
                     <a href="savings TP balance sheet.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Saving's Travel<p style="text-align: center;"> Point Balance Sheet</p></a>
-                    <a href="signin.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
+                    <a href="logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -171,11 +178,11 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0" style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="signin.php" class="dropdown-item">Log Out</a>
+                            <a href="logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -188,20 +195,23 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">    
+                            <form id="uploadflashbanner">
                             <div class="bg-secondary rounded h-100 p-4" style="display: inline-block;">
                                 <h4 style="color: #f7c128;" class="mb-5">Flash Banner Update</h4>
                                 <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
                                     <label for="formFileMultiple" style="font-weight: bold; color: #fff;">Upload Image</label>
                                     <br><br>
+                                    <input type="hidden" name="way" value="updateflashbanner">
                                     <div style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 50px;">
-                                        <input class="form-control" type="file" id="formFileMultiple" accept="image/*" onchange="displayFileName()" style="display: none;">
+                                        <input class="form-control" type="file" id="formFileMultiple" accept="image/*" onchange="displayFileName()" style="display: none;" name="flashbanner" required>
                                         <label for="formFileMultiple" style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose Image File</label>
                                         <span id="fileName" style="margin-left: 10px;"></span>
                                     </div>
                                 </div>
                                 <br>
-                                <button type="button" class="btn btn-primary">Update</button>
+                                <button type="submit"  id="flashbtn" class="btn btn-primary" disabled>Update</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -235,11 +245,14 @@
 
     <script>
         function displayFileName() {
+            $("#flashbtn").prop('disabled',false);
             var input = document.getElementById('formFileMultiple');
             var fileNameSpan = document.getElementById('fileName');
             fileNameSpan.textContent = input.files[0].name;
         }
     </script>
+
+    <script src="./requiredFiles/js/flashbanner.js"></script>
 </body>
 
 </html>
