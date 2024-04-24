@@ -65,6 +65,16 @@ const getData = () => {
 
                 }
 
+                if(response.user_gender == "male"){
+
+                    $("#user_gender").html('<p class="small mb-1">Gender</p><input type="radio" name="gender" value="male" checked> Male&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female"> Female');
+
+                }else if(response.user_gender == "female"){
+
+                    $("#user_gender").html('<p class="small mb-1">Gender</p><input type="radio" name="gender" value="male"> Male&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female" checked> Female');
+
+                }
+
                 if (response.user_profileimg.length >= 1) {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
                 }

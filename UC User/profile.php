@@ -350,13 +350,21 @@
                                                 id="pannumber" name="pannumber" type="text" placeholder="Pan Card">
                                         </div>
                                     </div>
-                                    <div class="mb-3" id="user_maritalstatus">
-                                        <p class="small mb-1">Marital Status</p>
-                                        <input type="radio" name="maritalstatus" value="married"> Yes
-                                        &nbsp;&nbsp;&nbsp;
-                                        <input type="radio" name="maritalstatus" value="unmarried"> No
-                                    </div>
-
+                                    <div class="row gx-3 mb-3">
+                                        <div class="col-md-6" id="user_maritalstatus">
+                                            <p class="small mb-1">Marital Status</p>
+                                            <input type="radio" name="maritalstatus" value="married"> Yes
+                                            &nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="maritalstatus" value="unmarried"> No
+                                        </div>
+                                        <div class="col-md-6" id="user_gender">
+                                            <p class="small mb-1">Gender</p>
+                                            <input type="radio" name="gender" value="male"> Male
+                                            &nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="gender" value="female"> Female
+                                        </div>
+                                    </div>                                   
+                                    <br>
                                     <div class="button-container">
                                         <button class="btn btn-primary" type="submit">Save changes</button>
                                     </div>

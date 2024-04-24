@@ -396,7 +396,7 @@
                                 <div class="card-body">
                                     <div class="d-flex flex-column align-items-center text-center">
                                         <img src="img/user.png" alt="Admin" class="rounded-circle user_profileimg"
-                                            width="150">
+                                            style="width:150px;height:140px">
                                         <div class="mt-3">
                                             <h4 class="user_name"></h4>
                                             <p class="text-secondary mb-1"><b>USER</b></p>

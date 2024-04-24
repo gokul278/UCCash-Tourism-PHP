@@ -256,6 +256,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">S.NO</th>
+                                            <th scope="col">Invoice ID</th>
                                             <th scope="col">Invoice Date</th>
                                             <th scope="col">Paid Date</th> </th>
                                             <th scope="col">Payment Type</th>

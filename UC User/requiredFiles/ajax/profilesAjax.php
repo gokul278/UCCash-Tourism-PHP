@@ -30,6 +30,7 @@ if ($values["status"] == "success") {
             $response["user_panno"] = $datarow["user_panno"];
             $response["user_maritalstatus"] = $datarow["user_maritalstatus"];
             $response["user_profileimg"] = $datarow["user_profileimg"];
+            $response["user_gender"] = $datarow["user_gender"];
             $response["status"] = "success";
             echo json_encode($response);
 
@@ -47,8 +48,13 @@ if ($values["status"] == "success") {
             $user_maritalstatus = $_POST["maritalstatus"];
         }
 
+        $user_gender = "";
+        if (isset($_POST["gender"])) {
+            $user_gender = $_POST["gender"];
+        }
 
-        $detailsupdatesql = "UPDATE userdetails SET user_name='{$user_name}', user_dob='{$user_dob}', user_phoneno='{$user_phoneno}', user_aadharano='{$user_aadharano}', user_panno='{$user_panno}', user_maritalstatus='{$user_maritalstatus}' WHERE user_id='{$values["userid"]}'";
+
+        $detailsupdatesql = "UPDATE userdetails SET user_name='{$user_name}', user_dob='{$user_dob}', user_phoneno='{$user_phoneno}', user_gender='{$user_gender}', user_aadharano='{$user_aadharano}', user_panno='{$user_panno}', user_maritalstatus='{$user_maritalstatus}' WHERE user_id='{$values["userid"]}'";
         $detailsupdateres = $con->query($detailsupdatesql);
 
         if ($detailsupdateres) {

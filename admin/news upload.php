@@ -196,6 +196,7 @@
                     <div class="col-md-8 text-center text-white">
                         <div class="border rounded p-4">
                             <h4 style="color: #f7c128;">Latest News Upload</h4>
+                            <p style="color: #f7c128;">Note : Give New line, use <b>&lt;br&gt;</b></p>
                             <br>
                             <textarea id="newsTextArea" class="form-control text-white" style="height: 300px; border-color: #f7c128;" rows="4" placeholder="Enter the latest news here"></textarea>
                             <br>

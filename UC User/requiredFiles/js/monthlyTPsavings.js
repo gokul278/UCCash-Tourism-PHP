@@ -49,7 +49,13 @@ const getData = () => {
                     $("#nullID").html("<p style='color:red'>No Pending Invoice</p>");
                     $("#notbtn").prop("disabled", true);
 
-                } else {
+                } else if (response.invoiceid == "Waiting for Admin Approve for Previous Pay") {
+
+                    $("#nullID").html("<p style='color:red'>"+response.invoiceid+"</p>");
+                    $("#notbtn").prop("disabled", true);
+
+                }
+                else {
 
                     $(".invoiceid").html(response.invoiceid);
                     $("#invoiceidval").val(response.invoiceid);

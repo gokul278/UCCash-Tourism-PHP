@@ -91,7 +91,7 @@
                     <img src="img/main-banner.jpg" class="img-fluid" alt="UCCASH MAINBANNER">
                     <div class="carousel-caption">
                         <div class="p-3" style="max-width: 900px;">
-                            <h5 style="color:white;margin-top:-30px;padding-bottom:100px">Save Less, Fly More !</h5>
+                            <h2 style="color:white;margin-top:-30px;padding-bottom:100px">Save Less, Fly More !</h2>
                             <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">UCCASH TOURS
                                 & TRAVELS</h4>
                             <h3 class="display-8 text-capitalize text-white mb-4">REACH YOUR DREAM DESTINATION EASY WITH
@@ -699,9 +699,10 @@
                         <a href="index.php"><img class=" me-3" src="img/logo2.png" alt="UCCASH LOGO"
                                 style="width:150px;height:100px;"></a>
                         <br>
-                        <p style="text-align: justify;color: white;">Leading tour and travels community, With over 50+
-                            packages worldwide. Book travel packages and enjoy your holidays with distinctive
-                            experience.</p>
+                        <p style="text-align: justify;color: white;">UCCASH Tourism is a leading tour's and travel company. we providing best tour packages with savings and free tour with Earning platform. book travel packages and enjoy your holidays distinctive experience with us.<br>
+                        <br>Tour with savings,<br>
+                        Tour with Discount,<br>
+                        Free Tour with Earnings.</p>
 
                     </div>
                 </div>
@@ -715,7 +716,7 @@
                         <a href="mailto:support@uccashtourism.com" target="_blank"><i class="fas fa-envelope me-2"></i>
                             support@uccashtourism.com</a>
                         <br>
-                        <a href="tel: +91 9842434284"><i class="fas fa-phone me-2"></i> +91 9842434284</a>
+                        <a href="tel: +91 8124779993"><i class="fas fa-phone me-2"></i> +91 8124779993</a>
                         <br>
                         <div class="d-flex align-items-center">
                             <a class="btn-square btn btn-primary rounded-circle mx-1"

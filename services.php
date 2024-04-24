@@ -463,7 +463,10 @@ background: #f7c128 !important;
                         <div class="footer-item d-flex flex-column">
                             <a href="index.php"><img class=" me-3" src="img/logo2.png" alt="UCCASH LOGO" style="width:150px;height:100px;"></a>
                             <br>
-                            <p style="text-align: justify;color: white;" >Leading tour and travels community, With over 50+ packages worldwide. Book travel packages and enjoy your holidays with distinctive experience.</p>
+                            <p style="text-align: justify;color: white;">UCCASH Tourism is a leading tour's and travel company. we providing best tour packages with savings and free tour with Earning platform. book travel packages and enjoy your holidays distinctive experience with us.<br>
+                        <br>Tour with savings,<br>
+                        Tour with Discount,<br>
+                        Free Tour with Earnings.</p>
                             
                         </div>
                     </div>
@@ -475,7 +478,7 @@ background: #f7c128 !important;
                             <br>
                             <a href="mailto:support@uccashtourism.com" target="_blank"><i class="fas fa-envelope me-2"></i> support@uccashtourism.com</a>
                             <br>
-                            <a href="tel: +91 9842434284"><i class="fas fa-phone me-2"></i> +91 9842434284</a>
+                            <a href="tel: +91 8124779993"><i class="fas fa-phone me-2"></i> +91 8124779993</a>
                             <br>
                             <div class="d-flex align-items-center">
                                 <a class="btn-square btn btn-primary rounded-circle mx-1" href="https://www.whatsapp.com/channel/0029VaNZVU117En3yKTBiu2b" target="_blank"><i class="fab fa-whatsapp"></i></a>

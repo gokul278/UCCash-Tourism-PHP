@@ -35,26 +35,48 @@ if ($values["status"] == "success") {
 
                 $index = 0;
 
-                foreach ($getTableres as $getTablerow) {
-                    $index++;
-                    $tabledata .= '<tr>';
-    
-                    $tabledata .= '<th scope="row">' . $index . '</th>';
-                    $tabledata .= '<td>' . $getTablerow["id"] . '</td>';
-                    $tabledata .= '<td>' . $getTablerow["user_id"] . '</td>';
-                    $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['created_at'])) . '</td>';
-                    $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
-                    $tabledata .= '<td>' . $getTablerow["bonustp_value"] . '</td>';
-                    $tabledata .= '<td>' . $getTablerow["totaltp_value"] . '</td>';
-    
-                    if ($index == 1) {
-                        $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
-                    } else {
+                $checkpay = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='admin'");
+
+                if(mysqli_num_rows($checkpay) >= 1){
+                    foreach ($getTableres as $getTablerow) {
+                        $index++;
+                        $tabledata .= '<tr>';
+        
+                        $tabledata .= '<th scope="row">' . $index . '</th>';
+                        $tabledata .= '<td>' . $getTablerow["id"] . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["user_id"] . '</td>';
+                        $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['created_at'])) . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["bonustp_value"] . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["totaltp_value"] . '</td>';
                         $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>Pay</button></a></td>';
+
+                        $tabledata .= '</tr>';
                     }
-    
-                    $tabledata .= '</tr>';
+                }else{
+                    foreach ($getTableres as $getTablerow) {
+                        $index++;
+                        $tabledata .= '<tr>';
+        
+                        $tabledata .= '<th scope="row">' . $index . '</th>';
+                        $tabledata .= '<td>' . $getTablerow["id"] . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["user_id"] . '</td>';
+                        $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['created_at'])) . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["bonustp_value"] . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["totaltp_value"] . '</td>';
+        
+                        if ($index == 1) {
+                            $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
+                        } else {
+                            $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>Pay</button></a></td>';
+                        }
+        
+                        $tabledata .= '</tr>';
+                    }
                 }
+
+                
     
                 $response["table_data"] = $tabledata;
                 $response["status"] = "success";

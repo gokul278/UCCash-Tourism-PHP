@@ -26,16 +26,11 @@ if ($values["status"] == "success") {
             $response["user_name"] = $datarow["user_name"];
             $response["user_profileimg"] = $datarow["user_profileimg"];
 
-            $getinvoicesql = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='pending'";
-            $getinvoiceres = $con->query($getinvoicesql);
+            $checckpay = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='admin'");
 
-            if (mysqli_num_rows($getinvoiceres) >= 1) {
+            if (mysqli_num_rows($checckpay) >= 1) {
 
-                $getinvoicerow = $getinvoiceres->fetch_assoc();
-
-                $response["invoiceid"] = $getinvoicerow["id"];
-                $response["invoicedate"] = date("Y-m-d", strtotime($getinvoicerow["created_at"]));
-
+                $response["invoiceid"] = "Waiting for Admin Approve for Previous Pay";
                 $getuccsql = "SELECT * FROM uccvalue";
                 $getuccres = $con->query($getuccsql);
 
@@ -45,20 +40,45 @@ if ($values["status"] == "success") {
                 $response["status"] = "success";
                 echo json_encode($response);
 
-            }else{
+            } else {
+
+                $getinvoicesql = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='pending'";
+                $getinvoiceres = $con->query($getinvoicesql);
+
+                if (mysqli_num_rows($getinvoiceres) >= 1) {
+
+                    $getinvoicerow = $getinvoiceres->fetch_assoc();
+
+                    $response["invoiceid"] = $getinvoicerow["id"];
+                    $response["invoicedate"] = date("Y-m-d", strtotime($getinvoicerow["created_at"]));
+
+                    $getuccsql = "SELECT * FROM uccvalue";
+                    $getuccres = $con->query($getuccsql);
+
+                    $getuccrow = $getuccres->fetch_assoc();
+
+                    $response["uccvalue"] = $getuccrow["value"];
+                    $response["status"] = "success";
+                    echo json_encode($response);
+
+                } else {
 
 
-                $response["invoiceid"] = "nullID";
-                $getuccsql = "SELECT * FROM uccvalue";
-                $getuccres = $con->query($getuccsql);
+                    $response["invoiceid"] = "nullID";
+                    $getuccsql = "SELECT * FROM uccvalue";
+                    $getuccres = $con->query($getuccsql);
 
-                $getuccrow = $getuccres->fetch_assoc();
+                    $getuccrow = $getuccres->fetch_assoc();
 
-                $response["uccvalue"] = $getuccrow["value"];
-                $response["status"] = "success";
-                echo json_encode($response);
+                    $response["uccvalue"] = $getuccrow["value"];
+                    $response["status"] = "success";
+                    echo json_encode($response);
+
+                }
 
             }
+
+
 
         }
 
@@ -68,7 +88,7 @@ if ($values["status"] == "success") {
         $txnhashid = $_POST["txnhashid"];
         $invoiceidval = $_POST["invoiceidval"];
 
-        $updatestatussql = "UPDATE monthlysavingpendinginvoice SET action = 'paid' WHERE id='{$invoiceidval}' ";
+        $updatestatussql = "UPDATE monthlysavingpendinginvoice SET action = 'admin' WHERE id='{$invoiceidval}' ";
         $updatestatusres = $con->query($updatestatussql);
 
         $getselectsql = "SELECT * FROM monthlysavingpendinginvoice WHERE id='{$invoiceidval}'";
@@ -76,22 +96,22 @@ if ($values["status"] == "success") {
 
         $getselectrow = $getselectres->fetch_assoc();
 
-        $checkbalancesql = "SELECT * FROM monthlytpsavinghistory WHERE user_id = '{$values["userid"]}'";
-        $checkbalanceres = $con->query($checkbalancesql);
+        // $checkbalancesql = "SELECT * FROM monthlytpsavinghistory WHERE user_id = '{$values["userid"]}'";
+        // $checkbalanceres = $con->query($checkbalancesql);
 
-        $credit_tp = 0;
-        $debit_tp = 0;
+        // $credit_tp = 0;
+        // $debit_tp = 0;
 
-        foreach ($checkbalanceres as $checkbalancerow) {
-            $credit_tp += isset($checkbalancerow["credit_tp"]) ? (int)$checkbalancerow["credit_tp"] : 0;
-            $debit_tp += isset($checkbalancerow["debit_tp"]) ? (int)$checkbalancerow["debit_tp"] : 0;
-        }        
-        
-        $balance = $credit_tp - $debit_tp;
-        $balance += 55;
+        // foreach ($checkbalanceres as $checkbalancerow) {
+        //     $credit_tp += isset($checkbalancerow["credit_tp"]) ? (int) $checkbalancerow["credit_tp"] : 0;
+        //     $debit_tp += isset($checkbalancerow["debit_tp"]) ? (int) $checkbalancerow["debit_tp"] : 0;
+        // }
 
-        $insertinvoicehistorysql = "INSERT INTO monthlytpsavinghistory (user_id, invoice_date, txn_hashid, payment_type, amount, tp_value, bonus_tp, credit_tp, balance_tp, action)
-        VALUES ('{$values["userid"]}', '{$getselectrow["created_at"]}', '{$txnhashid}', 'To Crypto', '{$uccvalue}', '50', '5', '55', '{$balance}', 'pending')";
+        // $balance = $credit_tp - $debit_tp;
+        // $balance += 55;
+
+        $insertinvoicehistorysql = "INSERT INTO monthlytpsavinghistory (user_id, invoice_id,invoice_date, txn_hashid, payment_type, amount, tp_value, bonus_tp, credit_tp, balance_tp, action)
+        VALUES ('{$values["userid"]}', '{$getselectrow["id"]}', '{$getselectrow["created_at"]}', '{$txnhashid}', 'To Crypto', '{$uccvalue}', '50', '5', '55', '', 'admin')";
         $insertinvoicehistoryres = $con->query($insertinvoicehistorysql);
 
         if ($insertinvoicehistoryres) {
