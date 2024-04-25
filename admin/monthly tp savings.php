@@ -102,7 +102,7 @@
                     </div>
                     <a href="travel coupon usage history.php" class="nav-item nav-link"><i
                             class="fa fa-star me-2"></i>Travel Coupon<p style="text-align: center;">Usage History</p>
-                        </a>
+                    </a>
                     <a href="bonus travel point usage history.php" class="nav-item nav-link"><i
                             class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;"> Point Usage History
                         </p></a>
@@ -116,7 +116,7 @@
                     </div>
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
                             class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p>
-                        </a>
+                    </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
                     <div class="nav-item dropdown">
@@ -229,7 +229,7 @@
                             <h4 style="color: #f7c128;" class="mb-5">Monthly TP Savings Approval</h4>
                             <div class="table-responsive">
                                 <strong>
-                                    <table id="table-to-print" style="text-align: center;" class="table table-bordered">
+                                    <table id="myTable" style="text-align: center;" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th scope="col">S.NO</th>
@@ -322,6 +322,9 @@
             },
         });
     </script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
     <script src="./requiredFiles/js/monthlytpsavings.js"></script>
 </body>

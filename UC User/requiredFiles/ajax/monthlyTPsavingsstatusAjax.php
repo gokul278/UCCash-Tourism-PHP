@@ -55,6 +55,8 @@ if ($values["status"] == "success") {
                         $tabledata .= '<td style="color:red">Waiting for Approval</td>';
                     } else if ($getTablerow["action"] == "paid") {
                         $tabledata .= '<td><button type="button" class="btn btn-warning"><b>View</b></button></td>';
+                    }else if ($getTablerow["action"] == "reject") {
+                        $tabledata .= '<td style="color:red"><b>Reject</b><br>'. $getTablerow['remark'] .'</td>';
                     }
     
                     $tabledata .= '</tr>';
@@ -96,6 +98,7 @@ if ($values["status"] == "success") {
                 $tabledata .= '<tr>';
     
                     $tabledata .= '<th scope="row">' . $index . '</th>';
+                    $tabledata .= '<td>' . $getTablerow['invoice_id'] . '</td>';
                     $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['invoice_date'])) . '</td>';
                     $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['paid_date'])) . '</td>';
                     $tabledata .= '<td>' . $getTablerow['payment_type'] . '</td>';
@@ -106,10 +109,12 @@ if ($values["status"] == "success") {
                     $tabledata .= '<td>' . $getTablerow["debite_tp"] . '</td>';
                     $tabledata .= '<td>' . $getTablerow["balance_tp"] . '</td>';
     
-                    if ($getTablerow["action"] == "pending") {
-                        $tabledata .= '<td style="color:red">Pending</td>';
+                    if ($getTablerow["action"] == "admin") {
+                        $tabledata .= '<td style="color:red">Waiting for Approval</td>';
                     } else if ($getTablerow["action"] == "paid") {
                         $tabledata .= '<td><button type="button" class="btn btn-warning"><b>View</b></button></td>';
+                    }else if ($getTablerow["action"] == "reject") {
+                        $tabledata .= '<td style="color:red"><b>Reject</b><br>'. $getTablerow['remark'] .'</td>';
                     }
     
                     $tabledata .= '</tr>';

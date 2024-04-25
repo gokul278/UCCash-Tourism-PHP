@@ -67,7 +67,13 @@ if ($values["status"] == "success") {
                         $tabledata .= '<td>' . $getTablerow["totaltp_value"] . '</td>';
         
                         if ($index == 1) {
-                            $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
+
+                            if(isset($getTablerow["remark"])){
+                                $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a><br><p style="color:red">'.$getTablerow["remark"].'</p></td>';
+                            }else{
+                                $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
+                            }
+
                         } else {
                             $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>Pay</button></a></td>';
                         }
