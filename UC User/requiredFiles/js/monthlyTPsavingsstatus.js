@@ -109,3 +109,16 @@ const getbtn = () =>{
         }
     });
 }
+
+const invoiceprint = (button) =>{
+    var userid = $(button).attr("userId");
+    var username = $(button).attr("username");
+    var emailid = $(button).attr("emailid");
+    var phoneno = $(button).attr("phoneno");
+    var invoiceid = $(button).attr("invoiceid");
+    var invoicedate = $(button).attr("invoicedate");
+    var paiddate = $(button).attr("paiddate");
+
+    window.open("./requiredFiles/ajax/invoiceAjax.php?way=invoiceprint&userid="+userid+"&username="+username+"&emailid="+emailid+"&phoneno="+phoneno+"&invoiceid="+invoiceid+"&invoicedate="+invoicedate+"&paiddate="+paiddate+"", "_blank");
+
+}

@@ -301,7 +301,7 @@
                                     <label class="btn btn-primary">
                                         <span>Upload new image</span>
                                         <input type="hidden" name="way" value="updateimg">
-                                        <input type="file" onchange="changeimg()" name="profileimg" id="profileimg" style="display: none;">
+                                        <input type="file" onchange="changeimg()" name="profileimg" id="profileimg" style="display: none;" accept="image/*" required>
                                     </label>
                                     <button class="btn btn-primary" type="submit" id="imgsavebtn" disabled>Save</button>
                                 </form>

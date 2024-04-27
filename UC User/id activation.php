@@ -64,11 +64,11 @@
                 <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3" style="width: 150px; height: 60px;">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><b>Gowtham</b></h6>
+                        <h6 class="mb-0 user_name"><b></b></h6>
                         <span>User</span>
                     </div>
                 </div>
@@ -187,8 +187,8 @@
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex"><b>Gowtham</b></span>
+                        <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex user_name"><b></b></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="./logout.php" class="dropdown-item">Log Out</a>
@@ -355,14 +355,14 @@ border: 3px solid black;
                             <strong>
                               <form style="color: #000;">
                                 <div class="col-md-6 mx-auto text-center">
-                                  <img src="img/Distributor Activation.jpg" alt="Profile Image" class="img-fluid mx-auto d-block mb-3" style="max-width: 35%; height:40%;">
+                                  <img id="imgaddress" src="" alt="Profile Image" class="img-fluid mx-auto d-block mb-3" style="max-width: 35%; height:40%;">
                                   <p>USDT (TRC20)</p>
                                 </div>
                                 <div class="row gx-3 mb-3">
                                   <div class="col-md-6 mx-auto">
                                     <label class="small mb-1" for="deposit address">Deposit Address</label>
                                     <div class="input-group">
-                                      <span class="form-control" id="deposit address">TK8XreREARoQse2B9xPMidL7WWNVHZSb2c</span>
+                                      <span class="form-control" id="deposit address"></span>
                                       <button class="btn btn-outline-secondary copy-button" type="button" onclick="copyText('deposit address')"><b>Copy</b></button>
                                     </div>
                                   </div>
@@ -370,7 +370,7 @@ border: 3px solid black;
                                 <div class="row gx-3 mb-3 justify-content-center">
                                   <div class="col-md-6">
                                     <label class="small mb-1" for="deposit value">Deposit Value</label>
-                                    <input class="form-control" id="deposit value" type="text" placeholder="Enter Deposit Value" value="60">
+                                    <input class="form-control" id="deposit value" type="text" placeholder="Enter Deposit Value" readonly>
                                   </div>
                                 </div>
                                 <div class="row gx-3 mb-3">
@@ -409,7 +409,7 @@ border: 3px solid black;
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
                                                     <div class="input-group">
-                                                        <span class="form-control" id="holdername">UCCASH TOURISM PRIVATE LIMITED</span>
+                                                        <span class="form-control" id="ac_holdername"></span>
                                                         <button class="btn btn-outline-secondary" type="button" onclick="copyholdername()"><b>Copy</b></button>
                                                     </div>
                                                 </div>
@@ -420,7 +420,7 @@ border: 3px solid black;
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <div class="input-group">
-                                        <span class="form-control" id="accnum">00000042730402390</span>
+                                        <span class="form-control" id="ac_number"></span>
                                         <button class="btn btn-outline-secondary" type="button" onclick="copyaccnum()"><b>Copy</b></button>
                                     </div>
                                 </div>
@@ -431,7 +431,7 @@ border: 3px solid black;
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <div class="input-group">
-                                        <span class="form-control" id="ifsc">SBIN0018402</span>
+                                        <span class="form-control" id="ifsc_code"></span>
                                         <button class="btn btn-outline-secondary" type="button" onclick="copyifsc()"><b>Copy</b></button>
                                     </div>
                                 </div>
@@ -441,7 +441,7 @@ border: 3px solid black;
                                   <h6 class="mb-0">Branch</h6>
                                </div>
                                <div class="col-sm-9 text-secondary">
-                                  <span class="form-control">KONGANAPURAM</span>
+                                  <span class="form-control" id="branch"></span>
                                </div>
                             </div>
                              <div class="row mb-3">
@@ -450,7 +450,7 @@ border: 3px solid black;
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <div class="input-group">
-                                        <span class="form-control" id="upiId">UCCASHTOURSIM@OKSBIBANK</span>
+                                        <span class="form-control" id="upi_id"></span>
                                         <button class="btn btn-outline-secondary" type="button" onclick="copyUpiId()"><b>Copy</b></button>
                                     </div>
                                 </div>
@@ -463,7 +463,7 @@ border: 3px solid black;
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <div class="dropdown-item" id="qrContainer" style="background-color: #fff;">
-                                                <img src="./img/g qr.jpg" alt="QR Code" style="width:250px; height: 280px; align-items: center; border-radius: 10px;">
+                                                <img src="" id="bankaddress" alt="QR Code" style="width:250px; height: 280px; align-items: center; border-radius: 10px;">
                                             </div>
                                         </div>
                                     </div>
@@ -474,7 +474,7 @@ border: 3px solid black;
                                        <h6 class="mb-0">Deposit Value</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                       <span class="form-control">10620</span>
+                                       <span class="form-control" id="deposit_value"></span>
                                     </div>
                                  </div>
                                 <br><br><br>
@@ -483,7 +483,7 @@ border: 3px solid black;
                                        <h6 class="mb-0">Transaction ID</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                       <input type="text" class="form-control" value="UCT123456" required>
+                                       <input type="text" class="form-control" required>
                                     </div>
                                  </div>
     
@@ -675,6 +675,7 @@ document.getElementById('formFileMultiple').addEventListener('change', function(
 </script>
     <!--user js-->
    
+    <script src="./requiredFiles/js/idactivation.js"></script>
 </body>
 
 </html>

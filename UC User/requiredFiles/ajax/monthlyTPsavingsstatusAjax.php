@@ -31,6 +31,9 @@ if ($values["status"] == "success") {
             $getTable = "SELECT * FROM monthlytpsavinghistory WHERE user_id='{$values["userid"]}'";
             $getTableres = $con->query($getTable);
 
+            $userdata = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+            $getuserdata = $userdata->fetch_assoc();
+            
             if (mysqli_num_rows($getTableres) >= 1) {
 
                 $index = 0;
@@ -54,7 +57,15 @@ if ($values["status"] == "success") {
                     if ($getTablerow["action"] == "admin") {
                         $tabledata .= '<td style="color:red">Waiting for Approval</td>';
                     } else if ($getTablerow["action"] == "paid") {
-                        $tabledata .= '<td><button type="button" class="btn btn-warning"><b>View</b></button></td>';
+                        $tabledata .= '<td><button type="button" class="btn btn-warning" onclick="invoiceprint(this)" 
+                        userID="' . $getTablerow['user_id'] . '"
+                        username="' . $getuserdata['user_name'] . '"
+                        emailid="' . $getuserdata['user_email'] . '"
+                        phoneno="' . $getuserdata['user_phoneno'] . '"
+                        invoiceid="' . $getTablerow['invoice_id'] . '"
+                        invoicedate="' . date('d-m-Y', strtotime($getTablerow['invoice_date'])) . '"
+                        paiddate="' . date('d-m-Y', strtotime($getTablerow['paid_date'])) . '"
+                        ><b>View</b></button></td>';
                     }else if ($getTablerow["action"] == "reject") {
                         $tabledata .= '<td style="color:red"><b>Reject</b><br>'. $getTablerow['remark'] .'</td>';
                     }
@@ -88,6 +99,9 @@ if ($values["status"] == "success") {
         AND invoice_date BETWEEN '{$fromDate}' AND '{$toDate}';";
         $filterres = $con->query($filtersql);
 
+        $userdata = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+        $getuserdata = $userdata->fetch_assoc();
+
         if (mysqli_num_rows($filterres) >= 1) {
 
             $index = 0;
@@ -112,7 +126,15 @@ if ($values["status"] == "success") {
                     if ($getTablerow["action"] == "admin") {
                         $tabledata .= '<td style="color:red">Waiting for Approval</td>';
                     } else if ($getTablerow["action"] == "paid") {
-                        $tabledata .= '<td><button type="button" class="btn btn-warning"><b>View</b></button></td>';
+                        $tabledata .= '<td><button type="button" class="btn btn-warning" onclick="invoiceprint(this)" 
+                        userID="' . $getTablerow['user_id'] . '"
+                        username="' . $getuserdata['user_name'] . '"
+                        emailid="' . $getuserdata['user_email'] . '"
+                        phoneno="' . $getuserdata['user_phoneno'] . '"
+                        invoiceid="' . $getTablerow['invoice_id'] . '"
+                        invoicedate="' . date('d-m-Y', strtotime($getTablerow['invoice_date'])) . '"
+                        paiddate="' . date('d-m-Y', strtotime($getTablerow['paid_date'])) . '"
+                        ><b>View</b></button></td>';
                     }else if ($getTablerow["action"] == "reject") {
                         $tabledata .= '<td style="color:red"><b>Reject</b><br>'. $getTablerow['remark'] .'</td>';
                     }

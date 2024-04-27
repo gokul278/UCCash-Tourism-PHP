@@ -8,12 +8,13 @@ if ($way == "invoiceprint") {
 
     require './TCPDF-main/tcpdf.php';
 
-    $id = '';
-    $name = '';
-    $address = '';
-    $panno = '';
-    $date='';
-    $cost = '';
+    $userid = $_GET["userid"];
+    $username = $_GET["username"];
+    $email = $_GET["emailid"];
+    $phoneno = $_GET["phoneno"];
+    $invoiceid = $_GET["invoiceid"];
+    $invoicedate = $_GET["invoicedate"];
+    $paiddate = $_GET["paiddate"];
 
     $pdf = new TCPDF();
 
@@ -45,22 +46,22 @@ if ($way == "invoiceprint") {
                         <tr>
                             <td style="width:2%"></td>
                             <td style="width:30%" align="start"><b>User ID</b></td>
-                            <td style="width:68%" align="start"><b>: UCT1002</b></td>
+                            <td style="width:68%" align="start"><b>: ' . $userid . '</b></td>
                         </tr>
                         <tr>
                             <td style="width:2%"></td>
                             <td style="width:30%" align="start"><b>User Name</b></td>
-                            <td style="width:68%" align="start"><b>: Gokul Moorthy</b></td>
+                            <td style="width:68%" align="start"><b>: ' . $username . '</b></td>
                         </tr>
                         <tr>
                             <td style="width:2%"></td>
                             <td style="width:30%" align="start"><b>Email ID</b></td>
-                            <td style="width:68%" align="start"><b>: gokulhk278@gmail.com</b></td>
+                            <td style="width:68%" align="start"><b>: ' . $email . '</b></td>
                         </tr>
                         <tr>
                             <td style="width:2%"></td>
                             <td style="width:30%" align="start"><b>Contact No</b></td>
-                            <td style="width:68%" align="start"><b>: +919842653413</b></td>
+                            <td style="width:68%" align="start"><b>: +' . $phoneno . '</b></td>
                         </tr>
                     </table>
                 </div>
@@ -74,7 +75,7 @@ if ($way == "invoiceprint") {
         </tr>
         <tr>
             <td style="width:2%"></td>
-            <td style="width:98%;color:#6F6F6F;font-size:16px" align="start">Date: 26-04-2024</td>
+            <td style="width:98%;color:#6F6F6F;font-size:16px" align="start">Date: '. date("d-m-Y").'</td>
         </tr>
         <tr>
             <td></td>
@@ -91,9 +92,9 @@ if ($way == "invoiceprint") {
                             <td style="background-color:#011B3B;color:white">Savings Amount</td>
                         </tr>
                         <tr align="center">
-                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>1</b></td>
-                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>24-04-2024</b></td>
-                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>24-04-2024</b></td>
+                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoiceid . '</b></td>
+                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoicedate . '</b></td>
+                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $paiddate . '</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>Paid</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>55 TP</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;font-size:19px;"><b>50 $</b></td>
@@ -127,7 +128,7 @@ if ($way == "invoiceprint") {
 
     $pdf->writeHTML($html);
 
-    $pdf->Output('UCCASH TOURIST SAVINGS INVOICE - ' . $name . '.pdf');
+    $pdf->Output('Invoice NO-' . $invoiceid . '_User ID-' . $userid .'.pdf', 'D');
     exit;
 }
 ?>
