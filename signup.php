@@ -486,11 +486,11 @@
                                     </button>
                                 </div>
                                 <div style="font-size:15px;color:red" class="mb-3 col-md-6">
-                                    <div><span style="font-size:20px">*</span> A capital (UPPERCASE) Letter &nbsp;</div>
-                                    <div><span style="font-size:20px">*</span> A lowercase (LOWERCASE) letter &nbsp;
+                                    <div id="uppercase"><span style="font-size:20px;color:red">*</span> A capital (UPPERCASE) Letter &nbsp;</div>
+                                    <div id="lowercase"><span style="font-size:20px;color:red">*</span> A lowercase (LOWERCASE) letter &nbsp;
                                     </div>
-                                    <div><span style="font-size:20px">*</span> A Special Character &nbsp;</div>
-                                    <div><span style="font-size:20px">*</span> Minimum 8 characters &nbsp;</div>
+                                    <div id="special"><span style="font-size:20px;color:red">*</span> A Special Character &nbsp;</div>
+                                    <div id="min8"><span style="font-size:20px;color:red">*</span> Minimum 8 characters &nbsp;</div>
                                 </div>
                                 <label for="rePassword">Re-enter Password<span style="color: red;"> *</span></label>
                                 <div class="input-group mb-3 col-md-6" style="height: 60px;">

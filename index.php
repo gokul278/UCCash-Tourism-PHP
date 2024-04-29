@@ -33,7 +33,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content" style="background-color:rgba(255,255,255,0)">
                 <div style="width: 100%;" align="end">
                     <button type="button" style="background-color: red;" class="btn-close btn-warning p-2" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -91,7 +91,7 @@
                     <img src="img/main-banner.jpg" class="img-fluid" alt="UCCASH MAINBANNER">
                     <div class="carousel-caption">
                         <div class="p-3" style="max-width: 900px;">
-                            <h2 style="color:white;margin-top:-30px;padding-bottom:100px">Save Less, Fly More !</h2>
+                            <h2 style="color:white;margin-top:-30px;padding-bottom:100px">Save Less! Fly More !!</h2>
                             <h4 class="text-white text-uppercase fw-bold mb-4" style="letter-spacing: 3px;">UCCASH TOURS
                                 & TRAVELS</h4>
                             <h3 class="display-8 text-capitalize text-white mb-4">REACH YOUR DREAM DESTINATION EASY WITH

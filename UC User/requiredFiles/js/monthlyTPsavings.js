@@ -54,6 +54,9 @@ const getData = () => {
                     $("#nullID").html("<p style='color:red'>"+response.invoiceid+"</p>");
                     $("#notbtn").prop("disabled", true);
 
+                }else if (response.invoiceid == "nextmonth"){
+                    $("#nullID").html("<p style='color:red'>Waiting for Next Due Date of Pay</p>");
+                    $("#notbtn").prop("disabled", true);
                 }
                 else {
 

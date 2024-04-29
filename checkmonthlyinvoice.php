@@ -10,7 +10,7 @@ require "./requiredFiles/ajax/vendor/autoload.php";
 
 $mail = new PHPMailer(true);
 
-$checkdate = "SELECT id, user_id, saving_value, bonustp_value, totaltp_value, action, MAX(created_at) AS latest_date
+$checkdate = "SELECT id, user_id, MAX(created_at) AS latest_date
               FROM monthlysavingpendinginvoice
               GROUP BY user_id;";
 $checkdateres = $con->query($checkdate);
@@ -26,27 +26,26 @@ foreach ($checkdateres as $checkrow) {
         $interval = $date->diff($today);
 
         if ($interval->days >= 30) {
-            $insertsql = "INSERT INTO  monthlysavingpendinginvoice (user_id, saving_value, bonustp_value, totaltp_value, action)
-            VALUES ('{$checkrow["user_id"]}','50$','5','55','pending')";
+
+            $invoiceid = $con->query("SELECT MAX(id) as id FROM monthlysavingpendinginvoice");
+
+            if(mysqli_num_rows($invoiceid) >=1){
+                
+                $getinvoiceid = $invoiceid->fetch_assoc();
+                $id = (int) $getinvoiceid["id"] + 1;
+                $invoiceid="MSI-".$id;
+
+            }else{
+                $invoiceid="MSI-1";
+            }
+
+            $insertsql = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action)
+            VALUES ('{$invoiceid}','{$checkrow["user_id"]}','50$','5','55','pending')";
             $insertres = $con->query($insertsql);
 
             $getmailsql = "SELECT * FROM userdetails WHERE user_id='{$checkrow["user_id"]}'";
             $getmailres = $con->query($getmailsql);
             $getmailrow = $getmailres->fetch_assoc();
-
-            $getid = "SELECT MAX(id) FROM monthlysavingpendinginvoice";
-            $getidres = $con->query($getid);
-            $getidrow = $getidres->fetch_assoc();
-
-            // Check if $getidrow is not null
-            if ($getidrow !== null) {
-                $invoiceid = $getidrow["MAX(id)"];
-
-                // Continue with the rest of your code
-            } else {
-                // Handle the case when $getidrow is null, e.g., set a default value for $invoiceid
-                $invoiceid = 1; // Assuming 1 is the default invoice ID
-            }
 
             try {
                 // Server settings

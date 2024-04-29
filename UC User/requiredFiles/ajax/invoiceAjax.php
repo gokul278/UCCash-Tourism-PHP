@@ -40,28 +40,28 @@ if ($way == "invoiceprint") {
         <tr>
             <td style="width:36%"></td>
             <td style="width:60%;" align="start">
-                <div style="font-size:15.4px;color:#6F6F6F;border: 2px solid #F5BF26;width:100%; padding: 0; margin: 0;">
+                <div style="font-size:13px;color:#6F6F6F;border: 2px solid #F5BF26;width:100%; padding: 0; margin: 0;">
                     <table align="center" style="width:100%; margin: 0;"> 
                         <tr><td></td></tr>
                         <tr>
                             <td style="width:2%"></td>
                             <td style="width:30%" align="start"><b>User ID</b></td>
-                            <td style="width:68%" align="start"><b>: ' . $userid . '</b></td>
+                            <td style="width:68%" align="start"><b>:</b> ' . $userid . '</td>
                         </tr>
                         <tr>
                             <td style="width:2%"></td>
                             <td style="width:30%" align="start"><b>User Name</b></td>
-                            <td style="width:68%" align="start"><b>: ' . $username . '</b></td>
+                            <td style="width:68%" align="start"><b>:</b> ' . $username . '</td>
                         </tr>
                         <tr>
                             <td style="width:2%"></td>
                             <td style="width:30%" align="start"><b>Email ID</b></td>
-                            <td style="width:68%" align="start"><b>: ' . $email . '</b></td>
+                            <td style="width:68%" align="start"><b>:</b> ' . $email . '</td>
                         </tr>
                         <tr>
                             <td style="width:2%"></td>
                             <td style="width:30%" align="start"><b>Contact No</b></td>
-                            <td style="width:68%" align="start"><b>: +' . $phoneno . '</b></td>
+                            <td style="width:68%" align="start"><b>:</b> +' . $phoneno . '</td>
                         </tr>
                     </table>
                 </div>
@@ -122,13 +122,19 @@ if ($way == "invoiceprint") {
         <tr>
             <td><img src="./img/InvoiceBottom.jpg"></td>
         </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr style="background-color:#F5BF26;font-size:13px" align="start">
+            <td><div><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Copyright © UCCASH Tourism - '.date('Y').'. All Rights Reserved.<br></b></div></td>
+        </tr>
     </table>
     
     ';
 
     $pdf->writeHTML($html);
 
-    $pdf->Output('Invoice NO-' . $invoiceid . '_User ID-' . $userid .'.pdf', 'D');
+    $pdf->Output('Invoice NO_' . $invoiceid .'.pdf');
     exit;
 }
 ?>

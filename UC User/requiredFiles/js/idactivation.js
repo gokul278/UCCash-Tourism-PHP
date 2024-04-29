@@ -10,17 +10,34 @@ const getData = () => {
 
             if (response.status == "success") {
 
-                document.getElementById("deposit address").innerHTML = response.crypto_address;
-                document.getElementById("deposit value").value = response.crypto_value;
-                document.getElementById("imgaddress").src = "../admin/img/deposite/" + response.crypto_image;
-                document.getElementById("bankaddress").src = "../admin/img/deposite/" + response.bankdeposit_image;
-                document.getElementById("ac_holdername").innerHTML = response.ac_holdername;
-                document.getElementById("ac_number").innerHTML = response.ac_number;
-                document.getElementById("ifsc_code").innerHTML = response.ifsc_code;
-                document.getElementById("branch").innerHTML = response.branch;
-                document.getElementById("upi_id").innerHTML = response.upi_id;
-                document.getElementById("deposit_value").innerHTML = response.deposit_value;
+                if (response.action == "nopay") {
 
+                    $("#pagecontent").html("<h1 style='color:red;width:100%' algin='center'>Waiting for pending Approval</h1>");
+                    $(".toggle-button-container").html("");
+
+                } else if (response.action == "pay") {
+
+                    document.getElementById("deposit address").innerHTML = response.crypto_address;
+                    document.getElementById("deposit value").value = response.crypto_value;
+                    document.getElementById("cryptovalue").value = response.crypto_value;
+                    document.getElementById("imgaddress").src = "../admin/img/deposite/" + response.crypto_image;
+                    document.getElementById("bankaddress").src = "../admin/img/deposite/" + response.bankdeposit_image;
+                    document.getElementById("ac_holdername").innerHTML = response.ac_holdername;
+                    document.getElementById("ac_number").innerHTML = response.ac_number;
+                    document.getElementById("ifsc_code").innerHTML = response.ifsc_code;
+                    document.getElementById("branch").innerHTML = response.branch;
+                    document.getElementById("upi_id").innerHTML = response.upi_id;
+                    document.getElementById("deposit_value").innerHTML = response.deposit_value;
+                    document.getElementById("user_id").value = response.userid;
+                    document.getElementById("userid").value = response.userid;
+                    document.getElementById("bankvalue").value = response.deposit_value;
+
+                } else if (response.action ="notpay"){
+
+                    $("#pagecontent").html("<h1 style='color:red;width:100%' algin='center'>Already Paid for this month</h1>");
+                    $(".toggle-button-container").html("");
+
+                }
 
 
                 if (response.user_profileimg.length >= 1) {
@@ -62,4 +79,70 @@ $(document).ready(() => {
             console.error("Error:", error); // Log any errors
         }
     });
+});
+
+$("#activationcrypto").submit(function (e) {
+    e.preventDefault();
+
+    var frm = $("#activationcrypto")[0];
+    var frmdata = new FormData(frm);
+    $.ajax({
+        type: "POST",
+        url: "./requiredFiles/ajax/idactivationAjax.php",
+        data: frmdata,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (res) {
+            var response = JSON.parse(res);
+
+            if (response.status == "auth_failed" && response.message == "Expired token") {
+
+                location.replace("time_expried.php");
+
+            } else if (response.status == "auth_failed") {
+
+                location.replace("unauth_login.php");
+
+            } else if (response.status == "success") {
+
+                location.replace("distributor activation status.php");
+
+            }
+        }
+    });
+
+});
+
+$("#activationbank").submit(function (e) { 
+    e.preventDefault();
+
+    var frm = $("#activationbank")[0];
+    var frmdata = new FormData(frm);
+    $.ajax({
+        type: "POST",
+        url: "./requiredFiles/ajax/idactivationAjax.php",
+        data: frmdata,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (res) {
+            var response = JSON.parse(res);
+
+            if (response.status == "auth_failed" && response.message == "Expired token") {
+
+                location.replace("time_expried.php");
+
+            } else if (response.status == "auth_failed") {
+
+                location.replace("unauth_login.php");
+
+            } else if (response.status == "success") {
+
+                location.replace("distributor activation status.php");
+
+            }
+        }
+    });
+
 });

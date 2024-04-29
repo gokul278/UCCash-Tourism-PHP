@@ -30,6 +30,7 @@ const clearerror = () => {
 }
 
 const checksponser = () => {
+    
     const sponserid = $("#sponserid").val();
 
     $.ajax({
@@ -103,8 +104,40 @@ const checkrepass = () => {
     var password = $("#password").val();
     var repassword = $("#repassword").val();
 
+    var uppercaseRegex = /[A-Z]/;
+    var lowercaseRegex = /[a-z]/;
+    var specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+
+    if (password.length >= 8) {
+        $("#min8").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> Minimum 8 characters &nbsp; </div>")
+    }else if (password.length < 8) {
+        $("#min8").html("<span style='font-size:20px;color:red'>*</span> Minimum 8 characters &nbsp;")
+    }
+
+    if (uppercaseRegex.test(password)) {
+        $("#uppercase").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A capital (UPPERCASE) Letter &nbsp; </div>")
+    }else if (!uppercaseRegex.test(password)) {
+        $("#uppercase").html("<span style='font-size:20px;color:red'>*</span> A capital (UPPERCASE) Letter &nbsp;")
+    }
+
+    if (lowercaseRegex.test(password)) {
+        $("#lowercase").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A lowercase (LOWERCASE) letter &nbsp; </div>")
+    }else if (!lowercaseRegex.test(password)) {
+        $("#lowercase").html("<span style='font-size:20px;color:red'>*</span> A lowercase (LOWERCASE) letter &nbsp;")
+    }
+    
+    if (specialCharRegex.test(password)) {
+        $("#special").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A lowercase (LOWERCASE) letter &nbsp; </div>")
+    }else if (!specialCharRegex.test(password)) {
+        $("#special").html("<span style='font-size:20px;color:red'>*</span> A Special Character &nbsp;")
+    }
+
     if (password === repassword) {
-        $("#passwordshow").html('<p style="color: #66e0ac;"> Password Match </p>');
+        if(password.length == 0){
+            $("#passwordshow").html('<p style="color: red;">Enter Password</p>');
+        }else{
+            $("#passwordshow").html('<p style="color: green;"> Password Match </p>');
+        }
     } else {
         $("#passwordshow").html('<p style="color: red;"> Password doesn\'t Match</p>');
     }

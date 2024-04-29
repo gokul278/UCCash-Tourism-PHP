@@ -294,10 +294,19 @@ if ($way == "checksponser") {
                         $state = $_POST["state"];
                         $password = md5($_POST["password"]);
 
+
+                        $maxid = $con->query("SELECT MAX(id) as max_id FROM userdetails");
+                        $getmaxid = $maxid->fetch_assoc();
+
+                        $newmax_id = (int) $getmaxid['max_id']; // Accessing the max_id from the associative array and casting it to integer
+                        $id = 1000 + $newmax_id + 1;
+
+                        $user_id = "UCT" . $id;
+
                         //Creating the User ID
 
-                        $signupsql = "INSERT INTO userdetails (user_password, user_name, user_email, user_phoneno, user_address, user_city, user_zipcode, user_state, user_country, user_sponserid, user_referalStatus) VALUES
-                        ('{$password}','{$name}','{$savedEmail}','{$phoneno}','{$address}','{$city}','{$zipcode}','{$state}','{$country}','{$sponserid}','notactivated')";
+                        $signupsql = "INSERT INTO userdetails (user_id,user_password, user_name, user_email, user_phoneno, user_address, user_city, user_zipcode, user_state, user_country, user_sponserid, user_referalStatus) VALUES
+                        ('$user_id','{$password}','{$name}','{$savedEmail}','{$phoneno}','{$address}','{$city}','{$zipcode}','{$state}','{$country}','{$sponserid}','notactivated')";
 
                         $signupres = $con->query($signupsql);
 
@@ -312,8 +321,20 @@ if ($way == "checksponser") {
 
                             $getuserrow = $getuserres->fetch_assoc();
 
-                            $insertpendinginvoicesql = "INSERT INTO  monthlysavingpendinginvoice (user_id, saving_value, bonustp_value, totaltp_value, action)
-                            VALUES ('{$getuserrow["user_id"]}','50$','5','55','pending')";
+                            $invoiceid = $con->query("SELECT MAX(id) as id FROM monthlysavingpendinginvoice");
+
+                            if(mysqli_num_rows($invoiceid) >=1){
+                                
+                                $getinvoiceid = $invoiceid->fetch_assoc();
+                                $id = (int) $getinvoiceid["id"] + 1;
+                                $invoiceid="MSI-".$id;
+
+                            }else{
+                                $invoiceid="MSI-1";
+                            }
+
+                            $insertpendinginvoicesql = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action)
+                            VALUES ('$invoiceid','{$getuserrow["user_id"]}','50$','5','55','pending')";
                             $insertpendinginvoiceres = $con->query($insertpendinginvoicesql);
 
                             $checkinvoice = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$getuserrow["user_id"]}'";
@@ -612,7 +633,7 @@ if ($way == "checksponser") {
                                                             </div>
                                                             <div align="start">
                                                                 <p><b>Invoice Details:</b><br>
-                                                                    Invoice Number&nbsp;:&nbsp;' . $getinvoice["id"] . '<br>
+                                                                    Invoice Number&nbsp;:&nbsp;' . $getinvoice["invoice_id"] . '<br>
                                                                     Status&nbsp;:&nbsp;Pending <br>
                                                                     Creation Date&nbsp;:&nbsp;' . date("d-m-Y") . ' <br>
                                                                     Amount Due&nbsp;:&nbsp;50$ worth of UCC

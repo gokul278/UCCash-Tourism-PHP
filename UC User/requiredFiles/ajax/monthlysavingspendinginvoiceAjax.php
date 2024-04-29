@@ -33,17 +33,18 @@ if ($values["status"] == "success") {
 
             if (mysqli_num_rows($getTableres) >= 1) {
 
+
                 $index = 0;
 
                 $checkpay = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='admin'");
 
-                if(mysqli_num_rows($checkpay) >= 1){
+                if (mysqli_num_rows($checkpay) >= 1) {
                     foreach ($getTableres as $getTablerow) {
                         $index++;
                         $tabledata .= '<tr>';
-        
+
                         $tabledata .= '<th scope="row">' . $index . '</th>';
-                        $tabledata .= '<td>' . $getTablerow["id"] . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["invoice_id"] . '</td>';
                         $tabledata .= '<td>' . $getTablerow["user_id"] . '</td>';
                         $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['created_at'])) . '</td>';
                         $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
@@ -53,54 +54,83 @@ if ($values["status"] == "success") {
 
                         $tabledata .= '</tr>';
                     }
-                }else{
+                } else {
+
                     foreach ($getTableres as $getTablerow) {
                         $index++;
                         $tabledata .= '<tr>';
-        
+
                         $tabledata .= '<th scope="row">' . $index . '</th>';
-                        $tabledata .= '<td>' . $getTablerow["id"] . '</td>';
+                        $tabledata .= '<td>' . $getTablerow["invoice_id"] . '</td>';
                         $tabledata .= '<td>' . $getTablerow["user_id"] . '</td>';
                         $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['created_at'])) . '</td>';
                         $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
                         $tabledata .= '<td>' . $getTablerow["bonustp_value"] . '</td>';
                         $tabledata .= '<td>' . $getTablerow["totaltp_value"] . '</td>';
-        
+
                         if ($index == 1) {
 
-                            if(isset($getTablerow["remark"])){
-                                $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a><br><p style="color:red">'.$getTablerow["remark"].'</p></td>';
-                            }else{
-                                $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
+                            if (isset($getTablerow["remark"]) && strlen($getTablerow["remark"]) > 0) {
+
+                                $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a><br><p style="color:red">' . $getTablerow["remark"] . '</p></td>';
+                            } else {
+
+                                $checkrow = $con->query("SELECT MAX(paid_date) as created_at FROM monthlytpsavinghistory WHERE user_id='{$values["userid"]}' AND action='paid'");
+
+                                if (mysqli_num_rows($checkrow) >= 1) {
+                                    $getcheckrow = $checkrow->fetch_assoc();
+
+                                    $datetimeString = $getcheckrow["created_at"];
+                                    $dateOnly = date("Y-m-d", strtotime($datetimeString));
+
+                                    $date = new DateTime($dateOnly);
+                                    $today = new DateTime();
+                                    $interval = $date->diff($today);
+
+                                    if ($interval->days > 30) {
+                                        $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
+
+                                    } else {
+                                        $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>Pay</button></a></td>';
+
+                                    }
+                                } else {
+                                    $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
+                                }
                             }
 
                         } else {
                             $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>Pay</button></a></td>';
                         }
-        
+
                         $tabledata .= '</tr>';
+
                     }
+
+
+
                 }
 
-                
-    
+
+
+
                 $response["table_data"] = $tabledata;
                 $response["status"] = "success";
                 echo json_encode($response);
-                
-            }else{
-                
+
+            } else {
+
                 $tabledata = "";
                 $tabledata .= '<tr>';
                 $tabledata .= '<td colspan="7">No Data Found</td>';
                 $tabledata .= '</tr>';
-    
+
                 $response["table_data"] = $tabledata;
                 $response["status"] = "success";
                 echo json_encode($response);
 
             }
-        }           
+        }
 
 
     } else if ($way = "filterdate") {
@@ -131,7 +161,7 @@ if ($values["status"] == "success") {
                 $tabledata .= '<tr>';
 
                 $tabledata .= '<th scope="row">' . $index . '</th>';
-                $tabledata .= '<td>' . $getTablerow["id"] . '</td>';
+                $tabledata .= '<td>' . $getTablerow["invoice_id"] . '</td>';
                 $tabledata .= '<td>' . $getTablerow["user_id"] . '</td>';
                 $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['created_at'])) . '</td>';
                 $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
@@ -151,7 +181,7 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
 
-        }else{
+        } else {
 
             $tabledata = "";
             $tabledata .= '<tr>';
@@ -163,10 +193,7 @@ if ($values["status"] == "success") {
             echo json_encode($response);
 
         }
-
-
-
-
+        
     }
 
 } else if ($values["status"] == "auth_failed") {
