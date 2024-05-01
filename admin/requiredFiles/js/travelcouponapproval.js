@@ -103,3 +103,37 @@ const rejectinvoice = (id) =>{
         }
     });
 }
+
+const approveactivation = (id) =>{
+
+    var userid = $("#userid"+id).val();
+    var activationid = $("#activationid"+id).val();
+
+
+    $.ajax({
+        type: "POST",
+        url: "./requiredFiles/ajax/travelcouponapprovalAjax.php",
+        data: {
+            "way" : "approveactivation",
+            "userid" : userid,
+            "activationid" : activationid 
+        },
+        success: function (res) {
+            var response = JSON.parse(res);
+            if (response.status == "success") {
+
+               location.replace("travel coupon purchase history.php")
+
+            } else if (response.status == "auth_failed" && response.message == "Expired token") {
+
+                location.replace("time_expried.php");
+
+            } else if (response.status == "auth_failed") {
+
+                location.replace("unauth_login.php");
+
+            }
+        }
+    });
+
+}

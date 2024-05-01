@@ -132,8 +132,8 @@ if ($values["status"] == "success") {
             $sponserid = $con->query("SELECT * FROM userdetails WHERE user_id='{$userid}'");
             $ressponser = $sponserid->fetch_assoc();
 
-            $insertuserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,points,action,remark) VALUES ('{$userid}','55','credit','monthlyinvoice')");
-            $insertsponserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,points,action,remark) VALUES ('{$ressponser["user_sponserid"]}','5','credit','referralmonthlyinvoice')");
+            $insertuserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_remark) VALUES ('{$userid}','55','credit','monthlyinvoice')");
+            $insertsponserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_remark) VALUES ('{$ressponser["user_sponserid"]}','5','credit','referralmonthlyinvoice')");
 
             $checkbalance = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$userid}'");
 

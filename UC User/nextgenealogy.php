@@ -391,10 +391,10 @@
                 <ul>
                     <li>
                         <a href="#" id="headname" class="hover-container" title="">
-                            <img class="parentimg user_profileimg" src="img/user.png">
+                            <img class="parentimg nextuserimage" src="img/user.png">
                             <div class="hover-box">
-                                <p><b class="user_name"></b></p>
-                                <p id="user_id">UCT123456</p>
+                                <p><b id="nextname"></b></p>
+                                <p id="nextid"></p>
                             </div>
                         </a>
                 </ul>
@@ -427,7 +427,11 @@
                 </li>
 
             </div>
-
+            <div style="padding-left:30px" align="center">
+                <a href="genealogy.php">
+                    <button class="btn btn-warning">Back to Genealogy</button>
+                </a>                
+            </div>
 
 
             <!--tooltip start-->
@@ -459,7 +463,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript"></script>
 
-        <script src="./requiredFiles/js/genealogy.js"></script>
+        <script src="./requiredFiles/js/nextgenealogy.js"></script>
 </body>
 
 </html>

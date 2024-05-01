@@ -58,7 +58,7 @@ if ($values["status"] == "success") {
 
             $tabledata .= '
                 <td>
-                    <button type="button" class="btn btn-success" ><b>Approve</b></button>
+                    <button type="button" class="btn btn-success" onclick="approveactivation(' . $index . ')"><b>Approve</b></button>
                 </td>
                 <td>
                 <div>
@@ -120,6 +120,26 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
+
+    } else if ($way == "approveactivation") {
+
+        $userid = $_POST["userid"];
+        $activationid = $_POST["activationid"];
+
+        $lvl1 = "";
+        $lvl2 = "";
+        $lvl3 = "";
+        $lvl4 = "";
+        $lvl5 = "";
+        $lvl6 = "";
+        $lvl7 = "";
+        $lvl8 = "";
+        $lvl9 = "";
+
+        $genealogy = $con->query("SELECT * FROM genealogy WHERE user_id='{$userid}'");
+
+        // foreach()
+        
 
     }
 

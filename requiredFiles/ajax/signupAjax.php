@@ -323,14 +323,14 @@ if ($way == "checksponser") {
 
                             $invoiceid = $con->query("SELECT MAX(id) as id FROM monthlysavingpendinginvoice");
 
-                            if(mysqli_num_rows($invoiceid) >=1){
-                                
+                            if (mysqli_num_rows($invoiceid) >= 1) {
+
                                 $getinvoiceid = $invoiceid->fetch_assoc();
                                 $id = (int) $getinvoiceid["id"] + 1;
-                                $invoiceid="MSI-".$id;
+                                $invoiceid = "MSI-" . $id;
 
-                            }else{
-                                $invoiceid="MSI-1";
+                            } else {
+                                $invoiceid = "MSI-1";
                             }
 
                             $insertpendinginvoicesql = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action)
@@ -340,6 +340,40 @@ if ($way == "checksponser") {
                             $checkinvoice = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$getuserrow["user_id"]}'";
                             $checkinvoiceres = $con->query($checkinvoice);
                             $getinvoice = $checkinvoiceres->fetch_assoc();
+
+
+                            $lvl1 = $sponserid;
+                            $lvl2 = "";
+                            $lvl3 = "";
+                            $lvl4 = "";
+                            $lvl5 = "";
+                            $lvl6 = "";
+                            $lvl7 = "";
+                            $lvl8 = "";
+                            $lvl9 = "";
+
+                            $genealogy = $con->query("SELECT * FROM genealogy WHERE user_id='{$lvl1}'");
+
+                            if (mysqli_num_rows($genealogy) >= 1) {
+
+                                $getgenealogy = $genealogy->fetch_assoc();
+                                $lvl2 = isset($getgenealogy["lvl1"]) ? $getgenealogy["lvl1"] : "";
+                                $lvl3 = isset($getgenealogy["lvl2"]) ? $getgenealogy["lvl2"] : "";
+                                $lvl4 = isset($getgenealogy["lvl3"]) ? $getgenealogy["lvl3"] : "";
+                                $lvl5 = isset($getgenealogy["lvl4"]) ? $getgenealogy["lvl4"] : "";
+                                $lvl6 = isset($getgenealogy["lvl5"]) ? $getgenealogy["lvl5"] : "";
+                                $lvl7 = isset($getgenealogy["lvl6"]) ? $getgenealogy["lvl6"] : "";
+                                $lvl8 = isset($getgenealogy["lvl7"]) ? $getgenealogy["lvl7"] : "";
+                                $lvl9 = isset($getgenealogy["lvl8"]) ? $getgenealogy["lvl8"] : "";
+
+                                $insertgenealogy = $con->query("INSERT INTO genealogy (user_id,lvl1,lvl2,lvl3,lvl4,lvl5,lvl6,lvl7,lvl8,lvl9)
+                                VALUES ('{$user_id}','{$lvl1}','{$lvl2}','{$lvl3}','{$lvl4}','{$lvl5}','{$lvl6}','{$lvl7}','{$lvl8}','{$lvl9}')");
+
+                            } else {
+                                $insertgenealogy = $con->query("INSERT INTO genealogy (user_id,lvl1) VALUES ('{$user_id}','{$lvl1}')");
+                            }
+
+
 
                             try {
 
