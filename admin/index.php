@@ -55,7 +55,7 @@
                                     class="me-2">
                             </a>
                             <br>
-                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome Dr. P. Balakrishnnan
+                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome<br>Dr. P. Balakrishnnan
                             </h4>
                         </div>
 

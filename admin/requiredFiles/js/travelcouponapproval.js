@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlytpsavingsAjax.php",
+        url: "./requiredFiles/ajax/travelcouponapprovalAjax.php",
         data: {
             "way": "login"
         },
@@ -17,7 +17,6 @@ $(document).ready(() => {
                 location.replace("unauth_login.php");
 
             } else if (response.status == "success") {
-
                 return getData();
             }
         }
@@ -29,7 +28,7 @@ const getData = () => {
 
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlytpsavingsAjax.php",
+        url: "./requiredFiles/ajax/travelcouponapprovalAjax.php",
         data: {
             "way": "getData"
         },
@@ -37,18 +36,25 @@ const getData = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-
                 $(".adminname").html(response.admin_name);
-                if(response.tabledata.length>0){
+
+                if(response.tabledata.length > 0){
                     $("#tabledata").html(response.tabledata);
                     let table = new DataTable('#myTable',{
                         ordering:  false
                     });
                 }else{
-                    $("#tabledata").html("<tr><td colspan='11'>No Invoice Approval</td></tr>")
+                    $("#tabledata").html("<tr><td colspan='10'>No Data Found</td></tr>");
                 }
 
-
+                $('.view-proof-image').click(function() {
+                    // Get the image source from the data-src attribute
+                    var proofImageSrc = $(this).data('src');
+                    // Set the src attribute of the proof image in the modal
+                    $('#proofImage').attr('src', proofImageSrc);
+                    // Open the modal
+                    $('#proofImageModal').modal('show');
+                });
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -64,68 +70,26 @@ const getData = () => {
 
 }
 
-const approveinvoice = (button) => {
+const rejectinvoice = (id) =>{
 
-    const id = $(button).val();
-    const userid = $(button).attr('user_id');
-    const way = $(button).attr('way');
-    const invoiceid = $(button).attr('invoiceid');
-
+    var reason = $("#reason"+id).val();
+    var userid = $("#userid"+id).val();
+    var activationid = $("#activationid"+id).val();
 
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlytpsavingsAjax.php",
+        url: "./requiredFiles/ajax/travelcouponapprovalAjax.php",
         data: {
-            "way": way,
-            "invoiceid" : invoiceid,
-            "userid" : userid,
-            "id" : id
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
-
-                location.replace("monthly TP savings history.php")
-
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
-
-                location.replace("time_expried.php");
-
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
-            }
-        }
-    });
-
-};
-
-const rejectinvoice = (key) =>{
-
-    var userid = $("#userid"+key).val();
-    var invoiceid = $("#invoiceid"+key).val();
-    var way = $("#way"+key).val();
-    var reason = $("#reason"+key).val();
-    var id = $("#id"+key).val();
-
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/monthlytpsavingsAjax.php",
-        data: {
-            "way": way,
-            "invoiceid" : invoiceid,
-            "userid" : userid,
+            "way" : "rejectactivation",
             "reason" : reason,
-            "id" : id
+            "userid" : userid,
+            "activationid" : activationid 
         },
         success: function (res) {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-
-                $('#exampleModal' + key).modal('hide');
-                location.replace("monthly TP savings history.php")
+               location.replace("travel coupon purchase history.php")
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -138,5 +102,4 @@ const rejectinvoice = (key) =>{
             }
         }
     });
-
 }

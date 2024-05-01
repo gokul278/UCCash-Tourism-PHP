@@ -137,15 +137,34 @@ if ($values["status"] == "success") {
         $crypto_value = $_POST["cryptovalue"];
         $txnhashid = $_POST["txnhashid"];
 
-        $insertactivationid = $con->query("INSERT INTO idactivation (user_id,deposite_type,txnhashid,action) VALUES
-        ('{$user_id}','Crypto','{$txnhashid}','admin')");
+        $id = $con->query("SELECT MAX(id) AS max_id FROM idactivationhistory WHERE user_id='{$user_id}'");
+
+        $idactivationid = "";
+
+        if (mysqli_num_rows($id) >= 1) {
+            $getid = $id->fetch_assoc();
+            $idval = (int) $getid["max_id"];
+            $idactivationid = "IAI-".( $idval + 1);
+        } else {
+            $idactivationid = "IAI-1";
+        }
+
+
+
+
+        $insertactivationid = $con->query("INSERT INTO idactivation (idactivation_id,user_id,deposite_type,txnhashid,action) VALUES
+        ('{$idactivationid}','{$user_id}','Crypto','{$txnhashid}','admin')");
 
         $id = $con->query("SELECT MAX(id) AS max_id FROM idactivation WHERE user_id='{$user_id}'");
 
         $getid = $id->fetch_assoc();
 
-        $insertactivationidhistory = $con->query("INSERT INTO idactivationhistory (idactivation_id,user_id,deposite_type,crypto_value,txnhash_id,action,remark) VALUES
-        ('{$getid["max_id"]}',  '{$user_id}', 'Crypto', '{$crypto_value}', '{$txnhashid}', 'admin', 'Waiting for Approval')");
+        $tcvalue = $con->query("SELECT * FROM idactivationvalue");
+        $gettcvalue = $tcvalue->fetch_assoc();
+
+
+        $insertactivationidhistory = $con->query("INSERT INTO idactivationhistory (idactivation_id,user_id,deposite_type,crypto_value,txnhash_id,travel_coupon,action,remark) VALUES
+        ('{$idactivationid}',  '{$user_id}', 'Crypto', '{$crypto_value}', '{$txnhashid}', '{$gettcvalue["value"]}','admin', 'Waiting for Approval')");
 
         if ($insertactivationidhistory) {
             $response["status"] = "success";
@@ -166,15 +185,28 @@ if ($values["status"] == "success") {
 
         if (move_uploaded_file($_FILES["proofimage"]["tmp_name"], "../../img/proofimage/" . $newImageName)) {
 
-            $insertactivationid = $con->query("INSERT INTO idactivation (user_id,deposite_type,transaction_id,proof_image,action) VALUES
-        ('{$user_id}','Bank','{$transaction_id}','{$newImageName}','admin')");
+            $id = $con->query("SELECT MAX(id) AS max_id FROM idactivationhistory WHERE user_id='{$user_id}'");
 
-            $id = $con->query("SELECT MAX(id) AS max_id FROM idactivation WHERE user_id='{$user_id}'");
+            $idactivationid = "";
 
-            $getid = $id->fetch_assoc();
+            if (mysqli_num_rows($id) >= 1) {
+                $getid = $id->fetch_assoc();
+                $idval = (int) $getid["max_id"];
+                $idactivationid = "IAI-" . $idval + 1;
+            } else {
+                $idactivationid = "IAI-1";
+            }
 
-            $insertactivationidhistory = $con->query("INSERT INTO idactivationhistory (idactivation_id,user_id,deposite_type,transaction_id,proof_image,bank_value,action,remark) VALUES
-        ('{$getid["max_id"]}',  '{$user_id}', 'Bank', '{$transaction_id}', '{$newImageName}','{$depositevalue}', 'admin', 'Waiting for Approval')");
+
+            $insertactivationid = $con->query("INSERT INTO idactivation (idactivation_id,user_id,deposite_type,transaction_id,proof_image,action) VALUES
+        ('{$idactivationid}','{$user_id}','Bank','{$transaction_id}','{$newImageName}','admin')");
+
+           
+            $tcvalue = $con->query("SELECT * FROM idactivationvalue");
+            $gettcvalue = $tcvalue->fetch_assoc();
+
+            $insertactivationidhistory = $con->query("INSERT INTO idactivationhistory (idactivation_id,user_id,deposite_type,transaction_id,proof_image,bank_value,travel_coupon,action,remark) VALUES
+        ('{$idactivationid}',  '{$user_id}', 'Bank', '{$transaction_id}', '{$newImageName}','{$depositevalue}', '{$gettcvalue["value"]}','admin', 'Waiting for Approval')");
 
             if ($insertactivationidhistory) {
                 $response["status"] = "success";

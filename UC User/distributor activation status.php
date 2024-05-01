@@ -47,11 +47,11 @@
                 <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3" style="width: 150px; height: 60px;">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><b>Gowtham</b></h6>
+                        <h6 class="mb-0 user_name"><b></b></h6>
                         <span>User</span>
                     </div>
                 </div>
@@ -170,8 +170,8 @@
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex"><b>Gowtham</b></span>
+                        <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex user_name"><b></b></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="./logout.php" class="dropdown-item">Log Out</a>
@@ -241,13 +241,16 @@
 
             <div class="container-fluid">
                 <div>
-                    <div class="d-flex align-items-center mb-4">
-                        <label for="fromDate" class="mr-2"><b style="color: #000;">From</b></label>
-                        <input type="date" id="fromDate" class="form-control mr-2" style="width: 120px;">
-                        <label for="toDate" class="mr-2"><b style="color: #000;" >To</b></label>
-                        <input type="date" id="toDate" class="form-control mr-2" style="width: 120px;">
-                        <button id="goButton" class="btn btn-primary">Go</button>
-                    </div>
+                    <form id="filterDate">
+                        <div class="d-flex align-items-center mb-4">
+                            <label for="fromDate" class="mr-2"><b style="color: #000;">From</b></label>
+                            <input type="date" id="fromDate" name="fromDate" oninput="check()" class="form-control mr-2" style="width: 120px;">
+                            <label for="toDate" class="mr-2"><b style="color: #000;" >To</b></label>
+                            <input type="date" id="toDate" name="toDate" oninput="check()" class="form-control mr-2" style="width: 120px;">
+                            <button id="goButton" type="submit" class="btn btn-primary" disabled>Go</button>&nbsp;&nbsp;
+                            <button id="clearbtn" class="btn btn-primary">Clear</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -258,67 +261,18 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">S.NO</th>
+                                            <th scope="col">Activation ID</th>
                                             <th scope="col">Activation Date</th>
                                             <th scope="col">User ID</th>
                                             <th scope="col">Payment Type</th> </th>
                                             <th scope="col">Received Amount</th>
                                             <th scope="col">Travel Coupon</th>
-                                            <th scope="col">TXN ID</th>
+                                            <th scope="col">Transaction ID</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Details</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>01/01/2024</td>
-                                            <td>UCT123456</td>
-                                            <td>Crypto</td>
-                                            <td>100</td>
-                                            <td>100</td>
-                                            <td>TXN........925Y</td>
-                                            <td class="green">Activation Success</td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-warning"><b>View</b></button>
-                                                </a>
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>01/05/2024</td>
-                                            <td>UCT123456</td>
-                                            <td>Wallet</td>
-                                            <td>100</td>
-                                            <td>50</td>
-                                            <td>TXN........925Y</td>
-                                            <td class="red">Re Activation Success</td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-warning"><b>View</b></button>
-                                                </a>
-                                                
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>01/09/2024</td>
-                                            <td>UCT123456</td>
-                                            <td>Bank</td>
-                                            <td>10,620</td>
-                                            <td>100 (or) 50</td>
-                                            <td>TXN........925Y</td>
-                                            <td class="red">Re Activation Success</td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-warning"><b>View</b></button>
-                                                </a>
-                                                
-                                            </td>
-                                        </tr>
-                                       
+                                    <tbody id="tabledata">
                                     </tbody>
                                 </table></strong>
                             </div>
@@ -353,6 +307,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script src="./requiredFiles/js/distributoractivationstatus.js"></script>
 </body>
 
 </html>
