@@ -59,6 +59,16 @@ const getData = () => {
                 var datePart = parts[0].split("-");
                 var reorderedDate = datePart[2] + "/" + datePart[1] + "/" + datePart[0];
                 $("#created_at").html(reorderedDate);
+                
+                $("#savingtravel").html(response.savingtravel);
+                $("#bonustravel").html(response.bonustravel);
+                $("#travelcoupon").html(response.travelcoupon);
+                $("#networkingincome").html(response.networkingincome);
+                $("#leadershipincome").html(response.leadershipincome);
+                $("#carandhousefund").html(response.carandhousefund);
+                $("#royaltyincome").html(response.royaltyincome);
+
+
                 $("#news").html(response.news);
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {

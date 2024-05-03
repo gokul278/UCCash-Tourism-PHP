@@ -109,6 +109,7 @@ const approveactivation = (id) =>{
     var userid = $("#userid"+id).val();
     var activationid = $("#activationid"+id).val();
 
+    $("#approvebtn"+id).html("Loading...");
 
     $.ajax({
         type: "POST",

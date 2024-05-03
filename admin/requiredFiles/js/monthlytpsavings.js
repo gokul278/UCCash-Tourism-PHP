@@ -70,6 +70,9 @@ const approveinvoice = (button) => {
     const userid = $(button).attr('user_id');
     const way = $(button).attr('way');
     const invoiceid = $(button).attr('invoiceid');
+    const key = $(button).attr('key');
+
+    $("#approvebtn"+key).html("Loading...");
 
 
     $.ajax({

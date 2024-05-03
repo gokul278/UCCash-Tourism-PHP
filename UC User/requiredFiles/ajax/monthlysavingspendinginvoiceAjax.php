@@ -50,7 +50,7 @@ if ($values["status"] == "success") {
                         $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
                         $tabledata .= '<td>' . $getTablerow["bonustp_value"] . '</td>';
                         $tabledata .= '<td>' . $getTablerow["totaltp_value"] . '</td>';
-                        $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>Pay</button></a></td>';
+                        $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>zxzPay</button></a></td>';
 
                         $tabledata .= '</tr>';
                     }
@@ -87,7 +87,7 @@ if ($values["status"] == "success") {
                                     $today = new DateTime();
                                     $interval = $date->diff($today);
 
-                                    if ($interval->days > 30) {
+                                    if ($interval->days >= 30) {
                                         $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
 
                                     } else {

@@ -50,7 +50,7 @@ if ($values["status"] == "success") {
                 <td>' . $rowtable["amount"] . '</td>
                 <td>' . $rowtable["txn_hashid"] . '</td>
                 <td>
-                    <button type="button" class="btn btn-success" onclick="approveinvoice(this)" value="' . $rowtable["id"] . '" user_id="' . $rowtable["user_id"] . '"  way="approveinvoice" invoiceid="' . $rowtable["invoice_id"] . '"><b>Approve</b></button>
+                    <button type="button" class="btn btn-success" onclick="approveinvoice(this)" key="'.$key.'" id="approvebtn'.$key.'" value="' . $rowtable["id"] . '" user_id="' . $rowtable["user_id"] . '"  way="approveinvoice" invoiceid="' . $rowtable["invoice_id"] . '"><b>Approve</b></button>
                 </td>
                 <td>
                 <div>
@@ -132,8 +132,8 @@ if ($values["status"] == "success") {
             $sponserid = $con->query("SELECT * FROM userdetails WHERE user_id='{$userid}'");
             $ressponser = $sponserid->fetch_assoc();
 
-            $insertuserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_remark) VALUES ('{$userid}','55','credit','monthlyinvoice')");
-            $insertsponserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_remark) VALUES ('{$ressponser["user_sponserid"]}','5','credit','referralmonthlyinvoice')");
+            $insertuserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark) VALUES ('{$userid}','55','credit','{$userid}','Savings Travel Points')");
+            $insertsponserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark) VALUES ('{$ressponser["user_sponserid"]}','5','credit','{$userid}','Savings Travel Points')");
 
             $checkbalance = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$userid}'");
 
@@ -141,10 +141,10 @@ if ($values["status"] == "success") {
             $debit_tp = 0;
 
             foreach ($checkbalance as $element) {
-                if ($element["action"] == "credit") {
-                    $credit_tp += (int) $element["points"];
-                } else if ($element["action"] == "debit") {
-                    $debit_tp += (int) $element["points"];
+                if ($element["st_action"] == "credit") {
+                    $credit_tp += (int) $element["st_points"];
+                } else if ($element["st_action"] == "debit") {
+                    $debit_tp += (int) $element["st_points"];
 
                 }
             }
@@ -152,6 +152,7 @@ if ($values["status"] == "success") {
             $balancestp = $credit_tp - $debit_tp;
 
             $savinghistory = $con->query("UPDATE monthlytpsavinghistory SET action='paid', balance_tp='{$balancestp}' WHERE id='{$id}' AND  user_id='{$userid}'");
+            $savingchange = $con->query("UPDATE monthlysavingpendinginvoice SET action='paid', remark='' WHERE user_id='{$userid}' AND invoice_id='{$invoiceid}'");
 
             $history = $con->query("SELECT * FROM monthlytpsavinghistory WHERE id='{$id}' AND  user_id='{$userid}'");
             $reshistory = $history->fetch_assoc();

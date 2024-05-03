@@ -478,7 +478,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Savings Travel Points</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="savingtravel"></h5>
                             </div>
                         </div>
                     </div>
@@ -491,7 +491,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Bonus Travel Points</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="bonustravel"></h5>
                             </div>
                         </div>
                     </div>
@@ -503,7 +503,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Travel Coupon's</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="travelcoupon"></h5>
                             </div>
                         </div>
                     </div>
@@ -527,7 +527,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Networking Income</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="networkingincome"></h5>
                             </div>
                         </div>
                     </div>
@@ -539,7 +539,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Leadership Income</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="leadershipincome"></h5>
                             </div>
                         </div>
                     </div>
@@ -551,7 +551,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Car & House Fund</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="carandhousefund"></h5>
                             </div>
                         </div>
                     </div>
@@ -563,7 +563,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Royalty Income</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="royaltyincome"></h5>
                             </div>
                         </div>
                     </div>

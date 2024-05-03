@@ -35,9 +35,9 @@ if ($values["status"] == "success") {
 
         } else {
 
-            $checkrow = $con->query("SELECT MAX(id) AS max_id, created_at, remark 
-            FROM idactivation 
-            WHERE user_id='{$values["userid"]}'
+            $checkrow = $con->query("SELECT MAX(created_at) as created_at 
+            FROM idactivationhistory 
+            WHERE user_id='{$values["userid"]}' AND action='paid'
             ");
 
             if (mysqli_num_rows($checkrow) == 0) {
@@ -74,28 +74,6 @@ if ($values["status"] == "success") {
                 $interval = $date->diff($today);
 
                 if ($interval->days >= 30) {
-
-                    $response["action"] = "pay";
-
-                    $address = $con->query("SELECT * FROM idactivationdeposite WHERE id=1");
-                    $getaddress = $address->fetch_assoc();
-
-                    $response["crypto_image"] = $getaddress["crypto_image"];
-                    $response["crypto_address"] = $getaddress["crypto_address"];
-                    $response["crypto_value"] = $getaddress["crypto_value"];
-                    $response["bankdeposit_image"] = $getaddress["bankdeposit_image"];
-                    $response["ac_holdername"] = $getaddress["ac_holdername"];
-                    $response["ac_number"] = $getaddress["ac_number"];
-                    $response["ifsc_code"] = $getaddress["ifsc_code"];
-                    $response["branch"] = $getaddress["branch"];
-                    $response["upi_id"] = $getaddress["upi_id"];
-                    $response["deposit_value"] = $getaddress["deposit_value"];
-                    $response["userid"] = $values["userid"];
-
-                    $response["status"] = "success";
-                    echo json_encode($response);
-
-                } else if ($interval->days <= 30 && $getcheckrow["remark"] != "") {
 
                     $response["action"] = "pay";
 

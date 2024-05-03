@@ -58,7 +58,7 @@ if ($values["status"] == "success") {
 
             $tabledata .= '
                 <td>
-                    <button type="button" class="btn btn-success" onclick="approveactivation(' . $index . ')"><b>Approve</b></button>
+                    <button type="button" class="btn btn-success" onclick="approveactivation(' . $index . ')" id="approvebtn'.$index.'"><b>Approve</b></button>
                 </td>
                 <td>
                 <div>
@@ -138,8 +138,117 @@ if ($values["status"] == "success") {
 
         $genealogy = $con->query("SELECT * FROM genealogy WHERE user_id='{$userid}'");
 
-        // foreach()
+        foreach ($genealogy as $getgenealogy) {
+            $lvl1 = isset($getgenealogy["lvl1"]) ? $getgenealogy["lvl1"] : "";
+            $lvl2 = isset($getgenealogy["lvl2"]) ? $getgenealogy["lvl2"] : "";
+            $lvl3 = isset($getgenealogy["lvl3"]) ? $getgenealogy["lvl3"] : "";
+            $lvl4 = isset($getgenealogy["lvl4"]) ? $getgenealogy["lvl4"] : "";
+            $lvl5 = isset($getgenealogy["lvl5"]) ? $getgenealogy["lvl5"] : "";
+            $lvl6 = isset($getgenealogy["lvl6"]) ? $getgenealogy["lvl6"] : "";
+            $lvl7 = isset($getgenealogy["lvl7"]) ? $getgenealogy["lvl7"] : "";
+            $lvl8 = isset($getgenealogy["lvl8"]) ? $getgenealogy["lvl8"] : "";
+            $lvl9 = isset($getgenealogy["lvl9"]) ? $getgenealogy["lvl9"] : "";
+        }
+
+        $idactivationhistory = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$userid}' AND action='admin'");
+        $getidactivationhistory = $idactivationhistory->fetch_assoc();
+        $tcvalue = (int) $getidactivationhistory["travel_coupon"];
+
+        //Travel Coupon Wallet
+        $travelcoupon = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
+        VALUES ('{$userid}','{$tcvalue}','credit','Travel Coupon')");
+
+        //Bonus Travel Point Wallet
+        for($i = 1; $i <=9; $i++){
+
+            $value = $tcvalue * 0.0166; // 1.66 % * tcvalue
+
+            $lvl = ${"lvl" . $i};
+
+            if(strlen($lvl)>=5){
+                $btpoint = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_bonusfrom,bt_lvl,bt_action,bt_remark)
+                VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Bonus Travel Points')");
+            }
+
+        }
+
+        //Networking Income Wallet
+        for($i = 1; $i <=9; $i++){
+
+            $value=0;
+
+            if($i == 1){ //lvl 1
+                $value = $tcvalue * 0.1; // 10% * tcvalue
+            }else if($i == 2){ //lvl 2
+                $value = $tcvalue * 0.05; // 5% * tcvalue
+            }else if($i == 3){ //lvl 3
+                $value = $tcvalue * 0.03; // 3% * tcvalue
+            }else if ($i == 4){ //lvl4
+                $value = $tcvalue * 0.02; // 2% * tcvalue
+            }else if($i >= 5 && $i<=9){
+                $value = $tcvalue * 0.01; // 1% * tcvalue
+            }            
+
+            $lvl = ${"lvl" . $i};
+
+            if(strlen($lvl)>=5){
+                $btpoint = $con->query("INSERT INTO networkingincomewallet (user_id,niw_points,niw_bonusfrom,niw_lvl,niw_action,niw_remark)
+                VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Networking Income')");
+            }
+
+        }
+
+        //Leadership Income Wallet
+        for($i = 1; $i <=9; $i++){
+
+            $value = $tcvalue * 0.0044; // 0.44 % * tcvalue
+
+            $lvl = ${"lvl" . $i};
+
+            if(strlen($lvl)>=5){
+                $btpoint = $con->query("INSERT INTO leadershipincomewallet (user_id,liw_points,liw_bonusfrom,liw_lvl,liw_action,liw_remark)
+                VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Leadership Income')");
+            }
+
+        }
+
+        //Car&House Fund Wallet
+        for($i = 1; $i <=9; $i++){
+
+            $value = $tcvalue * 0.0055; // 0.55 % * tcvalue
+
+            $lvl = ${"lvl" . $i};
+
+            if(strlen($lvl)>=5){
+                $btpoint = $con->query("INSERT INTO carandhousefundwallet (user_id,chfw_points,chfw_bonusfrom,chfw_lvl,chfw_action,chfw_remark)
+                VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Car & House Fund')");
+            }
+
+        }
+
+        //Royalty Income Wallet
+        for($i = 1; $i <=9; $i++){
+
+            $value = $tcvalue * 0.0066; // 0.66 % * tcvalue
+
+            $lvl = ${"lvl" . $i};
+
+            if(strlen($lvl)>=5){
+                $btpoint = $con->query("INSERT INTO royaltyincomewallet (user_id,riw_points,riw_bonusfrom,riw_lvl,riw_action,riw_remark)
+                VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Royalty Income')");
+            }
+
+        }
+
+        $approveactivation = $con->query("DELETE FROM idactivation WHERE idactivation_id='{$activationid}'");
+
+        $approvehistory = $con->query("UPDATE idactivationhistory SET action='paid', remark='Activation Successful' WHERE idactivation_id='{$activationid}'");
+
+        $approveuserdeatils = $con->query("UPDATE userdetails SET user_referalStatus='activated' WHERE user_id='{$userid}'");
+
         
+        $response["status"] = "success";
+        echo json_encode($response);
 
     }
 

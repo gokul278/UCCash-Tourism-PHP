@@ -109,27 +109,27 @@ const checkrepass = () => {
     var specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
     if (password.length >= 8) {
-        $("#min8").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> Minimum 8 characters &nbsp; </div>")
+        $("#min8").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> Minimum 8 characters</div>")
     }else if (password.length < 8) {
-        $("#min8").html("<span style='font-size:20px;color:red'>*</span> Minimum 8 characters &nbsp;")
+        $("#min8").html("<span style='font-size:20px;color:red'>*</span> Minimum 8 characters")
     }
 
     if (uppercaseRegex.test(password)) {
-        $("#uppercase").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A capital (UPPERCASE) Letter &nbsp; </div>")
+        $("#uppercase").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A capital (UPPERCASE) Letter</div>")
     }else if (!uppercaseRegex.test(password)) {
-        $("#uppercase").html("<span style='font-size:20px;color:red'>*</span> A capital (UPPERCASE) Letter &nbsp;")
+        $("#uppercase").html("<span style='font-size:20px;color:red'>*</span> A capital (UPPERCASE) Letter")
     }
 
     if (lowercaseRegex.test(password)) {
-        $("#lowercase").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A lowercase (LOWERCASE) letter &nbsp; </div>")
+        $("#lowercase").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A lowercase (LOWERCASE) letter</div>")
     }else if (!lowercaseRegex.test(password)) {
-        $("#lowercase").html("<span style='font-size:20px;color:red'>*</span> A lowercase (LOWERCASE) letter &nbsp;")
+        $("#lowercase").html("<span style='font-size:20px;color:red'>*</span> A lowercase (LOWERCASE) letter")
     }
     
     if (specialCharRegex.test(password)) {
-        $("#special").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A lowercase (LOWERCASE) letter &nbsp; </div>")
+        $("#special").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A lowercase (LOWERCASE) letter</div>")
     }else if (!specialCharRegex.test(password)) {
-        $("#special").html("<span style='font-size:20px;color:red'>*</span> A Special Character &nbsp;")
+        $("#special").html("<span style='font-size:20px;color:red'>*</span> A Special Character")
     }
 
     if (password === repassword) {
