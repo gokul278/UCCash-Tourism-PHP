@@ -71,10 +71,10 @@
                     <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i><b>Edit Details</b></a>
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="profile.php" class="dropdown-item"><b>Edit Profile</b></a>
-                        <a href="news upload.php" class="dropdown-item active"><b>News Upload</b></a>
+                        <a href="news upload.php" class="dropdown-item active" style="color:#f7c128"><b>News Upload</b></a>
                         <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
                         <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
-                        <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Toady<p> Value Edit</p></b></a>
+                        <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value Edit</p></b></a>
                     </div>
                 </div>
                 <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p style="text-align: center;">Details</p></a>

@@ -82,8 +82,8 @@
                             <a href="profile.php" class="dropdown-item"><b>Edit Profile</b></a>
                             <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                             <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
-                            <a href="gallery.php" class="dropdown-item active"><b>Gallery Update</b></a>
-                            <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Toady<p> Value
+                            <a href="gallery.php" class="dropdown-item active" style="color:#f7c128"><b>Gallery Update</b></a>
+                            <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
                         </div>
                     </div>

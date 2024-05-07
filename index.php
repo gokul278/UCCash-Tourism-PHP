@@ -31,21 +31,6 @@
 
 <body>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content" style="background-color:rgba(255,255,255,0)">
-                <div style="width: 100%;" align="end">
-                    <button type="button" style="background-color: red;" class="btn-close btn-warning p-2" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" style="background-color:rgba(255,255,255,0)">
-                    <img id="flashbanner" style="width: 100%; height: 80vh;" alt="image">
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">

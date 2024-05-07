@@ -43,12 +43,12 @@ if ($values["status"] == "success") {
             if ($element["action"] == "reject") {
                 $table .= '
                         <td></td>
-                        <td class="red">Reject<br>' . $element["remark"] . '</td>
+                        <td class="red">Rejected<br>' . $element["remark"] . '</td>
                     </tr>';
             } else if ($element["action"] == "paid") {
                 $table .= '
                         <td>' . $element["credit_tp"] . ' TP</td>
-                        <td class="green">Success</td>
+                        <td class="green">Approved</td>
                     </tr>';
             }
         }

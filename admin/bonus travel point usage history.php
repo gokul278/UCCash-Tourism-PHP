@@ -78,7 +78,7 @@
                         <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                         <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
                         <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
-                        <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Toady<p> Value Edit</p></b></a>
+                        <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value Edit</p></b></a>
                     </div>
                 </div>
                 <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p style="text-align: center;">Details</p></a>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <a href="travel coupon usage history.php" class="nav-item nav-link"><i class="fa fa-star me-2"></i>Travel Coupon<p style="text-align: center;">Usage History</p></a>
-                <a href="bonus travel point usage history.php" class="nav-item nav-link active"><i class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;"> Point Usage History</p></a>
+                <a href="bonus travel point usage history.php" class="nav-item nav-link active" style="color:#f7c128"><i class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;"> Point Usage History</p></a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet me-2"></i>Withdraw</a>
                     <div class="dropdown-menu bg-transparent border-0">

@@ -12,7 +12,7 @@ const getData = () => {
 
                 if (response.action == "nopay") {
 
-                    $("#pagecontent").html("<h1 style='color:red;width:100%' algin='center'>Waiting for pending Approval</h1>");
+                    $("#pagecontent").html("<div class='container' algin='center'><h5 style='color:red'>Waiting for pending Approval</h5></div>");
                     $(".toggle-button-container").html("");
 
                 } else if (response.action == "pay") {
@@ -34,7 +34,7 @@ const getData = () => {
 
                 } else if (response.action ="notpay"){
 
-                    $("#pagecontent").html("<h1 style='color:red;width:100%' algin='center'>Already Paid for this month</h1>");
+                    $("#pagecontent").html("<div class='container' algin='center'><h5 style='color:red'>Already ID Activated</h5></div>");
                     $(".toggle-button-container").html("");
 
                 }

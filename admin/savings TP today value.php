@@ -80,7 +80,7 @@
                             <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                             <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
-                            <a href="savings TP today value.php" class="dropdown-item active"><b>Saving's TP Toady<p>
+                            <a href="savings TP today value.php" class="dropdown-item active" style="color:#f7c128"><b>Saving's TP Today<p>
                                         Value Edit</p></b></a>
                         </div>
                     </div>

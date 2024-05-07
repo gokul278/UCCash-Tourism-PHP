@@ -87,20 +87,6 @@
             cursor: pointer;
         }
 
-        /* Additional styles for proof image modal */
-        #proofImageModal .modal-dialog {
-            max-width: 90%;
-        }
-
-        #proofImageModal .modal-body {
-            text-align: center;
-        }
-
-        #proofImage {
-            max-width: 100%;
-            max-height: 70vh;
-            margin: 0 auto;
-        }
     </style>
 </head>
 
@@ -158,7 +144,7 @@
                             <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                             <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
-                            <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Toady<p> Value
+                            <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
                         </div>
                     </div>
@@ -171,7 +157,7 @@
                             <a href="crypto deposit.php" class="dropdown-item">Crypto Deposit</a>
                             <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
                             <a href="travel coupon activation.php" class="dropdown-item">ID Activation</a>
-                            <a href="travel coupon approval.php" class="dropdown-item active">ID Activation Approval</a>
+                            <a href="travel coupon approval.php" class="dropdown-item active" style="color:#f7c128">ID Activation Approval</a>
                             <a href="travel coupon purchase history.php" class="dropdown-item">ID Activation History</a>
                         </div>
                     </div>
@@ -320,13 +306,13 @@
                                                 <th scope="col">S.NO</th>
                                                 <th scope="col">Activation ID</th>
                                                 <th scope="col">Date & Time</th>
-                                                <th scope="col">ID</th>
+                                                <th scope="col">User ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Description</th>
                                                 <th scope="col">Amount</th>
-                                                <th scope="col">TXN ID</th>
+                                                <th scope="col">Transaction ID</th>
                                                 <th scope="col">Approve</th>
-                                                <th scope="col">Delete</th>
+                                                <th scope="col">Reject</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tabledata">
@@ -390,18 +376,6 @@
 
 
     <script src="./requiredFiles/js/travelcouponapproval.js"></script>
-
-    <script>
-        var viewProofImageButtons = document.querySelectorAll('.view-proof-image');
-        viewProofImageButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                var proofImageSrc = this.getAttribute('data-src');
-                var proofImageModal = document.getElementById('proofImage');
-                proofImageModal.src = proofImageSrc;
-                $('#proofImageModal').modal('show');
-            });
-        });
-    </script>
 
 </body>
 

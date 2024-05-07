@@ -281,7 +281,7 @@
                         <img src="img/uc logo.png">
                     </div>
                     <div class="photo">
-                        <img style="width: 100px;height:100px" class="user_profileimg" src="img/user.png">
+                        <img style="width: 100px;height:100px;border-radius:50%" class="user_profileimg" src="img/user.png">
                     </div>
                     <h2 class="user_name">Ashok Kumar V</h2>
                     <div class="qr-code">

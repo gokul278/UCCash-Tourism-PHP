@@ -127,6 +127,11 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
 
+        } else {
+
+            $response["status"] = $con->error;
+            echo json_encode($response);
+
         }
 
     }

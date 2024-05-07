@@ -27,7 +27,7 @@ foreach ($checkdateres as $checkrow) {
 
         if ($interval->days >= 30) {
 
-            $invoiceid = $con->query("SELECT MAX(id) as id FROM monthlysavingpendinginvoice");
+            $invoiceid = $con->query("SELECT MAX(id) as id FROM monthlytpsavinghistory");
 
             if(mysqli_num_rows($invoiceid) >=1){
                 

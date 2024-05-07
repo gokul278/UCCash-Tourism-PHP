@@ -1,4 +1,23 @@
 $(document).ready(() => {
+
+    
+    $.ajax({
+        type: "POST",
+        url: "./requiredFiles/ajax/indexAjax.php",
+        data: {
+            "way": "getflashbanner"
+        },
+        success: function (res) {
+            var response = JSON.parse(res);
+            if (response.status == "success") {
+                $("#flashbanner").attr("src", ".././img/flashbanner/" + response.flashbanner + "");
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                myModal.show();
+            }
+        }
+    });
+    
+
     $.ajax({
         type: "POST",
         url: "./requiredFiles/ajax/indexAjax.php",
@@ -22,6 +41,10 @@ $(document).ready(() => {
         }
     });
 
+
+    
+
+
 });
 
 const getData = () => {
@@ -36,7 +59,7 @@ const getData = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-               
+
 
                 if (response.user_profileimg.length >= 1) {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
@@ -59,7 +82,7 @@ const getData = () => {
                 var datePart = parts[0].split("-");
                 var reorderedDate = datePart[2] + "/" + datePart[1] + "/" + datePart[0];
                 $("#created_at").html(reorderedDate);
-                
+
                 $("#savingtravel").html(response.savingtravel);
                 $("#bonustravel").html(response.bonustravel);
                 $("#travelcoupon").html(response.travelcoupon);
@@ -67,7 +90,7 @@ const getData = () => {
                 $("#leadershipincome").html(response.leadershipincome);
                 $("#carandhousefund").html(response.carandhousefund);
                 $("#royaltyincome").html(response.royaltyincome);
-
+                $("#savingsincome").html(response.savingsincome);
 
                 $("#news").html(response.news);
 

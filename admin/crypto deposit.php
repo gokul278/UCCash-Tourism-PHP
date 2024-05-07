@@ -80,7 +80,7 @@
                             <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                             <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
-                            <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Toady<p> Value
+                            <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="crypto deposit.php" class="dropdown-item active">Crypto Deposit</a>
+                            <a href="crypto deposit.php" class="dropdown-item active" style="color:#f7c128">Crypto Deposit</a>
                             <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
                             <a href="travel coupon activation.php" class="dropdown-item">ID Activation</a>
                             <a href="travel coupon approval.php" class="dropdown-item">ID Activation Approval</a>
@@ -244,7 +244,7 @@
                                         <div
                                             style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
                                             <input class="form-control" type="file" id="formFileMultiple"
-                                                accept="image/*" onchange="displayFileName()" name="updateimage" style="display: none;">
+                                                accept="image/*" onchange="displayFileName()" name="updateimage" style="display: none;" required>
                                             <label for="formFileMultiple"
                                                 style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
                                                 QR Code</label>

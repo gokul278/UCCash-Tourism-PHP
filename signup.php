@@ -504,7 +504,7 @@
                                 </div>
                                 <br>
                                 <div class="form-check">
-                                    <input class="form-check-input" name="terms" checked type="checkbox" value="1"
+                                    <input class="form-check-input" name="terms" type="checkbox" value="1"
                                         id="agreement" onclick="clearerror()" required>
                                     <label class="form-check-label" for="invalidCheck2">
                                         I Agree to the <a id="terms_conditions" data-terms="" target="_blank"

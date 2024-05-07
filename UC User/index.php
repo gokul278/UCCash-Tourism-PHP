@@ -149,6 +149,22 @@
 </head>
 
 <body>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="p-1" style="width: 100%;" align="end">
+                    <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                    <img id="flashbanner" style="width: 100%; height: 100%;" alt="image">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner"
@@ -169,7 +185,8 @@
 
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -211,7 +228,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
-                            </a>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
@@ -225,7 +242,7 @@
                     <!-- <a href="monthly TP savings.php" class="nav-item nav-link"><i class="fa fa-comment-dollar me-2"></i>Monthly TP <p style="text-align: center;">Savings</p></a> -->
                     <a href="monthly TP savings status.php" class="nav-item nav-link"><i
                             class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
-                        </a>
+                    </a>
                     <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
@@ -242,8 +259,7 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
-                    <a href="transfer.php" class="nav-item nav-link"><i
-                            class="fa fa-exchange-alt me-2"></i>Transfer</a>
+                    <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
 
@@ -385,8 +401,6 @@
                 }
             </style>
 
-
-
             <div class="container">
                 <div class="main-body">
 
@@ -396,11 +410,10 @@
                                 <div class="card-body">
                                     <div class="d-flex flex-column align-items-center text-center">
                                         <img src="img/user.png" alt="Admin" class="rounded-circle user_profileimg"
-                                            style="width:150px;height:140px">
+                                            style="width:150px;height:148px">
                                         <div class="mt-3">
                                             <h4 class="user_name"></h4>
                                             <p class="text-secondary mb-1"><b>USER</b></p>
-                                            <p class="text-muted font-size-sm"><b>UCCASH TOURISM</b></p>
                                             <br>
                                         </div>
                                     </div>
@@ -456,7 +469,6 @@
                                             <b id="created_at"></b>
                                         </div>
                                     </div>
-                                    <hr>
                                 </div>
                             </div>
 
@@ -515,7 +527,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Savings Income</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="savingsincome"></h5>
                             </div>
                         </div>
                     </div>

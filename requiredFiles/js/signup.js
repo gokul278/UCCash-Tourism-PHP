@@ -21,7 +21,7 @@ $(document).ready(function () {
 
 
 const autoid = () => {
-    $("#sponserid").val("UCT000000");
+    $("#sponserid").val("UCT99999");
     checksponser();
 }
 

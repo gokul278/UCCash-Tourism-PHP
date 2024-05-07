@@ -46,7 +46,7 @@ const getData = () => {
                 if (response.user_referalStatus == "notactivated") {
 
                     $(".notactivated").css({ "display": "block" });
-                    $(".notactivated").html('<h2 style="color:red" align="center">To Get the Referral Link, You Process the ID Activation </h2>');
+                    $(".notactivated").html('<h5 style="color:red" align="center">To Get the Referral Link, You Process the ID Activation </h5>');
 
                 } else if (response.user_referalStatus == "activated") {
 

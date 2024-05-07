@@ -67,7 +67,7 @@
                         <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                         <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
                         <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
-                        <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Toady<p> Value Edit</p></b></a>
+                        <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value Edit</p></b></a>
                     </div>
                 </div>
                 <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p style="text-align: center;">Details</p></a>

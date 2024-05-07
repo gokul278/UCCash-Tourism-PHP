@@ -35,12 +35,13 @@ if ($values["status"] == "success") {
 
         } else {
 
-            $checkrow = $con->query("SELECT MAX(created_at) as created_at 
-            FROM idactivationhistory 
-            WHERE user_id='{$values["userid"]}' AND action='paid'
-            ");
+            $checkpaypaid = $con->query("SELECT * FROM idactivation WHERE user_id='{$values["userid"]}' AND action='paid'");
 
-            if (mysqli_num_rows($checkrow) == 0) {
+            if (mysqli_num_rows($checkpaypaid) == 1) {
+
+                $response["action"] = "notpay";
+
+            } else {
 
                 $response["action"] = "pay";
 
@@ -59,53 +60,11 @@ if ($values["status"] == "success") {
                 $response["deposit_value"] = $getaddress["deposit_value"];
                 $response["userid"] = $values["userid"];
 
-                $response["status"] = "success";
-                echo json_encode($response);
-
-            } else {
-
-                $getcheckrow = $checkrow->fetch_assoc();
-
-                $datetimeString = $getcheckrow["created_at"];
-                $dateOnly = date("Y-m-d", strtotime($datetimeString));
-
-                $date = new DateTime($dateOnly);
-                $today = new DateTime();
-                $interval = $date->diff($today);
-
-                if ($interval->days >= 30) {
-
-                    $response["action"] = "pay";
-
-                    $address = $con->query("SELECT * FROM idactivationdeposite WHERE id=1");
-                    $getaddress = $address->fetch_assoc();
-
-                    $response["crypto_image"] = $getaddress["crypto_image"];
-                    $response["crypto_address"] = $getaddress["crypto_address"];
-                    $response["crypto_value"] = $getaddress["crypto_value"];
-                    $response["bankdeposit_image"] = $getaddress["bankdeposit_image"];
-                    $response["ac_holdername"] = $getaddress["ac_holdername"];
-                    $response["ac_number"] = $getaddress["ac_number"];
-                    $response["ifsc_code"] = $getaddress["ifsc_code"];
-                    $response["branch"] = $getaddress["branch"];
-                    $response["upi_id"] = $getaddress["upi_id"];
-                    $response["deposit_value"] = $getaddress["deposit_value"];
-                    $response["userid"] = $values["userid"];
-
-                    $response["status"] = "success";
-                    echo json_encode($response);
-
-                } else {
-
-                    $response["action"] = "notpay";
-
-                    $response["status"] = "success";
-                    echo json_encode($response);
-
-                }
             }
 
 
+            $response["status"] = "success";
+            echo json_encode($response);
 
         }
 
@@ -115,14 +74,14 @@ if ($values["status"] == "success") {
         $crypto_value = $_POST["cryptovalue"];
         $txnhashid = $_POST["txnhashid"];
 
-        $id = $con->query("SELECT MAX(id) AS max_id FROM idactivationhistory WHERE user_id='{$user_id}'");
+        $id = $con->query("SELECT MAX(id) AS max_id FROM idactivationhistory");
 
         $idactivationid = "";
 
         if (mysqli_num_rows($id) >= 1) {
             $getid = $id->fetch_assoc();
             $idval = (int) $getid["max_id"];
-            $idactivationid = "IAI-".( $idval + 1);
+            $idactivationid = "IAI-" . ($idval + 1);
         } else {
             $idactivationid = "IAI-1";
         }
@@ -163,7 +122,7 @@ if ($values["status"] == "success") {
 
         if (move_uploaded_file($_FILES["proofimage"]["tmp_name"], "../../img/proofimage/" . $newImageName)) {
 
-            $id = $con->query("SELECT MAX(id) AS max_id FROM idactivationhistory WHERE user_id='{$user_id}'");
+            $id = $con->query("SELECT MAX(id) AS max_id FROM idactivationhistory");
 
             $idactivationid = "";
 
@@ -179,7 +138,7 @@ if ($values["status"] == "success") {
             $insertactivationid = $con->query("INSERT INTO idactivation (idactivation_id,user_id,deposite_type,transaction_id,proof_image,action) VALUES
         ('{$idactivationid}','{$user_id}','Bank','{$transaction_id}','{$newImageName}','admin')");
 
-           
+
             $tcvalue = $con->query("SELECT * FROM idactivationvalue");
             $gettcvalue = $tcvalue->fetch_assoc();
 

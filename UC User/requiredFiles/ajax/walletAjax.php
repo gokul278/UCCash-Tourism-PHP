@@ -52,14 +52,14 @@ if ($values["status"] == "success") {
         $checkdetailssql = "SELECT * FROM userbankdetails WHERE user_id='{$values["userid"]}'";
         $checkdetailsres = $con->query($checkdetailssql);
 
-        $trc20_address = $_POST["trc20_address"];
-        $bep20_address = $_POST["bep20_address"];
+        $trc20_address = isset($_POST["trc20_address"]) ? $_POST["trc20_address"] : "";
+        $bep20_address = isset($_POST["bep20_address"]) ? $_POST["bep20_address"] : "";
 
         if (mysqli_num_rows($checkdetailsres) == 1) {
 
             $updatebankdetailssql = "UPDATE userbankdetails SET 
                         trc20_address = '{$trc20_address}', 
-                        bep20_address = '{$bep20_address}'
+                        bep20_address = '{$bep20_address}',
                         WHERE user_id = '{$values["userid"]}'";
             $updatebankdetailsres = $con->query($updatebankdetailssql);
 

@@ -15,6 +15,16 @@ if ($values["status"] == "success") {
         $response["status"] = "success";
         echo json_encode($response);
 
+    }else if($way == "getflashbanner"){
+
+        $getflashbanner = $con->query("SELECT * FROM flashbanner WHERE id=1");
+    
+        $flashbanner = $getflashbanner->fetch_assoc();
+    
+        $response["status"] = "success";
+        $response["flashbanner"] = $flashbanner["bannerimage"];
+        echo json_encode($response);
+    
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
@@ -70,7 +80,7 @@ if ($values["status"] == "success") {
             $btcredit = 0;
             $btdebit = 0;
 
-            if (mysqli_num_rows($savingtravel) >= 1) {
+            if (mysqli_num_rows($bonustravel) >= 1) {
 
                 foreach ($bonustravel as $getbonustravel) {
                     if (isset($getbonustravel["bt_action"]) && strlen($getbonustravel["bt_action"]) >= 1) {
@@ -106,6 +116,27 @@ if ($values["status"] == "success") {
             }
 
             $response["travelcoupon"] = number_format(($tccredit - $tcdebit), 2);
+
+            //Savings Income
+            $savingsincome = $con->query("SELECT * FROM savingsincome WHERE user_id='{$datarow["user_id"]}'");
+            $sicredit = 0;
+            $sidebit = 0;
+
+            if (mysqli_num_rows($savingsincome) >= 1) {
+
+                foreach ($savingsincome as $getsavingsincome) {
+                    if (isset($getsavingsincome["si_action"]) && strlen($getsavingsincome["si_action"]) >= 1) {
+                        if ($getsavingsincome["si_action"] == "credit") {
+                            $sicredit += (float) $getsavingsincome["si_points"];
+                        } else if ($getsavingsincome["si_action"] == "debit") {
+                            $sidebit += (float) $getsavingsincome["si_points"];
+                        }
+                    }
+                }
+
+            }
+
+            $response["savingsincome"] = number_format(($sicredit - $sidebit), 2);
 
             // Networking Income
             $networkingincome = $con->query("SELECT * FROM networkingincomewallet WHERE user_id='{$datarow["user_id"]}'");

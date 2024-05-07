@@ -29,6 +29,13 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Simple Notifier -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 </head>
 
 <body>
@@ -54,7 +61,7 @@
                     <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                 </div>
                 <div class="ms-3">
-                    <h6 class="mb-0">Mr. Balakrishnan</h6>
+                    <h6 class="mb-0 adminname"></h6>
                     <span>Admin</span>
                 </div>
             </div>
@@ -67,7 +74,7 @@
                         <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                         <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
                         <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
-                        <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Toady<p> Value Edit</p></b></a>
+                        <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value Edit</p></b></a>
                     </div>
                 </div>
                 <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p style="text-align: center;">Details</p></a>
@@ -76,7 +83,7 @@
                     <div class="dropdown-menu bg-transparent border-0">
                         <a href="crypto deposit.php" class="dropdown-item">Crypto Deposit</a>
                         <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
-                        <a href="travel coupon activation.php" class="dropdown-item active">ID Activation</a>
+                        <a href="travel coupon activation.php" class="dropdown-item active" style="color:#f7c128">ID Activation</a>
                         <a href="travel coupon approval.php" class="dropdown-item">ID Activation Approval</a>
                         <a href="travel coupon purchase history.php" class="dropdown-item">ID Activation History</a>
                     </div>
@@ -171,7 +178,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0" style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
@@ -187,7 +194,16 @@
             <div class="d-flex justify-content-center">
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-secondary rounded h-100 p-4 d-flex flex-column">
-                        <h4 style="color: #f7c128;" class="mb-4">ID Activation</h4>
+                    <h4 style="color: #f7c128;" class="mb-4">ID Activation Value</h4>
+                        <div class="form-floating mb-3 mt-auto text-end">
+                            <input type="text" class="form-control" oninput="activationenablebtn()" id="activationvalue" placeholder="">
+                            <label for="activationMemberID">ID Activation Value</label>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary btn-lg mt-4" id="activationbtn" onclick="updateactivationvalue()" disabled>Update</button>
+                        </div>
+                        <br>
+                         <h4 style="color: #f7c128;" class="mb-4">ID Activation</h4>
                         <div class="form-floating mb-3 mt-auto text-end">
                             <input type="text" class="form-control" id="activationMemberID" placeholder="">
                             <label for="activationMemberID">Activation Member ID</label>
@@ -203,9 +219,9 @@
                         <div class="form-floating mb-3 mt-auto text-center">
                             <input type="text" class="form-control" id="TXNID" placeholder="" value="TXN.......321">
                             <label for="TXNID">TXN ID</label>
-                            <div class="d-flex justify-content-center">
-                                <button class="btn btn-primary btn-lg mt-4">Activate</button>
-                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button class="btn btn-primary btn-lg mt-4">Activate</button>
                         </div>
                         
                         
@@ -240,6 +256,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script src="./requiredFiles/js/travelcouponactivation.js"></script>
 </body>
 
 </html>

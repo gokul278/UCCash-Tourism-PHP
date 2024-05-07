@@ -240,7 +240,7 @@ if ($values["status"] == "success") {
 
         }
 
-        $approveactivation = $con->query("DELETE FROM idactivation WHERE idactivation_id='{$activationid}'");
+        $approveactivation = $con->query("UPDATE idactivation SET action='paid', remark='' WHERE idactivation_id='{$activationid}'");
 
         $approvehistory = $con->query("UPDATE idactivationhistory SET action='paid', remark='Activation Successful' WHERE idactivation_id='{$activationid}'");
 
