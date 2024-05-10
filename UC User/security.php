@@ -281,8 +281,10 @@
                        
                      </div>
                      <div style="font-size:15px;color:red" class="row gx-3 mb-3">
-                                    <div><span style="font-size:20px">*</span> A capital (UPPERCASE) Letter &nbsp;<span style="font-size:20px">*</span> A lowercase (LOWERCASE) letter &nbsp;</div>
-                                    <div><span style="font-size:20px">*</span> A Special Character &nbsp;<span style="font-size:20px">*</span> Minimum 8 characters &nbsp;</div>
+                                    <div id="uppercase"><span style="font-size:20px">*</span> A capital (UPPERCASE) Letter</div>
+                                    <div id="lowercase"><span style="font-size:20px">*</span> A lowercase (LOWERCASE) letter</div>
+                                    <div id="special"><span style="font-size:20px">*</span> A Special Character</div>
+                                    <div id="min8"><span style="font-size:20px">*</span> Minimum 8 characters</div>
                                 </div>
                      <div class="row gx-3 mb-3">
                         <div class="col-md-6">

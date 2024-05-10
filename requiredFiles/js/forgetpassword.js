@@ -19,7 +19,7 @@ $("#forgetpass").submit((event) => {
             if (response.status === "success") {
                 $("#userid").val("")
                 $("#errorshow").html('<p style="background-color: #66e0ac;color:white; padding:10px;border-radius:10px" align="center">' + response.message + '</p>')
-                $("#forgetbtn").html('<button type="button" class="btn btn-primary py-3 w-100 mb-4"> Send Mail </button>')
+                $("#forgetbtn").html('<button type="button" class="btn btn-primary py-3 w-100 mb-4" > Send Mail </button>')
                 new Notify({
                     status: 'success',
                     title: 'Mail Sended',

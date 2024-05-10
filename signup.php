@@ -96,6 +96,8 @@
                                 <div class="form-floating mb-3">
                                     <input type="email" class="form-control" id="email" placeholder="Email Address"
                                         oninput="checkmail()" onclick="clearerror()" required>
+                                    <div id="emailidshow">
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">

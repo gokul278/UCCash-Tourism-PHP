@@ -29,6 +29,7 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -44,7 +45,7 @@
 
 
         <!-- Sign In Start -->
-        <div class="container-fluid" style="background-image: url(./img/pages\ banner.jpg);">
+        <div class="container-fluid" style="background-image: url(./img/pages\ banner.jpg);background-repeat: no-repeat;background-size: cover;">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <strong>

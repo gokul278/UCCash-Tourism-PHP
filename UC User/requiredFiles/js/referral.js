@@ -37,7 +37,7 @@ const getData = () => {
             if (response.status == "success") {
 
 
-                if (response.user_profileimg.length >= 1) {
+                if (response.user_profileimg != null) {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
                 }
 

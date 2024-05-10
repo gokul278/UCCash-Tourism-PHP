@@ -54,13 +54,44 @@ const checksponser = () => {
 
 const checkmail = () => {
     let email = $("#email").val();
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailPattern.test(email)) {
-        $("#getotpactive").html('<button style="height: 60px;width: 100%" class="btn otpbtn btn-primary" type="button" onclick="getotp()">Get OTP</button>')
-    } else {
-        $("#getotpactive").html('<button style="height: 60px;width: 100%" class="btn otpbtn btn-primary" disabled>Get OTP</button>')
-        $("#registerbtn").html(' <button style="height: 60px;width: 100%" class="btn btn-primary" type="submit" disabled>Register</button>')
+
+
+    if(email.length >= 1){
+
+        $.ajax({
+            type: "post",
+            url: "./requiredFiles/ajax/signupAjax.php",
+            data: {
+                "way": "mailidcheck",
+                "email": email
+            },
+            success: function (res) {
+                const response = JSON.parse(res);
+    
+                if (response.status == "success") {
+                    
+                    $("#getotpactive").html('<button style="height: 60px;width: 100%" class="btn otpbtn btn-primary" type="button" onclick="getotp()">Get OTP</button>');
+    
+                    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (emailPattern.test(email)) {
+                        $("#emailidshow").html('<p style="color: #66e0ac;">' + response.message + '</p>');
+                    } else {
+                        $("#emailidshow").html('<p style="color: red;"> Invalid Mail </p>');
+                    }
+    
+                } else if (response.status == "failed") {
+                    $("#emailidshow").html('<p style="color: red;">' + response.message + '</p>');
+                    $("#getotpactive").html('<button style="height: 60px;width: 100%" class="btn otpbtn btn-primary" disabled>Get OTP</button>')
+                    $("#registerbtn").html(' <button style="height: 60px;width: 100%" class="btn btn-primary" type="submit" disabled>Register</button>')
+                }
+            }
+        });
+
+    }else{
+        $("#emailidshow").html('');
     }
+
+    
 }
 
 const getotp = () => {

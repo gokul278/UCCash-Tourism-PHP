@@ -40,7 +40,7 @@ if ($way == "forgetPassword") {
             $updatesql = "UPDATE forgetpassword SET forgetpass_hash = '{$randomHash}' WHERE user_id = '{$userid}'";
             $updateres = $con->query($updatesql);
         } else {
-            $insertsql = "INSERT INTO forgetpassword (user_id, forgetpass_hash) VALUES ('{$userid}','{$randomHash}')";
+            $insertsql = "INSERT INTO forgetpassword (user_id, forgetpass_hash, remark) VALUES ('{$userid}','{$randomHash}','pending')";
             $insertres = $con->query($insertsql);
         }
 

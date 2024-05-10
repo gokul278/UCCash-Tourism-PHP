@@ -59,7 +59,7 @@
             $user_id = $_GET["user_id"];
             $hash_value = $_GET["hash_value"];
 
-            $checkuseridsql = "SELECT * FROM forgetpassword WHERE user_id = '{$user_id}'";
+            $checkuseridsql = "SELECT * FROM forgetpassword WHERE user_id = '{$user_id}' && remark='pending'";
             $checkuseridres = $con->query($checkuseridsql);
 
 
@@ -125,11 +125,11 @@
                                         </button>
                                     </div>
                                     <div style="font-size:15px;color:red" class="mb-3 col-md-12">
-                                        <div><span style="font-size:20px">*</span> A capital (UPPERCASE) Letter &nbsp;</div>
-                                        <div><span style="font-size:20px">*</span> A lowercase (LOWERCASE) letter &nbsp;
+                                        <div id="uppercase"><span style="font-size:20px">*</span> A capital (UPPERCASE) Letter &nbsp;</div>
+                                        <div id="lowercase"><span style="font-size:20px">*</span> A lowercase (LOWERCASE) letter &nbsp;
                                         </div>
-                                        <div><span style="font-size:20px">*</span> A Special Character &nbsp;</div>
-                                        <div><span style="font-size:20px">*</span> Minimum 8 characters &nbsp;</div>
+                                        <div id="special"><span style="font-size:20px">*</span> A Special Character &nbsp;</div>
+                                        <div id="min8"><span style="font-size:20px">*</span> Minimum 8 characters &nbsp;</div>
                                     </div>
                                     <label for="rePassword">Re-enter Password<span style="color: red;"> *</span></label>
                                     <div class="input-group mb-3 col-md-6" style="height: 60px;">
@@ -141,8 +141,10 @@
                                     </div>
                                     <input type="hidden" id="user_id" value="<?php echo $_GET["user_id"];?>">
                                     <input type="hidden" id="hashvalue" value="<?php echo $_GET["hash_value"];?>">
+                                    <div id="passwordshow"><span style="font-size:20px">*</span> Minimum 8 characters &nbsp;</div>
                                     <div class="form-floating mb-3" id="errorshow">
                                     </div>
+                                    
                                     <div id="changebtn">
                                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Change
                                             Password</button>

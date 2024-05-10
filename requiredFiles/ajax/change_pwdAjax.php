@@ -32,6 +32,8 @@ if ($way == "passwordchange") {
             $changepasssql = "UPDATE userdetails SET user_password = '{$password}' WHERE user_id = '{$user_id}'";
             $changepassres = $con->query($changepasssql);
 
+            $updateremark = $con->query("UPDATE forgetpassword SET remark='success' WHERE remark='pending'");
+
             $getsql = "SELECT * FROM userdetails WHERE user_id = '{$user_id}'";
             $getres = $con->query($getsql);
 

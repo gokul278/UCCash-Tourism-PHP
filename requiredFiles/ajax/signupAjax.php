@@ -42,7 +42,27 @@ if ($way == "checksponser") {
     echo json_encode($response);
 
     // Checking the Sponser ID - start
-} else if ($way == "otpsend") {
+} else if ($way == "mailidcheck") {
+
+    $email = $_POST["email"];
+
+    $emailquery = $con->query("SELECT * FROM userdetails WHERE user_email='{$email}'");
+
+    if(mysqli_num_rows($emailquery)>=1){
+
+        $response["status"] = "failed";
+        $response["message"] = "Email Already Registered";
+        
+    }else{
+        
+        $response["status"] = "success";
+        $response["message"] = "Email Available";
+
+    }
+
+    echo json_encode($response);
+
+}else if ($way == "otpsend") {
 
     // Mail for Registeration OTP
 
@@ -305,14 +325,12 @@ if ($way == "checksponser") {
 
                         //Creating the User ID
 
-                        $signupsql = "INSERT INTO userdetails (user_id,user_password, user_name, user_email, user_phoneno, user_address, user_city, user_zipcode, user_state, user_country, user_sponserid, user_referalStatus,user_fathername,user_gender,user_profileimg,user_dob,user_aadharano,user_panno,user_maritalstatus) VALUES
-                        ('$user_id','{$password}','{$name}','{$savedEmail}','{$phoneno}','{$address}','{$city}','{$zipcode}','{$state}','{$country}','{$sponserid}','notactivated','','','','','','','')";
+                        $signupsql = "INSERT INTO userdetails (user_id,user_password, user_name, user_email, user_phoneno, user_address, user_city, user_zipcode, user_state, user_country, user_sponserid, user_referalStatus) VALUES
+                        ('{$user_id}','{$password}','{$name}','{$savedEmail}','{$phoneno}','{$address}','{$city}','{$zipcode}','{$state}','{$country}','{$sponserid}','notactivated')";
 
                         $signupres = $con->query($signupsql);
 
                         if ($signupres) {
-
-
 
                             //Sending the Congratulation Mail
 
@@ -812,7 +830,7 @@ if ($way == "checksponser") {
                         } else {
 
                             $response["status"] = "failed";
-                            $response["message"] = "Try Again";
+                            $response["message"] = $con->error;
                             echo json_encode($response);
 
                         }
