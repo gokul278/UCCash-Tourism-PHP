@@ -70,7 +70,7 @@
             transition: all 0.3s ease;
         }
 
-        .genealogy-tree li:hover {
+        .genealogy-tree a:hover {
             transform: translateY(-5px);
         }
 
@@ -117,9 +117,9 @@
         }
 
         .childimg {
-            width: 80px;
+            width: 100px;
             /* Adjust as needed */
-            height: 80px;
+            height: 100px;
             /* Adjust as needed */
         }
 
@@ -387,41 +387,35 @@
 
 
 
-            <div class="genealogy-tree">
+            <div class="genealogy-tree" style="width:100%">
                 <ul>
                     <li>
-                        <a href="#" id="headname" class="hover-container" title="">
-                            <img class="parentimg user_profileimg" src="img/user.png">
-                            <div class="hover-box">
-                                <p><b class="user_name"></b></p>
-                                <p id="user_id">UCT123456</p>
-                            </div>
-                        </a>
-                </ul>
 
+                        <a href="#" id="headname" class="hover-container" title=""><img
+                                class="parentimg user_profileimg" src="img/user.png"></a>
+                        <div class="hover-box">
+                            <p><b class="user_name"></b></p>
+                            <p id="user_id">UCT123456</p>
+                            <select id="level" onchange="levelchange()" class="form-select" >
+                                <option selected value="lvl1">Level 1</option>
+                                <option value="lvl2">Level 2</option>
+                                <option value="lvl3">Level 3</option>
+                                <option value="lvl4">Level 4</option>
+                                <option value="lvl5">Level 5</option>
+                                <option value="lvl6">Level 6</option>
+                                <option value="lvl7">Level 7</option>
+                                <option value="lvl8">Level 8</option>
+                                <option value="lvl9">Level 9</option>
+                            </select>
+                            <!-- <p style="color:red"><a href="" style="color:red">Level 1</a>&nbsp;&nbsp;&nbsp;<a href="">Level 2</a>&nbsp;&nbsp;&nbsp;<a href="">Level 3</a>&nbsp;&nbsp;&nbsp;<a href="">Level 4</a>&nbsp;&nbsp;&nbsp;<a href="">Level 5</a>&nbsp;&nbsp;&nbsp;<a href="">Level 6</a>&nbsp;&nbsp;&nbsp;<a href="">Level 7</a>&nbsp;&nbsp;&nbsp;<a href="">Level 8</a>&nbsp;&nbsp;&nbsp;<a href="">Level 9</a></p> -->
+                        </div>
+                        <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i>
+                    </li>
+
+                </ul>
+                <!-- treedata -->
                 <ul id="treedata">
-                    <!-- <li >
-                        <i class="bi bi-arrow-down" style="font-size:30px;"></i><br>
-                        <a href="../../UC-Tour/signup.php?referral=UCT1002" target="_blank" style="padding-left:50px"
-                            title="Click to Register : UCT1002">
-                            <img class="childimg" src="img/user.png" style="padding: 10px;background-color:red">
-                        </a>
-                    </li>
-                    <li >
-                        <i class="bi bi-arrow-down" style="font-size:30px;"></i><br>
-                        <a href="../../UC-Tour/signup.php?referral=UCT1002" target="_blank" style="padding-left:50px"
-                            title="Click to Register : UCT1002">
-                            <img class="childimg" src="img/user.png" style="padding: 10px;background-color:green">
-                        </a>
-                    </li>
-                    <li>
-                        <i class="bi bi-arrow-down" style="font-size:30px;"></i><br>
-                        <a href="../../UC-Tour/signup.php?referral=UCT1002" target="_blank" style="padding-left:50px"
-                            title="Click to Register : UCT1002">
-                            <img class="childimg" src="img/add.png">
-                        </a>
-                    </li> -->
-                    
+                    Loading ..
                     <!-- Add more children as needed -->
                 </ul>
                 </li>

@@ -47,11 +47,11 @@
                 <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3" style="width: 150px; height: 60px;">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><b>Gowtham</b></h6>
+                        <h6 class="mb-0 user_name"><b></b></h6>
                         <span>User</span>
                     </div>
                 </div>
@@ -170,8 +170,8 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><b>Gowtham</b></span>
+                            <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex user_name"><b></b></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="./logout.php" class="dropdown-item">Log Out</a>
@@ -242,15 +242,6 @@
 
 
             <div class="container-fluid">
-                <div>
-                    <div class="d-flex align-items-center mb-4">
-                        <label for="fromDate" class="mr-2"><b style="color: #000;">From</b></label>
-                        <input type="date" id="fromDate" class="form-control mr-2" style="width: 120px;">
-                        <label for="toDate" class="mr-2"><b style="color: #000;" >To</b></label>
-                        <input type="date" id="toDate" class="form-control mr-2" style="width: 120px;">
-                        <button id="goButton" class="btn btn-primary">Go</button>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
@@ -270,49 +261,8 @@
                                             <th scope="col">Details</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>UCT123456</td>
-                                            <td>Sam</td>
-                                            <td>9360248890</td>
-                                            <td>sam@gmail.com</td>
-                                            <td>14/02/2024</td>
-                                            <td style="color: red;">In Active</td>
-                                            <td>0</td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-warning"><b>View</b></button>
-                                                </a>
-                                                
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>UCT654321</td>
-                                            <td>Gowtham</td>
-                                            <td>9360248850</td>
-                                            <td>gowtham2k03@gmail.com</td>
-                                            <td>15/02/2024</td>
-                                            <td style="color: green;">Active</td>
-                                            <td>1</td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-warning"><b>View</b></button>
-                                                </a>
-                                                
-                                            </td>
-                                        </tr>
-                                        <!-- <tr>
-                                            <th scope="row">3</th>
-                                            <td>UCT123456</td>
-                                            <td>Sam</td>
-                                            <td>9360248890</td>
-                                            <td>sam@gmail.com</td>
-                                            <td>14/02/2024</td>
-                                            <td style="color: red;">In Active</td>
-                                            <td>0</td>
-                                        </tr> -->
+                                    <tbody id="tabledata">
+                                        
                                     </tbody>
                                 </table></strong>
                             </div>
@@ -347,6 +297,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script src="./requiredFiles/js/directmemberlist.js"></script>
 </body>
 
 </html>
