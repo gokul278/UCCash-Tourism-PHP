@@ -73,10 +73,9 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Profiles</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="profile.html" class="dropdown-item">Profile</a>
-                            <a href="user bank details.html" class="dropdown-item">Bank Details</a>
+                            <a href="user bank details.html" class="dropdown-item">Bank & Wallet Details</a>
                             <a href="address.html" class="dropdown-item">Address</a>
                             <a href="member info.html" class="dropdown-item">Member Info</a>
-                            <a href="walllet.html" class="dropdown-item">Wallet Address</a>
                             <a href="security.html" class="dropdown-item">Security</a>
                             <!-- <a href="trans PWD.html" class="dropdown-item">Change Trans PWD</a> -->
                             <a href="id card.html" class="dropdown-item">ID Card</a>
@@ -89,7 +88,6 @@
                             <a href="genealogy.html" class="dropdown-item">Genealogy</a>
                             <a href="team list.html" class="dropdown-item">Team List</a>
                             <a href="direct member list.html" class="dropdown-item">Direct Member List</a>
-                            <a href="ranking member list.html" class="dropdown-item">Ranking Member List</a>
                         </div>
                     </div>
                     <!-- <div class="nav-item dropdown">

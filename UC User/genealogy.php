@@ -201,6 +201,10 @@
             margin-right: 50px;
 
         }
+
+        #treedata {
+            justify-content: flex-start;
+        }
     </style>
 
 
@@ -245,10 +249,9 @@
                                 class="fa fa-user me-2"></i>Profiles</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="profile.php" class="dropdown-item">Profile</a>
-                            <a href="user bank details.php" class="dropdown-item">Bank Details</a>
+                            <a href="user bank details.php" class="dropdown-item">Bank & Wallet Details</a>
                             <a href="address.php" class="dropdown-item">Address</a>
                             <a href="member info.php" class="dropdown-item">Member Info</a>
-                            <a href="walllet.php" class="dropdown-item">Wallet Address</a>
                             <a href="security.php" class="dropdown-item">Security</a>
                             <!-- <a href="trans PWD.php" class="dropdown-item">Change Trans PWD</a> -->
                             <a href="id card.php" class="dropdown-item">ID Card</a>
@@ -263,7 +266,6 @@
                             <a href="genealogy.php" class="dropdown-item active">Genealogy</a>
                             <a href="team list.php" class="dropdown-item">Team List</a>
                             <a href="direct member list.php" class="dropdown-item">Direct Member List</a>
-                            <a href="ranking member list.php" class="dropdown-item">Ranking Member List</a>
                         </div>
                     </div>
                     <!-- <div class="nav-item dropdown">
@@ -395,8 +397,8 @@
                                 class="parentimg user_profileimg" src="img/user.png"></a>
                         <div class="hover-box">
                             <p><b class="user_name"></b></p>
-                            <p id="user_id">UCT123456</p>
-                            <select id="level" onchange="levelchange()" class="form-select" >
+                            <p id="user_id"></p>
+                            <select id="level" onchange="levelchange()" class="form-select">
                                 <option selected value="lvl1">Level 1</option>
                                 <option value="lvl2">Level 2</option>
                                 <option value="lvl3">Level 3</option>
@@ -415,7 +417,9 @@
                 </ul>
                 <!-- treedata -->
                 <ul id="treedata">
+
                     Loading ..
+
                     <!-- Add more children as needed -->
                 </ul>
                 </li>

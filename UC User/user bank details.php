@@ -74,10 +74,9 @@
                                 class="fa fa-user me-2"></i>Profiles</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="profile.php" class="dropdown-item">Profile</a>
-                            <a href="user bank details.php" class="dropdown-item active">Bank Details</a>
+                            <a href="user bank details.php" class="dropdown-item active">Bank & Wallet Details</a>
                             <a href="address.php" class="dropdown-item">Address</a>
                             <a href="member info.php" class="dropdown-item">Member Info</a>
-                            <a href="walllet.php" class="dropdown-item">Wallet Address</a>
                             <a href="security.php" class="dropdown-item">Security</a>
                             <!-- <a href="trans PWD.php" class="dropdown-item">Change Trans PWD</a> -->
                             <a href="id card.php" class="dropdown-item">ID Card</a>
@@ -92,7 +91,6 @@
                             <a href="genealogy.php" class="dropdown-item">Genealogy</a>
                             <a href="team list.php" class="dropdown-item">Team List</a>
                             <a href="direct member list.php" class="dropdown-item">Direct Member List</a>
-                            <a href="ranking member list.php" class="dropdown-item">Ranking Member List</a>
                         </div>
                     </div>
                     <!-- <div class="nav-item dropdown">
@@ -230,8 +228,9 @@
                                             </div>
                                             <input type="hidden" name="way" value="bankdetailsupdate">
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" class="form-control" id="ac_holdername" name="acholdername"
-                                                    placeholder="Enter the A/C Holder Name" required>
+                                                <input type="text" class="form-control" id="ac_holdername"
+                                                    name="acholdername" placeholder="Enter the A/C Holder Name"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -239,8 +238,8 @@
                                                 <h6 class="mb-0">A/C Bank Name</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" class="form-control" id="ac_bankname" name="acbankname"
-                                                    placeholder="Enter the A/C Bank Name" required>
+                                                <input type="text" class="form-control" id="ac_bankname"
+                                                    name="acbankname" placeholder="Enter the A/C Bank Name" required>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -266,18 +265,51 @@
                                                 <h6 class="mb-0">Branch</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" class="form-control" id="branch" name="branch" placeholder="Enter the Branch" required>
+                                                <input type="text" class="form-control" id="branch" name="branch"
+                                                    placeholder="Enter the Branch" required>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-3"></div>
-                                            <div class="col-sm-9 text-secondary text-center">
-                                                <a href="#">
-                                                    <input type="submit" class="btn btn-primary px-4" value="Submit">
-                                                </a>
+                                        <br>
+                                        <h6 style="text-align: center; color: #69707a;" class="mb-4">Wallet Address</h6>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">TRC20 Address</h6>
                                             </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form-control" id="trc20address"
+                                                    name="trc20address" placeholder="Enter the TRC20 Address" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">BEP20 Address</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form-control" id="bep20address"
+                                                    name="bep20address" placeholder="Enter the BEP20 Address" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <button class="btn btn-warning" style="width:100%;color:white"
+                                                    type="button" id="otpbtn">Get OTP</button>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" class="form-control" id="otp" name="otp"
+                                                    placeholder="Enter the OTP" onclick="clearerror()" required>
+                                            </div>
+                                        </div>
+                                        <div align="center">
+                                            <p id="errormessage" style="color:red;font-weight:700"></p>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-12" align="center">
+                                            <input type="submit" class="btn btn-primary px-4" value="Submit"
+                                                id="submitbtn" disabled>
+                                        </div>
+                                    </div>
+                                    <br>
                                 </form>
                             </div>
                         </div>
@@ -319,6 +351,7 @@
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript"></script>
+
         <script src="./requiredFiles/js/userbankdetails.js"></script>
 </body>
 

@@ -55,7 +55,7 @@ const getData = () => {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
                 }
 
-                if (response.nextprofileimage.length >= 1) {
+                if (response.nextprofileimage != "") {
                     $(".nextuserimage").attr("src", "./img/user/" + response.nextprofileimage);
                 }
 
@@ -64,8 +64,6 @@ const getData = () => {
                 if (response.activation == "true") {
                     $("#nextid").html(response.nextid);
                     $("#nextname").html(response.nextname);
-
-                    $("#headname").attr("title", response.title);
 
                     $("#treedata").html(response.tree)
                 } else if (response.activation == "false") {

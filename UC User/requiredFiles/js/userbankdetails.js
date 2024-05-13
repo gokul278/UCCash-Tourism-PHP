@@ -46,6 +46,8 @@ const getData = () => {
                 $("#ac_number").val(response.ac_number);
                 $("#ifsc_code").val(response.ifsc_code);
                 $("#branch").val(response.branch);
+                $("#trc20address").val(response.trc20_address);
+                $("#bep20address").val(response.bep20_address);
 
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
@@ -61,6 +63,63 @@ const getData = () => {
     });
 
 }
+
+const clearerror = () =>{
+    $("#errormessage").html("");
+}
+
+
+$("#otpbtn").click(function (e) { 
+    e.preventDefault();
+    $("#otpbtn").html("Loading ..");
+
+    $.ajax({
+        type: "POST",
+        url: "./requiredFiles/ajax/userbankdetailsAjax.php",
+        data: {
+            "way" : "otpmail"
+        },
+        success: function (res) {
+            var response = JSON.parse(res);
+
+            if (response.status == "auth_failed" && response.message == "Expired token") {
+
+                location.replace("time_expried.php");
+
+            } else if (response.status == "auth_failed") {
+
+                location.replace("unauth_login.php");
+
+            } else if (response.status == "success") {
+
+                $("#otpbtn").html("Resend OTP");
+                $("#submitbtn").prop("disabled",false);
+
+                new Notify({
+                    status: 'success',
+                    title: 'OTP',
+                    text: 'OTP Sended Successfully...!',
+                    effect: 'fade',
+                    speed: 300,
+                    speed: 300,
+                    customClass: '',
+                    customIcon: '',
+                    showIcon: true,
+                    showCloseButton: true,
+                    autoclose: true,
+                    autotimeout: 3000,
+                    notificationsGap: null,
+                    notificationsPadding: null,
+                    type: 'outline',
+                    position: 'right top',
+                    customWrapper: '',
+                })
+
+            }
+        }
+    });
+});
+
 
 $("#bankdetailsupdate").submit(function (e) { 
     e.preventDefault();
@@ -86,6 +145,10 @@ $("#bankdetailsupdate").submit(function (e) {
 
             } else if (response.status == "success") {
 
+                $("#otpbtn").html("Get OTP");
+                $("#submitbtn").prop("disabled",true);
+                $("#otp").val("");
+
                 new Notify({
                     status: 'success',
                     title: 'Bank Details',
@@ -107,6 +170,12 @@ $("#bankdetailsupdate").submit(function (e) {
                 })
 
                 return getData();
+
+            }else if (response.status == "failed") {
+
+                $("#otpbtn").html("Resend OTP");
+                $("#submitbtn").prop("disabled",false);
+                $("#errormessage").html(response.message)
 
             }
         }

@@ -72,10 +72,9 @@
                                 class="fa fa-user me-2"></i>Profiles</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="profile.php" class="dropdown-item">Profile</a>
-                            <a href="user bank details.php" class="dropdown-item">Bank Details</a>
+                            <a href="user bank details.php" class="dropdown-item">Bank & Wallet Details</a>
                             <a href="address.php" class="dropdown-item">Address</a>
                             <a href="member info.php" class="dropdown-item">Member Info</a>
-                            <a href="walllet.php" class="dropdown-item">Wallet Address</a>
                             <a href="security.php" class="dropdown-item">Security</a>
                             <!-- <a href="trans PWD.php" class="dropdown-item">Change Trans PWD</a> -->
                             <a href="id card.php" class="dropdown-item active">ID Card</a>
@@ -90,7 +89,6 @@
                             <a href="genealogy.php" class="dropdown-item">Genealogy</a>
                             <a href="team list.php" class="dropdown-item">Team List</a>
                             <a href="direct member list.php" class="dropdown-item">Direct Member List</a>
-                            <a href="ranking member list.php" class="dropdown-item">Ranking Member List</a>
                         </div>
                     </div>
                     <!-- <div class="nav-item dropdown">
@@ -283,7 +281,7 @@
                     <div class="photo">
                         <img style="width: 100px;height:100px;border-radius:50%" class="user_profileimg" src="img/user.png">
                     </div>
-                    <h2 class="user_name">Ashok Kumar V</h2>
+                    <h2 class="user_name"></h2>
                     <div class="qr-code">
                         <img id="barcode" />
                     </div>

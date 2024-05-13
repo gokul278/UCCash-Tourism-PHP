@@ -41,14 +41,6 @@ if ($values["status"] == "success") {
 
             } else if ($rowgettitle["user_referalStatus"] == "activated") {
 
-
-
-                $response["title"] = '
-            Name: ' . $rowgettitle["user_name"] . '
-            Sponser: ' . $rowgettitle["user_sponserid"] . '
-            Package: Activation Package
-            Activation Date: ' . date("d-m-Y", strtotime($rowgettitle["updated_at"])) . '';
-
                 $tree = "";
 
 
@@ -56,96 +48,249 @@ if ($values["status"] == "success") {
             FROM genealogy 
             WHERE lvl1 = '{$nextid}'");
 
+                $index = 0;
 
-                if (mysqli_num_rows($lvl1sponser) >= 1) {
 
-                    foreach ($lvl1sponser as $rowlvl1sponser) {
 
-                        $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$rowlvl1sponser["user_id"]}'");
+                foreach ($lvl1sponser as $rowlvl1sponser) {
 
-                        $getuserdetails = $userdetails->fetch_assoc();
+                    $index++;
 
-                        if ($getuserdetails["user_referalStatus"] == "activated") {
+                    $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$rowlvl1sponser["user_id"]}'");
 
+                    $getuserdetails = $userdetails->fetch_assoc();
+
+                    if ($getuserdetails["user_referalStatus"] == "activated") {
+
+                        $tree .= '
+                            <li >';
+
+                        if ($index == 1) {
                             $tree .= '
-                        <li >
-                            <i class="bi bi-arrow-down" style="font-size:30px;"></i><br>
-                            <a href="#" style="padding-left:50px"
-                                title="
-                                User ID: ' . $getuserdetails["user_id"] . '
-                                Name: ' . $getuserdetails["user_name"] . '
-                                Sponser: ' . $getuserdetails["user_sponserid"] . '
-                                Package: Activation Package
-                                Activation Date: ' . date("d-m-Y", strtotime($getuserdetails["updated_at"])) . '
-                                ">
-                        ';
-
-                            if (isset($getuserdetails["user_profileimg"]) && strlen($getuserdetails["user_profileimg"]) > 0) {
-                                $tree .= '
-                            <img class="childimg" src="img/user/' . $getuserdetails["user_profileimg"] . '" style="padding: 10px;background-color:green">
-                                </a>
-                            </li>
-                        ';
-                            } else {
-                                $tree .= '
-                            <img class="childimg" src="img/user.png" style="padding: 10px;background-color:green">
-                                </a>
-                            </li>
-                        ';
-                            }
-
-                        } else if ($getuserdetails["user_referalStatus"] == "notactivated") {
-
-                            $tree .= '
-                        <li>
-                            <i class="bi bi-arrow-down" style="font-size:30px;"></i><br>
-                            <a href="#" style="padding-left:50px"
-                                    title="
-                                    User ID: ' . $getuserdetails["user_id"] . '
-                                    Name: ' . $getuserdetails["user_name"] . '
-                                    Sponser: ' . $getuserdetails["user_sponserid"] . '
-                                    Package: Not Activated
-                                    ">
+                                <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                                    <div style="width:50%;height:2px;background-color:white"></div>
+                                    <div style="width:50%;height:2px;background-color:black"></div>
+                                </div>
                                 ';
-
-                            if (isset($getuserdetails["user_profileimg"]) && strlen($getuserdetails["user_profileimg"]) > 0) {
-                                $tree .= '
-                            <img class="childimg" src="img/user/' . $getuserdetails["user_profileimg"] . '" style="padding: 10px;background-color:red;width:60px;height:60px">
-                                </a>
-                            </li>
-                        ';
-                            } else {
-                                $tree .= '
-                            <img class="childimg" src="img/user.png" style="padding: 10px;background-color:red;width:60px;height:60px">
-                                </a>
-                            </li>
-                        ';
-                            }
-
+                        } else {
+                            $tree .= '
+                                <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                                    <div style="width:100%;height:2px;background-color:black"></div>
+                                </div>';
                         }
 
+                        $tree .= '<i class="bi bi-arrow-down" style="font-size:30px; color:black"></i><br>
+                            <a style="padding-left:50px" data-bs-toggle="modal" data-bs-target="#exampleModal' . $index . '">
+                            <img class="childimg" src="img/' . (isset($getuserdetails["user_profileimg"]) && strlen($getuserdetails["user_profileimg"]) > 0 ? "user/" . $getuserdetails["user_profileimg"] : "user.png") . '" >
+                            </a>
+                            <div class="modal fade" id="exampleModal' . $index . '" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4>User ID : ' . $getuserdetails["user_id"] . '</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body" align="start">';
+
+
+                        $usersponser = $con->query("SELECT * FROM userdetails WHERE user_id='{$getuserdetails["user_id"]}'");
+                        $getusersponser = $usersponser->fetch_assoc();
+
+                        $namesponser = $con->query("SELECT * FROM userdetails WHERE user_id='{$getusersponser["user_sponserid"]}'");
+                        $getnamesponser = $namesponser->fetch_assoc();
+
+
+
+                        $tree .= '                                        
+                        <h6>Name: ' . $getuserdetails["user_name"] . '</h6>
+                        <h6>Sponsor ID: ' . $getusersponser["user_sponserid"] . '</h6>
+                        <h6>Sponsor Name: ' . $getnamesponser["user_name"] . '</h6>
+                        <h6>Joining Date: ' . date('d-m-Y', strtotime($getuserdetails["created_at"])) . '</h6>
+                        <h6>Rank: </h6>';
+
+                        for ($i = 1; $i <= 9; $i++) {
+                            $levelQuery = $con->query("SELECT * FROM genealogy WHERE lvl{$i}='{$getuserdetails["user_id"]}'");
+                            $levelValue = 0;
+
+                            foreach ($levelQuery as $row) {
+                                if (strlen($row["user_id"]) >= 1) {
+                                    $levelValue++;
+                                }
+                            }
+
+                            $tree .= '<h6>Level ' . $i . ': ' . $levelValue . '</h6>';
+                        }
+
+                        $tree .= '
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                            <br><span>' . $getuserdetails["user_name"] . '</span>
+                            <br><span>' . $getuserdetails["user_id"] . '</span>
+                            <br><a href="nextgenealogy.php?nextid=' . $getuserdetails["user_id"] . '">view</a></span>
+                            </li>';
+
+                    } else if ($getuserdetails["user_referalStatus"] == "notactivated") {
+
+                        $tree .= '
+                            <li >';
+
+                        if ($index == 1) {
+                            $tree .= '
+                                <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                                    <div style="width:50%;height:2px;background-color:white"></div>
+                                    <div style="width:50%;height:2px;background-color:black"></div>
+                                </div>
+                                ';
+                        } else {
+                            $tree .= '
+                                <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                                    <div style="width:100%;height:2px;background-color:black"></div>
+                                </div>';
+                        }
+
+                        $tree .= '<i class="bi bi-arrow-down" style="font-size:30px; color:black"></i><br>
+                            <a  style="padding-left:50px">
+                            <img class="childimg" src="img/' . (isset($getuserdetails["user_profileimg"]) && strlen($getuserdetails["user_profileimg"]) > 0 ? "user/" . $getuserdetails["user_profileimg"] : "user.png") . '" style="padding: 10px;background-color:red">
+                            </a>
+                            <br><span>' . $getuserdetails["user_name"] . '</span>
+                            <br><span>' . $getuserdetails["user_id"] . '</span>
+                            <br><a style="color:white">-</a>
+                            </li>
+                                ';
                     }
 
-                } else {
-
-                    $tree .= '
-                <li>
-                    <p style="color:red">No Users</p>
-                </li>
-                    ';
-
                 }
+
+                if ($index == 0) {
+                    $tree .= '
+                    <li>
+                        <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                            <div style="width:50%;height:2px;background-color:white"></div>
+                            <div style="width:50%;height:2px;background-color:black"></div>
+                        </div>
+                        <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
+                        <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                            <img class="childimg" src="img/add.png">
+                        </a><br>
+                        <a style="color:white">-</a><br>
+                        <a style="color:white">-</a><br>
+                        <a style="color:white">-</a>
+                    </li>';
+                }
+
+
+
+
+                $tree .= '
+        <li>
+            <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                <div style="width:50%;height:2px;background-color:black"></div>
+                <div style="width:50%;height:2px;background-color:black"></div>
+            </div>
+            <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
+            <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <img class="childimg" src="img/add.png">
+            </a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a>
+        </li>
+        <li>
+            <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                <div style="width:50%;height:2px;background-color:black"></div>
+                <div style="width:50%;height:2px;background-color:black"></div>
+            </div>
+            <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
+            <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <img class="childimg" src="img/add.png">
+            </a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a>
+
+        </li>
+        <li>
+            <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                <div style="width:50%;height:2px;background-color:black"></div>
+                <div style="width:50%;height:2px;background-color:black"></div>
+            </div>
+            <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
+            <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <img class="childimg" src="img/add.png">
+            </a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a>
+        </li>
+        <li>
+            <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                <div style="width:50%;height:2px;background-color:black"></div>
+                <div style="width:50%;height:2px;background-color:black"></div>
+            </div>
+            <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
+            <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <img class="childimg" src="img/add.png">
+            </a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a>
+        </li>
+        <li>
+            <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                <div style="width:50%;height:2px;background-color:black"></div>
+                <div style="width:50%;height:2px;background-color:black"></div>
+            </div>
+            <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
+            <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <img class="childimg" src="img/add.png">
+            </a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a>
+        </li>
+        <li>
+            <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                <div style="width:50%;height:2px;background-color:black"></div>
+                <div style="width:50%;height:2px;background-color:black"></div>
+            </div>
+            <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
+            <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <img class="childimg" src="img/add.png">
+            </a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a>
+        </li>
+        <li>
+            <div style="width:100%;display:flex;margin-block:-9px" align="end">
+                <div style="width:50%;height:2px;background-color:black"></div>
+                <div style="width:50%;height:2px;background-color:white"></div>
+            </div>
+            <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
+            <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <img class="childimg" src="img/add.png">
+            </a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a><br>
+            <a style="color:white">-</a>
+        </li>
+        ';
+
 
                 $response["tree"] = $tree;
                 $response["activation"] = "true";
 
 
-                
+
 
             }
 
             $response["status"] = "success";
-                echo json_encode($response);
+            echo json_encode($response);
 
         }
 
