@@ -10,9 +10,14 @@ $(document).ready(() => {
         success: function (res) {
             var response = JSON.parse(res);
             if (response.status == "success") {
-                $("#flashbanner").attr("src", ".././img/flashbanner/" + response.flashbanner + "");
-                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-                myModal.show();
+
+                if(response.flashbanner != null){
+                    
+                    $("#flashbanner").attr("src", ".././img/flashbanner/" + response.flashbanner + "");
+                    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                    myModal.show();
+
+                }
             }
         }
     });
