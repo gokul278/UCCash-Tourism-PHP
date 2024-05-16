@@ -47,11 +47,11 @@
                 <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3" style="width: 150px; height: 60px;">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><b>Gowtham</b></h6>
+                        <h6 class="mb-0 user_name"><b></b></h6>
                         <span>User</span>
                     </div>
                 </div>
@@ -168,8 +168,8 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><b>Gowtham</b></span>
+                            <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex user_name"><b></b></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="./logout.php" class="dropdown-item">Log Out</a>
@@ -235,52 +235,24 @@
 
             </style>
             <div class="container-fluid">
-                <div>
-                    <div class="d-flex align-items-center mb-4">
-                        <label for="fromDate" class="mr-2"><b style="color: #000;">From</b></label>
-                        <input type="date" id="fromDate" class="form-control mr-2" style="width: 120px;">
-                        <label for="toDate" class="mr-2"><b style="color: #000;" >To</b></label>
-                        <input type="date" id="toDate" class="form-control mr-2" style="width: 120px;">
-                        <button id="goButton" class="btn btn-primary">Go</button>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-5">Transfer History</h6>
                             <div class="table-responsive">
-                               <strong><table style="color: black; text-align: center;" class="table table-bordered">
+                               <strong><table  id="myTable" style="color: black; text-align: center;" class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th scope="col">S.NO</th>
                                             <th scope="col">Date & Time</th>
                                             <th scope="col">From</th>
                                             <th scope="col">To</th>
-                                            <th scope="col">Point Value</th>
+                                            <th scope="col">Credit</th>
+                                            <th scope="col">Debit</th>
+                                            <th scope="col">Balance</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>07/02/2024 <p class="time">12:08 PM</p></td>
-                                            <td>Savings Income</td>
-                                            <td>Available Withdraw Balance</td>
-                                            <td>500$</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>08/03/2024 <p class="time">10:50 AM</p></td>
-                                            <td>Networking Income</td>
-                                            <td>Available Withdraw Balance</td>
-                                            <td>385$</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>13/03/2024 <p class="time">3:00 PM</p></td>
-                                            <td>Leadership Income</td>
-                                            <td>Available Withdraw Balance</td>
-                                            <td>472$</td>
-                                        </tr>
+                                    <tbody id="tabledata">
                                         
                                     </tbody>
                                 </table></strong>
@@ -318,6 +290,11 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+
+    <script src="./requiredFiles/js/transferhistory.js"></script>
 </body>
 
 </html>

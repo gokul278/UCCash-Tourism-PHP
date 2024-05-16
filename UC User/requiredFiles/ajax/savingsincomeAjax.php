@@ -46,9 +46,9 @@ if ($values["status"] == "success") {
                 $time = $parts[1];
 
                 if($getpointsdata["si_action"] == "credit"){
-                    $credit += (int) $getpointsdata["si_points"];
+                    $credit += (float) $getpointsdata["si_points"];
                 }else if($getpointsdata["si_action"] == "debit"){
-                    $debit += (int) $getpointsdata["si_points"];
+                    $debit += (float) $getpointsdata["si_points"];
                 }
 
                 $index++;
@@ -63,15 +63,15 @@ if ($values["status"] == "success") {
 
                 if($getpointsdata["si_action"] == "credit"){
 
-                    $pointstable .= '<td>'.$getpointsdata["si_points"].'</td><td></td>';
+                    $pointstable .= '<td>'.number_format($getpointsdata["si_points"], 2).'</td><td></td>';
 
                 }else if($getpointsdata["si_action"] == "debit"){
 
-                    $pointstable .= '<td></td><td>'.$getpointsdata["si_points"].'</td>';
+                    $pointstable .= '<td></td><td>'.number_format($getpointsdata["si_points"], 2).'</td>';
 
                 }
 
-                $pointstable .= '<td>'.$credit-$debit.'</td>
+                $pointstable .= '<td>'.number_format(($credit-$debit), 2).'</td>
                 </tr>
                 ';
 

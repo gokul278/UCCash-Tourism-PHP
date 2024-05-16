@@ -64,15 +64,15 @@ if ($values["status"] == "success") {
 
                 if($getpointsdata["riw_action"] == "credit"){
 
-                    $pointstable .= '<td>'.$getpointsdata["riw_points"].'</td><td></td>';
+                    $pointstable .= '<td>'.number_format($getpointsdata["riw_points"], 2).'</td><td></td>';
 
                 }else if($getpointsdata["riw_action"] == "debit"){
 
-                    $pointstable .= '<td></td><td>'.$getpointsdata["riw_points"].'</td>';
+                    $pointstable .= '<td></td><td>'.number_format($getpointsdata["riw_points"], 2).'</td>';
 
                 }
 
-                $pointstable .= '<td>'.$credit-$debit.'</td>
+                $pointstable .= '<td>'.number_format(($credit-$debit), 2).'</td>
                 </tr>
                 ';
 

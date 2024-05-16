@@ -64,15 +64,15 @@ if ($values["status"] == "success") {
 
                 if($getpointsdata["chfw_action"] == "credit"){
 
-                    $pointstable .= '<td>'.$getpointsdata["chfw_points"].'</td><td></td>';
+                    $pointstable .= '<td>'.number_format($getpointsdata["chfw_points"], 2).'</td><td></td>';
 
                 }else if($getpointsdata["chfw_action"] == "debit"){
 
-                    $pointstable .= '<td></td><td>'.$getpointsdata["chfw_points"].'</td>';
+                    $pointstable .= '<td></td><td>'.number_format($getpointsdata["chfw_points"], 2).'</td>';
 
                 }
 
-                $pointstable .= '<td>'.$credit-$debit.'</td>
+                $pointstable .= '<td>'.number_format(($credit-$debit), 2).'</td>
                 </tr>
                 ';
 

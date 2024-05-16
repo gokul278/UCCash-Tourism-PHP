@@ -54,6 +54,66 @@ if ($values["status"] == "success") {
 
             $response["galleryimages"] = $images;
 
+            $rank = "";
+
+            if($datarow["user_referalStatus"] == "activated"){
+                $response["rank"] = "Distributor";
+            }
+
+
+            $level1 = $con->query("SELECT * FROM genealogy WHERE lvl1='{$values["userid"]}'");
+            $level1number = $level1->num_rows;
+
+            if($level1number >= 5){
+
+                $rank = "Director";
+
+            }
+
+            $level2 = $con->query("SELECT * FROM genealogy WHERE lvl2='{$values["userid"]}'");
+            $level2number = $level2->num_rows;
+
+            if($level2number >=  25){
+                $rank = "Senior Director";
+            }
+
+            $level3 = $con->query("SELECT * FROM genealogy WHERE lvl3='{$values["userid"]}'");
+            $level3number = $level3->num_rows;
+
+            if($level3number >= 125){
+                $rank = "Bronze Director";
+            }
+
+            $level4 = $con->query("SELECT * FROM genealogy WHERE lvl4='{$values["userid"]}'");
+            $level4number = $level4->num_rows;
+
+            if($level4number >= 375){
+                $rank = "Silver Director";
+            }
+
+            $level5 = $con->query("SELECT * FROM genealogy WHERE lvl5='{$values["userid"]}'");
+            $level5number = $level5->num_rows;
+
+            if($level5number >= 1500){
+                $rank = "Gold Director";
+            }
+
+            $level6 = $con->query("SELECT * FROM genealogy WHERE lvl6='{$values["userid"]}'");
+            $level6number = $level6->num_rows;
+
+            if($level6number >= 5000){
+                $rank = "Diamond Director";
+            }
+
+            $level7 = $con->query("SELECT * FROM genealogy WHERE lvl7='{$values["userid"]}'");
+            $level7number = $level7->num_rows;
+
+            if($level6number >= 5000){
+                $rank = "Crow Director";
+            }
+
+
+
             //Savings Travel Points
             $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$datarow["user_id"]}'");
             $stcredit = 0;
@@ -188,7 +248,7 @@ if ($values["status"] == "success") {
                     if (isset($getcarandhousefund["chfw_action"]) && strlen($getcarandhousefund["chfw_action"]) >= 1) {
                         if ($getcarandhousefund["chfw_action"] == "credit") {
                             $chfwcredit += (float) $getcarandhousefund["chfw_points"];
-                        } else if ($getbonustravel["chfw_action"] == "debit") {
+                        } else if ($getcarandhousefund["chfw_action"] == "debit") {
                             $chfwdebit += (float) $getcarandhousefund["chfw_points"];
                         }
                     }
@@ -209,7 +269,7 @@ if ($values["status"] == "success") {
                     if (isset($getroyaltyincome["riw_action"]) && strlen($getroyaltyincome["riw_action"]) >= 1) {
                         if ($getroyaltyincome["riw_action"] == "credit") {
                             $riwcredit += (float) $getroyaltyincome["riw_points"];
-                        } else if ($getbonustravel["riw_action"] == "debit") {
+                        } else if ($getroyaltyincome["riw_action"] == "debit") {
                             $riwdebit += (float) $getroyaltyincome["riw_points"];
                         }
                     }
@@ -218,6 +278,28 @@ if ($values["status"] == "success") {
             }
 
             $response["royaltyincome"] = number_format(($riwcredit - $riwdebit), 2);
+
+
+            //Available Withdraw Balance
+            $availablewithdrwabalance = $con->query("SELECT * FROM availablewithdrwabalance WHERE user_id='{$datarow["user_id"]}'");
+            $awbcredit = 0;
+            $awbdebit = 0;
+
+            if (mysqli_num_rows($availablewithdrwabalance) >= 1) {
+
+                foreach ($availablewithdrwabalance as $getavailablewithdrwabalance) {
+                    if (isset($getavailablewithdrwabalance["awb_action"]) && strlen($getavailablewithdrwabalance["awb_action"]) >= 1) {
+                        if ($getavailablewithdrwabalance["awb_action"] == "credit") {
+                            $awbcredit += (float) $getavailablewithdrwabalance["awb_points"];
+                        } else if ($getavailablewithdrwabalance["riw_action"] == "debit") {
+                            $awbdebit += (float) $getavailablewithdrwabalance["awb_points"];
+                        }
+                    }
+                }
+
+            }
+
+            $response["availablewithdrwabalance"] = number_format(($awbcredit - $awbdebit), 2);
 
 
 

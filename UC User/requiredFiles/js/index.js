@@ -96,6 +96,15 @@ const getData = () => {
                 $("#carandhousefund").html(response.carandhousefund);
                 $("#royaltyincome").html(response.royaltyincome);
                 $("#savingsincome").html(response.savingsincome);
+                $("#availablewithdrwabalance").html(response.availablewithdrwabalance);
+
+
+                if(response.rank.length >= 1){
+                    $("#rank").html(response.rank);                    
+                }else{
+                    $("#rank").html("Member"); 
+                }
+
 
                 $("#news").html(response.news);
 

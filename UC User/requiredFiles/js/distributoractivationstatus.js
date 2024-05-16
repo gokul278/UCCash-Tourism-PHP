@@ -35,17 +35,21 @@ const getData = () => {
         success: function (res) {
             var response = JSON.parse(res);
             if (response.status == "success") {
-                
+
                 $(".user_name").html(response.user_name);
                 if (response.user_profileimg != null) {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
                 }
 
-                if(response.tabledata.length > 0){
+                if (response.tabledata.length > 0) {
                     $("#tabledata").html(response.tabledata)
-                }else{
+                    $(document).on("click", ".activationdownload", function () {
+                        downloadActivation(this);
+                    });
+                } else {
                     $("#tabledata").html("<tr><th colspan='10'>No Data Found</th></tr>");
                 }
+
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -61,22 +65,22 @@ const getData = () => {
 
 }
 
-const check = () =>{
+const check = () => {
     var fromdate = $("#fromDate").val();
     var todate = $("#toDate").val();
 
-    if(fromdate.length > 0 && todate.length > 0){
+    if (fromdate.length > 0 && todate.length > 0) {
 
         $("#goButton").prop("disabled", false);
 
-    }else{
+    } else {
 
         $("#goButton").prop("disabled", true);
 
     }
 }
 
-$("#clearbtn").click(function () { 
+$("#clearbtn").click(function () {
 
     $("#fromDate").val("");
     $("#toDate").val("");
@@ -85,9 +89,9 @@ $("#clearbtn").click(function () {
 
 });
 
-$("#filterDate").submit(function (e) { 
+$("#filterDate").submit(function (e) {
     e.preventDefault();
-    
+
     var fromdate = $("#fromDate").val();
     var todate = $("#toDate").val();
 
@@ -95,18 +99,21 @@ $("#filterDate").submit(function (e) {
         type: "POST",
         url: "./requiredFiles/ajax/distributoractivationstatusAjax.php",
         data: {
-            "way" : "filterdate",
-            "fromDate" : fromdate,
-            "toDate" : todate
+            "way": "filterdate",
+            "fromDate": fromdate,
+            "toDate": todate
         },
         success: function (res) {
 
             var response = JSON.parse(res);
             if (response.status == "success") {
-                
-                if(response.tabledata.length > 0){
+
+                if (response.tabledata.length > 0) {
                     $("#tabledata").html(response.tabledata)
-                }else{
+                    $(document).on("click", ".activationdownload", function () {
+                        downloadActivation(this);
+                    });
+                } else {
                     $("#tabledata").html("<tr><th colspan='10'>No Data Found</th></tr>");
                 }
 
@@ -119,9 +126,13 @@ $("#filterDate").submit(function (e) {
                 location.replace("unauth_login.php");
 
             }
-            
+
         }
     });
 
 
 });
+
+const downloadActivation = (button) => {
+    alert(button.value);
+}

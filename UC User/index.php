@@ -437,7 +437,7 @@
                                             <h6 class="mb-0">Rank</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <b>Rank Details</b>
+                                            <b id="rank"></b>
                                         </div>
                                     </div>
                                     <hr>
@@ -596,7 +596,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">Available Withdraw Balance</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="availablewithdrwabalance"></h5>
                             </div>
                         </div>
                     </div>

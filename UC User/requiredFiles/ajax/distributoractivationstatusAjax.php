@@ -72,7 +72,7 @@ if ($values["status"] == "success") {
                     $tabledata .= '
                     <td class="green">' . $gettable["remark"] . '</td>
                         <td>
-                            <button type="button" class="btn btn-warning"><b>View</b></button>
+                            <button type="button" class="btn btn-warning activationdownload" value="'.$gettable["idactivation_id"].'"><b>View</b></button>
                         </td>
                     </tr>';
                 } else if ($gettable["action"] == "reject"){
@@ -143,7 +143,7 @@ if ($values["status"] == "success") {
                 $tabledata .= '
                     <td class="green">' . $gettable["remark"] . '</td>
                         <td>
-                            <button type="button" class="btn btn-warning"><b>View</b></button>
+                            <button type="button" class="btn btn-warning activationdownload" value="'.$gettable["idactivation_id"].'"><b>View</b></button>
                         </td>
                     </tr>';
             } else if ($gettable["action"] == "reject"){
