@@ -275,65 +275,17 @@
                                             <tr>
                                                 <th scope="col">Level</th>
                                                 <th scope="col">Team Purchase</th>
+                                                <th scope="col">Achieved Purchase</th>
                                                 <th scope="col">Rank</th>
                                                 <th scope="col">Eligible of Award</th>
                                                 <th scope="col">Status</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tabledata">
-                                            <!-- <tr>
-                                                <th scope="row">1</th>
-                                                <td>5</td>
-                                                <td>Director</td>
-                                                <td>Bonus Travel Point Redeem</td>
-                                                <td class="green">Achieved</td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <th scope="row">25</th>
-                                                <td>Senior Director</td>
-                                                <td>Leadership Income Redeem</td>
-                                                <td class="green">Achieved</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <th>125</th>
-                                                <td>Bronze Director</td>
-                                                <td>Car & House Fund Redeem</td>
-                                                <td class="green">Achieved</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <th>375</th>
-                                                <td>Silver Director</td>
-                                                <td>Royalty Income Redeem</td>
-                                                <td class="green">Achieved</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">5</th>
-                                                <th scope="row">1500</th>
-                                                <td>Gold Director</td>
-                                                <td>2 Lakh Car Fund**</td>
-                                                <td class="red">Not Achieved</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">6</th>
-                                                <th scope="row">5000</th>
-                                                <td>Diamond Director</td>
-                                                <td>5 Lakh Diamond Reward</td>
-                                                <td class="red">Not Achieved</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">7</th>
-                                                <th scope="row">15000</th>
-                                                <td>Crow Director</td>
-                                                <td>15 Lakh worth Fully Paid Car</td>
-                                                <td class="red">Not Achieved</td>
-                                            </tr> -->
+                                            
                                         </tbody>
                                     </table>
+                                    <div style="width:100%;display:flex;justify-content:end">Conditions Apply **</div>
                                 </strong>
                             </div>
                         </div>

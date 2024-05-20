@@ -134,5 +134,7 @@ $("#filterDate").submit(function (e) {
 });
 
 const downloadActivation = (button) => {
-    alert(button.value);
+
+    location.replace("./activationcertificate.php?certificateid="+button.value);
+    
 }

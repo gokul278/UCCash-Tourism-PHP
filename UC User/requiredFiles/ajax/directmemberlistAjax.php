@@ -61,8 +61,43 @@ if ($values["status"] == "success") {
                     $tabledata .= '<td style="color: red;">In Active</td>';
                 }
 
+                $rank = "Member";
+
+                // Check if the sponsor's referral status is activated
+                if ($getuserdata["user_referalStatus"] == "activated") {
+                    $rank = "Distributor";
+                }
+
+                // Initialize arrays to hold level queries and thresholds
+                $levels = ["lvl1" => 5, "lvl2" => 25, "lvl3" => 125, "lvl4" => 375, "lvl5" => 1500, "lvl6" => 5000, "lvl7" => 5000];
+                $ranks = ["lvl1" => "Director", "lvl2" => "Senior Director", "lvl3" => "Bronze Director", "lvl4" => "Silver Director", "lvl5" => "Gold Director", "lvl6" => "Diamond Director", "lvl7" => "Crow Director"];
+
+                // Loop through each level and determine the rank based on activated members
+                foreach ($levels as $level => $threshold) {
+                    // Query to get activated members at the current level
+                    $levelQuery = $con->query("SELECT user_id FROM genealogy WHERE $level='{$getuserdata["user_id"]}'");
+
+                    // Count the number of activated members
+                    $activatedCount = 0;
+                    while ($row = $levelQuery->fetch_assoc()) {
+                        $account = $con->query("SELECT user_referalStatus FROM userdetails WHERE user_id='{$row["user_id"]}'");
+                        $getaccount = $account->fetch_assoc();
+                        if ($getaccount["user_referalStatus"] == "activated") {
+                            $activatedCount++;
+                        }
+                    }
+
+                    // Check if the count meets or exceeds the threshold for this level
+                    if ($activatedCount >= $threshold) {
+                        $rank = $ranks[$level];
+                    }
+                }
+
+                // Output the rank in the table
+                $tabledata .= '<td>' . $rank . '</td>';
+
+
                 $tabledata .= '
-                    <td></td>
                     <td>
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal' . $index . '"><b>View</b></button>
                         <div class="modal fade" id="exampleModal' . $index . '" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -86,20 +121,27 @@ if ($values["status"] == "success") {
                     <h6>Sponsor ID: ' . $getusersponser["user_sponserid"] . '</h6>
                     <h6>Sponsor Name: ' . $getnamesponser["user_name"] . '</h6>
                     <h6>Joining Date: ' . date('d-m-Y', strtotime($getuserdata["created_at"])) . '</h6>
-                    <h6>Rank: </h6>';
+                    ';
 
                 for ($i = 1; $i <= 9; $i++) {
                     $levelQuery = $con->query("SELECT * FROM genealogy WHERE lvl{$i}='{$getuserdata["user_id"]}'");
+
                     $levelValue = 0;
 
-                    foreach ($levelQuery as $row) {
-                        if (strlen($row["user_id"]) >= 1) {
-                            $levelValue++;
+                    while ($getlevelQuery = $levelQuery->fetch_assoc()) {
+                        $account = $con->query("SELECT * FROM userdetails WHERE user_id='{$getlevelQuery["user_id"]}'");
+                        $getaccount = $account->fetch_assoc();
+
+                        if ($getaccount["user_referalStatus"] == "activated") {
+                            if (strlen($getlevelQuery["user_id"]) >= 1) {
+                                $levelValue++;
+                            }
                         }
                     }
 
                     $tabledata .= '<h6>Level ' . $i . ': ' . $levelValue . '</h6>';
                 }
+
 
                 $tabledata .= '</div>
                 </div>

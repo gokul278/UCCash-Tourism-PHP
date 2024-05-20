@@ -54,64 +54,39 @@ if ($values["status"] == "success") {
 
             $response["galleryimages"] = $images;
 
-            $rank = "";
+            $rank = "Member";
 
-            if($datarow["user_referalStatus"] == "activated"){
-                $response["rank"] = "Distributor";
+            // Check if the sponsor's referral status is activated
+            if ($datarow["user_referalStatus"] == "activated") {
+                $rank = "Distributor";
             }
 
+            // Initialize arrays to hold level queries and thresholds
+            $levels = ["lvl1" => 5, "lvl2" => 25, "lvl3" => 125, "lvl4" => 375, "lvl5" => 1500, "lvl6" => 5000, "lvl7" => 5000];
+            $ranks = ["lvl1" => "Director", "lvl2" => "Senior Director", "lvl3" => "Bronze Director", "lvl4" => "Silver Director", "lvl5" => "Gold Director", "lvl6" => "Diamond Director", "lvl7" => "Crow Director"];
 
-            $level1 = $con->query("SELECT * FROM genealogy WHERE lvl1='{$values["userid"]}'");
-            $level1number = $level1->num_rows;
+            // Loop through each level and determine the rank based on activated members
+            foreach ($levels as $level => $threshold) {
+                // Query to get activated members at the current level
+                $levelQuery = $con->query("SELECT user_id FROM genealogy WHERE $level='{$values["userid"]}'");
 
-            if($level1number >= 5){
+                // Count the number of activated members
+                $activatedCount = 0;
+                while ($row = $levelQuery->fetch_assoc()) {
+                    $account = $con->query("SELECT user_referalStatus FROM userdetails WHERE user_id='{$row["user_id"]}'");
+                    $getaccount = $account->fetch_assoc();
+                    if ($getaccount["user_referalStatus"] == "activated") {
+                        $activatedCount++;
+                    }
+                }
 
-                $rank = "Director";
-
+                // Check if the count meets or exceeds the threshold for this level
+                if ($activatedCount >= $threshold) {
+                    $rank = $ranks[$level];
+                }
             }
 
-            $level2 = $con->query("SELECT * FROM genealogy WHERE lvl2='{$values["userid"]}'");
-            $level2number = $level2->num_rows;
-
-            if($level2number >=  25){
-                $rank = "Senior Director";
-            }
-
-            $level3 = $con->query("SELECT * FROM genealogy WHERE lvl3='{$values["userid"]}'");
-            $level3number = $level3->num_rows;
-
-            if($level3number >= 125){
-                $rank = "Bronze Director";
-            }
-
-            $level4 = $con->query("SELECT * FROM genealogy WHERE lvl4='{$values["userid"]}'");
-            $level4number = $level4->num_rows;
-
-            if($level4number >= 375){
-                $rank = "Silver Director";
-            }
-
-            $level5 = $con->query("SELECT * FROM genealogy WHERE lvl5='{$values["userid"]}'");
-            $level5number = $level5->num_rows;
-
-            if($level5number >= 1500){
-                $rank = "Gold Director";
-            }
-
-            $level6 = $con->query("SELECT * FROM genealogy WHERE lvl6='{$values["userid"]}'");
-            $level6number = $level6->num_rows;
-
-            if($level6number >= 5000){
-                $rank = "Diamond Director";
-            }
-
-            $level7 = $con->query("SELECT * FROM genealogy WHERE lvl7='{$values["userid"]}'");
-            $level7number = $level7->num_rows;
-
-            if($level6number >= 5000){
-                $rank = "Crow Director";
-            }
-
+            $response["rank"] = $rank;
 
 
             //Savings Travel Points
