@@ -120,7 +120,14 @@
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer History</a>
                    
-                    <a href="withdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Withdraw</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-university me-2"></i>Withdraw</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
+                            <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
+                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Booking</a>
                         <div class="dropdown-menu bg-transparent border-0">

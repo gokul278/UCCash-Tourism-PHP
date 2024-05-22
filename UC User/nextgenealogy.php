@@ -313,7 +313,15 @@
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
 
-                    <a href="withdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Withdraw</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-university me-2"></i>Withdraw</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
+                            <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
+                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>Booking</a>
@@ -393,12 +401,12 @@
                 <ul>
                     <li>
 
-                        <a href="#" id="headname" class="hover-container" title=""><img
-                                class="parentimg nextuserimage" src="img/user.png"></a>
+                        <a href="#" id="headname" class="hover-container" title=""><img class="parentimg nextuserimage"
+                                src="img/user.png"></a>
                         <div class="hover-box">
                             <p><b id="nextname"></b></p>
                             <p id="nextid"></p>
-                            
+
                             <!-- <p style="color:red"><a href="" style="color:red">Level 1</a>&nbsp;&nbsp;&nbsp;<a href="">Level 2</a>&nbsp;&nbsp;&nbsp;<a href="">Level 3</a>&nbsp;&nbsp;&nbsp;<a href="">Level 4</a>&nbsp;&nbsp;&nbsp;<a href="">Level 5</a>&nbsp;&nbsp;&nbsp;<a href="">Level 6</a>&nbsp;&nbsp;&nbsp;<a href="">Level 7</a>&nbsp;&nbsp;&nbsp;<a href="">Level 8</a>&nbsp;&nbsp;&nbsp;<a href="">Level 9</a></p> -->
                         </div>
                         <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i>
@@ -413,7 +421,7 @@
                     <!-- Add more children as needed -->
                 </ul>
                 </li>
-                
+
 
             </div>
 

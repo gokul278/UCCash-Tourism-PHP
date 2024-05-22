@@ -266,7 +266,7 @@ if ($values["status"] == "success") {
                     if (isset($getavailablewithdrwabalance["awb_action"]) && strlen($getavailablewithdrwabalance["awb_action"]) >= 1) {
                         if ($getavailablewithdrwabalance["awb_action"] == "credit") {
                             $awbcredit += (float) $getavailablewithdrwabalance["awb_points"];
-                        } else if ($getavailablewithdrwabalance["riw_action"] == "debit") {
+                        } else if ($getavailablewithdrwabalance["awb_action"] == "debit") {
                             $awbdebit += (float) $getavailablewithdrwabalance["awb_points"];
                         }
                     }
@@ -275,6 +275,28 @@ if ($values["status"] == "success") {
             }
 
             $response["availablewithdrwabalance"] = number_format(($awbcredit - $awbdebit), 2);
+
+
+            //ID Reactivation Wallet
+            $reactivationwallet = $con->query("SELECT * FROM reactivationwallet WHERE user_id='{$datarow["user_id"]}'");
+            $rawcredit = 0;
+            $rawdebit = 0;
+
+            if (mysqli_num_rows($reactivationwallet) >= 1) {
+
+                foreach ($reactivationwallet as $getreactivationwallet) {
+                    if (isset($getreactivationwallet["raw_action"]) && strlen($getreactivationwallet["raw_action"]) >= 1) {
+                        if ($getreactivationwallet["raw_action"] == "credit") {
+                            $rawcredit += (float) $getreactivationwallet["raw_points"];
+                        } else if ($getreactivationwallet["raw_action"] == "debit") {
+                            $rawdebit += (float) $getreactivationwallet["raw_points"];
+                        }
+                    }
+                }
+
+            }
+
+            $response["reactivationwallet"] = number_format(($rawcredit - $rawdebit), 2);
 
 
 

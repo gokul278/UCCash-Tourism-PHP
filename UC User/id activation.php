@@ -113,7 +113,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
-                            </a>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item active">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
@@ -127,7 +127,7 @@
                     <!-- <a href="monthly TP savings.php" class="nav-item nav-link"><i class="fa fa-comment-dollar me-2"></i>Monthly TP <p style="text-align: center;">Savings</p></a> -->
                     <a href="monthly TP savings status.php" class="nav-item nav-link"><i
                             class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
-                        </a>
+                    </a>
                     <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
@@ -148,7 +148,15 @@
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
 
-                    <a href="withdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Withdraw</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-university me-2"></i>Withdraw</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
+                            <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
+                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>Booking</a>
@@ -532,16 +540,16 @@
                                                 </div>
                                                 <br><br><br>
                                                 <form id="activationbank">
-                                                <div class="row mb-3">
-                                                    <div class="col-sm-3">
-                                                        <h6 class="mb-0">Deposit Value</h6>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">Deposit Value</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <span class="form-control" id="deposit_value"></span>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-sm-9 text-secondary">
-                                                        <span class="form-control" id="deposit_value"></span>
-                                                    </div>
-                                                </div>
-                                                <br><br><br>
-                                                
+                                                    <br><br><br>
+
                                                     <input type="hidden" name="way" value="activationbank">
                                                     <input type="hidden" name="user_id" id="userid">
                                                     <input type="hidden" name="depositevalue" id="bankvalue">
@@ -550,7 +558,8 @@
                                                             <h6 class="mb-0">Transaction ID</h6>
                                                         </div>
                                                         <div class="col-sm-9 text-secondary">
-                                                            <input type="text" name="transaction_id" class="form-control" required>
+                                                            <input type="text" name="transaction_id"
+                                                                class="form-control" required>
                                                         </div>
                                                     </div>
 

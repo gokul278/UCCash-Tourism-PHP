@@ -96,7 +96,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
-                            </a>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
@@ -110,7 +110,7 @@
 
                     <a href="monthly TP savings status.php" class="nav-item nav-link"><i
                             class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
-                        </a>
+                    </a>
                     <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
@@ -131,7 +131,15 @@
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
 
-                    <a href="withdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Withdraw</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-university me-2"></i>Withdraw</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
+                            <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
+                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>Booking</a>
@@ -288,12 +296,12 @@
                                     <div class="row gx-3 mb-3">
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="name">Name</label>
-                                            <input class="form-control" id="name" type="text" name="name"
-                                                required>
+                                            <input class="form-control" id="name" type="text" name="name" required>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="Father Name">Father Name</label>
-                                            <input class="form-control" id="fathername" name="fathername" type="text" required>
+                                            <input class="form-control" id="fathername" name="fathername" type="text"
+                                                required>
                                         </div>
                                     </div>
 
@@ -301,11 +309,13 @@
                                         <input type="hidden" name="way" value="updateadress">
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="Address">Address</label>
-                                            <input class="form-control" id="address" name="address" type="text" required>
+                                            <input class="form-control" id="address" name="address" type="text"
+                                                required>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="District">District</label>
-                                            <input class="form-control" id="District" name="District" type="text" required>
+                                            <input class="form-control" id="District" name="District" type="text"
+                                                required>
                                         </div>
                                     </div>
 

@@ -90,13 +90,13 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Coupon<p style="text-align: center;" > Activation Deposit</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="crypto deposit.php" class="dropdown-item">Crypto Deposit</a>
-                            <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
+                            <a href="bank deposit.php" class="dropdown-item">Bank & Wallet Deposit</a>
                         </div>
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
-                        </a>
+                            </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
@@ -110,18 +110,18 @@
                     <!-- <a href="monthly TP savings.php" class="nav-item nav-link"><i class="fa fa-comment-dollar me-2"></i>Monthly TP <p style="text-align: center;">Savings</p></a> -->
                     <a href="monthly TP savings status.php" class="nav-item nav-link"><i
                             class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
-                    </a>
+                        </a>
                     <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
                     <a href="rank board.php" class="nav-item nav-link"><i class="fa fa-star me-2"></i>Rank Board</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-wallet me-2"></i>Income History</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="savings income.php" class="dropdown-item">Savings Income</a>
                             <a href="bonus travel point.php" class="dropdown-item">Bonus Travel Point</a>
-                            <a href="networking income.php" class="dropdown-item active">Networking Income</a>
+                            <a href="networking income.php" class="dropdown-item">Networking Income</a>
                             <a href="leadership income.php" class="dropdown-item">Leadership Income</a>
                             <a href="car & house fund.php" class="dropdown-item">Car & House Fund</a>
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
@@ -132,12 +132,12 @@
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-university me-2"></i>Withdraw</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
                             <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
-                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
+                            <a href="withdraw history.php" class="dropdown-item active">Withdraw History</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -184,6 +184,7 @@
         </div>
         <!-- Sidebar End -->
 
+
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
@@ -212,7 +213,9 @@
             </nav>
             <!-- Navbar End -->
             <br><br>
-            <!--Team List start-->
+            <!--Direct Member List start-->
+
+
             <style>
                 /* Style for the container */
                 .container-fluid {
@@ -268,29 +271,31 @@
                     margin-right: 0.5rem !important;
                 }
             </style>
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-5">Networking Income</h6>
+                            <h6 class="mb-4">Withdraw History</h6>
                             <div class="table-responsive">
                                 <strong>
-                                    <table id="myTable" style="color: black; text-align: center;"
-                                        class="table table-bordered">
+                                    <table id="myTable" style="color: black; text-align: center;" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th scope="col">S.NO</th>
                                                 <th scope="col">Date & Time</th>
-                                                <th scope="col">Bonus From</th>
-                                                <th scope="col">Level</th>
-                                                <th scope="col">Description</th>
-                                                <th scope="col">Credit</th>
-                                                <th scope="col">Debit</th>
-                                                <th scope="col">Balance</th>
+                                                <th scope="col">Payment Method</th>
+                                                <th scope="col">Withdraw Amount</th>
+                                                <th scope="col">Admin Fees 5%</th>
+                                                <th scope="col">Re-Activation Topup Fees 5%</th>
+                                                <th scope="col">Net Amount 90%</th>
+                                                <th scope="col">To Withdraw</th>
+                                                <th scope="col">TXN ID</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="pointstable">
-
+                                        <tbody id="tabledata">
+                                            
                                         </tbody>
                                     </table>
                                 </strong>
@@ -300,8 +305,7 @@
                 </div>
             </div>
 
-
-            <!--Team List End-->
+            <!--Direct Member List End-->
 
 
 
@@ -331,7 +335,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
-    <script src="./requiredFiles/js/networkingincome.js"></script>
+    <script src="./requiredFiles/js/withdrawhistory.js"></script>
+
 </body>
 
 </html>

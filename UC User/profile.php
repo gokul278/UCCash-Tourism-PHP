@@ -56,7 +56,8 @@
                     style="width: 150px; height: 60px;">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle user_profileimg" src="img/user.png" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png"
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -137,7 +138,15 @@
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
 
-                    <a href="withdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Withdraw</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-university me-2"></i>Withdraw</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
+                            <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
+                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>Booking</a>
@@ -292,14 +301,16 @@
                         <div class="card mb-4 mb-xl-0">
                             <div class="card-header">Profile Picture</div>
                             <div class="card-body text-center">
-                                <img style="height: 100px;width: 100px" class="img-account-profile changeuserprofile user_profileimg rounded-circle mb-2"
+                                <img style="height: 100px;width: 100px"
+                                    class="img-account-profile changeuserprofile user_profileimg rounded-circle mb-2"
                                     src="img/user.png" alt>
                                 <div class="small font-italic text-muted m b-4">JPG or PNG no larger than 5 MB</div>
                                 <form id="profileimgupdate">
                                     <label class="btn btn-primary">
                                         <span>Upload new image</span>
                                         <input type="hidden" name="way" value="updateimg">
-                                        <input type="file" onchange="changeimg()" name="profileimg" id="profileimg" style="display: none;" accept="image/*" required>
+                                        <input type="file" onchange="changeimg()" name="profileimg" id="profileimg"
+                                            style="display: none;" accept="image/*" required>
                                     </label>
                                     <button class="btn btn-primary" type="submit" id="imgsavebtn" disabled>Save</button>
                                 </form>
@@ -361,7 +372,7 @@
                                             &nbsp;&nbsp;&nbsp;
                                             <input type="radio" name="gender" value="female"> Female
                                         </div>
-                                    </div>                                   
+                                    </div>
                                     <br>
                                     <div class="button-container">
                                         <button class="btn btn-primary" type="submit">Save changes</button>

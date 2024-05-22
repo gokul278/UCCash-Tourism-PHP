@@ -156,7 +156,8 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="p-1" style="width: 100%;" align="end">
-                    <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">X</button>
+                    <button type="button" class="close btn btn-danger" data-dismiss="modal"
+                        aria-label="Close">X</button>
                 </div>
                 <div class="modal-body">
                     <img id="flashbanner" style="width: 100%; height: 100%;" alt="image">
@@ -260,8 +261,14 @@
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
-
-                    <a href="withdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Withdraw</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-university me-2"></i>Withdraw</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
+                            <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
+                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>Booking</a>
@@ -584,7 +591,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-title mb-2">ID Reactivation Wallet</h5>
-                                <h5 class="card-text mb-0">0.00</h5>
+                                <h5 class="card-text mb-0" id="reactivationwallet"></h5>
                             </div>
                         </div>
                     </div>

@@ -96,6 +96,7 @@ const getData = () => {
                 $("#carandhousefund").html(response.carandhousefund);
                 $("#royaltyincome").html(response.royaltyincome);
                 $("#savingsincome").html(response.savingsincome);
+                $("#reactivationwallet").html(response.reactivationwallet);
                 $("#availablewithdrwabalance").html(response.availablewithdrwabalance);
 
 
