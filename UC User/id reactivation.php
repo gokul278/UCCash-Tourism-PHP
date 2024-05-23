@@ -49,13 +49,13 @@
                     style="width: 150px; height: 60px;">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><b>Gowtham</b></h6>
+                        <h6 class="mb-0 user_name"><b></b></h6>
                         <span>User</span>
                     </div>
                 </div>
@@ -200,9 +200,9 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><b>Gowtham</b></span>
+                            <span class="d-none d-lg-inline-flex user_name"><b></b></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="./logout.php" class="dropdown-item">Log Out</a>
@@ -226,7 +226,7 @@
                                 alt="Coupon Image">
                             <div class="card-body">
                                 <h2 class="card-title mb-2">ID Reactivation Wallet</h2>
-                                <h2 style="color: #f7c128;" class="card-text mb-0">100 $</h2>
+                                <h2 style="color: #f7c128;" class="card-text mb-0" id="reactivationwallet"></h2>
                             </div>
                         </div>
                         <!-- Adding submit button -->
@@ -274,6 +274,9 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+
+    <script src="./requiredFiles/js/idreactivation.js"></script>
 </body>
 
 </html>

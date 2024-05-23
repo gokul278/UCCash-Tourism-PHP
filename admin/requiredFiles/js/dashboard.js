@@ -38,6 +38,10 @@ const getData = () => {
 
                 $(".adminname").html(response.admin_name);
 
+                if (response.profile_image !== null) {
+                    $(".profile_image").attr("src", "./img/user/" + response.profile_image);
+                }
+
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
                 location.replace("time_expried.php");

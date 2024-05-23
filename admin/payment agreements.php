@@ -101,7 +101,8 @@
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p></a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking Board</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-map me-2"></i>Tour Destination</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
                             <a href="tour description.php" class="dropdown-item">Tour Description</a>

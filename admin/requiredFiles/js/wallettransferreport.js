@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlytpsavingsAjax.php",
+        url: "./requiredFiles/ajax/wallettransferreportAjax.php",
         data: {
             "way": "login"
         },
@@ -17,7 +17,6 @@ $(document).ready(() => {
                 location.replace("unauth_login.php");
 
             } else if (response.status == "success") {
-
                 return getData();
             }
         }
@@ -29,7 +28,7 @@ const getData = () => {
 
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlytpsavingsAjax.php",
+        url: "./requiredFiles/ajax/wallettransferreportAjax.php",
         data: {
             "way": "getData"
         },
@@ -37,24 +36,22 @@ const getData = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-
                 $(".adminname").html(response.admin_name);
 
                 if (response.profile_image !== null) {
                     $(".profile_image").attr("src", "./img/user/" + response.profile_image);
                 }
-                
-                if(response.tabledata.length>0){
+
+                if (response.tabledata.length >= 1) {
+
                     $("#tabledata").html(response.tabledata);
-                    let table = new DataTable('#myTable',{
-                        ordering:  false
-                    });
-                }else{
-                    $("#tabledata").html("<tr><td colspan='11'>No Invoice Approval</td></tr>")
+
+                } else {
+
+                    $("#tabledata").html("<tr><td colspan='8'>No Data Found</td></tr>");
+
                 }
 
-
-
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
                 location.replace("time_expried.php");
@@ -69,31 +66,32 @@ const getData = () => {
 
 }
 
-const approveinvoice = (button) => {
 
-    const id = $(button).val();
-    const userid = $(button).attr('user_id');
-    const way = $(button).attr('way');
-    const invoiceid = $(button).attr('invoiceid');
-    const key = $(button).attr('key');
+$("#idsearch").click(function (e) {
+    e.preventDefault();
 
-    $("#approvebtn"+key).html("Loading...");
-
+    var userid = $("#userid").val();
 
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlytpsavingsAjax.php",
+        url: "./requiredFiles/ajax/wallettransferreportAjax.php",
         data: {
-            "way": way,
-            "invoiceid" : invoiceid,
-            "userid" : userid,
-            "id" : id
+            "way": "seachid",
+            "userid": userid
         },
         success: function (res) {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-                location.replace("monthly TP savings history.php")
+                if (response.tabledata.length >= 1) {
+
+                    $("#tabledata").html(response.tabledata);
+
+                } else {
+
+                    $("#tabledata").html("<tr><td colspan='8'>No Data Found</td></tr>");
+
+                }
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -107,33 +105,45 @@ const approveinvoice = (button) => {
         }
     });
 
-};
+});
 
-const rejectinvoice = (key) =>{
 
-    var userid = $("#userid"+key).val();
-    var invoiceid = $("#invoiceid"+key).val();
-    var way = $("#way"+key).val();
-    var reason = $("#reason"+key).val();
-    var id = $("#id"+key).val();
+$("#idclear").click(function (e) {
+    e.preventDefault();
+
+    $("#userid").val("");
+
+    return getData();
+});
+
+
+$("#datesearch").click(function (e) {
+    e.preventDefault();
+
+    var fromdate = $("#fromDate").val();
+    var todate = $("#toDate").val();
 
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlytpsavingsAjax.php",
+        url: "./requiredFiles/ajax/wallettransferreportAjax.php",
         data: {
-            "way": way,
-            "invoiceid" : invoiceid,
-            "userid" : userid,
-            "reason" : reason,
-            "id" : id
+            "way": "searchdate",
+            "fromdate": fromdate,
+            "todate" : todate
         },
         success: function (res) {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
+                if (response.tabledata.length >= 1) {
 
-                $('#exampleModal' + key).modal('hide');
-                location.replace("monthly TP savings history.php")
+                    $("#tabledata").html(response.tabledata);
+
+                } else {
+
+                    $("#tabledata").html("<tr><td colspan='8'>No Data Found</td></tr>");
+
+                }
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -147,4 +157,13 @@ const rejectinvoice = (key) =>{
         }
     });
 
-}
+});
+
+$("#dateclear").click(function (e) { 
+    e.preventDefault();
+    
+    $("#fromDate").val("");
+    $("#toDate").val("");
+    
+    return getData();
+});

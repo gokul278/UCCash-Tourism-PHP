@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/bankdepositAjax.php",
+        url: "./requiredFiles/ajax/adminsettingAjax.php",
         data: {
             "way": "login"
         },
@@ -28,7 +28,7 @@ const getData = () => {
 
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/bankdepositAjax.php",
+        url: "./requiredFiles/ajax/adminsettingAjax.php",
         data: {
             "way": "getData"
         },
@@ -37,12 +37,6 @@ const getData = () => {
             if (response.status == "success") {
 
                 $(".adminname").html(response.admin_name);
-                $("#ac_holdername").val(response.ac_holdername);
-                $("#ac_number").val(response.ac_number);
-                $("#ifsc_code").val(response.ifsc_code);
-                $("#branch").val(response.branch);
-                $("#upi_id").val(response.upi_id);
-                $("#deposit_value").val(response.deposit_value);
 
                 if (response.profile_image !== null) {
                     $(".profile_image").attr("src", "./img/user/" + response.profile_image);
@@ -62,15 +56,17 @@ const getData = () => {
 
 }
 
-$("#updatedetails").submit(function (e) { 
+$("#updateimage").submit(function (e) {
     e.preventDefault();
-    
-    var frm = $("#updatedetails")[0];
+
+    $("#submitbtn").html("Loading ...")
+
+    var frm = $("#updateimage")[0];
     var frmdata = new FormData(frm);
-    
+
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/bankdepositAjax.php",
+        url: "./requiredFiles/ajax/adminsettingAjax.php",
         data: frmdata,
         processData: false,
         contentType: false,
@@ -79,10 +75,21 @@ $("#updatedetails").submit(function (e) {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
+                $("#submitbtn").html("Save changes");
+                $("#submitbtn").prop("disabled", true);
+
+                const input = document.getElementById('uploadButton');
+                const fileName = document.getElementById('fileName');
+
+                // Reset the file input
+                input.value = '';
+                // Clear the file name display
+                fileName.textContent = '';
+
                 new Notify({
                     status: 'success',
-                    title: 'Bank Details',
-                    text: 'Bank Details Updated...!',
+                    title: 'Profile Updated',
+                    text: 'Profile Image Updated...!',
                     effect: 'fade',
                     speed: 300,
                     speed: 300,
@@ -100,61 +107,6 @@ $("#updatedetails").submit(function (e) {
                 })
 
                 return getData();
-
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
-
-                location.replace("time_expried.php");
-
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
-            }
-        }
-    });
-
-});
-
-$("#updateimage").submit(function (e) { 
-    e.preventDefault();
-    
-    var frm = $("#updateimage")[0];
-    var frmdata = new FormData(frm);
-    
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/bankdepositAjax.php",
-        data: frmdata,
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
-
-                new Notify({
-                    status: 'success',
-                    title: 'QR Code',
-                    text: 'QR Code Updated...!',
-                    effect: 'fade',
-                    speed: 300,
-                    speed: 300,
-                    customClass: '',
-                    customIcon: '',
-                    showIcon: true,
-                    showCloseButton: true,
-                    autoclose: true,
-                    autotimeout: 3000,
-                    notificationsGap: null,
-                    notificationsPadding: null,
-                    type: 'outline',
-                    position: 'right top',
-                    customWrapper: '',
-                })
-
-                $("#formFileMultiple").val();
-                var fileNameSpan = document.getElementById('fileName');
-                fileNameSpan.textContent = "";
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 

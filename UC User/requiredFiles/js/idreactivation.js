@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingshistoryAjax.php",
+        url: "./requiredFiles/ajax/idreactivationAjax.php",
         data: {
             "way": "login"
         },
@@ -28,7 +28,7 @@ const getData = () => {
 
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingshistoryAjax.php",
+        url: "./requiredFiles/ajax/idreactivationAjax.php",
         data: {
             "way": "getData"
         },
@@ -36,22 +36,13 @@ const getData = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-                $(".adminname").html(response.admin_name);
+                if (response.user_profileimg != null) {
+                    $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
+                }
 
-                if (response.profile_image !== null) {
-                    $(".profile_image").attr("src", "./img/user/" + response.profile_image);
-                }
-                
-                if(response.table.length>0){
-                    $("#tabledata").html(response.table);
-                    let table = new DataTable('#myTable',{
-                        ordering:  false
-                    });
-                }else{
-                    $("#tabledata").html("<tr><td colspan='11'>No Invoice Approval</td></tr>")
-                }
-                
-                
+                $(".user_name").html(response.user_name);
+
+                $("#reactivationwallet").html(response.reactivationwallet+" $");
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 

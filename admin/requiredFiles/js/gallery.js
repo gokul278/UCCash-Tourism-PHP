@@ -38,6 +38,10 @@ const getData = () => {
 
                 $(".adminname").html(response.admin_name);
 
+                if (response.profile_image !== null) {
+                    $(".profile_image").attr("src", "./img/user/" + response.profile_image);
+                }
+
                 var images = "";
 
                 response.galleryimages.forEach((element,index) => {

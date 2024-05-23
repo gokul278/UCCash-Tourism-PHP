@@ -38,6 +38,10 @@ const getData = () => {
 
                 $(".adminname").html(response.admin_name);
 
+                if (response.profile_image !== null) {
+                    $(".profile_image").attr("src", "./img/user/" + response.profile_image);
+                }
+
                 if(response.bannerimage != null){
                     $("#bannerimg").html("<img src='.././img/flashbanner/"+response.bannerimage+"' style='width:250px;height:250px' /><input type='hidden' id='bannername' value='"+response.bannerimage+"'/>");
                     $("#deletebtn").prop("disabled",false);

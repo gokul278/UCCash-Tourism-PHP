@@ -40,6 +40,10 @@ const getData = () => {
                 $("#crypto_address").val(response.crypto_address);
                 $("#crypto_value").val(response.crypto_value);
 
+                if (response.profile_image !== null) {
+                    $(".profile_image").attr("src", "./img/user/" + response.profile_image);
+                }
+
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
                 location.replace("time_expried.php");

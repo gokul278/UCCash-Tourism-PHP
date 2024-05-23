@@ -27,6 +27,13 @@ if ($values["status"] == "success") {
         }
 
         $response["galleryimages"] = $images;
+
+        $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
+
+        $getdetails = $details->fetch_assoc();
+
+        $response["profile_image"] = $getdetails["admin_profile"];
+        
         $response["status"] = "success";
         echo json_encode($response);
 

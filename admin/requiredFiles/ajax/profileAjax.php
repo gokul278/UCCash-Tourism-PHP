@@ -19,6 +19,12 @@ if ($values["status"] == "success") {
 
         $response["admin_name"] = $values["admin_name"];
 
+        $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
+
+        $getdetails = $details->fetch_assoc();
+
+        $response["profile_image"] = $getdetails["admin_profile"];
+
         $response["status"] = "success";
         echo json_encode($response);
 
@@ -72,7 +78,7 @@ if ($values["status"] == "success") {
         $user_panno = $_POST["panno"];
         $user_phoneno = $_POST["phoneno"];
         $user_email = $_POST["email"];
-        $user_gender = $_POST["gender"];
+        $user_gender = isset($_POST["gender"]);
         $wallet = isset($_POST["wallet"]) ? $_POST["wallet"] : "";
 
         $updateuser = $con->query("UPDATE userdetails SET user_name='{$user_name}',

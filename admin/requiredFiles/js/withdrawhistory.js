@@ -1,7 +1,7 @@
 $(document).ready(() => {
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingshistoryAjax.php",
+        url: "./requiredFiles/ajax/withdrawhistoryAjax.php",
         data: {
             "way": "login"
         },
@@ -28,7 +28,7 @@ const getData = () => {
 
     $.ajax({
         type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingshistoryAjax.php",
+        url: "./requiredFiles/ajax/withdrawhistoryAjax.php",
         data: {
             "way": "getData"
         },
@@ -41,17 +41,15 @@ const getData = () => {
                 if (response.profile_image !== null) {
                     $(".profile_image").attr("src", "./img/user/" + response.profile_image);
                 }
-                
-                if(response.table.length>0){
-                    $("#tabledata").html(response.table);
-                    let table = new DataTable('#myTable',{
-                        ordering:  false
+
+                if (response.tabledata.length > 0) {
+                    $("#tabledata").html(response.tabledata);
+                    let table = new DataTable('#myTable', {
+                        ordering: false
                     });
-                }else{
-                    $("#tabledata").html("<tr><td colspan='11'>No Invoice Approval</td></tr>")
+                } else {
+                    $("#tabledata").html("<tr><td colspan='12'>No Data Found</td></tr>");
                 }
-                
-                
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 

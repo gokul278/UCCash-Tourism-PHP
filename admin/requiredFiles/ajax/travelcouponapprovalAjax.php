@@ -19,6 +19,12 @@ if ($values["status"] == "success") {
 
         $response["admin_name"] = $values["admin_name"];
 
+        $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
+
+        $getdetails = $details->fetch_assoc();
+
+        $response["profile_image"] = $getdetails["admin_profile"];
+
         $historydata = $con->query("SELECT iah.*, ud.user_name
         FROM idactivationhistory AS iah
         JOIN userdetails AS ud ON iah.user_id = ud.user_id

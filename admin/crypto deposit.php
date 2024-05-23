@@ -59,7 +59,8 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -90,7 +91,8 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="crypto deposit.php" class="dropdown-item active" style="color:#f7c128">Crypto Deposit</a>
+                            <a href="crypto deposit.php" class="dropdown-item active" style="color:#f7c128">Crypto
+                                Deposit</a>
                             <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
                             <a href="travel coupon activation.php" class="dropdown-item">ID Activation</a>
                             <a href="travel coupon approval.php" class="dropdown-item">ID Activation Approval</a>
@@ -128,7 +130,7 @@
                         Board</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="far fa-map me-2"></i>Tour Destination</a>
+                                class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
                             <a href="tour description.php" class="dropdown-item">Tour Description</a>
@@ -212,7 +214,7 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
                             <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
@@ -244,7 +246,8 @@
                                         <div
                                             style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
                                             <input class="form-control" type="file" id="formFileMultiple"
-                                                accept="image/*" onchange="displayFileName()" name="updateimage" style="display: none;" required>
+                                                accept="image/*" onchange="displayFileName()" name="updateimage"
+                                                style="display: none;" required>
                                             <label for="formFileMultiple"
                                                 style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
                                                 QR Code</label>

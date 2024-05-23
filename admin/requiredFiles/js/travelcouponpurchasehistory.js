@@ -38,6 +38,10 @@ const getData = () => {
 
                 $(".adminname").html(response.admin_name);
 
+                if (response.profile_image !== null) {
+                    $(".profile_image").attr("src", "./img/user/" + response.profile_image);
+                }
+
                 if(response.tabledata.length > 0){
                     $("#tabledata").html(response.tabledata);
                     let table = new DataTable('#myTable',{
