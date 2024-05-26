@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>UCCASH TOURISM</title>
+    <link rel="shortcut icon" href="./img/favicon.png">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">

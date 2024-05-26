@@ -20,7 +20,7 @@ if ($way == "checksponser") {
 
     $sponser_id = $_POST["sponserid"];
 
-    $sql = "SELECT * FROM userdetails WHERE user_id = '{$sponser_id}' AND user_referalStatus = 'activated'";
+    $sql = "SELECT * FROM userdetails WHERE user_id = '{$sponser_id}'";
 
     $res = $con->query($sql);
 

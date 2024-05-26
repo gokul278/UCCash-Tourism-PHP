@@ -4,12 +4,10 @@
 <head>
     <meta charset="utf-8">
     <title>Admin Login</title>
+    <link rel="shortcut icon" href="./img/favicon.png">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,17 +43,17 @@
 
 
         <!-- Sign In Start -->
-        <div class="container-fluid">
+        <div class="container-fluid" style="background-image:url('./img/World Map.svg');background-repeat: no-repeat;background-size: cover;">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                         <div class="d-flex flex-column align-items-center mb-3">
                             <a href="#" class="">
-                                <img src="./img/user.png" style="width: 150px; height: 150px;" alt="User Image"
-                                    class="me-2">
+                                <img src="./img/user.png" style="width: 150px; height: 150px;border-radius:50%" alt="User Image"
+                                    class="me-2 profile_image">
                             </a>
                             <br>
-                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome<br>Dr. P. Balakrishnnan
+                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome<br><p class="adminname"></p>
                             </h4>
                         </div>
 

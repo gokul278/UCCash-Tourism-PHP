@@ -450,7 +450,7 @@
                                                 <div class="mb-3">
                                                     <label for="WithdrawAmount" class="form-label">Withdraw Amount with
                                                         Dollar:</label>
-                                                    <input type="number" class="form-control" id="bankvalue"
+                                                    <input type="text" class="form-control" id="bankvalue"
                                                         name="withdrawvalue" placeholder="Enter your Withdraw amount"
                                                         oninput="checkbank()" onclick="clearmsgbank()" required>
                                                 </div>

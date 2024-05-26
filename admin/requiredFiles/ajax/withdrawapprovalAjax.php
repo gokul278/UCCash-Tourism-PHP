@@ -50,13 +50,32 @@ if ($values["status"] == "success") {
                 <td>' . $date . '<br>' . $time . '</td>
                 <td>' . $getdata["user_id"] . '</td>
                 <td>' . $getname["user_name"] . '</td>
-                <td>' . $getdata["payment_method"] . '</td>
-                <td>' . $getdata["withdraw_amount"] . '$</td>
-                <td>' . $getdata["admin_fees"] . '$</td>
-                <td>' . $getdata["retopup_fees"] . '$</td>
-                <td>' . $getdata["net_amount"] . '$</td>
-                <td>' . $getdata["to_withdraw"] . '</td>
-                <td>
+                <td>' . $getdata["payment_method"] . '</td>';
+
+
+                if($getdata["payment_method"] == "UCC"){
+                    $tabledata .="
+                    <th>".$getdata["withdraw_amount"]."$</th>
+                    <th>-</th>
+                    <th>-</th>
+                    <th>".$getdata["net_amount"]."$</th>
+                    <th>".$getdata["to_withdraw"]."</th>
+                    ";
+                }else{
+                    $tabledata .= "
+                    <th>".$getdata["withdraw_amount"]."$</th>
+                    <th>".$getdata["admin_fees"]."$</th>
+                    <th>".$getdata["retopup_fees"]."$</th>
+                    <th>".$getdata["net_amount"]."$</th>
+                    <th>".$getdata["to_withdraw"]."</th>
+                    ";
+                }
+                // <td>' . $getdata["withdraw_amount"] . '$</td>
+                // <td>' . $getdata["admin_fees"] . '$</td>
+                // <td>' . $getdata["retopup_fees"] . '$</td>
+                // <td>' . $getdata["net_amount"] . '$</td>
+                // <td>' . $getdata["to_withdraw"] . '</td>
+                $tabledata .= '<td>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#accept' . $index . '">
                         <b>Approve</b>
                     </button>
@@ -154,7 +173,12 @@ if ($values["status"] == "success") {
             $withdrawpoints = $con->query("SELECT * FROM withdrawhistory WHERE id='{$withdrawid}'");
             $getwithdrawpoints = $withdrawpoints->fetch_assoc();
 
-            if ($withdrawpoints) {
+            if ($getwithdrawpoints["payment_method"] == "UCC") {
+                $walletvalue = $con->query("INSERT INTO uccwalletpoints (user_id,uccw_points,uccw_action,uccw_remark)
+        VALUES ('{$getwithdrawpoints["user_id"]}','{$getwithdrawpoints["net_amount"]}','debit','Withdraw Successfully')");
+            }
+
+            if ($withdrawpoints && $getwithdrawpoints["payment_method"] != "UCC") {
 
                 $reactivation = $con->query("INSERT INTO reactivationwallet (user_id,raw_points,raw_action,raw_remark)
                 VALUES ('{$getwithdrawpoints["user_id"]}','{$getwithdrawpoints["retopup_fees"]}','credit','Withdrawal Fees')");
@@ -171,7 +195,194 @@ if ($values["status"] == "success") {
 
                         if ($debitbalance) {
 
-                            $response["status"] = "success";
+                            //Check Reactivation
+
+                            //ID Reactivation Wallet
+                            $reactivationwallet = $con->query("SELECT * FROM reactivationwallet WHERE user_id='{$getwithdrawpoints["user_id"]}'");
+                            $rawcredit = 0;
+                            $rawdebit = 0;
+
+                            if (mysqli_num_rows($reactivationwallet) >= 1) {
+
+                                foreach ($reactivationwallet as $getreactivationwallet) {
+                                    if (isset($getreactivationwallet["raw_action"]) && strlen($getreactivationwallet["raw_action"]) >= 1) {
+                                        if ($getreactivationwallet["raw_action"] == "credit") {
+                                            $rawcredit += (float) $getreactivationwallet["raw_points"];
+                                        } else if ($getreactivationwallet["raw_action"] == "debit") {
+                                            $rawdebit += (float) $getreactivationwallet["raw_points"];
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            $reactivationvalue = number_format(($rawcredit - $rawdebit), 2);
+
+                            //Reactivation Wallet limit
+                            $activationlimit = number_format(50, 2);
+
+                            if ($reactivationvalue >= $activationlimit) {
+
+                                $user_id = $getwithdrawpoints["user_id"];
+                                $crypto_value = "50$";
+                                $txnhashid = "From Reactivation Wallet";
+
+                                $id = $con->query("SELECT MAX(id) AS max_id FROM idactivationhistory");
+
+                                $idactivationid = "";
+
+                                if (mysqli_num_rows($id) >= 1) {
+                                    $getid = $id->fetch_assoc();
+                                    $idval = (int) $getid["max_id"];
+                                    $idactivationid = "IAI-" . ($idval + 1);
+                                } else {
+                                    $idactivationid = "IAI-1";
+                                }
+
+
+
+
+                                $insertactivationid = $con->query("INSERT INTO idactivation (idactivation_id,user_id,deposite_type,txnhashid,action) VALUES
+                                ('{$idactivationid}','{$user_id}','Wallet','{$txnhashid}','admin')");
+
+                                $insertactivationidhistory = $con->query("INSERT INTO idactivationhistory (idactivation_id,user_id,deposite_type,crypto_value,txnhash_id,travel_coupon,action,remark) VALUES
+                                ('{$idactivationid}',  '{$user_id}', 'Wallet', '{$crypto_value}', '{$txnhashid}', '50','admin', 'Waiting for Approval')");
+
+
+
+                                $userid = $getwithdrawpoints["user_id"];
+                                $activationid = $idactivationid;
+
+                                $lvl1 = "";
+                                $lvl2 = "";
+                                $lvl3 = "";
+                                $lvl4 = "";
+                                $lvl5 = "";
+                                $lvl6 = "";
+                                $lvl7 = "";
+                                $lvl8 = "";
+                                $lvl9 = "";
+
+                                $genealogy = $con->query("SELECT * FROM genealogy WHERE user_id='{$userid}'");
+
+                                foreach ($genealogy as $getgenealogy) {
+                                    $lvl1 = isset($getgenealogy["lvl1"]) ? $getgenealogy["lvl1"] : "";
+                                    $lvl2 = isset($getgenealogy["lvl2"]) ? $getgenealogy["lvl2"] : "";
+                                    $lvl3 = isset($getgenealogy["lvl3"]) ? $getgenealogy["lvl3"] : "";
+                                    $lvl4 = isset($getgenealogy["lvl4"]) ? $getgenealogy["lvl4"] : "";
+                                    $lvl5 = isset($getgenealogy["lvl5"]) ? $getgenealogy["lvl5"] : "";
+                                    $lvl6 = isset($getgenealogy["lvl6"]) ? $getgenealogy["lvl6"] : "";
+                                    $lvl7 = isset($getgenealogy["lvl7"]) ? $getgenealogy["lvl7"] : "";
+                                    $lvl8 = isset($getgenealogy["lvl8"]) ? $getgenealogy["lvl8"] : "";
+                                    $lvl9 = isset($getgenealogy["lvl9"]) ? $getgenealogy["lvl9"] : "";
+                                }
+
+                                $idactivationhistory = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$userid}' AND action='admin'");
+                                $getidactivationhistory = $idactivationhistory->fetch_assoc();
+                                $tcvalue = (int) $getidactivationhistory["travel_coupon"];
+
+                                //Travel Coupon Wallet
+                                $travelcoupon = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
+                                VALUES ('{$userid}','{$tcvalue}','credit','Travel Coupon')");
+
+                                //Bonus Travel Point Wallet
+                                for ($i = 1; $i <= 9; $i++) {
+
+                                    $value = $tcvalue * 0.0166; // 1.66 % * tcvalue
+
+                                    $lvl = ${"lvl" . $i};
+
+                                    if (strlen($lvl) >= 5) {
+                                        $btpoint = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_bonusfrom,bt_lvl,bt_action,bt_remark)
+                                        VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Bonus Travel Points')");
+                                    }
+
+                                }
+
+                                //Networking Income Wallet
+                                for ($i = 1; $i <= 9; $i++) {
+
+                                    $value = 0;
+
+                                    if ($i == 1) { //lvl 1
+                                        $value = $tcvalue * 0.1; // 10% * tcvalue
+                                    } else if ($i == 2) { //lvl 2
+                                        $value = $tcvalue * 0.05; // 5% * tcvalue
+                                    } else if ($i == 3) { //lvl 3
+                                        $value = $tcvalue * 0.03; // 3% * tcvalue
+                                    } else if ($i == 4) { //lvl4
+                                        $value = $tcvalue * 0.02; // 2% * tcvalue
+                                    } else if ($i >= 5 && $i <= 9) {
+                                        $value = $tcvalue * 0.01; // 1% * tcvalue
+                                    }
+
+                                    $lvl = ${"lvl" . $i};
+
+                                    if (strlen($lvl) >= 5) {
+                                        $btpoint = $con->query("INSERT INTO networkingincomewallet (user_id,niw_points,niw_bonusfrom,niw_lvl,niw_action,niw_remark)
+                                        VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Networking Income')");
+                                    }
+
+                                }
+
+                                //Leadership Income Wallet
+                                for ($i = 1; $i <= 9; $i++) {
+
+                                    $value = $tcvalue * 0.0044; // 0.44 % * tcvalue
+
+                                    $lvl = ${"lvl" . $i};
+
+                                    if (strlen($lvl) >= 5) {
+                                        $btpoint = $con->query("INSERT INTO leadershipincomewallet (user_id,liw_points,liw_bonusfrom,liw_lvl,liw_action,liw_remark)
+                                        VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Leadership Income')");
+                                    }
+
+                                }
+
+                                //Car&House Fund Wallet
+                                for ($i = 1; $i <= 9; $i++) {
+
+                                    $value = $tcvalue * 0.0055; // 0.55 % * tcvalue
+
+                                    $lvl = ${"lvl" . $i};
+
+                                    if (strlen($lvl) >= 5) {
+                                        $btpoint = $con->query("INSERT INTO carandhousefundwallet (user_id,chfw_points,chfw_bonusfrom,chfw_lvl,chfw_action,chfw_remark)
+                                        VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Car & House Fund')");
+                                    }
+
+                                }
+
+                                //Royalty Income Wallet
+                                for ($i = 1; $i <= 9; $i++) {
+
+                                    $value = $tcvalue * 0.0066; // 0.66 % * tcvalue
+
+                                    $lvl = ${"lvl" . $i};
+
+                                    if (strlen($lvl) >= 5) {
+                                        $btpoint = $con->query("INSERT INTO royaltyincomewallet (user_id,riw_points,riw_bonusfrom,riw_lvl,riw_action,riw_remark)
+                                        VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Royalty Income')");
+                                    }
+
+                                }
+
+                                $approveactivation = $con->query("UPDATE idactivation SET action='paid', remark='' WHERE idactivation_id='{$activationid}'");
+
+                                $approvehistory = $con->query("UPDATE idactivationhistory SET action='paid', remark='Reactivation Successful' WHERE idactivation_id='{$activationid}'");
+
+                                $approveuserdeatils = $con->query("UPDATE userdetails SET user_referalStatus='activated' WHERE user_id='{$userid}'");
+
+                                $debitreactivation = $con->query("INSERT INTO reactivationwallet (user_id,raw_points,raw_action,raw_remark)
+                                VALUES ('{$userid}','{$activationlimit}','debit','Reactivation Fees')");
+
+                                $response["status"] = "success";
+
+                            } else {
+
+                                $response["status"] = "success";
+
+                            }
 
                         } else {
 
@@ -195,7 +406,7 @@ if ($values["status"] == "success") {
 
             } else {
 
-                $response["status"] = "error2";
+                 $response["status"] = "success";
 
             }
 

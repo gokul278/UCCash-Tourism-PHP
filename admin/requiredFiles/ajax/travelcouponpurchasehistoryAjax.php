@@ -60,6 +60,13 @@ if ($values["status"] == "success") {
                     <td>' . $rowhistorydata["transaction_id"] . '<br><button class="btn btn-success view-proof-image" data-src=".././UC User/img/proofImage/' . $rowhistorydata["proof_image"] . '"><i class="bi bi-eye-fill"></i></button></td>
                 ';
 
+            } else if ($rowhistorydata["deposite_type"] == "Wallet") {
+
+                $tabledata .= '
+                    <td>' . $rowhistorydata["crypto_value"] . '</td>
+                    <td>' . $rowhistorydata["txnhash_id"] . '</td>                    
+                ';
+
             }
 
             if($rowhistorydata["action"] == "paid"){
@@ -69,7 +76,7 @@ if ($values["status"] == "success") {
                     Approved
                 </td>
                 <td style="color:#49f4a4">
-                    Activation Successful
+                ' . $rowhistorydata["remark"] . '
                 </td>';
 
 

@@ -59,6 +59,14 @@ if ($values["status"] == "success") {
                     <td>' . $gettable["transaction_id"] . '</td>
                 ';
 
+                } else if ($gettable["deposite_type"] == "Wallet") {
+
+                    $tabledata .= '
+                    <td>' . $gettable["crypto_value"] . '</td>
+                    <td>' . $gettable["travel_coupon"] . '</td>
+                    <td>' . $gettable["txnhash_id"] . '</td>
+                ';
+
                 }
 
                 if ($gettable["action"] == "admin") {

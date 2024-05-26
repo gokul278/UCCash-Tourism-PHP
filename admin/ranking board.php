@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,6 @@
             color: red;
         }
     </style>
-
 </head>
 
 <body>
@@ -62,13 +61,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -85,6 +85,7 @@
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
+                                        <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p
@@ -127,8 +128,8 @@
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
                             class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p>
                         </a>
-                    <a href="ranking board.php" class="nav-item nav-link active"><i
-                            class="fa fa-signal me-2"></i>Ranking Board</a>
+                    <a href="ranking board.php" class="nav-item nav-link active"><i class="fa fa-signal me-2"></i>Ranking
+                        Board</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
@@ -174,7 +175,7 @@
                     <a href="savings TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-th me-2"></i>Saving's Travel<p style="text-align: center;"> Point Balance Sheet
                         </p></a>
-                    <a href="signin.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
+                    <a href="logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -216,14 +217,14 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="signin.php" class="dropdown-item">Log Out</a>
+                            <a href="logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>

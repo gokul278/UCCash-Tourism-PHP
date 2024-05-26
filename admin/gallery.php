@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,6 +87,7 @@
                                     Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
+                            <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p

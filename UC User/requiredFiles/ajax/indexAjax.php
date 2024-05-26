@@ -299,6 +299,28 @@ if ($values["status"] == "success") {
             $response["reactivationwallet"] = number_format(($rawcredit - $rawdebit), 2);
 
 
+            //UCC Wallet
+            $uccwallet = $con->query("SELECT * FROM uccwalletpoints WHERE user_id='{$datarow["user_id"]}'");
+            $uccwcredit = 0;
+            $uccwdebit = 0;
+
+            if (mysqli_num_rows($uccwallet) >= 1) {
+
+                foreach ($uccwallet as $getuccwallet) {
+                    if (isset($getuccwallet["uccw_action"]) && strlen($getuccwallet["uccw_action"]) >= 1) {
+                        if ($getuccwallet["uccw_action"] == "credit") {
+                            $uccwcredit += (float) $getuccwallet["uccw_points"];
+                        } else if ($getuccwallet["uccw_action"] == "debit") {
+                            $uccwdebit += (float) $getuccwallet["uccw_points"];
+                        }
+                    }
+                }
+
+            }
+
+            $response["uccwallet"] = number_format(($uccwcredit - $uccwdebit), 2);
+
+
 
 
 

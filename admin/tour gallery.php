@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,6 +85,7 @@
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
+                                        <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p
@@ -135,7 +136,7 @@
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
                             <a href="tour description.php" class="dropdown-item">Tour Description</a>
-                            <a href="tour gallery.php" class="dropdown-item active">Gallery</a>
+                            <a href="tour gallery.php" class="dropdown-item active" style="color:#f7c128">Gallery</a>
                             <a href="#" class="dropdown-item">Receipt Edit</a>
                         </div>
                     </div>
@@ -174,7 +175,7 @@
                     <a href="savings TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-th me-2"></i>Saving's Travel<p style="text-align: center;"> Point Balance Sheet
                         </p></a>
-                    <a href="signin.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
+                    <a href="logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -223,7 +224,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="signin.php" class="dropdown-item">Log Out</a>
+                            <a href="logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>

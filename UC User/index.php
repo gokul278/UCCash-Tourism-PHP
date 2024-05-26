@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <title>UC USER</title>
+    <link rel="shortcut icon" href="./img/logo2.png">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
 
     <!-- wthogle Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -595,7 +595,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-sm-6 col-xl-4">
                         <div class="card rounded bg-light text-center">
                             <img style="margin: auto; width: 80px; height: 80px;" src="img/withdraw.png"
@@ -607,7 +606,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="card rounded bg-light text-center">
+                            <img style="margin: auto; width: 80px; height: 80px;" src="img/UCC Wallet.png"
+                                class="card-img-top" alt="Coupon Image">
 
+                            <div class="card-body">
+                                <h5 class="card-title mb-2">UCC Wallet</h5>
+                                <h5 class="card-text mb-0" id="uccwallet"></h5>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

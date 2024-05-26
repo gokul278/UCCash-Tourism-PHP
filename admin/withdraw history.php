@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -85,6 +85,7 @@
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
+                                        <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p
@@ -121,7 +122,7 @@
                                 class="fa fa-wallet me-2"></i>Withdraw</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="withdraw approval.php" class="dropdown-item">Withdraw Approval</a>
-                            <a href="withdraw history.php" class="dropdown-item active">Withdraw History</a>
+                            <a href="withdraw history.php" style="color:#f7c128" class="dropdown-item active">Withdraw History</a>
                         </div>
                     </div>
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
@@ -174,7 +175,7 @@
                     <a href="savings TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-th me-2"></i>Saving's Travel<p style="text-align: center;"> Point Balance Sheet
                         </p></a>
-                    <a href="signin.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
+                    <a href="logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -218,12 +219,12 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="signin.php" class="dropdown-item">Log Out</a>
+                            <a href="logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>

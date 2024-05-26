@@ -337,9 +337,9 @@
                             <div class="bg-light rounded h-100 p-4">
                                 <div class="container">
                                     <div class="card">
-                                        <h2 class="">BV Points</h2>
+                                        <h2 class="">UCC Wallet</h2>
                                         <h2 class="running-balance mt-2">
-                                            <p id="availablewithdrwabalance"></p>
+                                            <p id="uccwallet"></p>
                                         </h2>
                                         <h6>Minimum Withdraw 50$</h6>
                                     </div>
@@ -356,13 +356,13 @@
                                                 <label for="cryptoType" class="form-label">Crypto Type:</label>
                                                 <input type="text" class="form-control" id="walletAddress"
                                                     placeholder="Enter your crypto wallet address" disabled
-                                                    value="UCC (BEP20)">
+                                                    value="USDT (TRC20)">
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="walletAddress" class="form-label">Crypto Wallet
+                                                <label for="bep20_address" class="form-label">Crypto Wallet
                                                     Address:</label>
-                                                <input type="text" class="form-control" id="trc20_address"
+                                                <input type="text" class="form-control" id="bep20_address"
                                                     placeholder="Enter your crypto wallet address" disabled required>
                                             </div>
                                             <form id="cryptosubmit">
@@ -398,78 +398,10 @@
                                                 </div>
                                             </form>
                                         </div>
-
-
-
-                                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                                            aria-labelledby="pills-profile-tab">
-                                            <div class="mb-3">
-                                                <label for="bankName" class="form-label">Bank Name:</label>
-                                                <input type="text" class="form-control" id="ac_bankname"
-                                                    placeholder="Enter the name of your bank" disabled required>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="accountHolder" class="form-label">Account Holder's
-                                                    Name:</label>
-                                                <input type="text" class="form-control" id="ac_holdername"
-                                                    placeholder="Enter the account holder's name" disabled required>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="accountNumber" class="form-label">Account
-                                                    Number:</label>
-                                                <input type="text" class="form-control" id="ac_number"
-                                                    placeholder="Enter the account number" disabled required>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="IFSC" class="form-label">IFSC:</label>
-                                                <input type="text" class="form-control" id="ifsc_code"
-                                                    placeholder="Enter the IFSC code" disabled required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="branch" class="form-label">Branch:</label>
-                                                <input type="text" class="form-control" id="branch"
-                                                    placeholder="Enter the branch name" disabled required>
-                                            </div>
-                                            <form id="banksubmit">
-                                                <input type="hidden" name="way" value="bankwithdraw">
-                                                <div class="mb-3">
-                                                    <label for="WithdrawAmount" class="form-label">Withdraw Amount with
-                                                        Dollar:</label>
-                                                    <input type="number" class="form-control" id="bankvalue"
-                                                        name="withdrawvalue" placeholder="Enter your Withdraw amount"
-                                                        oninput="checkbank()" onclick="clearmsgbank()" required>
-                                                </div>
-                                                <div class="row gx-3 mb-3">
-                                                    <div class="col-md-6">
-                                                        <label class="small mb-1" for="otpvalue2">Enter OTP</label>
-                                                        <input class="form-control" id="otpvalue2" name="otp"
-                                                            name="inputFirstName" onclick="clearmsgbank()" type="number" placeholder="Enter OTP"
-                                                            required>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <button type="button" id="bankotpbtn" onclick="bankotp()"
-                                                            style="width:100%;height:40px;margin-top:25px"
-                                                            class="btn btn-primary" disabled>Get OTP</button>
-                                                    </div>
-                                                </div>
-                                                <div style="color:red;width:100%" id="errormsgbank" align="center"
-                                                    class="mb-3"></div>
-                                                <div class="center-container">
-                                                    <button type="submit" class="btn btn-primary" id="bankwithdrawbtn"
-                                                        disabled>Withdraw</button>
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
                                 </strong>
                             </div>
                         </div>
-
-
-
                     </div>
 
                 </div>
@@ -507,7 +439,7 @@
         <script src="js/main.js"></script>
         <!--user js-->
 
-        <!-- <script src="./requiredFiles/js/withdrawrequest.js"></script> -->
+        <script src="./requiredFiles/js/coinwithdraw.js"></script>
 
 </body>
 

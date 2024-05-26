@@ -2,8 +2,8 @@
 
 require ".././requiredFiles/ajax//DBConnection.php";
 
-$name="";
-$date="";
+$name = "";
+$date = "";
 
 if (isset($_GET["certificateid"]) && strlen($_GET["certificateid"]) > 1) {
 
@@ -17,10 +17,39 @@ if (isset($_GET["certificateid"]) && strlen($_GET["certificateid"]) > 1) {
   $user = $con->query("SELECT * FROM userdetails WHERE user_id='{$getdetails["user_id"]}'");
   $getuser = $user->fetch_assoc();
 
-  $name = $getuser["user_name"];
+  // Extract user name
+$name = $getuser["user_name"];
+
+// Determine the title based on gender
+if ($getuser["user_gender"] == "male") {
+    $title = "Mr.";
+} else if ($getuser["user_gender"] == "female") {
+    $title = "Mrs.";
+} else {
+    $title = "";
+}
+
+// Check if the name contains an initial
+if (preg_match('/^[A-Za-z]+ [A-Za-z]\.?$/', $name)) {
+    // Name with an initial (e.g., "Gokul M")
+    $parts = explode(' ', $name);
+    $initial = array_pop($parts);
+    $first_name = implode(' ', $parts);
+    $formatted_name = strtoupper($initial) . ". " . ucfirst(strtolower($first_name));
+} else {
+    // Name without an initial (e.g., "raja kumar")
+    $parts = explode(' ', $name);
+    $formatted_parts = array_map(function($part) {
+        return ucfirst(strtolower($part));
+    }, $parts);
+    $formatted_name = implode(' ', $formatted_parts);
+}
+
+// Prepend the title
+$name = $title . " " . $formatted_name;
 
 
-}else{
+} else {
   header("Location: unauth_login.php");
 }
 
@@ -37,15 +66,17 @@ if (isset($_GET["certificateid"]) && strlen($_GET["certificateid"]) > 1) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- Icon Font Stylesheet -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
 
 
   <!-- Libraries Stylesheet -->
@@ -64,6 +95,12 @@ if (isset($_GET["certificateid"]) && strlen($_GET["certificateid"]) > 1) {
       height="720" viewBox="0 0 3509 2481">
       <defs>
         <style>
+
+        @font-face {
+            font-family: 'Edwardian Script';
+            src: url('./img/Edwardian Script ITC Regular.ttf');
+        }
+        
           .cls-1 {
             font-size: 50px;
             font-family: Arial;
@@ -76,7 +113,7 @@ if (isset($_GET["certificateid"]) && strlen($_GET["certificateid"]) > 1) {
           }
 
           .cls-2 {
-            font-family: "Dancing Script", cursive;
+            font-family: "Edwardian Script", cursive;
             font-size: 250px;
             font-optical-sizing: auto;
             font-weight: 600;
@@ -95,8 +132,8 @@ if (isset($_GET["certificateid"]) && strlen($_GET["certificateid"]) > 1) {
     </svg>
   </div>
   <div style="width:100%;margin-top:10px" align="center">
-  <button class="btn btn-warning" id="generateCertificate">Download Certificate</button>&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="./distributor activation status.php" style="color:black;font-weight:700">Back to Site</a>
+    <button class="btn btn-warning" id="generateCertificate">Download Certificate</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="./distributor activation status.php" style="color:black;font-weight:700">Back to Site</a>
   </div>
 </body>
 

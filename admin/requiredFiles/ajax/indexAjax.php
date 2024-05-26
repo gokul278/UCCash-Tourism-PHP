@@ -59,6 +59,20 @@ if ($way == "login") {
 
     }
 
+}else if ($way == "getData") {
+
+        
+    $details = $con->query("SELECT * FROM admindetails WHERE admin_id='UCT000000'");
+    
+    $getdetails = $details->fetch_assoc();
+    
+    
+    $response["admin_name"] = $getdetails["admin_name"];
+    $response["profile_image"] = $getdetails["admin_profile"];
+
+    $response["status"] = "success";
+    echo json_encode($response);
+
 } else {
     $response["status"] = "failed";
     $response["message"] = "try Again";

@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,6 +30,27 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Simple Notifier -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
+    <style>
+        #fileName {
+            display: inline-block;
+            max-width: 200px;
+            /* Adjust the max-width as needed */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+            margin-left: 10px;
+            /* Space between the label and the file name */
+        }
+    </style>
 </head>
 
 <body>
@@ -52,13 +73,13 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -75,6 +96,7 @@
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
+                            <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p
@@ -95,14 +117,14 @@
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
-                                </a>
+                            </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
                                     History</p></a>
                         </div>
                     </div>
                     <a href="travel coupon usage history.php" class="nav-item nav-link"><i
                             class="fa fa-star me-2"></i>Travel Coupon<p style="text-align: center;">Usage History</p>
-                        </a>
+                    </a>
                     <a href="bonus travel point usage history.php" class="nav-item nav-link"><i
                             class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;"> Point Usage History
                         </p></a>
@@ -116,7 +138,7 @@
                     </div>
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
                             class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p>
-                        </a>
+                    </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
                     <div class="nav-item dropdown">
@@ -151,7 +173,8 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-info-circle me-2"></i>Information</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="terms & conditions.php" class="dropdown-item active">Terms & Condition</a>
+                            <a href="terms & conditions.php" class="dropdown-item active" style="color:#f7c128">Terms &
+                                Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
                             <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
                             <a href="independent distributor agreement.php" class="dropdown-item">Independent
@@ -164,7 +187,7 @@
                     <a href="savings TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-th me-2"></i>Saving's Travel<p style="text-align: center;"> Point Balance Sheet
                         </p></a>
-                    <a href="signin.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
+                    <a href="logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                 </div>
             </nav>
         </div>
@@ -206,14 +229,14 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="signin.php" class="dropdown-item">Log Out</a>
+                            <a href="logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -226,26 +249,30 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <div class="bg-secondary rounded h-100 p-4" style="display: inline-block;">
-                                <h4 style="color: #f7c128;" class="mb-5">Terms & Conditions Update</h4>
-                                <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
-                                    <label for="formFileMultiple" style="font-weight: bold; color: #fff;">Upload
-                                        PDF</label>
-                                    <br><br>
-                                    <div
-                                        style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 50px;">
-                                        <input class="form-control" type="file" id="formFileMultiple" accept=".pdf"
-                                            onchange="displayFileName()" style="display: none;">
-                                        <label for="formFileMultiple"
-                                            style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
-                                            PDF File</label>
-                                        <span id="fileName" style="margin-left: 10px;"></span>
+                            <form id="pdfsave">
+                                <div class="bg-secondary rounded h-100 p-4" style="display: inline-block;">
+                                    <h4 style="color: #f7c128;" class="mb-5">Terms & Conditions Update</h4>
+                                    <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
+                                        <label for="formFileMultiple" style="font-weight: bold; color: #fff;">Upload
+                                            PDF</label>
+                                        <br><br>
+                                        <div
+                                            style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 50px;">
+                                            <input class="form-control" type="file" id="formFileMultiple" name="pdffile"
+                                                accept=".pdf" onchange="displayFileName()" style="display: none;">
+                                            <label for="formFileMultiple"
+                                                style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
+                                                PDF File</label>
+                                            <span id="fileName" style="margin-left: 10px;"></span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <br>
-                                <button type="button" class="btn btn-primary">Update</button>
-                            </div>
+                                    <br>
+                                    <button type="submit" id="submitbtn" class="btn btn-primary"
+                                        disabled>Update</button>
+                                </div>
+                                <input type="hidden" name="way" value="pdfupload"> 
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -282,8 +309,11 @@
             var input = document.getElementById('formFileMultiple');
             var fileNameSpan = document.getElementById('fileName');
             fileNameSpan.textContent = input.files[0].name;
+            $("#submitbtn").prop("disabled", false)
         }
     </script>
+
+    <script src="./requiredFiles/js/termsandcondition.js"></script>
 </body>
 
 </html>
