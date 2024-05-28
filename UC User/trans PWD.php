@@ -8,8 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <!-- Favicon --><link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,7 +114,7 @@
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
                     <a href="rank board.php" class="nav-item nav-link"><i class="fa fa-star me-2"></i>Rank Board</a>
-                    <div class="nav-item dropdown">
+                    < class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-wallet me-2"></i>Income History</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -127,6 +126,7 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>

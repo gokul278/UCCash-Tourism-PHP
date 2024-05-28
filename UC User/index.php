@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>UC USER</title>
-    <link rel="shortcut icon" href="./img/logo2.png">
+    <link rel="shortcut icon" href="./img/favicon.png">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -258,6 +258,7 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>

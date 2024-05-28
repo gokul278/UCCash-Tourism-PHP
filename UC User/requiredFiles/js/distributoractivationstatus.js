@@ -46,6 +46,9 @@ const getData = () => {
                     $(document).on("click", ".activationdownload", function () {
                         downloadActivation(this);
                     });
+                    $(document).on("click", ".invoicedownload", function () {
+                        downloadInvoice(this);
+                    });
                 } else {
                     $("#tabledata").html("<tr><th colspan='10'>No Data Found</th></tr>");
                 }
@@ -113,6 +116,11 @@ $("#filterDate").submit(function (e) {
                     $(document).on("click", ".activationdownload", function () {
                         downloadActivation(this);
                     });
+                    $(document).on("click", ".invoicedownload", function () {
+                        downloadInvoice(this);
+                    });
+
+
                 } else {
                     $("#tabledata").html("<tr><th colspan='10'>No Data Found</th></tr>");
                 }
@@ -134,7 +142,32 @@ $("#filterDate").submit(function (e) {
 });
 
 const downloadActivation = (button) => {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = './activationcertificate.php';
 
-    location.replace("./activationcertificate.php?certificateid="+button.value);
-    
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'certificateid';
+    input.value = button.value;
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+}
+
+const downloadInvoice = (button) => {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = './activationinvoice.php';
+    form.target = '_blank';
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'certificateid';
+    input.value = button.value;
+
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
 }

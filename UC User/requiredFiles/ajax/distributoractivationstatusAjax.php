@@ -78,15 +78,22 @@ if ($values["status"] == "success") {
 
                 } else if ($gettable["action"] == "paid") {
                     $tabledata .= '
-                    <td class="green">' . $gettable["remark"] . '</td>
+                        <td class="green">' . $gettable["remark"] . '</td>
                         <td>
-                            <button type="button" class="btn btn-warning activationdownload" value="'.$gettable["idactivation_id"].'"><b>View</b></button>
-                        </td>
-                    </tr>';
-                } else if ($gettable["action"] == "reject"){
+                                <button type="button" class="btn btn-warning invoicedownload" value="' . $gettable["idactivation_id"] . '"><b>View</b></button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning activationdownload" value="' . $gettable["idactivation_id"] . '"><b>View</b></button>
+                            </td>
+                        </tr>';
+    
+                } else if ($gettable["action"] == "reject") {
                     $tabledata .= '
                         <td class="red">' . $gettable["remark"] . '</td>
-                        <td style="color:red">Rejected</td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
                         </tr>';
                 }
 
@@ -150,13 +157,19 @@ if ($values["status"] == "success") {
             } else if ($gettable["action"] == "paid") {
                 $tabledata .= '
                     <td class="green">' . $gettable["remark"] . '</td>
+                    <td>
+                            <button type="button" class="btn btn-warning invoicedownload" value="' . $gettable["idactivation_id"] . '"><b>View</b></button>
+                        </td>
                         <td>
-                            <button type="button" class="btn btn-warning activationdownload" value="'.$gettable["idactivation_id"].'"><b>View</b></button>
+                            <button type="button" class="btn btn-warning activationdownload" value="' . $gettable["idactivation_id"] . '"><b>View</b></button>
                         </td>
                     </tr>';
-            } else if ($gettable["action"] == "reject"){
+
+            } else if ($gettable["action"] == "reject") {
                 $tabledata .= '
                     <td class="red">' . $gettable["remark"] . '</td>
+                        <td>
+                        </td>
                         <td>
                         </td>
                     </tr>';

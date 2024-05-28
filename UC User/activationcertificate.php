@@ -5,9 +5,9 @@ require ".././requiredFiles/ajax//DBConnection.php";
 $name = "";
 $date = "";
 
-if (isset($_GET["certificateid"]) && strlen($_GET["certificateid"]) > 1) {
+if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
 
-  $details = $con->query("SELECT * FROM idactivationhistory WHERE idactivation_id = '{$_GET["certificateid"]}'");
+  $details = $con->query("SELECT * FROM idactivationhistory WHERE idactivation_id = '{$_POST["certificateid"]}'");
   $getdetails = $details->fetch_assoc();
 
   $dateString = $getdetails["paid_date"];
@@ -62,6 +62,7 @@ $name = $title . " " . $formatted_name;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Certificate Download</title>
+  <link rel="shortcut icon" href="./img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">

@@ -128,6 +128,7 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>

@@ -9,7 +9,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -122,6 +122,7 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer History</a>
                    
@@ -134,9 +135,9 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Booking</a>
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Booking</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour booking.php" class="dropdown-item">Tour Booking</a>
+                            <a href="tour booking.php" class="dropdown-item" style="background-color:#f7c128">Tour Booking</a>
                             <a href="hotel booking.php" class="dropdown-item">Hotel Booking</a>
                         </div>
                     </div>

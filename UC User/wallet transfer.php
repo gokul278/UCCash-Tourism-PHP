@@ -28,13 +28,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-
-    <!-- Simple Notifier -->
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
-
-    <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 </head>
 
 <body>
@@ -63,14 +56,14 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><b class="user_name"></b></h6>
+                        <h6 class="mb-0 user_name"><b></b></h6>
                         <span>User</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-user me-2"></i>Profiles</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="profile.php" class="dropdown-item">Profile</a>
@@ -103,7 +96,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
-                            </a>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
@@ -117,7 +110,7 @@
                     <!-- <a href="monthly TP savings.php" class="nav-item nav-link"><i class="fa fa-comment-dollar me-2"></i>Monthly TP <p style="text-align: center;">Savings</p></a> -->
                     <a href="monthly TP savings status.php" class="nav-item nav-link"><i
                             class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
-                        </a>
+                    </a>
                     <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
@@ -134,7 +127,8 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
-                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
+                    <a href="wallet transfer.php" class="nav-item nav-link active"><i
+                            class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
@@ -211,7 +205,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><b class="user_name"></b></span>
+                            <span class="d-none d-lg-inline-flex user_name"><b></b></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="./logout.php" class="dropdown-item">Log Out</a>
@@ -220,176 +214,100 @@
                 </div>
             </nav>
             <!-- Navbar End -->
+            <!--user start-->
 
-            <!--Member Info start-->
 
-            <style type="text/css">
-                body {
-                    margin-top: 0px;
-                    background-color: #f2f6fc;
-                    color: #69707a;
-                    overflow: hidden;
-                }
+            <!--user end-->
 
-                .img-account-profile {
-                    height: 10rem;
-                }
+            <!-- Sale & Revenue Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
 
-                .rounded-circle {
-                    border-radius: 50% !important;
-                }
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="card rounded bg-light text-center">
+                            <img style="margin: auto; width: 80px; height: 80px;" src="img/bitcoin.png"
+                                class="card-img-top" alt="Coupon Image">
 
-                .card {
-                    box-shadow: 0 0.15rem 1.75rem 0 rgb(33 40 50 / 15%);
-                }
-
-                .card .card-header {
-                    font-weight: 500;
-                }
-
-                .card-header:first-child {
-                    border-radius: 0.35rem 0.35rem 0 0;
-                }
-
-                .card-header {
-                    padding: 1rem 1.35rem;
-                    margin-bottom: 0;
-                    background-color: rgba(33, 40, 50, 0.03);
-                    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
-                }
-
-                .form-control,
-                .dataTable-input {
-                    display: block;
-                    width: 100%;
-                    padding: 0.875rem 1.125rem;
-                    font-size: 0.875rem;
-                    font-weight: 400;
-                    line-height: 1;
-                    color: #69707a;
-                    background-color: #fff;
-                    background-clip: padding-box;
-                    border: 1px solid #c5ccd6;
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
-                    appearance: none;
-                    border-radius: 0.35rem;
-                    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-                }
-
-                .nav-borders .nav-link.active {
-                    color: #0061f2;
-                    border-bottom-color: #0061f2;
-                }
-
-                .nav-borders .nav-link {
-                    color: #69707a;
-                    border-bottom-width: 0.125rem;
-                    border-bottom-style: solid;
-                    border-bottom-color: transparent;
-                    padding-top: 0.5rem;
-                    padding-bottom: 0.5rem;
-                    padding-left: 0;
-                    padding-right: 0;
-                    margin-left: 1rem;
-                    margin-right: 1rem;
-                }
-
-                .button-container {
-                    text-align: center;
-                }
-            </style>
-
-            <div class="container-xl px-4 mt-4">
-                <div class="row">
-                    <div class="col-xl-8">
-                        <div class="card mb-4">
-                            <div class="card-header"><b>Wallet Address</b></div>
                             <div class="card-body">
-                                <form id="walletaddress">
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="TRC20 Address">TRC20 Address</label>
-                                            <input class="form-control" id="trc20address" name="trc20_address"
-                                                type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row gx-3 mb-3">
-                                        <div class="col-md-6">
-                                            <label class="small mb-1" for="BEP20 Address">BEP20 Address</label>
-                                            <input class="form-control" id="bep20address" name="bep20_address"
-                                                type="text">
-                                            <input type="hidden" name="way" value="updatewallet">
-                                        </div>
-                                    </div>
-                                    <div class="button-container">
-                                        <button class="btn btn-primary" type="submit">Save changes</button>
-                                    </div>
-                                </form>
+                                <h5 class="card-title mb-2">Savings Income</h5>
+                                <h5 class="card-text mb-0 savingsincome"></h5>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <div class="col-sm-12 col-md-8 col-lg-6 col-xl-5">
+                    <form id="transferpoint">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h4 style="text-align: center;" class="mb-4">Wallet Transfer</h4>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="floatingSelect" name="wallettype"
+                                    aria-label="Floating label select example" oninput="balancecheck()" onclick="clearerr()" required>
+                                    <option selected>Select Wallet</option>
+                                    <option value="savingsincome">Savings Income</option>
+                                </select>
+                                <label for="floatingSelect"><b>From Wallet Type</b></label>
+                            </div>
+                            <input type="hidden" name="way" value="transferwallet">
+                            <div class="alert alert-warning" role="alert">
+                                Available Balance <b id="balanacevalue">None</b>
+                            </div>
+
+                            <div class="form-floating mb-1">
+                                <input type="text" class="form-control" name="userid" id="userid" oninput="checkuserid()"
+                                    onclick="clearerr()" placeholder="Dollar Value" required>
+                                <label for="dollarvalue">To User ID</label>
+                            </div>
+                            <div class="mb-2" id="useridmsg">
+                                <p>Enter the User Id</p>
+                            </div>
+
+                            <div class="alert alert-primary" role="alert">
+                                To <b>Savings Income</b>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" name="transferpoints" id="dollarvalue" onclick="clearerr()"
+                                    placeholder="Dollar Value" required>
+                                <label for="dollarvalue">Transfer Points</label>
+                            </div>
+                            <div align="center" style="color:red" id="errormsg"></div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" id="transferbtn" class="btn btn-primary m-2"
+                                    disabled>Transfer</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
 
 
-            <!--OTP Start-->
-
-            <!-- <div class="container-xl px-4 mt-4">
-    <div class="row">
-       <div class="col-xl-8">
-          <div class="card mb-4">
-             <div class="card-body">
-                <form>
-                    
-                   <div class="mb-3">
-                      <label class="small mb-1" for="Wallet Addr"></label>
-                      <input class="form-control" id="Wallet Addr" type="tel" placeholder="Enter OTP" maxlength="6" >
-                   </div>
-                   
-                 <a href="#" ><button class="btn btn-primary" type="button">VERIFY OTP</button></a>
-                </form>
-             </div>
-          </div>
-       </div>
-    </div>
- </div> -->
-
-            <!--OTP End-->
+            <!-- Content End -->
 
 
-            <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-            <script type="text/javascript"></script>
-
-            <!--Member Info End-->
-
-
-
-
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
-        <!-- Content End -->
 
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/chart/chart.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/tempusdominus/js/moment.min.js"></script>
+        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <!--user js-->
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <script src="./requiredFiles/js/wallet.js"></script>
+        <script src="./requiredFiles/js/wallettransfer.js"></script>
 </body>
 
 </html>
