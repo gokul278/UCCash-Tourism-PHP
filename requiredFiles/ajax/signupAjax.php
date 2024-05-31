@@ -301,7 +301,7 @@ if ($way == "checksponser") {
 
                     $sponserid = $_POST["sponserid"];
 
-                    $checksponseridsql = "SELECT * FROM userdetails WHERE user_id = '{$sponserid}' AND user_referalStatus = 'activated'";
+                    $checksponseridsql = "SELECT * FROM userdetails WHERE user_id = '{$sponserid}'";
                     $checksponseridres = $con->query($checksponseridsql);
 
                     if (mysqli_num_rows($checksponseridres) == 1) {

@@ -126,70 +126,84 @@ if ($values["status"] == "success") {
 
         if ($wallettype == "savingsincome") {
 
-            $checkid = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
-            // $getcheckid = $checkid->fetch_assoc();
+            $activation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}' AND user_referalStatus='activated'");
 
-            if (mysqli_num_rows($checkid) >= 1) {
+            if (mysqli_num_rows($activation)) {
 
-                //Savings Income
-                $savingsincome = $con->query("SELECT * FROM savingsincome WHERE user_id='{$values["userid"]}'");
-                $sicredit = 0;
-                $sidebit = 0;
+                $checkid = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+                // $getcheckid = $checkid->fetch_assoc();
 
-                if (mysqli_num_rows($savingsincome) >= 1) {
+                if (mysqli_num_rows($checkid) >= 1) {
 
-                    foreach ($savingsincome as $getsavingsincome) {
-                        if (isset($getsavingsincome["si_action"]) && strlen($getsavingsincome["si_action"]) >= 1) {
-                            if ($getsavingsincome["si_action"] == "credit") {
-                                $sicredit += (float) $getsavingsincome["si_points"];
-                            } else if ($getsavingsincome["si_action"] == "debit") {
-                                $sidebit += (float) $getsavingsincome["si_points"];
+                    //Savings Income
+                    $savingsincome = $con->query("SELECT * FROM savingsincome WHERE user_id='{$values["userid"]}'");
+                    $sicredit = 0;
+                    $sidebit = 0;
+
+                    if (mysqli_num_rows($savingsincome) >= 1) {
+
+                        foreach ($savingsincome as $getsavingsincome) {
+                            if (isset($getsavingsincome["si_action"]) && strlen($getsavingsincome["si_action"]) >= 1) {
+                                if ($getsavingsincome["si_action"] == "credit") {
+                                    $sicredit += (float) $getsavingsincome["si_points"];
+                                } else if ($getsavingsincome["si_action"] == "debit") {
+                                    $sidebit += (float) $getsavingsincome["si_points"];
+                                }
                             }
                         }
+
                     }
 
-                }
+                    $savingsincomebalance = number_format(($sicredit - $sidebit), 2);
 
-                $savingsincomebalance = number_format(($sicredit - $sidebit), 2);
+                    if ($transferpoints <= $savingsincomebalance) {
 
-                if ($transferpoints <= $savingsincomebalance) {
-
-                    $credituser = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_action,si_remark)
+                        $credituser = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_action,si_remark)
                     VALUES ('{$userid}','{$transferpoints}','Transferred From {$values["userid"]}','credit','Savings Income')");
 
-                    $debituser = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_action,si_remark)
+                        $debituser = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_action,si_remark)
                     VALUES ('{$values["userid"]}','{$transferpoints}','Transferred for {$userid}','debit','Savings Income')");
 
-                    if ($credituser && $debituser) {
-                        $response["status"] = "success";
-                        echo json_encode($response);
+                        if ($credituser && $debituser) {
+                            $response["status"] = "success";
+                            echo json_encode($response);
+                        } else {
+                            $response["status"] = "error";
+                            $response["message"] = "sql error";
+                            echo json_encode($response);
+                        }
+
                     } else {
+
                         $response["status"] = "error";
-                        $response["message"] = "sql error";
+                        $response["message"] = "Insufficient balance";
                         echo json_encode($response);
+
+
                     }
+
+
 
                 } else {
 
                     $response["status"] = "error";
-                    $response["message"] = "Insufficient balance";
+                    $response["message"] = "Invalid User ID";
                     echo json_encode($response);
 
 
                 }
 
-
-
             } else {
 
                 $response["status"] = "error";
-                $response["message"] = "Invalid User ID";
+                $response["message"] = "Activate Your ID";
                 echo json_encode($response);
 
 
             }
 
-        }else {
+
+        } else {
 
             $response["status"] = "error";
             $response["message"] = "Choose Wallet Type";

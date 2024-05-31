@@ -194,145 +194,65 @@
         <!-- Sidebar End -->
 
 
-        <!-- Content Start -->
-        <div class="content">
-            <!-- Navbar Start -->
-            <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                </form>
-                <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Notificatin</span>
+          <!-- Content Start -->
+          <div class="content">
+           <!-- Navbar Start -->
+           <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
+            <a href="#" class="sidebar-toggler flex-shrink-0">
+                <i class="fa fa-bars"></i>
+            </a>
+            <form class="d-none d-md-flex ms-4">
+                <input class="form-control bg-dark border-0" type="search" placeholder="Search">
+            </form>
+            <div class="navbar-nav align-items-center ms-auto">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="fa fa-bell me-lg-2"></i>
+                        <span style="color: #fff;" class="d-none d-lg-inline-flex">Notificatin</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
+                        <a href="#" class="dropdown-item">
+                            <h6 class="fw-normal mb-0">Profile updated</h6>
+                            <small>15 minutes ago</small>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
-                                style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
+                        <hr class="dropdown-divider">
+                        <a href="#" class="dropdown-item">
+                            <h6 class="fw-normal mb-0">New user added</h6>
+                            <small>15 minutes ago</small>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
-                            style="color: white;">
-                            <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="logout.php" class="dropdown-item">Log Out</a>
-                        </div>
+                        <hr class="dropdown-divider">
+                        <a href="#" class="dropdown-item">
+                            <h6 class="fw-normal mb-0">Password changed</h6>
+                            <small>15 minutes ago</small>
+                        </a>
                     </div>
                 </div>
-            </nav>
-            <!-- Navbar End -->
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0" style="color: white;">
+                        <a href="admin settings.html" class="dropdown-item">My Profile</a>
+                        <a href="signin.html" class="dropdown-item">Log Out</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar End -->
 
-            <br><br>
+<br><br>
             <!--Table Start-->
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12">    
                         <div class="bg-secondary rounded h-100 p-4">
                             <h4 style="color: #f7c128;" class="mb-5">Tour Destination Edit</h4>
-                            <!--Model Start-->
-                            <div class="modal fade"  id="exampleModal" tabdashboard="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 style="color: #000;" class="modal-title" id="exampleModalLabel">Create New Tour Destination</h5>
-                                            <button type="button" class="close btn btn-danger" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <strong>
-                                                <form id="newtoursubmit" class="custom-form">
-                                                    <div class="mb-3" style="margin-bottom: 15px;">
-                                                        <label for="formFileMultiple"
-                                                            style="font-weight: bold; color: #fff;">Upload Image</label>
-                                                        <div
-                                                            style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
-                                                            <input class="form-control" type="file"
-                                                                id="formFileMultiple" accept="image/*"
-                                                                onchange="displayFileName()" name="tourimage" style="display: none;" required>
-                                                            <label for="formFileMultiple"
-                                                                style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
-                                                                Image</label>
-                                                            <span id="fileName" style="margin-left: 10px;"></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="imgdescribe">Image Country :</label>
-                                                        <input type="text" class="form-control" name="tourname" id="imgdescribe"
-                                                            placeholder="Enter Image Country" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="bookingCode">Booking Code :</label>
-                                                        <input type="text" class="form-control" name="bokingcode" id="bookingCode"
-                                                            placeholder="Enter booking code" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="days">Days :</label>
-                                                        <input type="text" class="form-control" name="days" id="days"
-                                                            placeholder="Enter days" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="days">From Date :</label>
-                                                        <input type="date" class="form-control" name="fromdate" id="days"
-                                                            placeholder="Enter from date" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="days">To Date :</label>
-                                                        <input type="date" class="form-control" name="todate" id="days"
-                                                            placeholder="Enter to date" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="time">Time :</label>
-                                                        <input type="time" class="form-control" name="time" id="time"
-                                                            placeholder="Enter time" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="amount">Amount :</label>
-                                                        <input type="tel" class="form-control" name="amount" id="amount"
-                                                            placeholder="Enter amount" required>
-                                                    </div>
-                                                </strong>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal"><strong>Close</strong></button>
-                                            <input type="hidden" name="way" value="newtour">
-                                            <button type="submit" id="newbtn" class="btn btn-primary" disabled><strong
-                                            style="color: #000;" >Add</strong></button>
-                                        </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           
                             <div class="table-responsive">
                                 <div class="container">
                                     <br>
-                                    <button id="addTableRow" class="btn btn-primary mb-3 float-right"
-                                        data-toggle="modal" data-target="#exampleModal">Add Table</button>
+                                    <button id="addTableRow" class="btn btn-primary mb-3 float-right">Add Table</button>
                                     <table id="table-to-print" style="text-align: center;" class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -342,13 +262,81 @@
                                                 <th scope="col">Days</th>
                                                 <th scope="col">From Date</th>
                                                 <th scope="col">To Date</th>
-                                                <th scope="col">Time</th>
+                                          
                                                 <th scope="col">Amount</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="tabledata">
+                                        <tbody>
+                                            <!-- Existing rows -->
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>
+                                                    <figure>
+                                                        <img src="./img/taj mahal.jpg" alt="Bitcoin" style="width: 100px; height: 100px;">
+                                                        <figcaption>Taj Mahal</figcaption>
+                                                    </figure>
+                                                </td>
+                                                <td>001</td>
+                                                <td>7 Days / 8 Nights</td>
+                                                <td>01/01/2024</td>
+                                                <td>05/01/2024</td>
+                                               
+                                                <td>72 $</td>
+                                                <td>
+                                                    <div>
+                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                                                            <b>Edit</b>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
 
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>
+                                                    <figure>
+                                                        <img src="./img/manarola.png" alt="Bitcoin" style="width: 100px; height: 100px;">
+                                                        <figcaption>Manarola</figcaption>
+                                                    </figure>
+                                                </td>
+                                                <td>002</td>
+                                                <td>7 Days / 8 Nights</td>
+                                                <td>10/02/2024</td>
+                                                <td>15/02/2024</td>
+                                                
+                                                <td>72 $</td>
+                                                <td>
+                                                    <div>
+                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                                                            <b>Edit</b>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td>
+                                                    <figure>
+                                                        <img src="./img/singapore.jpg" alt="Bitcoin" style="width: 100px; height: 100px;">
+                                                        <figcaption>Singapore</figcaption>
+                                                    </figure>
+                                                </td>
+                                                <td>003</td>
+                                                <td>7 Days / 8 Nights</td>
+                                                <td>15/03/2024</td>
+                                                <td>18/03/2024</td>
+                                              
+                                                <td>72 $</td>
+                                                <td>
+                                                    <div>
+                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">
+                                                            <b>Edit</b>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -358,49 +346,147 @@
                 </div>
             </div>
             <!-- Blank End -->
-
+            
             <style>
                 .table-bordered {
                     border-color: #fff;
                 }
             </style>
-
+            
         </div>
         <!-- Content End -->
 
 
-
+            
+        </div>
+        <!-- Content End -->
+<!--Model Start-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="color: #000;" class="modal-title" id="exampleModalLabel">Update Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <strong>
+                    <form class="custom-form">
+                        <div class="mb-3" style="margin-bottom: 15px;">
+                            <label for="formFileMultiple" style="font-weight: bold; color: #fff;">Upload Images</label>
+                            <div style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                                <!-- Image 1 -->
+                                <input class="form-control" type="file" id="formFile1" accept="image/*" style="display: none;">
+                                <label for="formFile1" style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose Image 1</label>
+                                <span id="fileName1" style="margin-left: 10px;"></span>
+                                <br><br>
+                                <!-- Image 2 -->
+                                <input class="form-control" type="file" id="formFile2" accept="image/*" style="display: none;">
+                                <label for="formFile2" style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose Image 2</label>
+                                <span id="fileName2" style="margin-left: 10px;"></span>
+                                <br><br>
+                                <!-- Image 3 -->
+                                <input class="form-control" type="file" id="formFile3" accept="image/*" style="display: none;">
+                                <label for="formFile3" style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose Image 3</label>
+                                <span id="fileName3" style="margin-left: 10px;"></span>
+                                <br><br>
+                                <!-- Image 4 -->
+                                <input class="form-control" type="file" id="formFile4" accept="image/*" style="display: none;">
+                                <label for="formFile4" style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose Image 4</label>
+                                <span id="fileName4" style="margin-left: 10px;"></span>
+                                <br><br>
+                                <!-- Image 5 -->
+                                <input class="form-control" type="file" id="formFile5" accept="image/*" style="display: none;">
+                                <label for="formFile5" style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose Image 5</label>
+                                <span id="fileName5" style="margin-left: 10px;"></span>
+                                <br><br>
+                                <!-- Image 6 -->
+                                <input class="form-control" type="file" id="formFile6" accept="image/*" style="display: none;">
+                                <label for="formFile6" style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose Image 6</label>
+                                <span id="fileName6" style="margin-left: 10px;"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="imgdescribe">Image Country :</label>
+                            <input type="text" class="form-control" id="imgdescribe" placeholder="Enter Image Country">
+                        </div>
+                        <div class="form-group">
+                            <label for="bookingCode">Booking Code :</label>
+                            <input type="text" class="form-control" id="bookingCode" placeholder="Enter booking code">
+                        </div>
+                        <div class="form-group">
+                            <label for="days">Days :</label>
+                            <input type="text" class="form-control" id="days" placeholder="Enter days">
+                        </div>
+                        <div class="form-group">
+                            <label for="fromDate">From Date :</label>
+                            <input type="date" class="form-control" id="fromDate" placeholder="Enter from date">
+                        </div>
+                        <div class="form-group">
+                            <label for="toDate">To Date :</label>
+                            <input type="date" class="form-control" id="toDate" placeholder="Enter to date">
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount :</label>
+                            <input type="tel" class="form-control" id="amount" placeholder="Enter amount">
+                        </div>
+                        <div id="form-container">
+                            <div class="form-group">
+                                <label for="days-1">Day 1</label>
+                                <textarea class="form-control day-1-textbox" id="days-1" placeholder="" style="height: 100px;"></textarea>
+                                <i class="fas fa-plus-circle add-btn" onclick="addTextBox()"></i>
+                            </div>
+                        </div>
+                            <br>
+                        <div id="form-container">
+                            <div class="form-group">
+                                <label for="days-1">Inclusion</label>
+                                <textarea class="form-control day-1-textbox" id="days-1" placeholder="Inclusion" style="height: 100px;"></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div id="form-container">
+                            <div class="form-group">
+                                <label for="days-1">Exclusion</label>
+                                <textarea class="form-control day-1-textbox" id="days-1" placeholder="Exclusion" style="height: 100px;"></textarea>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </form>
+                </strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><strong>Close</strong></button>
+                <button type="button" class="btn btn-primary"><strong style="color: #000;">Update</strong></button>
+            </div>
+        </div>
     </div>
-    <!-- Content End -->
+</div>
 
-
-    <style>
-        /* Form Styles */
-        /* Form Styles */
-        .custom-form {
-            background-color: rgb(25, 28, 36);
-            /* Set background color */
-            padding: 20px;
-            /* Add padding for better visibility */
-            border-radius: 10px;
-            /* Add border radius for rounded corners */
-        }
-
-        .disabled-input {
+<style>/* Form Styles */
+    /* Form Styles */
+.custom-form {
+    background-color: rgb(25, 28, 36); /* Set background color */
+    padding: 20px; /* Add padding for better visibility */
+    border-radius: 10px; /* Add border radius for rounded corners */
+}
+.disabled-input {
             background-color: #222d32 !important;
-            color: #191c24;
-            /* Optional: Change text color to make it more visible */
+            color: #191c24; /* Optional: Change text color to make it more visible */
         }
-
         input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-        }
+        filter: invert(1);
+    }
+    
     </style>
 
-    <!--Model End-->
+<!--Model End-->
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -421,18 +507,75 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        function displayFileName() {
-            var input = document.getElementById('formFileMultiple');
-            var fileNameSpan = document.getElementById('fileName');
-            fileNameSpan.textContent = input.files[0].name;
-            $("#newbtn").prop("disabled",false)
+        function displayFileName(inputId, spanId) {
+            const input = document.getElementById(inputId);
+            const span = document.getElementById(spanId);
+            span.textContent = input.files.length > 0 ? input.files[0].name : '';
         }
+    
+        document.getElementById('formFile1').onchange = function() { displayFileName('formFile1', 'fileName1'); };
+        document.getElementById('formFile2').onchange = function() { displayFileName('formFile2', 'fileName2'); };
+        document.getElementById('formFile3').onchange = function() { displayFileName('formFile3', 'fileName3'); };
+        document.getElementById('formFile4').onchange = function() { displayFileName('formFile4', 'fileName4'); };
+        document.getElementById('formFile5').onchange = function() { displayFileName('formFile5', 'fileName5'); };
+        document.getElementById('formFile6').onchange = function() { displayFileName('formFile6', 'fileName6'); };
     </script>
 
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Add Table Row on button click
+        $("#addTableRow").click(function(){
+            // Calculate the next row number by finding the number of existing rows and adding 1
+            var nextRowNumber = $("#table-to-print tbody tr").length + 1;
+            
+            // Append the new row with the calculated row number
+            $("#table-to-print tbody").append('<tr>' +
+                '<th scope="row">' + nextRowNumber + '</th>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                '<td></td>' +
+                
+                '<td>' +
+                '<div>' +
+                '<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">' +
+                '<b>Edit</b>' +
+                '</button>' +
+                '</div>' +
+                '</td>' +
+                '</tr>');
+        });
+    });
+</script>
 
-    <script src="./requiredFiles/js/tourdestinationedit.js"></script>
+
+<script>
+    let dayCount = 1;
+
+    function addTextBox() {
+        dayCount++;
+        const formContainer = document.getElementById('form-container');
+        const newFormGroup = document.createElement('div');
+        newFormGroup.className = 'form-group';
+        newFormGroup.innerHTML = `
+            <label for="days-${dayCount}">Day ${dayCount}</label>
+            <textarea class="form-control day-${dayCount}-textbox" id="days-${dayCount}" placeholder="Description" style="height: 100px;"></textarea>
+            <i class="fas fa-plus-circle add-btn" onclick="addTextBox()"></i>
+            <i class="fas fa-times-circle close-btn" onclick="removeTextBox(this)"></i>
+        `;
+        formContainer.appendChild(newFormGroup);
+    }
+
+    function removeTextBox(element) {
+        const formGroup = element.parentElement;
+        formGroup.remove();
+        dayCount--; // Decrement dayCount when removing a text area
+    }
+</script>
 
 </body>
 

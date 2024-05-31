@@ -49,14 +49,20 @@ if ($values["status"] == "success") {
                 $result = $con->query($query);
                 $row = $result->fetch_assoc();
                 $count = $row['count'];
+                $lvlvalue =  $index+1;
+
+                $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$values["userid"]}' AND level{$lvlvalue}reward_status='granted'");
+
+                $award = mysqli_num_rows($check)>=1 ? "<p style='color:green'>Awared</p>" : "<p style='color:red'>Not Received</p>";
             
                 $tabledata .= "<tr>
                     <th scope='row'>" . ($index + 1) . "</th>
                     <th>{$level['threshold']}</th>
-                    <td class='" . ($count >= $level['threshold'] ? "green" : "red") . "'>" . ($count >= $level['threshold'] ? ($level['threshold'] - 1) . "+" : $count) . "</td>
+                    <td class='" . ($count >= $level['threshold'] ? "green" : "red") . "'>" . $count . "</td>
                     <td>{$level['rank']}</td>
-                    <td>{$level['reward']}</td>
                     <td class='" . ($count >= $level['threshold'] ? "green" : "red") . "'>" . ($count >= $level['threshold'] ? "Achieved" : "Not Achieved") . "</td>
+                    <td>{$level['reward']}</td>
+                    <td>{$award}</td>
                 </tr>";
             }
 

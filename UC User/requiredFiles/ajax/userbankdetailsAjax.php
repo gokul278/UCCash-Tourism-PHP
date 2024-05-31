@@ -47,7 +47,7 @@ if ($values["status"] == "success") {
                 $response["ac_number"] = $detailsrow["ac_number"];
                 $response["ifsc_code"] = $detailsrow["ifsc_code"];
                 $response["branch"] = $detailsrow["branch"];
-                $response["trc20_address"] = $detailsrow["bep20_address"];
+                $response["trc20_address"] = $detailsrow["trc20_address"];
                 $response["bep20_address"] = $detailsrow["bep20_address"];
 
             } else if (mysqli_num_rows($checkdetailsres) == 0) {

@@ -55,7 +55,7 @@ const getData = () => {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
                 }
 
-                if (response.nextprofileimage.length >= 1) {
+                if (response.nextprofileimage != null) {
                     $(".nextuserimage").attr("src", "./img/user/" + response.nextprofileimage);
                 }
 

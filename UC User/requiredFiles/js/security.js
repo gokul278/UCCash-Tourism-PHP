@@ -6,26 +6,32 @@ const checkrepass = () => {
     var lowercaseRegex = /[a-z]/;
     var specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
 
+    var condition = 0;
+
     if (password.length >= 8) {
         $("#min8").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> Minimum 8 characters</div>")
+        condition++;
     }else if (password.length < 8) {
         $("#min8").html("<span style='font-size:20px;color:red'>*</span> Minimum 8 characters")
     }
 
     if (uppercaseRegex.test(password)) {
         $("#uppercase").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A capital (UPPERCASE) Letter</div>")
+        condition++;
     }else if (!uppercaseRegex.test(password)) {
         $("#uppercase").html("<span style='font-size:20px;color:red'>*</span> A capital (UPPERCASE) Letter")
     }
 
     if (lowercaseRegex.test(password)) {
         $("#lowercase").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A lowercase (LOWERCASE) letter</div>")
+        condition++;
     }else if (!lowercaseRegex.test(password)) {
         $("#lowercase").html("<span style='font-size:20px;color:red'>*</span> A lowercase (LOWERCASE) letter")
     }
     
     if (specialCharRegex.test(password)) {
         $("#special").html("<div style='color:green'><span style='font-size:20px;'><i class='bi bi-check'></i></span> A lowercase (LOWERCASE) letter</div>")
+        condition++;
     }else if (!specialCharRegex.test(password)) {
         $("#special").html("<span style='font-size:20px;color:red'>*</span> A Special Character")
     }
@@ -35,9 +41,16 @@ const checkrepass = () => {
             $("#passwordshow").html('<p style="color: red;">Enter Password</p>');
         }else{
             $("#passwordshow").html('<p style="color: green;"> Password Match </p>');
+            condition++;
         }
     } else {
         $("#passwordshow").html('<p style="color: red;"> Password doesn\'t Match</p>');
+    }
+
+    console.log(condition);
+
+    if(condition === 5){
+        $("#submitbtn").prop("disabled",false)
     }
 }
 const clearmsg = () => {

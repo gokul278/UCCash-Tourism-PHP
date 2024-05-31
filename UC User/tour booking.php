@@ -8,7 +8,8 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon --><link rel="shortcut icon" href="./img/favicon.png">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,9 +68,10 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Profiles</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="profile.php" class="dropdown-item">Profile</a>
-                            <a href="user bank details.php" class="dropdown-item">Bank & Wallet Details</a>
+                            <a href="user bank details.php" class="dropdown-item">Bank Details</a>
                             <a href="address.php" class="dropdown-item">Address</a>
                             <a href="member info.php" class="dropdown-item">Member Info</a>
+                            <a href="walllet.php" class="dropdown-item">Wallet Address</a>
                             <a href="security.php" class="dropdown-item">Security</a>
                             <!-- <a href="trans PWD.php" class="dropdown-item">Change Trans PWD</a> -->
                             <a href="id card.php" class="dropdown-item">ID Card</a>
@@ -82,6 +84,7 @@
                             <a href="genealogy.php" class="dropdown-item">Genealogy</a>
                             <a href="team list.php" class="dropdown-item">Team List</a>
                             <a href="direct member list.php" class="dropdown-item">Direct Member List</a>
+                            <a href="ranking member list.php" class="dropdown-item">Ranking Member List</a>
                         </div>
                     </div>
                     <!-- <div class="nav-item dropdown">
@@ -116,25 +119,19 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
-                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer History</a>
                    
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-university me-2"></i>Withdraw</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
-                            <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
-                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
+                    <a href="withdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Withdraw</a>
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Booking</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="tour booking.php" class="dropdown-item active">Tour Booking</a>
                             <a href="hotel booking.php" class="dropdown-item">Hotel Booking</a>
                         </div>
-                    </div>
+                    </div> -->
+                    <a href="tour booking.php" class="nav-item nav-link active"><i class="far fa-map me-2"></i>Tour
+                        Booking</a>
                     <a href="booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Booking History</a>
 
                     <div class="nav-item dropdown">
@@ -155,7 +152,7 @@
                             <a href="./img/UCCASH Tourism Indipendent Distributor Agreement.pdf" class="dropdown-item">Independent Distributor<p>Agreement</p></a>
                         </div>
                     </div>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-comment me-2"></i>Supports</a>
+                    <a href="supports.php" class="nav-item nav-link"><i class="fa fa-comment me-2"></i>Supports</a>
                     <a href="./logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                     
                     
@@ -176,9 +173,9 @@
             <a href="#" class="sidebar-toggler flex-shrink-0">
                 <i class="fa fa-bars"></i>
             </a>
-            <form class="d-none d-md-flex ms-4">
+            <!-- <form class="d-none d-md-flex ms-4">
                 <input class="form-control border-0" type="search" placeholder="Search">
-            </form>
+            </form> -->
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -199,7 +196,7 @@
 
             <!-- Sale & Revenue Start -->
             <!-- Packages stat-->
-<div class="container-fluid packages py-5">
+    <div class="container-fluid packages py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
             
@@ -222,10 +219,10 @@
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
                         <div class="col-6 text-start px-0">
-                            <a href="#" class="btn-hover btn text-white py-2 px-4">Booking Code-001</a>
+                            <a href="#" class="btn-hover btn text-white py-2 px-4"><b>Booking Code-001</b></a>
                         </div>
                         <div class="col-6 text-end px-0">
-                            <a href="confirm page.php" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                            <a href="tour description.php" class="btn-hover btn text-white py-2 px-4"><b>View Details</b></a>
                         </div>
                     </div>
                 </div>
@@ -251,10 +248,10 @@
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
                         <div class="col-6 text-start px-0">
-                            <a href="#" class="btn text-white py-2 px-4">Booking code-002</a>
+                            <a href="#" class="btn text-white py-2 px-4"><b>Booking Code-002</b></a>
                         </div>
                         <div class="col-6 text-end px-0">
-                            <a href="confirm page.php" class="btn text-white py-2 px-4">Book Now</a>
+                            <a href="tour description.php" class="btn text-white py-2 px-4"><b>View Details</b></a>
                         </div>
                     </div>
                 </div>
@@ -281,10 +278,10 @@
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
                         <div class="col-6 text-start px-0">
-                            <a href="#"  class="btn-hover btn text-white py-2 px-4">Booking code-003</a>
+                            <a href="#"  class="btn-hover btn text-white py-2 px-4"><b>Booking Code-003</b></a>
                         </div>
                         <div class="col-6 text-end px-0">
-                            <a href="confirm page.php" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                            <a href="tour description.php" class="btn-hover btn text-white py-2 px-4"><b>View Details</b></a>
                         </div>
                     </div>
                 </div>
@@ -310,10 +307,10 @@
                     </div>
                     <div class="row bg-primary rounded-bottom mx-0">
                         <div class="col-6 text-start px-0">
-                            <a href="#"  class="btn-hover btn text-white py-2 px-4">Booking code-004</a>
+                            <a href="#"  class="btn-hover btn text-white py-2 px-4"><b>Booking Code-004</b></a>
                         </div>
                         <div class="col-6 text-end px-0">
-                            <a href="confirm page.php" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                            <a href="tour description.php" class="btn-hover btn text-white py-2 px-4"><b>View Details</b></a>
                         </div>
                     </div>
                 </div>

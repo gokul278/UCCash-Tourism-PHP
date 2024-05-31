@@ -85,7 +85,7 @@
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
-                                        <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
+                            <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p
@@ -106,14 +106,14 @@
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
-                                </a>
+                            </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
                                     History</p></a>
                         </div>
                     </div>
                     <a href="travel coupon usage history.php" class="nav-item nav-link"><i
                             class="fa fa-star me-2"></i>Travel Coupon<p style="text-align: center;">Usage History</p>
-                        </a>
+                    </a>
                     <a href="bonus travel point usage history.php" class="nav-item nav-link"><i
                             class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;"> Point Usage History
                         </p></a>
@@ -127,8 +127,9 @@
                     </div>
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
                             class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p>
-                        </a>
-                    <a href="ranking board.php" class="nav-item nav-link active"><i class="fa fa-signal me-2"></i>Ranking
+                    </a>
+                    <a href="ranking board.php" class="nav-item nav-link active"><i
+                            class="fa fa-signal me-2"></i>Ranking
                         Board</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
@@ -233,6 +234,9 @@
 
             <br><br>
             <!--Table Start-->
+
+            <!-- Button trigger modal -->
+
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
@@ -240,26 +244,31 @@
                             <h4 style="color: #f7c128;" class="mb-5">Ranking Board</h4>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <!-- <div class="col-sm-6">
                                     <div class="input-group mb-3 mt-auto">
-                                        <input type="text" class="form-control" id="activationMemberID"
+                                        <input type="text" class="form-control" id="useridsearch"
                                             style="max-width: 200px;" placeholder="User ID">
-                                        <button class="btn btn-warning" type="button" id="searchButton">Search</button>
+                                        <button class="btn btn-warning" type="button" id="usersearch">Search</button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-warning" type="button" id="clearusersearch" disabled>Clear</button>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-sm-6">
                                     <div class="input-group mb-3 mt-auto">
-                                        <select class="form-select" id="activationMemberID" style="max-width: 200px;">
-                                            <option value="" selected disabled>Select an Rank</option>
-                                            <option value="1">Silver Director</option>
-                                            <option value="2">Gold Director</option>
-                                            <option value="3">Platinum Director</option>
-                                            <option value="3">Diamond Director</option>
-                                            <option value="3">Premium Director</option>
-                                            <option value="3">Crown Director</option>
-                                            <option value="3">Universal Crown Director</option>
+                                        <select class="form-select" id="typevalue" style="max-width: 200px;">
+                                            <option value="none" selected>Select an Rank</option>
+                                            <option value="Director">Director</option>
+                                            <option value="Senior Director">Senior Director</option>
+                                            <option value="Bronze Director">Bronze Director</option>
+                                            <option value="Silver Director">Silver Director </option>
+                                            <option value="Gold Director">Gold Director</option>
+                                            <option value="Diamond Director">Diamond Director</option>
+                                            <option value="Crow Director">Crow Director</option>
                                         </select>
-                                        <button class="btn btn-warning" type="button" id="searchButton">Search</button>
+                                        <button class="btn btn-warning" type="button" id="searchtype">Search</button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-warning" type="button" id="clearsearchtype"
+                                            disabled>Clear</button>
                                     </div>
 
                                 </div>
@@ -267,7 +276,7 @@
 
                             <div class="table-responsive">
                                 <strong>
-                                    <table id="table1" style="text-align: center;" class="table table-bordered">
+                                    <table id="myTable" style="text-align: center;" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th scope="col">S.NO</th>
@@ -277,78 +286,8 @@
                                                 <th scope="col">Status</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>UCT1234</td>
-                                                <td>Bala</td>
-                                                <td>Universal Crown Director</td>
-                                                <td>
-                                                    <a href="#" onclick="toggleTables()"><button type="button"
-                                                            class="btn btn-warning"><b>View</b></button></a>
-                                                </td>
-                                            </tr>
+                                        <tbody id="tabledata">
 
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>UCT5678</td>
-                                                <td>Ashok</td>
-                                                <td>Crown Director</td>
-                                                <td>
-                                                    <a href="#" onclick="toggleTables()"><button type="button"
-                                                            class="btn btn-warning"><b>View</b></button></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>UCT9632</td>
-                                                <td>Kumar</td>
-                                                <td>Platinum Director</td>
-                                                <td>
-                                                    <a href="#" onclick="toggleTables()"><button type="button"
-                                                            class="btn btn-warning"><b>View</b></button></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td>UCT7410</td>
-                                                <td>Ram</td>
-                                                <td>Diamond Director</td>
-                                                <td>
-                                                    <a href="#" onclick="toggleTables()"><button type="button"
-                                                            class="btn btn-warning"><b>View</b></button></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">5</th>
-                                                <td>UCT8520</td>
-                                                <td>Kumaravel</td>
-                                                <td>Gold Director</td>
-                                                <td>
-                                                    <a href="#" onclick="toggleTables()"><button type="button"
-                                                            class="btn btn-warning"><b>View</b></button></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">6</th>
-                                                <td>UCT5960</td>
-                                                <td>Suresh</td>
-                                                <td>Silver Director</td>
-                                                <td>
-                                                    <a href="#" onclick="toggleTables()"><button type="button"
-                                                            class="btn btn-warning"><b>View</b></button></a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">7</th>
-                                                <td>UCT9360</td>
-                                                <td>Kathir</td>
-                                                <td>Premium Director</td>
-                                                <td>
-                                                    <a href="#" onclick="toggleTables()"><button type="button"
-                                                            class="btn btn-warning"><b>View</b></button></a>
-                                                </td>
-                                            </tr>
 
                                         </tbody>
                                     </table>
@@ -359,85 +298,7 @@
                             <br><br>
 
 
-                            <div class="table-responsive hidden" id="table2">
-                                <strong>
-                                    <table style="text-align: center;" class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">S.NO</th>
-                                                <th scope="col">Rank</th>
-                                                <th scope="col">Acheived Date</th>
-                                                <th scope="col">Award Given Details</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Details</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Director</td>
-                                                <td>01/01/2024</td>
-                                                <td>02/02/2024</td>
-                                                <td class="green">Success</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button"
-                                                            class="btn btn-warning"><b>Update</b></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
 
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Senior Director</td>
-                                                <td>03/02/2024</td>
-                                                <td>05/03/2024</td>
-                                                <td class="green">Success</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button"
-                                                            class="btn btn-warning"><b>Update</b></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>P.Director</td>
-                                                <td>01/05/2024</td>
-                                                <td>05/06/2024</td>
-                                                <td class="green">Success</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button"
-                                                            class="btn btn-warning"><b>Update</b></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td>Silver Director</td>
-                                                <td>12/10/2024</td>
-                                                <td>17/11/2024</td>
-                                                <td class="green">Success</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button"
-                                                            class="btn btn-warning"><b>Update</b></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-
-                                    </table>
-                                </strong>
-                                <div id="backButton" class="show">
-                                    <a href="#" onclick="toggleTables()"><button type="button"
-                                            class="btn btn-warning"><b>Back</b></button></a>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
@@ -496,15 +357,10 @@
         });
     </script>
 
-    <script>
-        function toggleTables() {
-            var table1 = document.getElementById('table1');
-            var table2 = document.getElementById('table2');
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
-            table1.classList.toggle('hidden');
-            table2.classList.toggle('hidden');
-        }
-    </script>
+    <script src="./requiredFiles/js/rankingboard.js"></script>
 
 </body>
 

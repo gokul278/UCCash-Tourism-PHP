@@ -352,7 +352,7 @@
                                         </select>
                                         <input type="tel" id="phonenumber" class="form-control" placeholder=""
                                             style="width:70% !important" onclick="clearerror()"
-                                            pattern="[7-9]{1}[0-9]{9}" required>
+                                            pattern="[6-9]{1}[0-9]{9}" required>
                                     </div>
                                 </div>
                                 <label for="text">Address<span style="color: red;"> *</span></label>

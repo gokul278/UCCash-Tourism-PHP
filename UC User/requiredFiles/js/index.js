@@ -70,14 +70,14 @@ const getData = () => {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
                 }
 
-                if (response.user_referalStatus == "activated") {
+                // if (response.user_referalStatus == "activated") {
 
-                    $("#user_referalStatus").html('<b style="color:#66e0ac">&#10687; Active</b>')
+                //     $("#user_referalStatus").html('<b style="color:#66e0ac">&#10687; Active</b>')
 
-                } else if (response.user_referalStatus == "notactivated") {
+                // } else if (response.user_referalStatus == "notactivated") {
 
-                    $("#user_referalStatus").html('<b style="color:red">&#10687; In Active</b>')
-                }
+                //     $("#user_referalStatus").html('<b style="color:red">&#10687; In Active</b>')
+                // }
 
                 $(".user_name").html(response.user_name);
                 $("#user_id").html(response.user_id);

@@ -585,7 +585,7 @@ if ($values["status"] == "success") {
         if ($getcheckactivation["user_referalStatus"] == "activated") {
 
             //withdraw Limit
-            $minimumlimit = number_format(1, 2);
+            $minimumlimit = number_format(50, 2);
 
             if ($withdrawvalue >= $minimumlimit) {
 

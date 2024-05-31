@@ -270,14 +270,8 @@
                             <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-id-card me-2"></i>Booking</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour booking.php" class="dropdown-item">Tour Booking</a>
-                            <a href="hotel booking.php" class="dropdown-item">Hotel Booking</a>
-                        </div>
-                    </div>
+                    <a href="tour booking.php" class="nav-item nav-link"><i class="far fa-map me-2"></i>Tour
+                        Booking</a>
                     <a href="booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Booking
                         History</a>
 
@@ -285,10 +279,10 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">1 PDF </a>
-                            <a href="#" class="dropdown-item">2 PDF</a>
-                            <a href="#" class="dropdown-item">3 PDF</a>
-                            <a href="#" class="dropdown-item">4 PDF</a>
+                            <a href="./img/pdf1.pdf" target="_blank" class="dropdown-item">1 PDF </a>
+                            <a href="./img/pdf2.pdf" target="_blank" class="dropdown-item">2 PDF</a>
+                            <a href="./img/pdf3.pdf" target="_blank" class="dropdown-item">3 PDF</a>
+                            <a href="./img/pdf4.pdf" target="_blank" class="dropdown-item">4 PDF</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -304,7 +298,7 @@
                                 class="dropdown-item">Independent Distributor<p>Agreement</p></a>
                         </div>
                     </div>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-comment me-2"></i>Supports</a>
+                    <a href="supports.php" class="nav-item nav-link"><i class="fa fa-comment me-2"></i>Supports</a>
                     <a href="./logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
 
 
@@ -325,9 +319,9 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                <!-- <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+                </form> -->
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -435,7 +429,7 @@
                                             <h6 class="mb-0">ID</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <span id="user_referalStatus"></span>
+                                            <span><b style="color:#66e0ac">&#10687; Active</b></span>
 
                                         </div>
                                     </div>

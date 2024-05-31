@@ -73,7 +73,8 @@ if ($values["status"] == "success") {
 
                     $tabledata .= '
                 <td class="red">' . $gettable["remark"] . '</td>
-                <td style="color:#bf7036">Pending</td>
+                <td style="color:red">Pending</td>
+                <td style="color:red">Pending</td>
                 </tr>';
 
                 } else if ($gettable["action"] == "paid") {
@@ -89,7 +90,7 @@ if ($values["status"] == "success") {
     
                 } else if ($gettable["action"] == "reject") {
                     $tabledata .= '
-                        <td class="red">' . $gettable["remark"] . '</td>
+                        <td class="red">Rejected<br/>' . $gettable["remark"] . '</td>
                             <td>
                             </td>
                             <td>
