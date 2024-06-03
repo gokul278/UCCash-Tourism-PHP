@@ -48,7 +48,7 @@ const getData = () => {
 
                 $(".user_name").html(response.user_name);
 
-                $(".savingsincome").html(response.savingsincome);
+                $(".savingstravelpoints").html(response.savingstravelpoints);
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -67,7 +67,7 @@ const getData = () => {
 const balancecheck = () => {
     const way = $("#floatingSelect").val();
 
-    if (way !== "Select Wallet") {
+    if (way !== "none") {
 
         $.ajax({
             type: "POST",
@@ -94,7 +94,9 @@ const balancecheck = () => {
             }
         });
 
-    } 
+    } else{
+        $("#balanacevalue").html("None");
+    }
 }
 
 const checkuserid = () => {

@@ -25,7 +25,10 @@ if ($values["status"] == "success") {
             $datarow = $datares->fetch_assoc();
             $response["user_name"] = $datarow["user_name"];
             $response["user_profileimg"] = $datarow["user_profileimg"];
-            $response["user_id"] = $datarow["user_id"];
+            $response["user_referalStatus"] = $datarow["user_referalStatus"];
+            if ($datarow["user_referalStatus"] == "activated") {
+                $response["user_id"] = $datarow["user_id"];
+            }
             
             $response["status"] = "success";
             echo json_encode($response);

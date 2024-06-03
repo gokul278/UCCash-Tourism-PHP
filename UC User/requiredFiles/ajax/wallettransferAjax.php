@@ -26,54 +26,53 @@ if ($values["status"] == "success") {
             $response["user_name"] = $datarow["user_name"];
             $response["user_profileimg"] = $datarow["user_profileimg"];
 
-            //Savings Income
-            $savingsincome = $con->query("SELECT * FROM savingsincome WHERE user_id='{$values["userid"]}'");
-            $sicredit = 0;
-            $sidebit = 0;
+            //Savings Travel Points
+            $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$datarow["user_id"]}'");
+            $stcredit = 0;
+            $stdebit = 0;
 
-            if (mysqli_num_rows($savingsincome) >= 1) {
+            if (mysqli_num_rows($savingtravel) >= 1) {
 
-                foreach ($savingsincome as $getsavingsincome) {
-                    if (isset($getsavingsincome["si_action"]) && strlen($getsavingsincome["si_action"]) >= 1) {
-                        if ($getsavingsincome["si_action"] == "credit") {
-                            $sicredit += (float) $getsavingsincome["si_points"];
-                        } else if ($getsavingsincome["si_action"] == "debit") {
-                            $sidebit += (float) $getsavingsincome["si_points"];
+                foreach ($savingtravel as $getsavingtravel) {
+                    if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
+                        if ($getsavingtravel["st_action"] == "credit") {
+                            $stcredit += (float) $getsavingtravel["st_points"];
+                        } else if ($getsavingtravel["st_action"] == "debit") {
+                            $stdebit += (float) $getsavingtravel["st_points"];
                         }
                     }
                 }
 
             }
 
-            $response["savingsincome"] = number_format(($sicredit - $sidebit), 2);
+            $response["savingstravelpoints"] = number_format(($stcredit - $stdebit), 2);
 
             $response["status"] = "success";
             echo json_encode($response);
 
         }
 
-    } else if ($way == "savingsincome") {
+    } else if ($way == "savingstravelpoints") {
 
-        //Savings Income
-        $savingsincome = $con->query("SELECT * FROM savingsincome WHERE user_id='{$values["userid"]}'");
-        $sicredit = 0;
-        $sidebit = 0;
+        //Savings Travel Points
+        $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
+        $stcredit = 0;
+        $stdebit = 0;
 
-        if (mysqli_num_rows($savingsincome) >= 1) {
+        if (mysqli_num_rows($savingtravel) >= 1) {
 
-            foreach ($savingsincome as $getsavingsincome) {
-                if (isset($getsavingsincome["si_action"]) && strlen($getsavingsincome["si_action"]) >= 1) {
-                    if ($getsavingsincome["si_action"] == "credit") {
-                        $sicredit += (float) $getsavingsincome["si_points"];
-                    } else if ($getsavingsincome["si_action"] == "debit") {
-                        $sidebit += (float) $getsavingsincome["si_points"];
+            foreach ($savingtravel as $getsavingtravel) {
+                if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
+                    if ($getsavingtravel["st_action"] == "credit") {
+                        $stcredit += (float) $getsavingtravel["st_points"];
+                    } else if ($getsavingtravel["st_action"] == "debit") {
+                        $stdebit += (float) $getsavingtravel["st_points"];
                     }
                 }
             }
-
         }
 
-        $response["balanacevalue"] = number_format(($sicredit - $sidebit), 2);
+        $response["balanacevalue"] = number_format(($stcredit - $stdebit), 2);
 
         $response["status"] = "success";
         echo json_encode($response);
@@ -124,7 +123,7 @@ if ($values["status"] == "success") {
         $userid = $_POST["userid"];
         $transferpoints = number_format(($_POST["transferpoints"]), 2);
 
-        if ($wallettype == "savingsincome") {
+        if ($wallettype == "savingstravelpoints") {
 
             $activation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}' AND user_referalStatus='activated'");
 
@@ -135,34 +134,34 @@ if ($values["status"] == "success") {
 
                 if (mysqli_num_rows($checkid) >= 1) {
 
-                    //Savings Income
-                    $savingsincome = $con->query("SELECT * FROM savingsincome WHERE user_id='{$values["userid"]}'");
-                    $sicredit = 0;
-                    $sidebit = 0;
+                    //Savings Travel Points
+                    $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
+                    $stcredit = 0;
+                    $stdebit = 0;
 
-                    if (mysqli_num_rows($savingsincome) >= 1) {
+                    if (mysqli_num_rows($savingtravel) >= 1) {
 
-                        foreach ($savingsincome as $getsavingsincome) {
-                            if (isset($getsavingsincome["si_action"]) && strlen($getsavingsincome["si_action"]) >= 1) {
-                                if ($getsavingsincome["si_action"] == "credit") {
-                                    $sicredit += (float) $getsavingsincome["si_points"];
-                                } else if ($getsavingsincome["si_action"] == "debit") {
-                                    $sidebit += (float) $getsavingsincome["si_points"];
+                        foreach ($savingtravel as $getsavingtravel) {
+                            if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
+                                if ($getsavingtravel["st_action"] == "credit") {
+                                    $stcredit += (float) $getsavingtravel["st_points"];
+                                } else if ($getsavingtravel["st_action"] == "debit") {
+                                    $stdebit += (float) $getsavingtravel["st_points"];
                                 }
                             }
                         }
 
                     }
 
-                    $savingsincomebalance = number_format(($sicredit - $sidebit), 2);
+                    $savingsincomebalance = number_format(($stcredit - $stdebit), 2);
 
                     if ($transferpoints <= $savingsincomebalance) {
 
-                        $credituser = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_action,si_remark)
-                    VALUES ('{$userid}','{$transferpoints}','Transferred From {$values["userid"]}','credit','Savings Income')");
+                        $credituser = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_bonusfrom,st_action,st_remark)
+                    VALUES ('{$userid}','{$transferpoints}','Transferred From {$values["userid"]}','credit','Savings Travel Points')");
 
-                        $debituser = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_action,si_remark)
-                    VALUES ('{$values["userid"]}','{$transferpoints}','Transferred for {$userid}','debit','Savings Income')");
+                        $debituser = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_bonusfrom,st_action,st_remark)
+                    VALUES ('{$values["userid"]}','{$transferpoints}','Transferred for {$userid}','debit','Savings Travel Points')");
 
                         if ($credituser && $debituser) {
                             $response["status"] = "success";

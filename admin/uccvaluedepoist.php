@@ -38,7 +38,7 @@
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 
-     <!-- Simple Notifier -->
+    <!-- Simple Notifier -->
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
 
@@ -141,17 +141,17 @@
                                 class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
-                            <a href="tour description.php" class="dropdown-item">Tour Description</a>
-                            <a href="tour gallery.php" class="dropdown-item">Gallery</a>
-                            <a href="#" class="dropdown-item">Receipt Edit</a>
+                            <!-- <a href="tour description.php" class="dropdown-item">Tour Description</a>
+                            <a href="tour gallery.php" class="dropdown-item">Gallery</a> -->
+                            <a href="receipt edit.php" class="dropdown-item">Receipt Edit</a>
                         </div>
                     </div>
                     <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
                         Booking<p style="text-align: center;"> History</p></a>
-                    <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
+                    <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
                         Booking<p style="text-align: center;"> Edit</p></a>
                     <a href="hotel booking history.php" class="nav-item nav-link"><i
-                            class="fa fa-bookmark me-2"></i>Hotel Booking<p style="text-align: center;"> History</p></a>
+                            class="fa fa-bookmark me-2"></i>Hotel Booking<p style="text-align: center;"> History</p></a> -->
                     <a href="members income balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Member's<p style="text-align: center;">Income
                             Balance Sheet</p></a>
@@ -195,11 +195,11 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                <!-- <form class="d-none d-md-flex ms-4">
                     <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                </form>
+                </form> -->
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
                             <span style="color: #fff;" class="d-none d-lg-inline-flex">Notificatin</span>
@@ -220,7 +220,7 @@
                                 <small>15 minutes ago</small>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
@@ -247,7 +247,7 @@
                             <form id="depositevalue">
                                 <div class="form-floating mb-1">
                                     <input type="text" class="form-control" name="userid" id="userid"
-                                        placeholder="Deposit Address" oninput="getuser()"  required>
+                                        placeholder="Deposit Address" oninput="getuser()" required>
                                     <label for="crypto_address">User ID</label>
                                 </div>
                                 <div class="mb-3" id="username">
@@ -261,9 +261,32 @@
                                 </div>
                                 <!-- Center the Update Button -->
                                 <div class="d-flex justify-content-center">
-                                    <button type="submit" class="btn btn-primary" id="depositbtn" style="color:black" disabled>Deposite</button>
+                                    <button type="submit" class="btn btn-primary" id="depositbtn" style="color:black"
+                                        disabled>Deposite</button>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm-12 col-xl-10">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h4 style="color: #f7c128;" class="mb-5">UCC Value Deposit History</h4>
+                            <div class="table-responsive">
+                                <table id="myTable" class="table table-bordered">
+                                    <thead>
+                                        <th>S.No</th>
+                                        <th>Date & Time</th>
+                                        <th>User ID</th>
+                                        <th>Points</th>
+                                        <th>Status</th>
+                                    </thead>
+                                    <tbody id="tabledata">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -305,6 +328,9 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
 
     <script src="./requiredFiles/js/uccvaluedeposit.js"></script>
 </body>

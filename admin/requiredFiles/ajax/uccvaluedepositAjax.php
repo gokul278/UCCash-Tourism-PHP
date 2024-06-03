@@ -25,6 +25,24 @@ if ($values["status"] == "success") {
 
         $response["profile_image"] = $getdetails["admin_profile"];
 
+        $tabledata = "";
+
+        $data = $con->query("SELECT * FROM uccwalletpoints WHERE uccw_action='credit'");
+
+        foreach($data as $index=>$getdata){
+            $tabledata .= '
+            <tr>
+                <th>'.($index+1).'</th>
+                <th>'.($getdata["uccw_createdat"]).'</th>
+                <th>'.($getdata["user_id"]).'</th>
+                <th>'.($getdata["uccw_points"]).'</th>
+                <th style="color:green">Sucessfully Deposited</th>
+            </tr>
+            ';
+        }
+
+        $response["tabledata"] = $tabledata;
+
         $response["status"] = "success";
         echo json_encode($response);
 

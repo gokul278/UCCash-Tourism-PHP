@@ -33,16 +33,7 @@ if ($values["status"] == "success") {
         
         $response["totaldistributor"] = mysqli_num_rows($totaldistributor);
 
-        $totalmonthly = $con->query("SELECT t1.*
-        FROM monthlysavingpendinginvoice t1
-        INNER JOIN (
-            SELECT user_id, MAX(created_at) AS latest_created_at
-            FROM monthlysavingpendinginvoice
-            WHERE action = 'paid'
-            GROUP BY user_id
-        ) t2 ON t1.user_id = t2.user_id AND t1.created_at = t2.latest_created_at
-        WHERE t1.action = 'paid';
-        ");
+        $totalmonthly = $con->query("SELECT * FROM userdetails WHERE user_referalStatus = 'notactivated'");
 
         $response["totalmonthly"] = mysqli_num_rows($totalmonthly);
 
@@ -71,7 +62,7 @@ if ($values["status"] == "success") {
 
          //Travel Coupon's
          $travelcoupon = $con->query("SELECT * FROM travelcouponpoints");
-         $tccredit = 0;
+         $tccredit = 50;
          $tcdebit = 0;
 
          if (mysqli_num_rows($travelcoupon) >= 1) {

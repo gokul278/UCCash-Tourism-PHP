@@ -54,11 +54,11 @@
                 <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3" style="width: 150px; height: 60px;">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><b>Gowtham</b></h6>
+                        <h6 class="mb-0 user_name"><b></b></h6>
                         <span>User</span>
                     </div>
                 </div>
@@ -179,8 +179,8 @@
             <div class="navbar-nav align-items-center ms-auto">
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img class="rounded-circle me-lg-2" src="img/user.png" alt="" style="width: 40px; height: 40px;">
-                        <span class="d-none d-lg-inline-flex"><b>Gowtham</b></span>
+                        <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <span class="d-none d-lg-inline-flex user_name"><b></b></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="./logout.php" class="dropdown-item">Log Out</a>
@@ -202,10 +202,10 @@
             
             <h1 class="mb-0">Popular <span style="color: #f7c128;">Destinations</span></h1>
         </div>
-        <div class="packages-carousel owl-carousel">
+        <div class="packages-carousel owl-carousel" id="carddata">
             <div class="packages-item">
                 <div class="packages-img">
-                    <img src="img/honeymoon package.jpg" class="img-fluid w-100 rounded-top" alt="honeymoon package" width="275" height="183">
+                    <img src="./img/tourdestination/202406011106490_20240512094414_IMG-20240512-WA0026.jpg" class="img-fluid w-100 rounded-top" alt="honeymoon package" style="width:275px;height:183px">
                     <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute" style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                         <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt me-2"></i>4 DAYS / 3 NIGHTS</small>
                     </div>
@@ -319,8 +319,17 @@
     </div>
   </div>
 
+  
+  
+  <!-- Content End -->
+  
+  <script src="./requiredFiles/js/tourbooking.js"></script>
 
-  <style>
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+<style>
     .packages .packages-item .packages-img {
     position: relative;
     overflow: hidden;
@@ -437,13 +446,6 @@
     color: var(--bs-white);
 }
   </style>
-        <!-- Content End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    </div>
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -459,38 +461,10 @@
     <script src="js/main.js"></script>
 
 
-    <script>
-      $(".packages-carousel").owlCarousel({
-        autoplay: true,
-        smartSpeed: 1000,
-        center: false,
-        dots: false,
-        loop: true,
-        margin: 25,
-        nav : true,
-        navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
-        ],
-        responsiveClass: true,
-        responsive: {
-            0:{
-                items:1
-            },
-            768:{
-                items:2
-            },
-            992:{
-                items:2
-            },
-            1200:{
-                items:3
-            }
-        }
-    });
-    </script>
-    <!--user js-->
+
    
+
+    
 </body>
 
 </html>

@@ -227,12 +227,12 @@
 
                     <div class="col-sm-6 col-xl-4">
                         <div class="card rounded bg-light text-center">
-                            <img style="margin: auto; width: 80px; height: 80px;" src="img/bitcoin.png"
+                            <img style="margin: auto; width: 80px; height: 80px;" src="img/coins.png"
                                 class="card-img-top" alt="Coupon Image">
 
                             <div class="card-body">
-                                <h5 class="card-title mb-2">Savings Income</h5>
-                                <h5 class="card-text mb-0 savingsincome"></h5>
+                                <h5 class="card-title mb-2">Savings Travel Points</h5>
+                                <h5 class="card-text mb-0 savingstravelpoints"></h5>
                             </div>
                         </div>
                     </div>
@@ -247,8 +247,8 @@
                             <div class="form-floating mb-3">
                                 <select class="form-select" id="floatingSelect" name="wallettype"
                                     aria-label="Floating label select example" oninput="balancecheck()" onclick="clearerr()" required>
-                                    <option selected>Select Wallet</option>
-                                    <option value="savingsincome">Savings Income</option>
+                                    <option selected value="none">Select Wallet</option>
+                                    <option value="savingstravelpoints">Savings Travel Points</option>
                                 </select>
                                 <label for="floatingSelect"><b>From Wallet Type</b></label>
                             </div>

@@ -22,6 +22,60 @@ $(document).ready(() => {
         }
     });
 
+    document.querySelectorAll('.image-upload-model').forEach(model => {
+        model.addEventListener('change', function (event) {
+            if (event.target.classList.contains('file-input')) {
+                const input = event.target;
+                const span = input.nextElementSibling.nextElementSibling;
+                span.textContent = input.files.length > 0 ? input.files[0].name : '';
+            }
+        });
+
+        model.querySelectorAll('.file-label').forEach(label => {
+            label.addEventListener('click', function () {
+                const input = label.previousElementSibling;
+                input.click();
+            });
+        });
+    });
+
+
+    $("#newdestination").submit(function (e) {
+        e.preventDefault();
+
+
+        $("#addbtn").html('<strong style="color: #000;">Loading ..</strong>');
+
+        var frm = $("#newdestination")[0];
+        var frmdata = new FormData(frm);
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/tourdestinationeditAjax.php",
+            data: frmdata,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (res) {
+                var response = JSON.parse(res);
+
+                if (response.status == "auth_failed" && response.message == "Expired token") {
+
+                    location.replace("time_expried.php");
+
+                } else if (response.status == "auth_failed") {
+
+                    location.replace("unauth_login.php");
+
+                } else if (response.status == "success") {
+
+                    location.reload();
+                }
+            }
+        });
+
+
+    });
+
 });
 
 const getData = () => {
@@ -42,10 +96,10 @@ const getData = () => {
                     $(".profile_image").attr("src", "./img/user/" + response.profile_image);
                 }
 
-                if(response.tabledata.length >= 1){
-                    $("#tabledata").html(response.tabledata)
-                }else{
-                    $("#tabledata").html("<tr><th colspan='9'>No data Found</th></tr>")
+                if (response.tabledata.length >= 1) {
+                    $("#tabledata").html(response.tabledata);
+                } else {
+                    $("#tabledata").html("<tr><th colspan='8'>No Data Found</th></tr>");
                 }
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
@@ -63,10 +117,48 @@ const getData = () => {
 }
 
 
-$("#newtoursubmit").submit(function (e) { 
-    e.preventDefault();
-    
-    var frm = $("#newtoursubmit")[0];
+const addtextbox = (id) => {
+
+    var boxid = $(id).attr('boxid');
+    var max = parseInt($(id).attr('max'));
+    max += 1;
+
+    $("#textboxes" + boxid).append(`
+        <div class="form-group mb-2" id="box`+ boxid + `` + max + `">
+            <label for="days`+ boxid + `` + max + `">Day ` + max + `</label>
+            <textarea class="form-control day-1-textbox"
+                name="days`+ max + `" id="days` + boxid + `` + max + `" placeholder=""
+                style="height: 100px;"></textarea>
+        </div>
+    `);
+
+    $(id).attr('max', max);
+
+}
+
+const removetextbox = (id) => {
+
+    var boxid = $(id).attr('boxid');
+    var max = parseInt($("#textboxbtn" + boxid).attr('max'));
+
+    if (max != 1) {
+
+        $("#box" + boxid + max).remove();
+        max -= 1;
+        $("#textboxbtn" + boxid).attr('max', max);
+
+    }
+
+}
+
+
+const updatetour = (id) => {
+
+
+    var tourid = $(id).attr('tourid');
+    $("#updatebtn" + tourid).html('<strong style="color: #000;">Loading ..</strong>')
+
+    var frm = $("#updatedestination" + tourid)[0];
     var frmdata = new FormData(frm);
     $.ajax({
         type: "POST",
@@ -88,36 +180,13 @@ $("#newtoursubmit").submit(function (e) {
 
             } else if (response.status == "success") {
 
-                new Notify({
-                    status: 'success',
-                    title: 'Destination',
-                    text: 'Destination Added Successfully...!',
-                    effect: 'fade',
-                    speed: 300,
-                    speed: 300,
-                    customClass: '',
-                    customIcon: '',
-                    showIcon: true,
-                    showCloseButton: true,
-                    autoclose: true,
-                    autotimeout: 3000,
-                    notificationsGap: null,
-                    notificationsPadding: null,
-                    type: 'outline',
-                    position: 'right top',
-                    customWrapper: '',
-                })
-
-                frm.reset();
-
-                $("#newbtn").prop("disabled",true);
-                var fileNameSpan = document.getElementById('fileName');
-                fileNameSpan.textContent = "";
-
-                return getData();       
-
+                location.reload();
             }
         }
     });
-    
-});
+
+}
+
+
+
+

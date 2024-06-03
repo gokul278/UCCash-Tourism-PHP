@@ -42,6 +42,16 @@ const getData = () => {
                     $(".profile_image").attr("src", "./img/user/" + response.profile_image);
                 }
 
+                if (response.tabledata.length >= 1) {
+                    $("#tabledata").html(response.tabledata);
+                    let table = new DataTable('#myTable',{
+                        ordering:  false
+                    });
+                } else {
+                    $("#tabledata").html(response.tabledata);
+                    $("#tabledata").html("<tr><th colspan='8'>No Data Found</th></tr>");
+                }
+
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
                 location.replace("time_expried.php");

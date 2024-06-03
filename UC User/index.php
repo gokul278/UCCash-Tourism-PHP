@@ -428,9 +428,7 @@
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">ID</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <span><b style="color:#66e0ac">&#10687; Active</b></span>
-
+                                        <div class="col-sm-9 text-secondary" id="user_referalStatus">
                                         </div>
                                     </div>
                                     <hr>

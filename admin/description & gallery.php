@@ -115,17 +115,17 @@
                                 class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
-                            <a href="tour description.php" class="dropdown-item">Tour Description</a>
-                            <a href="tour gallery.php" class="dropdown-item">Gallery</a>
-                            <a href="#" class="dropdown-item">Receipt Edit</a>
+                            <!-- <a href="tour description.php" class="dropdown-item">Tour Description</a>
+                            <a href="tour gallery.php" class="dropdown-item">Gallery</a> -->
+                            <a href="receipt edit.php" class="dropdown-item">Receipt Edit</a>
                         </div>
                     </div>
                     <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Tour Booking<p
                             style="text-align: center;"> History</p></a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hotel Booking<p
+                    <!-- <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hotel Booking<p
                             style="text-align: center;"> Edit</p></a>
                     <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Hotel Booking<p
-                            style="text-align: center;"> History</p></a>
+                            style="text-align: center;"> History</p></a> -->
                     <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Member's<p
                             style="text-align: center;"> Balance Sheet</p></a>
                     <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Company<p
@@ -151,11 +151,11 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                <!-- <form class="d-none d-md-flex ms-4">
                     <input class="form-control bg-dark border-0" type="search" placeholder="Search">
-                </form>
+                </form> -->
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="fa fa-bell me-lg-2"></i>
                             <span style="color: #fff;" class="d-none d-lg-inline-flex">Notificatin</span>
@@ -176,7 +176,7 @@
                                 <small>15 minutes ago</small>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.png" alt=""

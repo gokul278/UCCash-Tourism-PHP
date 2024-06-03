@@ -343,7 +343,7 @@
 
             <div class="referraldiv container">
 
-                <div class="activated">
+                <div class="activated" style="display:none">
                     <div class="container">
                         <div class="label" align="center">
                             <div id="qrcode"></div>

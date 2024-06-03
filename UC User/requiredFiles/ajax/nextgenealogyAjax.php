@@ -76,7 +76,7 @@ if ($values["status"] == "success") {
 
                         $tree .= '<i class="bi bi-arrow-down" style="font-size:30px; color:black"></i><br>
                     <a style="padding-left:50px" data-bs-toggle="modal" data-bs-target="#exampleModal' . $index . '">
-                    <img class="childimg" src="img/' . (isset($getuserdetails["user_profileimg"]) && strlen($getuserdetails["user_profileimg"]) > 0 ? "user/" . $getuserdetails["user_profileimg"] : "user.png") . '" >
+                    <img class="childimg" src="img/' . (isset($getuserdetails["user_profileimg"]) && strlen($getuserdetails["user_profileimg"]) > 0 ? "user/" . $getuserdetails["user_profileimg"] : "user.png") . '" style="padding: 10px;background-color:green">
                     </a>
                     <div class="modal fade" id="exampleModal' . $index . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -202,7 +202,7 @@ if ($values["status"] == "success") {
                     <div style="width:50%;height:2px;background-color:black"></div>
                 </div>
                 <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
-                <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <a href="../signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
                     <img class="childimg" src="img/add.png">
                 </a><br>
                 <a style="color:white">-</a><br>
@@ -221,7 +221,7 @@ if ($values["status"] == "success") {
                     <div style="width:50%;height:2px;background-color:' . $bgColor . '"></div>
                 </div>
                 <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
-                <a href="../../UC-Tour/signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
+                <a href="../signup.php?referral=' . $nextid . '" target="_blank" style="padding-left:50px">
                     <img class="childimg" src="img/add.png">
                 </a><br>
                 <a style="color:white">-</a><br>

@@ -83,7 +83,7 @@ if ($values["status"] == "success") {
                 if ($getuserdata["user_referalStatus"] == "activated") {
                     $tabledata .= '<a style="padding-left:50px;cursor:pointer;" data-bs-toggle="modal"
                 data-bs-target="#exampleModal' . $index . '">
-                <img class="childimg" src="img/' . $profileimg . '">
+                <img class="childimg" src="img/' . $profileimg . '" style="padding: 10px;background-color:green">
             </a>
             <div class="modal fade" id="exampleModal' . $index . '" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -192,7 +192,7 @@ if ($values["status"] == "success") {
             <div style="width:50%;height:2px;background-color:black"></div>
         </div>
         <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
-        <a href="../../UC-Tour/signup.php?referral=' . $values["userid"] . '" target="_blank" style="padding-left:50px">
+        <a href="../signup.php?referral=' . $values["userid"] . '" target="_blank" style="padding-left:50px">
             <img class="childimg" src="img/add.png">
         </a><br>
         <a style="color:white">-</a><br>
@@ -213,7 +213,7 @@ if ($values["status"] == "success") {
             <div style="width:50%;height:2px;background-color:' . $bgColor . '"></div>
         </div>
         <i class="bi bi-arrow-down" style="font-size:30px;color:black"></i><br>
-        <a href="../../UC-Tour/signup.php?referral=' . $values["userid"] . '" target="_blank" style="padding-left:50px">
+        <a href="../signup.php?referral=' . $values["userid"] . '" target="_blank" style="padding-left:50px">
             <img class="childimg" src="img/add.png">
         </a><br>
         <a style="color:white">-</a><br>
