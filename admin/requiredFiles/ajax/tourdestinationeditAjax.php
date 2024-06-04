@@ -83,7 +83,9 @@ if ($values["status"] == "success") {
                             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal' . $count . '">
                                 <b>Edit</b>
                             </button>
-                            <button type="button" class="btn btn-danger">
+                            <br/>
+                            <br/>
+                            <button type="button" class="btn btn-danger" tourid="' . $getdata['id'] . '" onclick="deletetour(this)">
                             <b>Delete</b>
                         </button>
                             <div class="modal fade" id="exampleModal' . $count . '" tabindex="-1" role="dialog"
@@ -176,7 +178,7 @@ if ($values["status"] == "success") {
                                                                     </div>
                                                                     <div class="form-group mb-3">
                                                                         <label for="amount">Amount :</label>
-                                                                        <input type="tel" class="form-control" name="amount" id="amount" value="' . $getdata['tour_amount'] . '"
+                                                                        <input type="number" class="form-control" name="amount" id="amount" value="' . $getdata['tour_amount'] . '"
                                                                             placeholder="Enter amount" required>
                                                                     </div>
                                                                     <div id="form-container">
@@ -317,11 +319,11 @@ if ($values["status"] == "success") {
 
         $tourid = $_POST["tourid"];
         $thumbnail = isset($_FILES["thumbnail"]["name"]) ? $_FILES["thumbnail"]["name"] : "";
-        $image1 = isset($_FILES["image1"]["name"]);
-        $image2 = isset($_FILES["image2"]["name"]);
-        $image3 = isset($_FILES["image3"]["name"]);
-        $image4 = isset($_FILES["image4"]["name"]);
-        $image5 = isset($_FILES["image5"]["name"]);
+        $image1 = isset($_FILES["image1"]["name"]) ? $_FILES["image1"]["name"] : "";
+        $image2 = isset($_FILES["image2"]["name"]) ? $_FILES["image2"]["name"] : "";
+        $image3 = isset($_FILES["image3"]["name"]) ? $_FILES["image3"]["name"] : "";
+        $image4 = isset($_FILES["image4"]["name"]) ? $_FILES["image4"]["name"] : "";
+        $image5 = isset($_FILES["image5"]["name"]) ? $_FILES["image5"]["name"] : "";
         $tourname = $_POST["imgdescribe"];
         $bookingcode = $_POST["bookingcode"];
         $days = $_POST["days"];
@@ -347,9 +349,148 @@ if ($values["status"] == "success") {
             }
         }
 
-        $response["thumnail"] = $thumbnail;
-        $response["image1"] = $image1;
-        echo json_encode($response);
+        $daysplan = json_encode($daysplan);
+
+        $image = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
+        $getimage = $image->fetch_assoc();
+
+        //Thumbnail Image
+        if (strlen($thumbnail) > 3) {
+
+            $thumbnail = $timestamp . '0_' . $thumbnail;
+
+            if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_thumbnail"])) {
+
+                if (move_uploaded_file($_FILES["thumbnail"]["tmp_name"], "../../../UC User/img/tourdestination/" . $thumbnail)) {
+
+                    $update = $con->query("UPDATE tourdestination SET tour_thumbnail='{$thumbnail}' WHERE id='{$tourid}'");
+
+                }
+
+            }
+
+        }
+
+        //image 1
+        if (strlen($image1) > 3) {
+
+            $image1 = $timestamp . '1_' . $image1;
+
+            if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image1"])) {
+
+                if (move_uploaded_file($_FILES["image1"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image1)) {
+
+                    $update = $con->query("UPDATE tourdestination SET tour_image1='{$image1}' WHERE id='{$tourid}'");
+
+                }
+
+            }
+
+        }
+
+        //image 2
+        if (strlen($image2) > 3) {
+
+            $image2 = $timestamp . '2_' . $image2;
+
+            if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image2"])) {
+
+                if (move_uploaded_file($_FILES["image2"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image2)) {
+
+                    $update = $con->query("UPDATE tourdestination SET tour_image2='{$image2}' WHERE id='{$tourid}'");
+
+                }
+
+            }
+
+        }
+
+        //image 3
+        if (strlen($image3) > 3) {
+
+            $image3 = $timestamp . '3_' . $image3;
+
+            if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image3"])) {
+
+                if (move_uploaded_file($_FILES["image3"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image3)) {
+
+                    $update = $con->query("UPDATE tourdestination SET tour_image3='{$image3}' WHERE id='{$tourid}'");
+
+                }
+
+            }
+
+        }
+
+        //image 4
+        if (strlen($image4) > 3) {
+
+            $image4 = $timestamp . '4_' . $image4;
+
+            if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image4"])) {
+
+                if (move_uploaded_file($_FILES["image4"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image4)) {
+
+                    $update = $con->query("UPDATE tourdestination SET tour_image4='{$image4}' WHERE id='{$tourid}'");
+
+                }
+
+            }
+
+        }
+
+        //image 5
+        if (strlen($image5) > 3) {
+
+            $image5 = $timestamp . '5_' . $image5;
+
+            if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image5"])) {
+
+                if (move_uploaded_file($_FILES["image5"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image5)) {
+
+                    $update = $con->query("UPDATE tourdestination SET tour_image5='{$image5}' WHERE id='{$tourid}'");
+
+                }
+
+            }
+
+        }
+
+
+        //update Details
+        $updatedetails = $con->query("UPDATE tourdestination SET tour_name='{$tourname}', tour_bookingcode='{$bookingcode}',
+        tour_days='{$days}', tour_fromdate='{$fromDate}', tour_todate='{$toDate}', tour_amount='{$amount}', tour_daysplan='{$daysplan}', tour_inclusion='{$inclusion}', tour_exclusion='{$exclusion}' WHERE id='{$tourid}'");
+
+        if ($updatedetails) {
+            $response["status"] = "success";
+            echo json_encode($response);
+        }
+
+    }else if ($way == "deletedestination"){
+
+        $tourid = $_POST["tourid"];
+
+        $image = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
+        $getimage = $image->fetch_assoc();
+
+        if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_thumbnail"])) {
+            if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image1"])) {
+                if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image2"])) {
+                    if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image3"])) {
+                        if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image4"])) {
+                            if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image5"])) {
+                                $deletedestination = $con->query("DELETE FROM tourdestination WHERE id='{$tourid}'");
+
+                                if ($deletedestination) {
+                                    $response["status"] = "success";
+                                    echo json_encode($response);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     }
 

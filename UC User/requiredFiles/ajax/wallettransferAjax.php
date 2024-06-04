@@ -47,6 +47,37 @@ if ($values["status"] == "success") {
 
             $response["savingstravelpoints"] = number_format(($stcredit - $stdebit), 2);
 
+            $tabledata = "";
+            
+            $data = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}' AND st_remark='transfer'");
+
+            foreach($data as $index=>$getData){
+                $tabledata .= '
+                <tr>
+                    <th scope="col">'.($index+1).'</th>
+                    <th>'.$getData["st_createdat"].'</th>
+                    <th>'.$getData["st_bonusfrom"].'</th>
+                ';
+
+                if($getData['st_action'] == 'credit'){
+                    $tabledata .= '
+                            <th>Recived</th>
+                            <th>'.$getData["st_points"].'</th>
+                            <th></th>
+                        </tr>
+                    ';
+                }else if($getData['st_action'] == 'debit'){
+                    $tabledata .= '
+                        <th>Transferred</th>
+                        <th></th>
+                        <th>'.$getData["st_points"].'</th>
+                    </tr>
+                ';
+                }
+            }
+
+            $response["tabledata"] = $tabledata;
+
             $response["status"] = "success";
             echo json_encode($response);
 
@@ -158,10 +189,10 @@ if ($values["status"] == "success") {
                     if ($transferpoints <= $savingsincomebalance) {
 
                         $credituser = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_bonusfrom,st_action,st_remark)
-                    VALUES ('{$userid}','{$transferpoints}','Transferred From {$values["userid"]}','credit','Savings Travel Points')");
+                    VALUES ('{$userid}','{$transferpoints}','Transferred From {$values["userid"]}','credit','transfer')");
 
                         $debituser = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_bonusfrom,st_action,st_remark)
-                    VALUES ('{$values["userid"]}','{$transferpoints}','Transferred for {$userid}','debit','Savings Travel Points')");
+                    VALUES ('{$values["userid"]}','{$transferpoints}','Transferred for {$userid}','debit','transfer')");
 
                         if ($credituser && $debituser) {
                             $response["status"] = "success";

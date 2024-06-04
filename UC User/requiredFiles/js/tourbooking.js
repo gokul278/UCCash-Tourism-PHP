@@ -46,12 +46,14 @@ const getData = () => {
 
                 $("#carddata").html(response.carddata)
 
+                var itemCount = $(".packages-item").length;
+
                 $(".packages-carousel").owlCarousel({
                     autoplay: true,
                     smartSpeed: 1000,
                     center: false,
                     dots: false,
-                    loop: true,
+                    loop: itemCount > 3,
                     margin: 25,
                     nav : true,
                     navText : [

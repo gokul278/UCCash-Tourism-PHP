@@ -188,5 +188,35 @@ const updatetour = (id) => {
 }
 
 
+const deletetour = (id) =>{
+
+    var tourid = $(id).attr('tourid');
+
+    $.ajax({
+        type: "POST",
+        url: "./requiredFiles/ajax/tourdestinationeditAjax.php",
+        data: {
+            "way": "deletedestination",
+            "tourid" : tourid
+        },
+        success: function (res) {
+            var response = JSON.parse(res);
+
+            if (response.status == "auth_failed" && response.message == "Expired token") {
+
+                location.replace("time_expried.php");
+
+            } else if (response.status == "auth_failed") {
+
+                location.replace("unauth_login.php");
+
+            } else if (response.status == "success") {
+                location.reload();
+            }
+        }
+    });
+}
+
+
 
 

@@ -246,7 +246,8 @@
                             <h4 style="text-align: center;" class="mb-4">Wallet Transfer</h4>
                             <div class="form-floating mb-3">
                                 <select class="form-select" id="floatingSelect" name="wallettype"
-                                    aria-label="Floating label select example" oninput="balancecheck()" onclick="clearerr()" required>
+                                    aria-label="Floating label select example" oninput="balancecheck()"
+                                    onclick="clearerr()" required>
                                     <option selected value="none">Select Wallet</option>
                                     <option value="savingstravelpoints">Savings Travel Points</option>
                                 </select>
@@ -258,8 +259,8 @@
                             </div>
 
                             <div class="form-floating mb-1">
-                                <input type="text" class="form-control" name="userid" id="userid" oninput="checkuserid()"
-                                    onclick="clearerr()" placeholder="Dollar Value" required>
+                                <input type="text" class="form-control" name="userid" id="userid"
+                                    oninput="checkuserid()" onclick="clearerr()" placeholder="Dollar Value" required>
                                 <label for="dollarvalue">To User ID</label>
                             </div>
                             <div class="mb-2" id="useridmsg">
@@ -267,12 +268,12 @@
                             </div>
 
                             <div class="alert alert-primary" role="alert">
-                                To <b>Savings Income</b>
+                                To <b>Savings Travel Points</b>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" name="transferpoints" id="dollarvalue" onclick="clearerr()"
-                                    placeholder="Dollar Value" required>
+                                <input type="number" class="form-control" name="transferpoints" id="dollarvalue"
+                                    onclick="clearerr()" placeholder="Dollar Value" required>
                                 <label for="dollarvalue">Transfer Points</label>
                             </div>
                             <div align="center" style="color:red" id="errormsg"></div>
@@ -284,7 +285,27 @@
                     </form>
                 </div>
             </div>
-
+            <br>
+            <br>
+            <div class="d-flex justify-content-center">
+                <div class="col-sm-12 col-xl-10 bg-light p-3">
+                <h4 style="text-align: center;" class="mb-4">Wallet Transfer History</h4>
+                    <table id="myTable" style="color: black; text-align: center;" class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">S.NO</th>
+                                <th scope="col">Date & Time</th>
+                                <th scope="col">Transfer Details</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Credit</th>
+                                <th scope="col">Debit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabledata">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
 
             <!-- Content End -->

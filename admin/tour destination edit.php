@@ -38,7 +38,7 @@
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 
-    
+
     <style>
         .file-input-container {
             display: block;
@@ -99,7 +99,7 @@
             color: #f7c128;
         }
     </style>
-    
+
 </head>
 
 <body>
@@ -305,7 +305,8 @@
                                 <div class="container">
                                     <br>
                                     <button id="addTableRow" class="btn btn-primary mb-3 float-right"
-                                        data-toggle="modal" data-target="#exampleModal" style="color: #000;">Add Table</button>
+                                        data-toggle="modal" data-target="#exampleModal" style="color: #000;">Add
+                                        Table</button>
                                     <!--Model Start-->
                                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -325,42 +326,54 @@
                                                             <div class="mb-3" style="margin-bottom: 15px;">
                                                                 <div class="image-upload-model">
                                                                     <!-- Image 1 -->
-                                                                    <div class="file-input-container" data-placeholder="Choose Thumbnail" data-filename="">
+                                                                    <div class="file-input-container"
+                                                                        data-placeholder="Choose Thumbnail"
+                                                                        data-filename="">
                                                                         <input type="file" accept="image/*"
                                                                             name="thumbnail" required
                                                                             onchange="this.parentNode.setAttribute('data-filename', this.files[0].name); this.parentNode.classList.add('file-selected');">
                                                                     </div>
                                                                     <br>
                                                                     <!-- Image 2 -->
-                                                                    <div class="file-input-container" data-placeholder="Choose Image1" data-filename="">
+                                                                    <div class="file-input-container"
+                                                                        data-placeholder="Choose Image1"
+                                                                        data-filename="">
                                                                         <input type="file" accept="image/*"
                                                                             name="image1" required
                                                                             onchange="this.parentNode.setAttribute('data-filename', this.files[0].name); this.parentNode.classList.add('file-selected');">
                                                                     </div>
                                                                     <br>
                                                                     <!-- Image 3 -->
-                                                                    <div class="file-input-container" data-placeholder="Choose Image2" data-filename="">
+                                                                    <div class="file-input-container"
+                                                                        data-placeholder="Choose Image2"
+                                                                        data-filename="">
                                                                         <input type="file" accept="image/*"
                                                                             name="image2" required
                                                                             onchange="this.parentNode.setAttribute('data-filename', this.files[0].name); this.parentNode.classList.add('file-selected');">
                                                                     </div>
                                                                     <br>
                                                                     <!-- Image 4 -->
-                                                                    <div class="file-input-container" data-placeholder="Choose Image3" data-filename="">
+                                                                    <div class="file-input-container"
+                                                                        data-placeholder="Choose Image3"
+                                                                        data-filename="">
                                                                         <input type="file" accept="image/*"
                                                                             name="image3" required
                                                                             onchange="this.parentNode.setAttribute('data-filename', this.files[0].name); this.parentNode.classList.add('file-selected');">
                                                                     </div>
                                                                     <br>
                                                                     <!-- Image 5 -->
-                                                                    <div class="file-input-container" data-placeholder="Choose Image4" data-filename="">
+                                                                    <div class="file-input-container"
+                                                                        data-placeholder="Choose Image4"
+                                                                        data-filename="">
                                                                         <input type="file" accept="image/*"
                                                                             name="image4" required
                                                                             onchange="this.parentNode.setAttribute('data-filename', this.files[0].name); this.parentNode.classList.add('file-selected');">
                                                                     </div>
                                                                     <br>
                                                                     <!-- Image 6 -->
-                                                                    <div class="file-input-container" data-placeholder="Choose Image5" data-filename="">
+                                                                    <div class="file-input-container"
+                                                                        data-placeholder="Choose Image5"
+                                                                        data-filename="">
                                                                         <input type="file" accept="image/*"
                                                                             name="image5" required
                                                                             onchange="this.parentNode.setAttribute('data-filename', this.files[0].name); this.parentNode.classList.add('file-selected');">
@@ -399,7 +412,7 @@
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="amount">Amount :</label>
-                                                                <input type="tel" class="form-control" name="amount"
+                                                                <input type="number" class="form-control" name="amount"
                                                                     id="amount" placeholder="Enter amount" required>
                                                             </div>
                                                             <div id="form-container">
@@ -549,7 +562,7 @@
 
     <script src="./requiredFiles/js/tourdestinationedit.js"></script>
 
-    
+
 </body>
 
 </html>

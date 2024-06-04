@@ -50,6 +50,13 @@ const getData = () => {
 
                 $(".savingstravelpoints").html(response.savingstravelpoints);
 
+                if(response.tabledata.length > 0){
+                    $("#tabledata").html(response.tabledata);
+                }else{
+                    $("#tabledata").html("<tr><td colspan='10'>No Data Found</td></tr>");
+                }
+
+
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
                 location.replace("time_expried.php");
@@ -80,7 +87,6 @@ const balancecheck = () => {
                 if (response.status == "success") {
 
                     $("#balanacevalue").html(response.balanacevalue + "$");
-
 
                 } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
