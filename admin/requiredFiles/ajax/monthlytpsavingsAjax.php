@@ -56,7 +56,7 @@ if ($values["status"] == "success") {
                 <td>' . $rowtable["amount"] . '</td>
                 <td>' . $rowtable["txn_hashid"] . '</td>
                 <td>
-                    <button type="button" class="btn btn-success" onclick="approveinvoice(this)" key="'.$key.'" id="approvebtn'.$key.'" value="' . $rowtable["id"] . '" user_id="' . $rowtable["user_id"] . '"  way="approveinvoice" invoiceid="' . $rowtable["invoice_id"] . '"><b>Approve</b></button>
+                    <button type="button" class="btn btn-success" onclick="approveinvoice(this)" key="' . $key . '" id="approvebtn' . $key . '" value="' . $rowtable["id"] . '" user_id="' . $rowtable["user_id"] . '"  way="approveinvoice" invoiceid="' . $rowtable["invoice_id"] . '"><b>Approve</b></button>
                 </td>
                 <td>
                 <div>
@@ -147,47 +147,99 @@ if ($values["status"] == "success") {
             $ressponser = $sponserid->fetch_assoc();
 
             $insertuserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark) VALUES ('{$userid}','55','credit','{$userid}','Savings Travel Points')");
-            $insertsponserSTP = $con->query("INSERT INTO savingsincome (user_id,si_points,si_action,si_bonusfrom,si_remark) VALUES ('{$ressponser["user_sponserid"]}','5','credit','{$userid}','Savings Income')");
+            // $insertsponserSTP = $con->query("INSERT INTO savingsincome (user_id,si_points,si_action,si_bonusfrom,si_remark) VALUES ('{$ressponser["user_sponserid"]}','5','credit','{$userid}','Savings Income')");
 
-                $checkbalance = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$userid}'");
+            $lvl1 = "";
+            $lvl2 = "";
+            $lvl3 = "";
+            $lvl4 = "";
+            $lvl5 = "";
+            $lvl6 = "";
+            $lvl7 = "";
+            $lvl8 = "";
+            $lvl9 = "";
 
-                $credit_tp = 0;
-                $debit_tp = 0;
+            $genealogy = $con->query("SELECT * FROM genealogy WHERE user_id='{$userid}'");
+
+            foreach ($genealogy as $getgenealogy) {
+                $lvl1 = isset($getgenealogy["lvl1"]) ? $getgenealogy["lvl1"] : "";
+                $lvl2 = isset($getgenealogy["lvl2"]) ? $getgenealogy["lvl2"] : "";
+                $lvl3 = isset($getgenealogy["lvl3"]) ? $getgenealogy["lvl3"] : "";
+                $lvl4 = isset($getgenealogy["lvl4"]) ? $getgenealogy["lvl4"] : "";
+                $lvl5 = isset($getgenealogy["lvl5"]) ? $getgenealogy["lvl5"] : "";
+                $lvl6 = isset($getgenealogy["lvl6"]) ? $getgenealogy["lvl6"] : "";
+                $lvl7 = isset($getgenealogy["lvl7"]) ? $getgenealogy["lvl7"] : "";
+                $lvl8 = isset($getgenealogy["lvl8"]) ? $getgenealogy["lvl8"] : "";
+                $lvl9 = isset($getgenealogy["lvl9"]) ? $getgenealogy["lvl9"] : "";
+            }
+
+
+            $incoicevalue = 50;
+
+            for($i = 1; $i <=9; $i++){
+
+                $value=0;
     
-                foreach ($checkbalance as $element) {
-                    if ($element["st_action"] == "credit") {
-                        $credit_tp += (int) $element["st_points"];
-                    } else if ($element["st_action"] == "debit") {
-                        $debit_tp += (int) $element["st_points"];
+                if($i == 1){ //lvl 1
+                    $value = $incoicevalue * 0.05; // 5% * incoicevalue
+                }else if($i >= 2 && $i <= 4){ //lvl 2 to 4
+                    $value = $incoicevalue * 0.02; // 2% * incoicevalue
+                }else if($i >= 5 && $i <= 7){ //lvl 5 to 7
+                    $value = $incoicevalue * 0.01; // 1% * incoicevalue
+                }else if($i >= 8 && $i<=9){//lvl 8 to 9
+                    $value = $incoicevalue * 0.005; // 0.5% * incoicevalue
+                }            
     
-                    }
+                $lvl = ${"lvl" . $i};
+    
+                if(strlen($lvl)>=5){
+                    $btpoint = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_lvl,si_action,si_remark)
+                    VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Savings Income')");
                 }
     
-                $balancestp = $credit_tp - $debit_tp;
-    
-                $savinghistory = $con->query("UPDATE monthlytpsavinghistory SET action='paid', balance_tp='{$balancestp}' WHERE id='{$id}' AND  user_id='{$userid}'");
-                $savingchange = $con->query("UPDATE monthlysavingpendinginvoice SET action='paid', remark='' WHERE user_id='{$userid}' AND invoice_id='{$invoiceid}'");
-    
-                $history = $con->query("SELECT * FROM monthlytpsavinghistory WHERE id='{$id}' AND  user_id='{$userid}'");
-                $reshistory = $history->fetch_assoc();
-    
-                if ($savinghistory) {
-    
-                    try {
-                        // Server settings
-                        $mail->SMTPDebug = SMTP::DEBUG_OFF;
-                        $mail->isSMTP();
-                        $mail->Host = 'smtp.gmail.com';
-                        $mail->SMTPAuth = true;
-                        $mail->Username = 'redana.food@gmail.com';
-                        $mail->Password = 'zibwucwdyhhzmdan';
-                        $mail->SMTPSecure = 'ssl';
-                        $mail->Port = 465;
-                        $mail->setFrom('redana.food@gmail.com', 'Redana Team');
-                        $mail->addAddress($ressponser["user_email"]);
-                        $mail->isHTML(true);
-                        $mail->Subject = 'Completed Savings Invoice Details';
-                        $mail->Body = '<!DOCTYPE html>
+            }
+
+
+
+            $checkbalance = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$userid}'");
+
+            $credit_tp = 0;
+            $debit_tp = 0;
+
+            foreach ($checkbalance as $element) {
+                if ($element["st_action"] == "credit") {
+                    $credit_tp += (int) $element["st_points"];
+                } else if ($element["st_action"] == "debit") {
+                    $debit_tp += (int) $element["st_points"];
+
+                }
+            }
+
+            $balancestp = $credit_tp - $debit_tp;
+
+            $savinghistory = $con->query("UPDATE monthlytpsavinghistory SET action='paid', balance_tp='{$balancestp}' WHERE id='{$id}' AND  user_id='{$userid}'");
+            $savingchange = $con->query("UPDATE monthlysavingpendinginvoice SET action='paid', remark='' WHERE user_id='{$userid}' AND invoice_id='{$invoiceid}'");
+
+            $history = $con->query("SELECT * FROM monthlytpsavinghistory WHERE id='{$id}' AND  user_id='{$userid}'");
+            $reshistory = $history->fetch_assoc();
+
+            if ($savinghistory) {
+
+                try {
+                    // Server settings
+                    $mail->SMTPDebug = SMTP::DEBUG_OFF;
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'redana.food@gmail.com';
+                    $mail->Password = 'zibwucwdyhhzmdan';
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Port = 465;
+                    $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+                    $mail->addAddress($ressponser["user_email"]);
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Completed Savings Invoice Details';
+                    $mail->Body = '<!DOCTYPE html>
                                             <html lang="en">
                                             
                                             <head>
@@ -380,21 +432,21 @@ if ($values["status"] == "success") {
                                             
                                             </html>
                                             ';
-    
-                        if ($mail->send()) {
-                            //Success Message
-                            $response["status"] = "success";
-                            echo json_encode($response);
-                        }
-    
-                    } catch (Exception $e) {
-                        //Error Message
-                        $response["status"] = "error";
+
+                    if ($mail->send()) {
+                        //Success Message
+                        $response["status"] = "success";
                         echo json_encode($response);
                     }
-    
+
+                } catch (Exception $e) {
+                    //Error Message
+                    $response["status"] = "error";
+                    echo json_encode($response);
                 }
-    
+
+            }
+
         }
 
     }

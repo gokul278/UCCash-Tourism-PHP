@@ -285,7 +285,8 @@
                                             <tr>
                                                 <th scope="col">S.NO</th>
                                                 <th scope="col">Date & Time</th>
-                                                <th scope="col">Bonus From</th>
+                                                <th scope="col">Bonus From ID</th>
+                                                <th scope="col">Bonus From Name</th>
                                                 <th scope="col">Level</th>
                                                 <th scope="col">Description</th>
                                                 <th scope="col">Credit</th>

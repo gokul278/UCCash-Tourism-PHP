@@ -88,7 +88,7 @@
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
-                                        <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
+                            <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p
@@ -109,14 +109,14 @@
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
-                                </a>
+                            </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
                                     History</p></a>
                         </div>
                     </div>
                     <a href="travel coupon usage history.php" class="nav-item nav-link"><i
                             class="fa fa-star me-2"></i>Travel Coupon<p style="text-align: center;">Usage History</p>
-                        </a>
+                    </a>
                     <a href="bonus travel point usage history.php" class="nav-item nav-link active"
                         style="color:#f7c128"><i class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;">
                             Point Usage History</p></a>
@@ -130,19 +130,11 @@
                     </div>
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
                             class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p>
-                        </a>
+                    </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
-                            <!-- <a href="tour description.php" class="dropdown-item">Tour Description</a>
-                            <a href="tour gallery.php" class="dropdown-item">Gallery</a> -->
-                            <a href="receipt edit.php" class="dropdown-item">Receipt Edit</a>
-                        </div>
-                    </div>
+                    <a href="tour destination edit.php" class="nav-item nav-link "><i class="far fa-map me-2"></i>Tour<p
+                            style="text-align: center;">Destinations</p></a>
                     <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
                         Booking<p style="text-align: center;"> History</p></a>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
@@ -243,53 +235,20 @@
                             <h4 style="color: #f7c128;" class="mb-5">Bonus Travel Point Usage History</h4>
                             <div class="table-responsive">
                                 <strong>
-                                    <table id="table-to-print" style="text-align: center;" class="table table-bordered">
+                                    <table id="myTable" style="text-align: center;" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th scope="col">S.NO</th>
                                                 <th scope="col">Date & Time</th>
                                                 <th scope="col">User ID</th>
                                                 <th scope="col">User Name</th>
-                                                <th scope="col">Bonus TP</th>
-                                                <th scope="col">To</th>
-                                                <th scope="col">Booking ID</th>
+                                                <th scope="col">Amount</th>
+                                                <th scope="col">Usage</th>
+                                                <th scope="col">Booking Code</th>
                                                 <th scope="col">status</th>
-                                                <th scope="col">Details</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>01/01/2024</td>
-                                                <td>UTC1234</td>
-                                                <td>Bala</td>
-                                                <td>600</td>
-                                                <td>Thailand</td>
-                                                <td>TBK00138</td>
-                                                <td class="green">Success</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button" class="btn btn-warning"><b>Bill
-                                                                Invoice</b></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>05/02/2024</td>
-                                                <td>UTC4321</td>
-                                                <td>Ashok</td>
-                                                <td>75</td>
-                                                <td>Dubai</td>
-                                                <td>TBK14314</td>
-                                                <td class="green">Success</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button" class="btn btn-warning"><b>Bill
-                                                                Invoice</b></button>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                        <tbody id="tabledata">
                                         </tbody>
                                     </table>
                                 </strong>
@@ -338,6 +297,11 @@
             },
         });
     </script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+
+    <script src="./requiredFiles/js/bonustravelpointusagehistory.js"></script>
 
 </body>
 

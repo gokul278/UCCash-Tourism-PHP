@@ -73,7 +73,8 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle profile_image" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -141,16 +142,8 @@
                     </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
-                            <!-- <a href="tour description.php" class="dropdown-item">Tour Description</a>
-                            <a href="tour gallery.php" class="dropdown-item">Gallery</a> -->
-                            <a href="receipt edit.php" class="dropdown-item">Receipt Edit</a>
-                        </div>
-                    </div>
+                    <a href="tour destination edit.php" class="nav-item nav-link "><i class="far fa-map me-2"></i>Tour<p
+                            style="text-align: center;">Destinations</p></a>
                     <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
                         Booking<p style="text-align: center;"> History</p></a>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
@@ -177,7 +170,8 @@
                                 Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
                             <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
-                            <a href="independent distributor agreement.php" class="dropdown-item  active" style="color:#f7c128">Independent
+                            <a href="independent distributor agreement.php" class="dropdown-item  active"
+                                style="color:#f7c128">Independent
                                 Distributor<p> Agreements</p></a>
                         </div>
                     </div>
@@ -252,7 +246,8 @@
                             <form id="pdfsave">
                                 <div class="bg-secondary rounded h-100 p-4" style="display: inline-block;">
                                     <h4 style="color: #f7c128;" class="mb-5">Independent
-                                Distributor<p> Agreements</p></h4>
+                                        Distributor<p> Agreements</p>
+                                    </h4>
                                     <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
                                         <label for="formFileMultiple" style="font-weight: bold; color: #fff;">Upload
                                             PDF</label>
@@ -272,7 +267,7 @@
                                     <button type="submit" id="submitbtn" class="btn btn-primary"
                                         disabled>Update</button>
                                 </div>
-                                <input type="hidden" name="way" value="idapdfupload"> 
+                                <input type="hidden" name="way" value="idapdfupload">
                             </form>
                         </div>
                     </div>

@@ -61,13 +61,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -84,7 +85,7 @@
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
-                                        <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
+                            <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p
@@ -105,14 +106,14 @@
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
-                                </a>
+                            </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
                                     History</p></a>
                         </div>
                     </div>
                     <a href="travel coupon usage history.php" class="nav-item nav-link"><i
                             class="fa fa-star me-2"></i>Travel Coupon<p style="text-align: center;">Usage History</p>
-                        </a>
+                    </a>
                     <a href="bonus travel point usage history.php" class="nav-item nav-link"><i
                             class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;"> Point Usage History
                         </p></a>
@@ -126,19 +127,11 @@
                     </div>
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
                             class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p>
-                        </a>
+                    </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
-                            <!-- <a href="tour description.php" class="dropdown-item">Tour Description</a>
-                            <a href="tour gallery.php" class="dropdown-item">Gallery</a> -->
-                            <a href="receipt edit.php" class="dropdown-item">Receipt Edit</a>
-                        </div>
-                    </div>
+                    <a href="tour destination edit.php" class="nav-item nav-link "><i class="far fa-map me-2"></i>Tour<p
+                            style="text-align: center;">Destinations</p></a>
                     <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
                         Booking<p style="text-align: center;"> History</p></a>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
@@ -216,9 +209,9 @@
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
@@ -242,27 +235,36 @@
                                 <div class="col-sm-6">
                                     <div class="d-flex align-items-center mb-4">
                                         <label for="fromDate" class="mr-2"><b>From</b></label>&nbsp;
-                                        <input type="date" id="fromDate" class="form-control mr-2"
+                                        <input type="date" id="fromDate" oninput="dateinput()" class="form-control mr-2"
                                             style="width: 120px;">
                                         &nbsp;&nbsp;&nbsp;
                                         <label for="toDate" class="mr-2"><b>To</b></label>&nbsp;
-                                        <input type="date" id="toDate" class="form-control mr-2" style="width: 120px;">
+                                        <input type="date" id="toDate" oninput="dateinput()" class="form-control mr-2"
+                                            style="width: 120px;">
                                         &nbsp;
-                                        <button id="goButton" class="btn btn-primary">Go</button>
+                                        <button class="btn btn-warning" type="button" id="searchbtn"
+                                            disabled><b>Search</b></button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-warning" type="button" id="clearbtnsearch"
+                                            disabled><b>Clear</b></button>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input-group mb-3 mt-auto">
-                                        <input type="text" class="form-control" id="activationMemberID"
-                                            style="max-width: 200px;" placeholder="User ID">
-                                        <button class="btn btn-warning" type="button" id="searchButton">Search</button>
+                                        <input type="text" class="form-control" id="memberid" style="max-width: 200px;"
+                                            placeholder="User ID" oninput="checkuser()">
+                                        <button class="btn btn-warning" type="button" id="useridbtn"
+                                            disabled><b>Search</b></button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-warning" type="button" id="useridclearbtn"
+                                            disabled><b>Clear</b></button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="table-responsive">
                                 <strong>
-                                    <table id="table-to-print" style="text-align: center;" class="table table-bordered">
+                                    <table id="myTable" style="text-align: center;" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th scope="col">S.NO</th>
@@ -276,107 +278,41 @@
 
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>UCT1234</td>
-                                                <td>Bala</td>
-                                                <td>From<span style="color: #f7c128;"> UCT1234</span> ID</td>
-                                                <td>01/01/2024</td>
-                                                <td>1.66</td>
-                                                <td></td>
-                                                <td>1.66</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>UCT4321</td>
-                                                <td>Sam</td>
-                                                <td>From<span style="color: #f7c128;"> UCT4321</span> ID</td>
-                                                <td>02/01/2024</td>
-                                                <td>1.66</td>
-                                                <td></td>
-                                                <td>3.32</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>UCT6543</td>
-                                                <td>Gowtham</td>
-                                                <td>From<span style="color: #f7c128;"> UCT6543</span> ID</td>
-                                                <td>03/01/2024</td>
-                                                <td>1.66</td>
-                                                <td></td>
-                                                <td>4.98</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td>UCT9876</td>
-                                                <td>Ashok</td>
-                                                <td>From<span style="color: #f7c128;"> UCT9876</span> ID</td>
-                                                <td>04/01/2024</td>
-                                                <td>1.66</td>
-                                                <td></td>
-                                                <td>6.64</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">5</th>
-                                                <td>UCT6547</td>
-                                                <td>Kumar</td>
-                                                <td>From<span style="color: #f7c128;"> UCT6547</span> ID</td>
-                                                <td>05/01/2024</td>
-                                                <td>1.66</td>
-                                                <td></td>
-                                                <td>500</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">6</th>
-                                                <td>UCT9852</td>
-                                                <td>Gokul</td>
-                                                <td>Withdraw to<span style="color: #f7c128;"> UCT9852</span> ID</td>
-                                                <td>06/01/2024</td>
-                                                <td></td>
-                                                <td>300</td>
-                                                <td>200</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">7</th>
-                                                <td>UCT2165</td>
-                                                <td>Raj</td>
-                                                <td>Withdraw to<span style="color: #f7c128;"> UCT2165</span> ID</td>
-                                                <td>07/01/2024</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">8</th>
-                                                <td>UCT9360</td>
-                                                <td>Logesh</td>
-                                                <td>Withdraw to<span style="color: #f7c128;"> UCT9360</span> ID</td>
-                                                <td>08/01/2024</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">9</th>
-                                                <td>UCT2488</td>
-                                                <td>Nithish</td>
-                                                <td>Withdraw to<span style="color: #f7c128;"> UCT9360</span> ID</td>
-                                                <td>09/01/2024</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
+                                        <tbody id="tabledata">
 
-                                                <td colspan="5" style="text-align: right;"><strong>Total :</strong></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>200</td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </strong>
+                            </div>
+                            <br>
+                            <div class="container" style="display: table; width: 100%; border-collapse: collapse;">
+                                <div class="row mb-2" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Credit</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totalcredit" align="center"><b>0.00</b></div>
+                                </div>
+                                <div class="row mb-2" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Debit</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totaldebit" align="center"><b>0.00</b></div>
+                                </div>
+                                <div class="row" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Balance</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totalbalance" align="center"><b>0.00</b></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -420,6 +356,8 @@
             },
         });
     </script>
+
+    <script src="./requiredFiles/js/travelcouponbalancesheet.js"></script>
 
 </body>
 

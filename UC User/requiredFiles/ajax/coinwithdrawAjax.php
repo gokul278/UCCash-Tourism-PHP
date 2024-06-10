@@ -15,6 +15,8 @@ $mail = new PHPMailer(true);
 
 $values = token::verify();
 
+$coinvalue = 0;
+
 if ($values["status"] == "success") {
 
     $way = $_POST["way"];
@@ -90,6 +92,9 @@ if ($values["status"] == "success") {
         }
 
     } else if ($way == "cryptootp") {
+
+        $amount = $_POST["amount"];
+        $coinvalue = $amount;
         $email = "";
         $name = "";
         $bep20_address = "";
@@ -185,7 +190,8 @@ if ($values["status"] == "success") {
                                     <div align="start">
                                         <p><b>Withdraw Details:</b><br>
                                             Type&nbsp;:&nbsp;UCC<br>
-                                            TRC20 Address&nbsp;:&nbsp;' . $bep20_address . '
+                                            BEP20 Address&nbsp;:&nbsp;' . $bep20_address . '<br>
+                                            Withdrawal Coin&nbsp;:&nbsp;'.$amount.'
                                         </p>
                                     </div>
                                     <div align="start" style="margin-top: 40px;margin-bottom: 40px;">
@@ -319,10 +325,9 @@ if ($values["status"] == "success") {
 
 
 
-    }  else if ($way == "cryptowithdraw") {
+    } else if ($way == "cryptowithdraw") {
 
-        $withdrawvalue = $_POST["withdrawvalue"];
-        $withdrawvalue = number_format($withdrawvalue, 2);
+        $withdrawvalue = $coinvalue;
         $otp = $_POST["otp"];
 
         $checkactivation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
@@ -331,84 +336,93 @@ if ($values["status"] == "success") {
 
         if ($getcheckactivation["user_referalStatus"] == "activated") {
 
-            //withdraw Limit
-        $minimumlimit = number_format(50, 2);
+            $activationdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$values["userid"]}' AND remark='Activation Successful'");
+            $getactivationdate = $activationdate->fetch_assoc();
 
-        if ($withdrawvalue >= $minimumlimit) {
+            $date = new DateTime($getactivationdate["paid_date"]);
 
-            // Use prepared statements to prevent SQL injection
-            $stmt = $con->prepare("SELECT * FROM userbankdetails WHERE user_id=?");
-            $stmt->bind_param('s', $values["userid"]);
-            $stmt->execute();
-            $checkotp = $stmt->get_result();
-            $getcheckotp = $checkotp->fetch_assoc();
+            $date->modify('+3 years');
 
-            if ($otp == $getcheckotp["otp"]) {
+            // Get the current date
+            $currentDate = new DateTime();
 
-                //Available Withdraw Balance
-                $stmt = $con->prepare("SELECT * FROM uccwalletpoints WHERE user_id=?");
+            if ($currentDate >= $date) {
+
+                // Use prepared statements to prevent SQL injection
+                $stmt = $con->prepare("SELECT * FROM userbankdetails WHERE user_id=?");
                 $stmt->bind_param('s', $values["userid"]);
                 $stmt->execute();
-                $availablewithdrwabalance = $stmt->get_result();
-                $uccwcredit = 0;
-                $uccwdebit = 0;
+                $checkotp = $stmt->get_result();
+                $getcheckotp = $checkotp->fetch_assoc();
 
-                while ($getavailablewithdrwabalance = $availablewithdrwabalance->fetch_assoc()) {
-                    if (isset($getavailablewithdrwabalance["uccw_action"]) && strlen($getavailablewithdrwabalance["uccw_action"]) >= 1) {
-                        if ($getavailablewithdrwabalance["uccw_action"] == "credit") {
-                            $uccwcredit += (float) $getavailablewithdrwabalance["uccw_points"];
-                        } else if ($getavailablewithdrwabalance["uccw_action"] == "debit") { // Fix this line
-                            $uccwdebit += (float) $getavailablewithdrwabalance["uccw_points"];
+                if ($otp == $getcheckotp["otp"]) {
+
+
+                    //Available Withdraw Balance
+                    $stmt = $con->prepare("SELECT * FROM uccwalletpoints WHERE user_id=?");
+                    $stmt->bind_param('s', $values["userid"]);
+                    $stmt->execute();
+                    $availablewithdrwabalance = $stmt->get_result();
+                    $uccwcredit = 0;
+                    $uccwdebit = 0;
+
+                    while ($getavailablewithdrwabalance = $availablewithdrwabalance->fetch_assoc()) {
+                        if (isset($getavailablewithdrwabalance["uccw_action"]) && strlen($getavailablewithdrwabalance["uccw_action"]) >= 1) {
+                            if ($getavailablewithdrwabalance["uccw_action"] == "credit") {
+                                $uccwcredit += (float) $getavailablewithdrwabalance["uccw_points"];
+                            } else if ($getavailablewithdrwabalance["uccw_action"] == "debit") { // Fix this line
+                                $uccwdebit += (float) $getavailablewithdrwabalance["uccw_points"];
+                            }
                         }
                     }
-                }
 
-                $totalbalance = $uccwcredit - $uccwdebit;
-                $formattedTotalBalance = number_format($totalbalance, 2);
-                
-                $netamount = number_format(($withdrawvalue), 2);
+                    $totalbalance = $uccwcredit - $uccwdebit;
+                    $formattedTotalBalance = number_format($totalbalance, 2);
 
-                if ($formattedTotalBalance < $withdrawvalue) {
-                    $response["status"] = "error";
-                    $response["message"] = "Insufficient Balance";
-                    echo json_encode($response);
-                } else {
-                    // Use prepared statements for inserting data
-                    $stmt = $con->prepare("INSERT INTO withdrawhistory (user_id, payment_method, withdraw_amount, admin_fees, retopup_fees, net_amount, to_withdraw, txn_id, remark, action) VALUES (?, 'UCC', ?, '', '', ?, ?, 'pending', 'waiting for Payment', 'admin')");
-                    $stmt->bind_param('ssss', $values["userid"], $withdrawvalue, $netamount, $getcheckotp["bep20_address"]);
-                    $cryptowithdraw = $stmt->execute();
+                    $netamount = number_format(($withdrawvalue), 2);
 
-                    if ($cryptowithdraw) {
-                        $updateotp = $con->query("UPDATE userbankdetails SET otp=NULL WHERE user_id='{$values["userid"]}'");
-
-                        $response["status"] = "success";
+                    if ($totalbalance < $withdrawvalue) {
+                        $response["status"] = "error";
+                        $response["message"] = "Insufficient Balance";
+                        echo json_encode($response);
                     } else {
-                        $response["status"] = "failed";
+                        // Use prepared statements for inserting data
+                        $stmt = $con->prepare("INSERT INTO withdrawhistory (user_id, payment_method, withdraw_amount, admin_fees, retopup_fees, net_amount, to_withdraw, txn_id, remark, action) VALUES (?, 'UCC', ?, '', '', ?, ?, 'pending', 'waiting for Payment', 'admin')");
+                        $stmt->bind_param('ssss', $values["userid"], $withdrawvalue, $netamount, $getcheckotp["bep20_address"]);
+                        $cryptowithdraw = $stmt->execute();
+
+                        if ($cryptowithdraw) {
+                            $updateotp = $con->query("UPDATE userbankdetails SET otp=NULL WHERE user_id='{$values["userid"]}'");
+
+                            $response["status"] = "success";
+                            $coinvalue = 0;
+                        } else {
+                            $response["status"] = "failed";
+                        }
+                        echo json_encode($response);
                     }
+                } else {
+                    $response["status"] = "error";
+                    $response["message"] = "Invalid OTP";
                     echo json_encode($response);
                 }
+
             } else {
                 $response["status"] = "error";
-                $response["message"] = "Invalid OTP";
+                $response["message"] = "You are not eligible for withdraw the Amount";
                 echo json_encode($response);
             }
 
         } else {
             $response["status"] = "error";
-            $response["message"] = "Minimum Withdraw Limit 50$";
-            echo json_encode($response);
-        }
-
-        }else{
-            $response["status"] = "error";
             $response["message"] = "Activate your Account";
             echo json_encode($response);
         }
 
-        
 
 
-    } 
+
+    }
 
 } else if ($values["status"] == "auth_failed") {
 

@@ -34,6 +34,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+
+    <!-- Simple Notifier -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
     <style>
         /* Style for disabled buttons */
         button:disabled {
@@ -175,6 +183,8 @@
             <nav class="navbar bg-light navbar-light">
                 <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3"
                     style="width: 150px; height: 60px;">
+
+
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle user_profileimg" src="img/user.png" alt=""
@@ -195,10 +205,9 @@
                                 class="fa fa-user me-2"></i>Profiles</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="profile.php" class="dropdown-item">Profile</a>
-                            <a href="user bank details.php" class="dropdown-item">Bank Details</a>
+                            <a href="user bank details.php" class="dropdown-item">Bank & Wallet Details</a>
                             <a href="address.php" class="dropdown-item">Address</a>
                             <a href="member info.php" class="dropdown-item">Member Info</a>
-                            <a href="walllet.php" class="dropdown-item">Wallet Address</a>
                             <a href="security.php" class="dropdown-item">Security</a>
                             <!-- <a href="trans PWD.php" class="dropdown-item">Change Trans PWD</a> -->
                             <a href="id card.php" class="dropdown-item">ID Card</a>
@@ -213,16 +222,8 @@
                             <a href="genealogy.php" class="dropdown-item">Genealogy</a>
                             <a href="team list.php" class="dropdown-item">Team List</a>
                             <a href="direct member list.php" class="dropdown-item">Direct Member List</a>
-                            <a href="ranking member list.php" class="dropdown-item">Ranking Member List</a>
                         </div>
                     </div>
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Coupon<p style="text-align: center;" > Activation Deposit</p></a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="crypto deposit.php" class="dropdown-item">Crypto Deposit</a>
-                            <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
-                        </div>
-                    </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
@@ -257,18 +258,20 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i
+                            class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
-
-                    <a href="withdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Withdraw</a>
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Booking</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-university me-2"></i>Withdraw</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour booking.php" class="dropdown-item">Tour Booking</a>
-                            <a href="hotel booking.php" class="dropdown-item">Hotel Booking</a>
+                            <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
+                            <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
+                            <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
                         </div>
-                    </div> -->
+                    </div>
                     <a href="tour booking.php" class="nav-item nav-link active"><i class="far fa-map me-2"></i>Tour
                         Booking</a>
                     <a href="booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Booking
@@ -278,10 +281,10 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">1 PDF </a>
-                            <a href="#" class="dropdown-item">2 PDF</a>
-                            <a href="#" class="dropdown-item">3 PDF</a>
-                            <a href="#" class="dropdown-item">4 PDF</a>
+                            <a href="./img/pdf1.pdf" target="_blank" class="dropdown-item">1 PDF </a>
+                            <a href="./img/pdf2.pdf" target="_blank" class="dropdown-item">2 PDF</a>
+                            <a href="./img/pdf3.pdf" target="_blank" class="dropdown-item">3 PDF</a>
+                            <a href="./img/pdf4.pdf" target="_blank" class="dropdown-item">4 PDF</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -499,7 +502,7 @@
                             <br>
                             <div id="field1"><b>Person</b>
                                 <button type="button" class="minus">-</button>
-                                <input type="number" min="1"  max="20"  oninput="amountcheck()" id='personinput'
+                                <input type="number" min="1" max="20" oninput="amountcheck()" id='personinput'
                                     class='person' value="1" />
                                 <button type="button" class="plus">+</button>
                             </div>
@@ -527,14 +530,41 @@
                         <h4 style="color:#f7c128; p-2" id="tour_amount"></h4>
                     </div>
                     <br>
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-0 col-md-2 col-lg-3 col-xl-4"></div>
+                            <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                                <div class="bg-light rounded h-100 p-4">
+                                    <div class="form-floating d-flex justify-content-center">
+                                        <select class="form-select" id="paymenttype"
+                                            aria-label="Floating label select example" oninput="checkpaymenttype()"
+                                            required>
+                                            <option selected value="none">None</option>
+                                            <option value="savingstravelpoints">Savings Travel Points</option>
+                                            <option value="bonustravelpoints">Bonus Travel Points</option>
+                                            <option value="travelcoupon">Travel Coupon's</option>
+                                            <option value="allpoints">All Points</option>
+                                        </select>
+                                        <label for="floatingSelect"><b>Payment Type</b></label>
+                                    </div>
+                                    <br>
+                                    <div id="paymentinput">
+                                        <input class="form-control" id="none" type="number" placeholder="Choose the Payment Type" style="height: 50px;" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
                     <div class="text-center">
-                        <button type="button" id="OTPButton" class="btn btn-warning">Get OTP</button>
+                        <button type="button" id="otpbtn" class="btn btn-warning" disabled>Get OTP</button>
                     </div>
                     <br>
                     <div class="container">
                         <div class="row gx-3 mb-3 justify-content-center">
                             <div class="col-md-6 col-lg-4">
-                                <input class="form-control" id="tel" type="tel" placeholder="Enter OTP"
+                                <input class="form-control" id="otpinput"  onclick="clearerr()" type="number" placeholder="Enter OTP"
                                     style="height: 50px;">
                             </div>
                         </div>
@@ -560,8 +590,14 @@
 
                         <br>
                         <div class="text-center">
-                            <button type="button" id="confirmButton" class="btn btn-warning disabled-button" disabled
-                                title="Please enter the OTP">Confirm Booking</button>
+                            <button type="button" id="confirmButton" class="btn btn-warning"
+                                title="Please enter the OTP" disabled>Confirm Booking</button>
+                        </div>
+                        <br>
+                        <p align="center" id="errormsg" style="color:red"></p>
+                        <br>
+                        <div align="center">
+                        <h6>If you have any changes or insufficient balance message, please <a href="#" onclick="location.reload()">click here</a></h6>
                         </div>
                     </div>
 

@@ -28,6 +28,13 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Simple Notifier -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 </head>
 
 <body>
@@ -223,7 +230,7 @@
 
             <!-- Sale & Revenue Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
+                <div class="row g-4 d-flex justify-content-center">
 
                     <div class="col-sm-6 col-xl-4">
                         <div class="card rounded bg-light text-center">
@@ -276,11 +283,22 @@
                                     onclick="clearerr()" placeholder="Dollar Value" required>
                                 <label for="dollarvalue">Transfer Points</label>
                             </div>
+                            <input type="hidden" name="wallettype" value="savingstravelpoints">
+                            <div class="form-floating mb-3">
+                                <button class="btn btn-warning" id="otpbtn" type="button" style="width:100%" onclick="getotp()" disabled>Get OTP</button>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" name="otp" id="otp"
+                                    onclick="clearerr()" placeholder="OTP" required>
+                                <label for="otp">Enter OTP</label>
+                            </div>
                             <div align="center" style="color:red" id="errormsg"></div>
                             <div class="d-flex justify-content-center">
                                 <button type="submit" id="transferbtn" class="btn btn-primary m-2"
                                     disabled>Transfer</button>
                             </div>
+                            <br>
+                            <h6 align="center">If you have any changes or insufficient balance message, please <br><a href="#" onclick="location.reload()">click here</a></h6>
                         </div>
                     </form>
                 </div>

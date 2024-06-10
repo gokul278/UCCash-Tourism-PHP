@@ -61,13 +61,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -84,7 +85,7 @@
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
-                                        <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
+                            <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
                     <a href="members details.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Member's <p
@@ -105,14 +106,14 @@
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
-                                </a>
+                            </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
                                     History</p></a>
                         </div>
                     </div>
                     <a href="travel coupon usage history.php" class="nav-item nav-link"><i
                             class="fa fa-star me-2"></i>Travel Coupon<p style="text-align: center;">Usage History</p>
-                        </a>
+                    </a>
                     <a href="bonus travel point usage history.php" class="nav-item nav-link"><i
                             class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;"> Point Usage History
                         </p></a>
@@ -126,19 +127,11 @@
                     </div>
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
                             class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p>
-                        </a>
+                    </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
-                            <!-- <a href="tour description.php" class="dropdown-item">Tour Description</a>
-                            <a href="tour gallery.php" class="dropdown-item">Gallery</a> -->
-                            <a href="receipt edit.php" class="dropdown-item">Receipt Edit</a>
-                        </div>
-                    </div>
+                    <a href="tour destination edit.php" class="nav-item nav-link "><i class="far fa-map me-2"></i>Tour<p
+                            style="text-align: center;">Destinations</p></a>
                     <a href="tour booking history.php" class="nav-item nav-link active"><i
                             class="fa fa-bookmark me-2"></i>Tour Booking<p style="text-align: center;"> History</p></a>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
@@ -216,9 +209,9 @@
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
@@ -239,58 +232,26 @@
                             <h4 style="color: #f7c128;" class="mb-5">Tour Booking History</h4>
                             <div class="table-responsive">
                                 <strong>
-                                    <table id="table-to-print" style="text-align: center;" class="table table-bordered">
+                                    <table id="myTable" style="text-align: center;" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th scope="col">S.NO</th>
                                                 <th scope="col">User ID</th>
                                                 <th scope="col">User Name</th>
-                                                <th scope="col">Booking Date</th>
-                                                <th scope="col">Days</th>
-                                                <th scope="col">Description</th>
+                                                <th scope="col">Mobile Number</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Booked Date</th>
+                                                <th scope="col">Bookign Code</th>
+                                                <th scope="col">Destination Name</th>
+                                                <th scope="col">From Date</th>
+                                                <th scope="col">To Date</th>
                                                 <th scope="col">Booking TP</th>
                                                 <th scope="col">Visitors</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">Details</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>UCT1234</td>
-                                                <td>Sam</td>
-                                                <td>01/01/2024</td>
-                                                <td>4 Days</td>
-                                                <td>Thailand Tour</td>
-                                                <td>400 TP</td>
-                                                <td>2</td>
-                                                <td class="green">Visited</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button"
-                                                            class="btn btn-warning"><b>View</b></button>
-                                                    </a>
+                                        <tbody id="tabledata">
 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>UCT4321</td>
-                                                <td>Gowtham</td>
-                                                <td>07/05/2024</td>
-                                                <td>6 Days</td>
-                                                <td>Dubai Tour</td>
-                                                <td>500 TP</td>
-                                                <td>1</td>
-                                                <td class="green">Visited</td>
-                                                <td>
-                                                    <a href="#">
-                                                        <button type="button"
-                                                            class="btn btn-warning"><b>View</b></button>
-                                                    </a>
-
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </strong>
@@ -339,6 +300,12 @@
             },
         });
     </script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+
+
+    <script src="./requiredFiles/js/tourbookinghistory.js"></script>
 
 </body>
 

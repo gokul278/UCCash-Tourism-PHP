@@ -85,9 +85,9 @@ if ($values["status"] == "success") {
                             </button>
                             <br/>
                             <br/>
-                            <button type="button" class="btn btn-danger" tourid="' . $getdata['id'] . '" onclick="deletetour(this)">
+                            <!-- <button type="button" class="btn btn-danger" tourid="' . $getdata['id'] . '" onclick="deletetour(this)">
                             <b>Delete</b>
-                        </button>
+                        </button> --!>
                             <div class="modal fade" id="exampleModal' . $count . '" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel' . $count . '" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
@@ -159,7 +159,7 @@ if ($values["status"] == "success") {
                                                                     </div>
                                                                     <div class="form-group mb-3">
                                                                         <label for="bookingCode">Booking Code :</label>
-                                                                        <input type="text" class="form-control" name="bookingcode" id="bookingCode" value="' . $getdata['tour_bookingcode'] . '" placeholder="Enter booking code" required>
+                                                                        <input type="text" class="form-control" name="bookingcode" id="bookingCode" value="' . $getdata['tour_bookingcode'] . '" placeholder="Enter booking code" readonly required>
                                                                     </div>
                                                                     <div class="form-group mb-3">
                                                                         <label for="days">Days :</label>
@@ -287,14 +287,14 @@ if ($values["status"] == "success") {
 
                         if (move_uploaded_file($_FILES["image4"]["tmp_name"], "../../../UC User/img/tourdestination/" . $timestamp . '4_' . $image4)) {
 
-                            if (move_uploaded_file($_FILES["image5"]["tmp_name"], "../../../UC User/img/tourdestination/" . $timestamp . '5_' . $image4)) {
+                            if (move_uploaded_file($_FILES["image5"]["tmp_name"], "../../../UC User/img/tourdestination/" . $timestamp . '5_' . $image5)) {
 
                                 $thum = $timestamp . '0_' . $thumbnail;
                                 $img1 = $timestamp . '1_' . $image1;
-                                $img2 = $timestamp . '2_' . $image1;
-                                $img3 = $timestamp . '3_' . $image1;
-                                $img4 = $timestamp . '4_' . $image1;
-                                $img5 = $timestamp . '5_' . $image1;
+                                $img2 = $timestamp . '2_' . $image2;
+                                $img3 = $timestamp . '3_' . $image3;
+                                $img4 = $timestamp . '4_' . $image4;
+                                $img5 = $timestamp . '5_' . $image5;
 
                                 $insertdestination = $con->query("INSERT INTO tourdestination
                                 (tour_thumbnail,tour_image1,tour_image2,tour_image3,tour_image4,tour_image5,tour_name,tour_bookingcode,tour_days,tour_fromdate,tour_todate,tour_amount,tour_daysplan,tour_inclusion,tour_exclusion)

@@ -8,60 +8,76 @@ use PHPMailer\PHPMailer\Exception;
 
 require "./requiredFiles/ajax/vendor/autoload.php";
 
-$mail = new PHPMailer(true);
+// Define a locking mechanism
+$lockFile = "./invoice_processing.txt";
 
-$checkdate = "SELECT id, user_id, MAX(created_at) AS latest_date
-              FROM monthlysavingpendinginvoice
-              GROUP BY user_id;";
-$checkdateres = $con->query($checkdate);
+if (file_exists($lockFile)) {
+    // Another process is already running
+    echo json_encode(["status" => "processing"]);
+    exit;
+}else{
+    echo json_encode(["status" => "No Data Found"]);
+}
 
-foreach ($checkdateres as $checkrow) {
-    // Check if "created_at" exists in the row
-    if (isset($checkrow["latest_date"])) {
-        $datetimeString = $checkrow["latest_date"];
-        $dateOnly = date("Y-m-d", strtotime($datetimeString));
+try {
+    
+    // Create lock file
+    file_put_contents($lockFile, "1");
 
-        $date = new DateTime($dateOnly); // Create a DateTime object with the date-only string
-        $today = new DateTime();
-        $interval = $date->diff($today);
+    $checkdate = "SELECT id, user_id, MAX(created_at) AS latest_date
+                  FROM monthlysavingpendinginvoice
+                  GROUP BY user_id;";
+    $checkdateres = $con->query($checkdate);
 
-        if ($interval->days >= 30) {
+    foreach ($checkdateres as $checkrow) {
+        // Check if "created_at" exists in the row
+        if (isset($checkrow["latest_date"])) {
+            $datetimeString = $checkrow["latest_date"];
+            $dateOnly = date("Y-m-d", strtotime($datetimeString));
 
-            $invoiceid = $con->query("SELECT MAX(id) as id FROM monthlytpsavinghistory");
+            $date = new DateTime($dateOnly); // Create a DateTime object with the date-only string
+            $today = new DateTime();
+            $interval = $date->diff($today);
 
-            if(mysqli_num_rows($invoiceid) >=1){
-                
-                $getinvoiceid = $invoiceid->fetch_assoc();
-                $id = (int) $getinvoiceid["id"] + 1;
-                $invoiceid="MSI-".$id;
+            if ($interval->days >= 30) {
 
-            }else{
-                $invoiceid="MSI-1";
-            }
+                $invoiceid = $con->query("SELECT MAX(id) as id FROM monthlysavingpendinginvoice");
 
-            $insertsql = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action)
-            VALUES ('{$invoiceid}','{$checkrow["user_id"]}','50$','5','55','pending')";
-            $insertres = $con->query($insertsql);
+                if (mysqli_num_rows($invoiceid) >= 1) {
 
-            $getmailsql = "SELECT * FROM userdetails WHERE user_id='{$checkrow["user_id"]}'";
-            $getmailres = $con->query($getmailsql);
-            $getmailrow = $getmailres->fetch_assoc();
+                    $getinvoiceid = $invoiceid->fetch_assoc();
+                    $id = (int) $getinvoiceid["id"] + 1;
+                    $invoiceid = "MSI-" . $id;
 
-            try {
-                // Server settings
-                $mail->SMTPDebug = SMTP::DEBUG_OFF;
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'redana.food@gmail.com';
-                $mail->Password = 'zibwucwdyhhzmdan';
-                $mail->SMTPSecure = 'ssl';
-                $mail->Port = 465;
-                $mail->setFrom('redana.food@gmail.com', 'Redana Team');
-                $mail->addAddress($getmailrow["user_email"]);
-                $mail->isHTML(true);
-                $mail->Subject = 'Monthly savings Pending Invoice';
-                $mail->Body = '<!DOCTYPE html>
+                } else {
+                    $invoiceid = "MSI-1";
+                }
+
+                $insertsql = "INSERT INTO monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action)
+                VALUES ('{$invoiceid}','{$checkrow["user_id"]}','50$','5','55','pending')";
+                $insertres = $con->query($insertsql);
+
+                $getmailsql = "SELECT * FROM userdetails WHERE user_id='{$checkrow["user_id"]}'";
+                $getmailres = $con->query($getmailsql);
+                $getmailrow = $getmailres->fetch_assoc();
+
+                $mail = new PHPMailer(true);
+
+                try {
+                    // Server settings
+                    $mail->SMTPDebug = SMTP::DEBUG_OFF;
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'redana.food@gmail.com';
+                    $mail->Password = 'zibwucwdyhhzmdan';
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->Port = 465;
+                    $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+                    $mail->addAddress($getmailrow["user_email"]);
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Monthly savings Pending Invoice';
+                    $mail->Body = '<!DOCTYPE html>
     <html lang="en">
     
     <head>
@@ -253,19 +269,21 @@ foreach ($checkdateres as $checkrow) {
     </html>
     ';
 
-                if ($mail->send()) {
-                    $response["status"] = "success";
+                    if ($mail->send()) {
+                        $response["status"] = "success";
+                        echo json_encode($response);
+                    }
+
+                } catch (Exception $e) {
+                    $response["status"] = "error";
                     echo json_encode($response);
                 }
-
-            } catch (Exception $e) {
-                $response["status"] = "error";
-                echo json_encode($response);
             }
-
         }
     }
+} finally {
+    // Remove lock file
+    unlink($lockFile);
 }
-
 
 ?>

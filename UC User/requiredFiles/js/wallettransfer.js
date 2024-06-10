@@ -128,11 +128,13 @@ const checkuserid = () => {
                         $("#useridmsg").html("<p style='color:green'>" + response.message + "</p>")
 
                         $("#transferbtn").prop("disabled", false)
+                        $("#otpbtn").prop("disabled",false)
 
                     } else if (response.stage == "not") {
 
                         $("#useridmsg").html("<p style='color:red'>Invalid User ID</p>")
                         $("#transferbtn").prop("disabled", true)
+                        $("#otpbtn").prop("disabled",true)
 
                     }
 
@@ -185,7 +187,7 @@ $("#transferpoint").submit(function (e) {
 
             } else if (response.status == "success") {
 
-                location.replace("savings income.php")
+                location.reload();
 
             } else if (response.status == "error") {
 
@@ -196,3 +198,67 @@ $("#transferpoint").submit(function (e) {
     });
 
 });
+
+const getotp = () =>{
+    var selectoption = $("#floatingSelect").val();
+    var points = $("#dollarvalue").val();
+    var userid = $("#userid").val();
+
+    if((selectoption !== "none") && points.length >= 1){
+
+        $("#otpbtn").html("Loading ...");
+
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/wallettransferAjax.php",
+            data: {
+                "way" : "getotp",
+                "points": points,
+                "userid": userid
+            },
+            success: function (res) {
+                var response = JSON.parse(res);
+    
+                if (response.status == "auth_failed" && response.message == "Expired token") {
+    
+                    location.replace("time_expried.php");
+    
+                } else if (response.status == "auth_failed") {
+    
+                    location.replace("unauth_login.php");
+    
+                } else if (response.status == "success") {
+    
+                    new Notify({
+                        status: 'success',
+                        title: 'OTP',
+                        text: 'OTP Sended Successfully...!',
+                        effect: 'fade',
+                        speed: 300,
+                        speed: 300,
+                        customClass: '',
+                        customIcon: '',
+                        showIcon: true,
+                        showCloseButton: true,
+                        autoclose: true,
+                        autotimeout: 3000,
+                        notificationsGap: null,
+                        notificationsPadding: null,
+                        type: 'outline',
+                        position: 'right top',
+                        customWrapper: '',
+                    })
+                    
+                    $("#otpbtn").html("Resend OTP");
+                    $("#floatingSelect").prop("disabled",true);
+                    $("#dollarvalue").prop("readonly",true);
+                    $("#userid").prop("readonly",true);
+
+                }
+            }
+        });
+
+    }else{
+        alert("Choose the Wallet Type and Transfer Points")
+    }
+}

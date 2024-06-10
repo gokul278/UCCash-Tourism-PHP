@@ -15,6 +15,9 @@ $mail = new PHPMailer(true);
 
 $values = token::verify();
 
+$coinvalue = 0;
+$dollarvalue = 0;
+
 if ($values["status"] == "success") {
 
     $way = $_POST["way"];
@@ -101,6 +104,8 @@ if ($values["status"] == "success") {
         }
 
     } else if ($way == "cryptootp") {
+        $amount = $_POST["amount"];
+        $coinvalue = $amount;
         $email = "";
         $name = "";
         $trc20address = "";
@@ -196,7 +201,8 @@ if ($values["status"] == "success") {
                                     <div align="start">
                                         <p><b>Withdraw Details:</b><br>
                                             Type&nbsp;:&nbsp;Crypto<br>
-                                            TRC20 Address&nbsp;:&nbsp;' . $trc20address . '
+                                            TRC20 Address&nbsp;:&nbsp;' . $trc20address . '<br>
+                                            Withdrawal Coin&nbsp;:&nbsp;' . $amount . '
                                         </p>
                                     </div>
                                     <div align="start" style="margin-top: 40px;margin-bottom: 40px;">
@@ -331,6 +337,9 @@ if ($values["status"] == "success") {
 
 
     } else if ($way == "bankotp") {
+        $amount = $_POST["amount"];
+        $dollarvalue = $amount;
+
         $email = "";
         $name = "";
         $ac_bankname = "";
@@ -439,6 +448,7 @@ if ($values["status"] == "success") {
                                             Account Number&nbsp;:&nbsp;' . $ac_number . '<br>
                                             IFSC Code&nbsp;:&nbsp;' . $ifsc_code . '<br>
                                             Branch&nbsp;:&nbsp;' . $branch . '<br>
+                                            Withdrawal Amount&nbsp;:&nbsp;' . $amount . '$
                                         </p>
                                     </div>
                                     <div align="start" style="margin-top: 40px;margin-bottom: 40px;">
@@ -574,8 +584,7 @@ if ($values["status"] == "success") {
 
     } else if ($way == "cryptowithdraw") {
 
-        $withdrawvalue = $_POST["withdrawvalue"];
-        $withdrawvalue = number_format($withdrawvalue, 2);
+        $withdrawvalue = $coinvalue;
         $otp = $_POST["otp"];
 
         $checkactivation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
@@ -617,7 +626,7 @@ if ($values["status"] == "success") {
                     }
 
                     $totalbalance = $awbcredit - $awbdebit;
-                    $formattedTotalBalance = number_format($totalbalance, 2);
+                    $formattedTotalBalance = $totalbalance;
 
                     $adminfees = number_format((0.05 * $withdrawvalue), 2);
                     $reactivationtopup = number_format((0.05 * $withdrawvalue), 2);
@@ -637,6 +646,7 @@ if ($values["status"] == "success") {
                             $updateotp = $con->query("UPDATE userbankdetails SET otp=NULL WHERE user_id='{$values["userid"]}'");
 
                             $response["status"] = "success";
+                            $coinvalue = 0;
                         } else {
                             $response["status"] = "failed";
                         }
@@ -668,8 +678,7 @@ if ($values["status"] == "success") {
 
     } else if ($way == "bankwithdraw") {
 
-        $withdrawvalue = $_POST["withdrawvalue"];
-        $withdrawvalue = number_format($withdrawvalue, 2);
+        $withdrawvalue = $dollarvalue;
         $otp = $_POST["otp"];
 
         $checkactivation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
@@ -710,7 +719,7 @@ if ($values["status"] == "success") {
                     }
 
                     $totalbalance = $awbcredit - $awbdebit;
-                    $formattedTotalBalance = number_format($totalbalance, 2);
+                    $formattedTotalBalance = $totalbalance;
 
                     $adminfees = number_format((0.05 * $withdrawvalue), 2);
                     $reactivationtopup = number_format((0.05 * $withdrawvalue), 2);
@@ -730,6 +739,7 @@ if ($values["status"] == "success") {
                         if ($bankwithdraw) {
                             $updateotp = $con->query("UPDATE userbankdetails SET otp=NULL WHERE user_id='{$values["userid"]}'");
                             $response["status"] = "success";
+                            $dollarvalue = 0;
                         } else {
                             $response["status"] = "failed";
                         }

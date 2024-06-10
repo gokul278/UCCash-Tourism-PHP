@@ -59,7 +59,8 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle profile_image" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -76,11 +77,13 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-laptop me-2"></i><b>Edit Details</b></a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="profile.php" class="dropdown-item active" style="color:#f7c128"><b>Edit Profile</b></a>
+                            <a href="profile.php" class="dropdown-item active" style="color:#f7c128"><b>Edit
+                                    Profile</b></a>
                             <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                             <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
                             <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
-                            <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value Edit</p></b></a>
+                            <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
+                                        Edit</p></b></a>
                             <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
                         </div>
                     </div>
@@ -102,14 +105,14 @@
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
-                                </a>
+                            </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
                                     History</p></a>
                         </div>
                     </div>
                     <a href="travel coupon usage history.php" class="nav-item nav-link"><i
                             class="fa fa-star me-2"></i>Travel Coupon<p style="text-align: center;">Usage History</p>
-                        </a>
+                    </a>
                     <a href="bonus travel point usage history.php" class="nav-item nav-link"><i
                             class="fa fa-gift me-2"></i>Bonus Travel<p style="text-align: center;"> Point Usage History
                         </p></a>
@@ -123,19 +126,11 @@
                     </div>
                     <a href="wallet transfer report.php" class="nav-item nav-link"><i
                             class="fa fa-money-bill me-2"></i>Wallet Trasfer<p style="text-align: center;"> Report</p>
-                        </a>
+                    </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                        <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="far fa-map me-2"></i>Tour <p style="text-align: center;">Destination</p></a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour destination edit.php" class="dropdown-item">Destinations Edit</a>
-                            <!-- <a href="tour description.php" class="dropdown-item">Tour Description</a>
-                            <a href="tour gallery.php" class="dropdown-item">Gallery</a> -->
-                            <a href="receipt edit.php" class="dropdown-item">Receipt Edit</a>
-                        </div>
-                    </div>
+                    <a href="tour destination edit.php" class="nav-item nav-link "><i class="far fa-map me-2"></i>Tour<p
+                            style="text-align: center;">Destinations</p></a>
                     <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
                         Booking<p style="text-align: center;"> History</p></a>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
@@ -266,20 +261,21 @@
 
                                 <div class="col-sm-6">
                                     <label for="name" class="col-form-label">Name</label>
-                                    <input type="text" class="form-control" name="username" id="name" style="height: 50px;" disabled
-                                        required>
+                                    <input type="text" class="form-control" name="username" id="name"
+                                        style="height: 50px;" disabled required>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-sm-6">
                                     <label for="inputDOB" class="col-form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" name="dob" id="inputDOB" style="height: 50px;"
-                                        disabled>
+                                    <input type="date" class="form-control" name="dob" id="inputDOB"
+                                        style="height: 50px;" disabled>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="Aadhaar" class="col-form-label">Aadhaar Number</label>
-                                    <input type="tel" class="form-control" name="aadhaarno" id="Aadhaar" style="height: 50px;" disabled>
+                                    <input type="tel" class="form-control" name="aadhaarno" id="Aadhaar"
+                                        style="height: 50px;" disabled>
                                 </div>
 
                             </div>
@@ -289,11 +285,13 @@
 
                                 <div class="col-sm-6">
                                     <label for="Pancard" class="col-form-label">Pancard</label>
-                                    <input type="text" class="form-control" name="panno" id="Pancard" style="height: 50px;" disabled>
+                                    <input type="text" class="form-control" name="panno" id="Pancard"
+                                        style="height: 50px;" disabled>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="Mobile" class="col-form-label">Mobile No</label>
-                                    <input type="tel" class="form-control" name="phoneno" id="phone" style="height: 50px;" disabled>
+                                    <input type="tel" class="form-control" name="phoneno" id="phone"
+                                        style="height: 50px;" disabled>
                                 </div>
                             </div>
 
@@ -306,11 +304,13 @@
 
                                 <div class="col-sm-6">
                                     <label for="email" class="col-form-label">Email ID</label>
-                                    <input type="email" class="form-control" name="email" id="email" style="height: 50px;" disabled>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        style="height: 50px;" disabled>
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="walllet" class="col-form-label">TRC 20 Wallet Address</label>
-                                    <input type="text" class="form-control" name="wallet" id="walllet" style="height: 50px;" disabled>
+                                    <input type="text" class="form-control" name="wallet" id="walllet"
+                                        style="height: 50px;" disabled>
                                 </div>
                             </div>
 
@@ -323,10 +323,11 @@
                                 </div>
                             </div>
 
-                           
+
                             <div class="row mb-3">
                                 <div class="col-sm-12">
-                                    <button class="btn btn-primary" type="submit" id="submitbtn" disabled>Submit</button>
+                                    <button class="btn btn-primary" type="submit" id="submitbtn"
+                                        disabled>Submit</button>
                                 </div>
                             </div>
 

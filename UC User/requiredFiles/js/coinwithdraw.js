@@ -43,7 +43,7 @@ const getData = () => {
 
                 $(".user_name").html(response.user_name);
 
-                $("#uccwallet").html(response.uccwallet + "$");
+                $("#uccwallet").html(response.uccwallet);
                 $("#bep20_address").val(response.bep20_address);
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
@@ -92,6 +92,7 @@ const checkcrypto = () => {
 const cryptootp = () => {
 
     $("#cryptootpbtn").html("Loading ...");
+    var amount = $("#cryptovalue").val();
 
 
     $.ajax({
@@ -99,6 +100,7 @@ const cryptootp = () => {
         url: "./requiredFiles/ajax/coinwithdrawAjax.php",
         data: {
             "way": "cryptootp",
+            "amount" : amount
         },
         success: function (res) {
             var response = JSON.parse(res);
@@ -131,6 +133,7 @@ const cryptootp = () => {
                     position: 'right top',
                     customWrapper: '',
                 })
+
                 $("#cryptootpbtn").html("Resend OTP");
             }
         }

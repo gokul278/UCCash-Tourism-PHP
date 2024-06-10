@@ -344,7 +344,7 @@
                                         <h2 class="running-balance mt-2">
                                             <p id="uccwallet"></p>
                                         </h2>
-                                        <h6>Minimum Withdraw 50$</h6>
+                                        <h6>Withdraw Eligible for 3 Years from Activation Date</h6>
                                     </div>
                                 </div>
 
@@ -373,7 +373,7 @@
                                                 <div class="mb-3">
                                                     <label for="WithdrawAmount" class="form-label">Withdraw
                                                         Amount:</label>
-                                                    <input type="text" class="form-control" id="cryptovalue"
+                                                    <input type="number" class="form-control" id="cryptovalue"
                                                         name="withdrawvalue" onclick="clearmsgcrypto()"
                                                         placeholder="Enter your Withdraw amount" oninput="checkcrypto()"
                                                         required>

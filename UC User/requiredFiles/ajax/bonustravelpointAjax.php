@@ -35,49 +35,52 @@ if ($values["status"] == "success") {
             $pointsdata = $con->query("SELECT * FROM bonustravelpoints WHERE user_id='{$values["userid"]}'");
 
 
-           if(mysqli_num_rows($pointsdata) >= 1){
-            foreach($pointsdata as $getpointsdata){
-
-                $dateString = $getpointsdata["bt_createdat"];
-
-                $parts = explode(" ", $dateString);
-
-                $date = $parts[0];
-                $time = $parts[1];
-
-                if($getpointsdata["bt_action"] == "credit"){
-                    $credit += (float) $getpointsdata["bt_points"];
-                }else if($getpointsdata["bt_action"] == "debit"){
-                    $debit += (float) $getpointsdata["bt_points"];
+            if (mysqli_num_rows($pointsdata) >= 1) {
+                foreach ($pointsdata as $getpointsdata) {
+                    $dateString = $getpointsdata["bt_createdat"];
+            
+                    $parts = explode(" ", $dateString);
+                    $date = $parts[0];
+                    $time = $parts[1];
+            
+                    if ($getpointsdata["bt_action"] == "credit") {
+                        $credit += (float) $getpointsdata["bt_points"];
+                    } else if ($getpointsdata["bt_action"] == "debit") {
+                        $debit += (float) $getpointsdata["bt_points"];
+                    }
+            
+                    $index++;
+            
+                    $name = $con->query("SELECT * FROM userdetails WHERE user_id='{$getpointsdata["bt_bonusfrom"]}'");
+                    $getname = $name->fetch_assoc();
+            
+                    $pointstable .= '
+                    <tr>
+                        <th scope="row">' . $index . '</th>
+                        <td>' . $date . '<p class="time">' . $time . '</p></td>
+                    ';
+            
+                    if ($getpointsdata["bt_action"] == "credit") {
+                        $pointstable .= '
+                        <td>' . $getpointsdata["bt_bonusfrom"] . '</td>
+                        <td>' . $getname["user_name"] . '</td>
+                        <td>' . $getpointsdata["bt_lvl"] . '</td>
+                        <td>' . $getpointsdata["bt_remark"] . '</td>
+                        <td>' . number_format($getpointsdata["bt_points"], 2) . '</td><td></td>';
+                    } else if ($getpointsdata["bt_action"] == "debit") {
+                        $pointstable .= '
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>' . $getpointsdata["bt_remark"] . '</td>
+                        <td>-</td><td>' . number_format($getpointsdata["bt_points"], 2) . '</td>';
+                    }
+            
+                    $pointstable .= '<td>' . number_format(($credit - $debit), 2) . '</td>
+                    </tr>
+                    ';
                 }
-
-                $index++;
-
-                $pointstable .= '
-                <tr>
-                    <th scope="row">'.$index.'</th>
-                    <td>'.$date.'<p class="time">'.$time.'</p></td>
-                    <td>'.$getpointsdata["bt_bonusfrom"].'</td>
-                    <td>'.$getpointsdata["bt_lvl"].'</td>
-                    <td>'.$getpointsdata["bt_remark"].'</td>
-                ';
-
-                if($getpointsdata["bt_action"] == "credit"){
-
-                    $pointstable .= '<td>'.number_format($getpointsdata["bt_points"], 2).'</td><td></td>';
-
-                }else if($getpointsdata["bt_action"] == "debit"){
-
-                    $pointstable .= '<td></td><td>'.number_format($getpointsdata["bt_points"], 2).'</td>';
-
-                }
-
-                $pointstable .= '<td>'.number_format(($credit-$debit), 2).'</td>
-                </tr>
-                ';
-
             }
-           }
 
 
             $response["pointstable"] = $pointstable;

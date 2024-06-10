@@ -142,7 +142,7 @@ if ($values["status"] == "success") {
                     if (isset($gettravelcoupon["tc_action"]) && strlen($gettravelcoupon["tc_action"]) >= 1) {
                         if ($gettravelcoupon["tc_action"] == "credit") {
                             $tccredit += (float) $gettravelcoupon["tc_points"];
-                        } else if ($getbonustravel["tc_action"] == "debit") {
+                        } else if ($gettravelcoupon["tc_action"] == "debit") {
                             $tcdebit += (float) $gettravelcoupon["tc_points"];
                         }
                     }

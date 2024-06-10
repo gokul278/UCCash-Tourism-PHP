@@ -133,6 +133,7 @@ const checkbank = () => {
 const cryptootp = () => {
 
     $("#cryptootpbtn").html("Loading ...");
+    var amount = $("#cryptovalue").val();
 
 
     $.ajax({
@@ -140,6 +141,7 @@ const cryptootp = () => {
         url: "./requiredFiles/ajax/withdrawrequestAjax.php",
         data: {
             "way": "cryptootp",
+            "amount": amount
         },
         success: function (res) {
             var response = JSON.parse(res);
@@ -181,6 +183,7 @@ const cryptootp = () => {
 
 const bankotp = () => {
     $("#bankotpbtn").html("Loading ...");
+    var amount = $("#bankvalue").val();
 
 
     $.ajax({
@@ -188,6 +191,7 @@ const bankotp = () => {
         url: "./requiredFiles/ajax/withdrawrequestAjax.php",
         data: {
             "way": "bankotp",
+            "amount": amount
         },
         success: function (res) {
             var response = JSON.parse(res);
@@ -220,7 +224,7 @@ const bankotp = () => {
                     position: 'right top',
                     customWrapper: '',
                 })
-                $("#bankotpbtn").html("Resend OTP");
+                $("#bankotpbtn").html("Resend OTP"); 
             }
         }
     });

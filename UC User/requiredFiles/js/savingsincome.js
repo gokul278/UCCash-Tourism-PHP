@@ -50,7 +50,7 @@ const getData = () => {
                     });
                 }else{
 
-                    $("#pointstable").html("<tr><td colspan='7'>No Data</td></tr>");
+                    $("#pointstable").html("<tr><td colspan='9'>No Data</td></tr>");
 
                 }
 

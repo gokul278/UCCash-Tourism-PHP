@@ -51,24 +51,35 @@ if ($values["status"] == "success") {
                     $debit += (float) $getpointsdata["niw_points"];
                 }
 
+                $name = $con->query("SELECT * FROM userdetails WHERE user_id='{$getpointsdata["niw_bonusfrom"]}'");
+                $getname = $name->fetch_assoc();
+
                 $index++;
 
                 $pointstable .= '
                 <tr>
                     <th scope="row">'.$index.'</th>
                     <td>'.$date.'<p class="time">'.$time.'</p></td>
-                    <td>'.$getpointsdata["niw_bonusfrom"].'</td>
-                    <td>'.$getpointsdata["niw_lvl"].'</td>
-                    <td>'.$getpointsdata["niw_remark"].'</td>
                 ';
 
                 if($getpointsdata["niw_action"] == "credit"){
 
-                    $pointstable .= '<td>'.number_format($getpointsdata["niw_points"], 2).'</td><td></td>';
+                    $pointstable .= '
+                    <td>'.$getpointsdata["niw_bonusfrom"].'</td>
+                    <td>'.$getname["user_name"].'</td>
+                    <td>'.$getpointsdata["niw_lvl"].'</td>
+                    <td>'.$getpointsdata["niw_remark"].'</td>
+                    <td>'.number_format($getpointsdata["niw_points"], 2).'</td><td></td>';
 
                 }else if($getpointsdata["niw_action"] == "debit"){
 
-                    $pointstable .= '<td></td><td>'.number_format($getpointsdata["niw_points"], 2).'</td>';
+                    $pointstable .= '
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>'.$getpointsdata["niw_remark"].'</td>
+                    <td>-</td><td>'.number_format($getpointsdata["niw_points"], 2).'</td>';
+
 
                 }
 

@@ -126,211 +126,247 @@ $("#searchtype").click(function (e) {
 const lvl1reward = (button) => {
     var userid = $(button).attr('userid');
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/rankingboardAjax.php",
-        data: {
-            "way": "awardlvl1",
-            "userid": userid
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+    // Display the confirmation dialog
+    var userConfirmed = window.confirm("Are you sure you want to Grant a Award?");
 
-                return getData()
-
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
-
-                location.replace("time_expried.php");
-
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
+    // If the user clicked "Yes", userConfirmed will be true
+    if (userConfirmed) {
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/rankingboardAjax.php",
+            data: {
+                "way": "awardlvl1",
+                "userid": userid
+            },
+            success: function (res) {
+                var response = JSON.parse(res);
+                if (response.status == "success") {
+                    // Call getData() on success
+                    return getData();
+                } else if (response.status == "auth_failed" && response.message == "Expired token") {
+                    location.replace("time_expried.php");
+                } else if (response.status == "auth_failed") {
+                    location.replace("unauth_login.php");
+                }
+            },
+            error: function (err) {
+                console.error("An error occurred:", err);
             }
-        }
-    });
+        });
+    }
 };
+
 
 
 const lvl2reward = (button) => {
     var userid = $(button).attr('userid');
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/rankingboardAjax.php",
-        data: {
-            "way": "awardlvl2",
-            "userid": userid
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+    // Display the confirmation dialog
+    var userConfirmed = window.confirm("Are you sure you want to Grant a Award?");
 
-                return getData()
+    // If the user clicked "Yes", userConfirmed will be true
+    if (userConfirmed) {
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/rankingboardAjax.php",
+            data: {
+                "way": "awardlvl2",
+                "userid": userid
+            },
+            success: function (res) {
+                var response = JSON.parse(res);
+                if (response.status == "success") {
 
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
+                    return getData()
 
-                location.replace("time_expried.php");
+                } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
-            } else if (response.status == "auth_failed") {
+                    location.replace("time_expried.php");
 
-                location.replace("unauth_login.php");
+                } else if (response.status == "auth_failed") {
 
+                    location.replace("unauth_login.php");
+
+                }
             }
-        }
-    });
+        });
+    }
 };
 
 const lvl3reward = (button) => {
     var userid = $(button).attr('userid');
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/rankingboardAjax.php",
-        data: {
-            "way": "awardlvl3",
-            "userid": userid
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+    var userConfirmed = window.confirm("Are you sure you want to Grant a Award?");
 
-                return getData()
+    // If the user clicked "Yes", userConfirmed will be true
+    if (userConfirmed) {
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/rankingboardAjax.php",
+            data: {
+                "way": "awardlvl3",
+                "userid": userid
+            },
+            success: function (res) {
+                var response = JSON.parse(res);
+                if (response.status == "success") {
 
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
+                    return getData()
 
-                location.replace("time_expried.php");
+                } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
-            } else if (response.status == "auth_failed") {
+                    location.replace("time_expried.php");
 
-                location.replace("unauth_login.php");
+                } else if (response.status == "auth_failed") {
 
+                    location.replace("unauth_login.php");
+
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 const lvl4reward = (button) => {
-    
+
     var userid = $(button).attr('userid');
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/rankingboardAjax.php",
-        data: {
-            "way": "awardlvl4",
-            "userid": userid
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+    var userConfirmed = window.confirm("Are you sure you want to Grant a Award?");
 
-                return getData()
+    // If the user clicked "Yes", userConfirmed will be true
+    if (userConfirmed) {
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/rankingboardAjax.php",
+            data: {
+                "way": "awardlvl4",
+                "userid": userid
+            },
+            success: function (res) {
+                var response = JSON.parse(res);
+                if (response.status == "success") {
 
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
+                    return getData()
 
-                location.replace("time_expried.php");
+                } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
-            } else if (response.status == "auth_failed") {
+                    location.replace("time_expried.php");
 
-                location.replace("unauth_login.php");
+                } else if (response.status == "auth_failed") {
 
+                    location.replace("unauth_login.php");
+
+                }
             }
-        }
-    });
+        });
+    }
 
 }
 
 const lvl5reward = (button) => {
-    
+
     var userid = $(button).attr('userid');
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/rankingboardAjax.php",
-        data: {
-            "way": "awardlvl5",
-            "userid": userid
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+    var userConfirmed = window.confirm("Are you sure you want to Grant a Award?");
 
-                return getData()
+    // If the user clicked "Yes", userConfirmed will be true
+    if (userConfirmed) {
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/rankingboardAjax.php",
+            data: {
+                "way": "awardlvl5",
+                "userid": userid
+            },
+            success: function (res) {
+                var response = JSON.parse(res);
+                if (response.status == "success") {
 
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
+                    return getData()
 
-                location.replace("time_expried.php");
+                } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
-            } else if (response.status == "auth_failed") {
+                    location.replace("time_expried.php");
 
-                location.replace("unauth_login.php");
+                } else if (response.status == "auth_failed") {
 
+                    location.replace("unauth_login.php");
+
+                }
             }
-        }
-    });
+        });
+    }
 
 }
 
 const lvl6reward = (button) => {
-    
+
     var userid = $(button).attr('userid');
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/rankingboardAjax.php",
-        data: {
-            "way": "awardlvl6",
-            "userid": userid
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+    var userConfirmed = window.confirm("Are you sure you want to Grant a Award?");
 
-                return getData()
+    // If the user clicked "Yes", userConfirmed will be true
+    if (userConfirmed) {
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/rankingboardAjax.php",
+            data: {
+                "way": "awardlvl6",
+                "userid": userid
+            },
+            success: function (res) {
+                var response = JSON.parse(res);
+                if (response.status == "success") {
 
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
+                    return getData()
 
-                location.replace("time_expried.php");
+                } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
-            } else if (response.status == "auth_failed") {
+                    location.replace("time_expried.php");
 
-                location.replace("unauth_login.php");
+                } else if (response.status == "auth_failed") {
 
+                    location.replace("unauth_login.php");
+
+                }
             }
-        }
-    });
+        });
+    }
 
 }
 
 const lvl7reward = (button) => {
-    
+
     var userid = $(button).attr('userid');
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/rankingboardAjax.php",
-        data: {
-            "way": "awardlvl7",
-            "userid": userid
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+    var userConfirmed = window.confirm("Are you sure you want to Grant a Award?");
 
-                return getData()
+    // If the user clicked "Yes", userConfirmed will be true
+    if (userConfirmed) {
+        $.ajax({
+            type: "POST",
+            url: "./requiredFiles/ajax/rankingboardAjax.php",
+            data: {
+                "way": "awardlvl7",
+                "userid": userid
+            },
+            success: function (res) {
+                var response = JSON.parse(res);
+                if (response.status == "success") {
 
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
+                    return getData()
 
-                location.replace("time_expried.php");
+                } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
-            } else if (response.status == "auth_failed") {
+                    location.replace("time_expried.php");
 
-                location.replace("unauth_login.php");
+                } else if (response.status == "auth_failed") {
 
+                    location.replace("unauth_login.php");
+
+                }
             }
-        }
-    });
+        });
+    }
 
 }

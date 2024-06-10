@@ -47,9 +47,13 @@ if ($values["status"] == "success") {
             foreach ($savingtravel as $getsavingtravel) {
                 if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
                     if ($getsavingtravel["st_action"] == "credit") {
-                        $stcredit += (float) $getsavingtravel["st_points"];
+                        if(strpos($getsavingtravel["st_bonusfrom"], 'Transferred') === false){
+                            $stcredit += (float) $getsavingtravel["st_points"];
+                        }
                     } else if ($getsavingtravel["st_action"] == "debit") {
-                        $stdebit += (float) $getsavingtravel["st_points"];
+                        if(strpos($getsavingtravel["st_bonusfrom"], 'Transferred') === false){
+                            $stdebit += (float) $getsavingtravel["st_points"];
+                        }
                     }
                 }
             }
@@ -71,7 +75,7 @@ if ($values["status"] == "success") {
                  if (isset($gettravelcoupon["tc_action"]) && strlen($gettravelcoupon["tc_action"]) >= 1) {
                      if ($gettravelcoupon["tc_action"] == "credit") {
                          $tccredit += (float) $gettravelcoupon["tc_points"];
-                     } else if ($getbonustravel["tc_action"] == "debit") {
+                     } else if ($gettravelcoupon["tc_action"] == "debit") {
                          $tcdebit += (float) $gettravelcoupon["tc_points"];
                      }
                  }

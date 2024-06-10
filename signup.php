@@ -509,7 +509,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" name="terms" type="checkbox" value="1"
                                         id="agreement" onclick="clearerror()" required>
-                                    <label class="form-check-label" for="invalidCheck2">
+                                    <label class="form-check-label" for="agreement">
                                         I Agree to the <a id="terms_conditions" data-terms="" target="_blank"
                                             href="./UC User/img/UCCASH Tourism Terms and Conditions.pdf">terms and
                                             conditions</a> and <a id="privacy_policy" data-privacy="" target="_blank"

@@ -30,12 +30,17 @@ if ($values["status"] == "success") {
         $data = $con->query("SELECT * FROM uccwalletpoints WHERE uccw_action='credit'");
 
         foreach($data as $index=>$getdata){
+
+            $name = $con->query("SELECT * FROM userdetails WHERE user_id='{$getdata["user_id"]}'");
+            $getname = $name->fetch_assoc();
+
             $tabledata .= '
             <tr>
                 <th>'.($index+1).'</th>
                 <th>'.($getdata["uccw_createdat"]).'</th>
                 <th>'.($getdata["user_id"]).'</th>
-                <th>'.($getdata["uccw_points"]).'</th>
+                <th>'.($getname["user_name"]).'</th>
+                <th>'.number_format($getdata["uccw_points"],2).'</th>
                 <th style="color:green">Sucessfully Deposited</th>
             </tr>
             ';
@@ -72,8 +77,6 @@ if ($values["status"] == "success") {
 
         $userid = $_POST["userid"];
         $depositevalue = $_POST["depositvalue"];
-
-        $depositevalue = number_format($depositevalue, 2);
 
         $walletvalue = $con->query("INSERT INTO uccwalletpoints (user_id,uccw_points,uccw_action,uccw_remark)
         VALUES ('{$userid}','{$depositevalue}','credit','UCC Wallet')");

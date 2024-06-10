@@ -47,15 +47,18 @@
             <nav class="navbar bg-light navbar-light">
                 <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3"
                     style="width: 150px; height: 60px;">
+
+
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><b>Gowtham</b></h6>
+                        <h6 class="mb-0 user_name"><b></b></h6>
                         <span>User</span>
                     </div>
                 </div>
@@ -85,17 +88,10 @@
                             <a href="direct member list.php" class="dropdown-item">Direct Member List</a>
                         </div>
                     </div>
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Coupon<p style="text-align: center;" > Activation Deposit</p></a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="crypto deposit.php" class="dropdown-item">Crypto Deposit</a>
-                            <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
-                        </div>
-                    </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
-                            </a>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
@@ -109,7 +105,7 @@
                     <!-- <a href="monthly TP savings.php" class="nav-item nav-link"><i class="fa fa-comment-dollar me-2"></i>Monthly TP <p style="text-align: center;">Savings</p></a> -->
                     <a href="monthly TP savings status.php" class="nav-item nav-link"><i
                             class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
-                        </a>
+                    </a>
                     <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
@@ -126,11 +122,11 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
-                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i
+                            class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
-
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-university me-2"></i>Withdraw</a>
@@ -140,27 +136,19 @@
                             <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
                         </div>
                     </div>
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-id-card me-2"></i>Booking</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="tour booking.php" class="dropdown-item">Tour Booking</a>
-                            <a href="hotel booking.php" class="dropdown-item">Hotel Booking</a>
-                        </div>
-                    </div> -->
                     <a href="tour booking.php" class="nav-item nav-link"><i class="far fa-map me-2"></i>Tour
                         Booking</a>
-                    <a href="booking history.php" class="nav-item nav-link active"><i
-                            class="fa fa-bookmark me-2"></i>Booking History</a>
+                    <a href="booking history.php" class="nav-item nav-link active"><i class="fa fa-bookmark me-2"></i>Booking
+                        History</a>
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">1 PDF </a>
-                            <a href="#" class="dropdown-item">2 PDF</a>
-                            <a href="#" class="dropdown-item">3 PDF</a>
-                            <a href="#" class="dropdown-item">4 PDF</a>
+                            <a href="./img/pdf1.pdf" target="_blank" class="dropdown-item">1 PDF </a>
+                            <a href="./img/pdf2.pdf" target="_blank" class="dropdown-item">2 PDF</a>
+                            <a href="./img/pdf3.pdf" target="_blank" class="dropdown-item">3 PDF</a>
+                            <a href="./img/pdf4.pdf" target="_blank" class="dropdown-item">4 PDF</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -203,9 +191,9 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex"><b>Gowtham</b></span>
+                            <span class="d-none d-lg-inline-flex user_name"><b></b></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="./logout.php" class="dropdown-item">Log Out</a>
@@ -341,127 +329,38 @@
 
 
                     <div class="d-flex justify-content-center">
-                        <div class="col-sm-12 col-xl-6">
+                        <div class="col-sm-12 col-xl-12">
 
-                            <div class="">
-                                <!-- <div class="container">
-                                <div class="card">
-                                    <h2 class="">Available Balance</h2>
-                                    <h2 class="running-balance">550$</h2>
-                                </div>
-                            </div> -->
-                                <br>
-                                <h6 style="text-align: center;" class="mb-4">Booking History</h6>
-
-
-                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                                            data-bs-target="#pills-home" type="button" role="tab"
-                                            aria-controls="pills-home" aria-selected="true">Tour</button>
-                                    </li>
-                                    <!-- <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-profile" type="button" role="tab"
-                                        aria-controls="pills-profile" aria-selected="false">Tour</button>
-                                </li> -->
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
-                                            data-bs-target="#nav-contact" type="button" role="tab"
-                                            aria-controls="nav-contact" aria-selected="false">Hotels</button>
-                                    </li>
-                                    <!-- <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
-                                        data-bs-target="#pills-contact" type="button" role="tab"
-                                        aria-controls="pills-contact" aria-selected="false">Contact</button>
-                                </li> -->
-                                </ul>
-
-
-
+                        <div class="row">
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">Tour Booking History</h6>
+                            <div class="table-responsive">
                                 <strong>
-                                    <div class="tab-content" id="pills-tabContent">
-                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
-                                            aria-labelledby="pills-home-tab">
-                                            <div class="container">
-                                                <div class="card">
-                                                    <div style="text-align: center;">
-                                                        <h4>Taj Mahal</h4>
-                                                        <img src="img/taj mahal.jpg" alt="Tour Img" width="290"
-                                                            height="300" />
-                                                        <p></p>
-                                                        <p style="color: #000;">Date: March 10, 2024</p>
-                                                        <p style="color: #000;">Place: Your Location</p>
-                                                        <p style="color: #000;">
-                                                            <i class="fa fa-users" aria-hidden="true"></i> : 2
-                                                            Passengers
-                                                            &nbsp;&nbsp;
-                                                            <i class="fa fa-id-card" aria-hidden="true"></i> ID :
-                                                            UCT123456
-                                                        </p>
-                                                        <strong>
-                                                            <hr style="border-top: 3px solid #000; font-weight: bold;">
-                                                        </strong>
-                                                        <div style="text-align: center;">
-                                                            <p style="color: #f7c128;">600TP</p>
-                                                            <p style="color: #000;">300TP : Tour</p>
-                                                            <p style="color: #000;">300TP : Flight</p>
-                                                            <button type="button"
-                                                                class="btn btn-success rounded-pill m-2">
-                                                                <b>GO</b> <i class="fa fa-arrow-right"></i>
-                                                            </button>
-
-
-
-                                                        </div>
-
-                                                    </div>
-
-
-
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                                            aria-labelledby="pills-profile-tab">
-
-                                        </div>
-
-
-                                        <div class="tab-pane fade" id="nav-contact" role="tabpanel"
-                                            aria-labelledby="nav-contact-tab">
-                                            <div class="soon py-5">
-                                                <div class="mx-auto text-center mb-5" style="max-width: 900px;">
-                                                    <h1 class="mb-0">COMING <span style="color: #f7c128;">SOON</span>
-                                                    </h1>
-                                                    <br>
-                                                    <h5 style="color: #000;"><strong><a href="https://uccashtourism.com"
-                                                                target="_blank">www.uccashtourism.com</strong></a></h5>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <style>
-                                            .soon {
-                                                display: flex;
-                                                justify-content: center;
-                                                align-items: center;
-                                                min-height: 100vh;
-                                                /* Ensures the container fills the entire viewport height */
-                                            }
-
-                                            .text-center {
-                                                text-align: center;
-                                            }
-                                        </style>
-
-
-                                    </div>
+                                    <table style="color: black; text-align: center;" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">S.No</th>
+                                                <th scope="col">Booking Date</th>
+                                                <th scope="col">Booking Amount</th>
+                                                <th scope="col">Booking Destination</th>
+                                                <th scope="col">Booking Code</th>
+                                                <th scope="col">Visitor</th>                                                
+                                                <th scope="col">Payment Description</th>
+                                                <th scope="col">Payment Amount</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabledata">
+                                        </tbody>
+                                    </table>
                                 </strong>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                        
                         </div>
 
 
@@ -503,6 +402,7 @@
         <script src="js/main.js"></script>
         <!--user js-->
 
+        <script src="./requiredFiles/js/bookinghistory.js"></script>
 </body>
 
 </html>

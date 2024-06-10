@@ -1,6 +1,6 @@
 <?php
 
-require ".././requiredFiles/ajax//DBConnection.php";
+require ".././requiredFiles/ajax/DBConnection.php";
 
 if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
 

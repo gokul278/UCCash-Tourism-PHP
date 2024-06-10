@@ -24,7 +24,10 @@ $(document).ready(() => {
 
 });
 
+var i = 0;
 const getData = () => {
+
+    i++;
 
     $.ajax({
         type: "POST",
@@ -44,9 +47,11 @@ const getData = () => {
 
                 if (response.tabledata.length >= 1) {
                     $("#tabledata").html(response.tabledata);
-                    let table = new DataTable('#myTable',{
-                        ordering:  false
-                    });
+                    if(i == 1){
+                        let table = new DataTable('#myTable',{
+                            ordering:  false
+                        });                        
+                    }
                 } else {
                     $("#tabledata").html(response.tabledata);
                     $("#tabledata").html("<tr><th colspan='8'>No Data Found</th></tr>");
@@ -166,6 +171,8 @@ $("#depositevalue").submit(function (e) {
                 $("#depositvalue").val("");
                 $("#depositbtn").prop("disabled",true);
                 $("#username").html("<p>Enter the User ID</p>");
+
+                return getData();
 
             }
         }

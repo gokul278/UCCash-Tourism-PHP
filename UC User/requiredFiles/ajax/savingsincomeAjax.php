@@ -53,11 +53,16 @@ if ($values["status"] == "success") {
 
                 $index++;
 
+                $name = $con->query("SELECT * FROM userdetails WHERE user_id='{$getpointsdata["si_bonusfrom"]}'");
+                $getname = $name->fetch_assoc();
+
                 $pointstable .= '
                 <tr>
                     <th scope="row">'.$index.'</th>
                     <td>'.$date.'<p class="time">'.$time.'</p></td>
                     <td>'.$getpointsdata["si_bonusfrom"].'</td>
+                    <td>'.$getname["user_name"].'</td>
+                    <td>'.$getpointsdata["si_lvl"].'</td>
                     <td>'.$getpointsdata["si_remark"].'</td>
                 ';
 
