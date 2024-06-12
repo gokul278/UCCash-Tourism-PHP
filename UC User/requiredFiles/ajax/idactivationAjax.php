@@ -37,7 +37,7 @@ if ($values["status"] == "success") {
 
             $checkpaypaid = $con->query("SELECT * FROM idactivation WHERE user_id='{$values["userid"]}' AND action='paid'");
 
-            if (mysqli_num_rows($checkpaypaid) == 1) {
+            if (mysqli_num_rows($checkpaypaid) >= 1) {
 
                 $response["action"] = "notpay";
 

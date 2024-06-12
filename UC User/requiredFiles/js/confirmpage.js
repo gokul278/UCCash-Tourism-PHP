@@ -54,6 +54,8 @@ const getData = () => {
                 $(".bonustravel").html(response.bonustravel);
                 $(".travelcoupon").html(response.travelcoupon);
                 $("#tour_amount").html(response.tour_amount + " $");
+                $("#gstamount").html(response.gstamount + " $");
+                $("#netamount").html(response.netamount + " $");
 
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
@@ -94,6 +96,8 @@ const amountcheck = () => {
             if (response.status == "success") {
 
                 $("#tour_amount").html(response.tour_amount + " $");
+                $("#gstamount").html(response.gstamount + " $");
+                $("#netamount").html(response.netamount + " $");
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -132,6 +136,8 @@ $('.plus').click(() => {
             if (response.status == "success") {
 
                 $("#tour_amount").html(response.tour_amount + " $");
+                $("#gstamount").html(response.gstamount + " $");
+                $("#netamount").html(response.netamount + " $");
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -173,6 +179,8 @@ $('.minus').click(() => {
             if (response.status == "success") {
 
                 $("#tour_amount").html(response.tour_amount + " $");
+                $("#gstamount").html(response.gstamount + " $");
+                $("#netamount").html(response.netamount + " $");
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
@@ -190,6 +198,7 @@ $('.minus').click(() => {
 
 const checkpaymenttype = () => {
     const paymenttype = $("#paymenttype").val();
+    $("#otpbtn").prop("disabled", true);
 
     if (paymenttype === "none") {
         $("#paymentinput").html('<input class="form-control" id="none" type="number" placeholder="Choose the Payment Type" style="height: 50px;" disabled>');
@@ -240,7 +249,7 @@ const sumtotal = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-                const tourAmount = parseFloat(response.tour_amount);
+                const tourAmount = parseFloat(response.netamount);
 
                 // Use a small tolerance for comparison
                 const tolerance = 0.01;
@@ -288,7 +297,7 @@ const checksavingstp = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-                const tourAmount = parseFloat(response.tour_amount);
+                const tourAmount = parseFloat(response.netamount);
 
                 // Use a small tolerance for comparison
                 const tolerance = 0.01;
@@ -335,7 +344,7 @@ const checkbonustp = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-                const tourAmount = parseFloat(response.tour_amount);
+                const tourAmount = parseFloat(response.netamount);
 
                 // Use a small tolerance for comparison
                 const tolerance = 0.01;
@@ -382,7 +391,7 @@ const checktravelcoupon = () => {
             var response = JSON.parse(res);
             if (response.status == "success") {
 
-                const tourAmount = parseFloat(response.tour_amount);
+                const tourAmount = parseFloat(response.netamount);
 
                 // Use a small tolerance for comparison
                 const tolerance = 0.01;

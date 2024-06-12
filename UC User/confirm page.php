@@ -526,8 +526,28 @@
                     </div>
                     <br>
                     <div class="amnt">
-                        <h4>Booking Amount</h4>
+                        <!-- <h4>Booking Amount</h4>
                         <h4 style="color:#f7c128; p-2" id="tour_amount"></h4>
+                        <h4>GST 18%</h4>
+                        <h4 style="color:#f7c128; p-2">1.03</h4>
+                        <h4>Net Amount</h4>
+                        <h4 style="color:#f7c128; p-2">1.03</h4> -->
+                        <table>
+                            <tbody style="font-size: 17px;font-weight:700">
+                                <tr>
+                                    <td style="width:50%;padding-bottom:10px;" align="left">Booking Amount</td>
+                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center" id="tour_amount">0 $</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;padding-bottom:10px;" align="left">GST(18%)</td>
+                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center" id="gstamount">0 $</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;padding-bottom:10px;" align="left">Net Amount</td>
+                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center" id="netamount">0 $</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                     <br>
                     <div>

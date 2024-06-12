@@ -41,7 +41,7 @@ if ($values["status"] == "success") {
                     <th>'.$getdata["booking_code"].'</th>
                     <th>'.$getdata["booking_person"].'</th>
                     <th>'.$getdata["paymentmethod_description"].'</th>
-                    <th>'.$getdata["payment_amount"].' TP</th>
+                    <th>'.$getdata["net_amount"].' TP</th>
                     <th style="color:green">Successfully Booked</th>
                     <th><button class="btn btn-warning" onclick="tourinvoice(this)" id="'.$getdata["id"].'" userid="'.$values["userid"].'"><b>View</b></button></th>
                 </tr>

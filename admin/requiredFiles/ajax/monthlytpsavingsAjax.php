@@ -296,13 +296,10 @@ if ($values["status"] == "success") {
                                                                     <p>Hello, ' . $ressponser["user_name"] . ',</p>
                                                                 </div>
                                                                 <div align="start">
-                                                                    <p>Your latest invoice for your UCCASH Tourism® membership monthly savings is now received.</p>
+                                                                    <p>Your latest invoice for your UCCASH Tourism® membership monthly savings is now Paid.</p>
                                                                 </div>
                                                                 <div align="start">
-                                                                    <p>As a reminder, your 55 TP Points added successfully in your Saving TP wallet.</p>
-                                                                </div>
-                                                                <div align="start">
-                                                                    <p>Your Savings TP will not receive until this invoice is paid.</p>
+                                                                    <p>Your 55 TP Points added successfully in your Saving TP wallet.</p>
                                                                 </div>
                                                                 <div align="start">
                                                                     <p><b>Invoice Details:</b><br>
@@ -313,17 +310,6 @@ if ($values["status"] == "success") {
                                                                         Due Date&nbsp;:&nbsp;' . explode(" ", $reshistory["paid_date"])[0] . ' <br>
                                                                         Amount Due&nbsp;:&nbsp;50$ worth of UCC
                                                                     </p>
-                                                                </div>
-                                                                <div align="start" style="margin-top: 40px;margin-bottom: 40px;">
-                                                                    <table>
-                                                                        <tr align="center">
-                                                                            <td style="width: 50%;height: 50px;background-color: #F7C128;border-radius: 50px;">
-                                                                                <a href="http://localhost/UC-Tour/UC%20User/monthly%20TP%20savings.php" style="text-decoration: none;color: black;">
-                                                                                    View and Pay Invoice
-                                                                                </a>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
                                                                 </div>
                                                                 <div align="start">
                                                                     <p>

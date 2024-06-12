@@ -45,7 +45,11 @@ if ($values["status"] == "success") {
             $data = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $getdata = $data->fetch_assoc();
 
+            $gst = $getdata["tour_amount"]*0.18;
+
             $response["tour_amount"] = round($getdata["tour_amount"], 2);
+            $response["gstamount"] = round($gst,2);
+            $response["netamount"] = round(($gst+$getdata["tour_amount"]),2);
 
             //Savings Travel Points
             $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$datarow["user_id"]}'");
@@ -126,7 +130,11 @@ if ($values["status"] == "success") {
 
         $totalamount = $personvalue * $amount;
 
+        $gst = $totalamount*0.18;
+
         $response["tour_amount"] = $totalamount;
+        $response["gstamount"] = round($gst,2);
+        $response["netamount"] = round(($gst+$totalamount),2);
 
         $response["status"] = "success";
         echo json_encode($response);
@@ -137,35 +145,56 @@ if ($values["status"] == "success") {
         $bookingid = $_POST["bookingid"];
         $personinput = $_POST["personinput"];
 
+        $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$bookingid}'");
+        $gettourdetails = $tourdetails->fetch_assoc();
+
         if ($type == "savingstravelpoints") {
             $finsavingstravelpoints = $_POST["savingstravelpoints"];
             $fintype = $type;
 
+            $amount = $personinput*$gettourdetails["tour_amount"];
+            $gst = round(($amount*0.18),2);
+
             $content .= '
             Type&nbsp;:&nbsp;Savings Travel point<br>
             Person&nbsp;:&nbsp;' . $personinput . '<br>
-            Withdrawal Point&nbsp;:&nbsp;' . $finsavingstravelpoints . '';
+            Booking Point&nbsp;:&nbsp;' . $amount . '<br>
+            GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
+            Net Point:&nbsp;' . $finsavingstravelpoints . '<br>';
         } else if ($type == "bonustravelpoints") {
             $finbonustravelpoints = $_POST["bonustravelpoints"];
             $fintype = $type;
 
+            $amount = $personinput*$gettourdetails["tour_amount"];
+            $gst = round(($amount*0.18),2);
+
             $content .= '
             Type&nbsp;:&nbsp;Bonus Travel point<br>
             Person&nbsp;:&nbsp;' . $personinput . '<br>
-            Withdrawal Point&nbsp;:&nbsp;' . $finbonustravelpoints . '';
+            Booking Point&nbsp;:&nbsp;' . $amount . '<br>
+            GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
+            Net Point:&nbsp;' . $finbonustravelpoints . '<br>';
         } else if ($type == "travelcoupon") {
             $fintravelcoupon = $_POST["travelcoupon"];
             $fintype = $type;
 
+            $amount = $personinput*$gettourdetails["tour_amount"];
+            $gst = round(($amount*0.18),2);
+
             $content .= '
             Type&nbsp;:&nbsp;Travel Coupon<br>
             Person&nbsp;:&nbsp;' . $personinput . '<br>
-            Withdrawal Point&nbsp;:&nbsp;' . $fintravelcoupon . '';
+            Booking Point&nbsp;:&nbsp;' . $amount . '<br>
+            GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
+            Net Point:&nbsp;' . $fintravelcoupon . '<br>';
         } else if ($type == "allpoints") {
             $finsavingstravelpoints = isset($_POST["savingstravelpoints"]) ? (float) $_POST["savingstravelpoints"] : 0;
             $finbonustravelpoints = isset($_POST["bonustravelpoints"]) ? (float) $_POST["bonustravelpoints"] : 0;
             $fintravelcoupon = isset($_POST["travelcoupon"]) ? (float) $_POST["travelcoupon"] : 0;
             $total = $finsavingstravelpoints + $finbonustravelpoints + $fintravelcoupon;
+
+            $amount = $personinput*$gettourdetails["tour_amount"];
+            $gst = round(($amount*0.18),2);
 
             $content .= '
             Type&nbsp;:&nbsp;All Points<br>
@@ -173,7 +202,9 @@ if ($values["status"] == "success") {
             Savings Travel point&nbsp;:&nbsp;' . htmlspecialchars($finsavingstravelpoints) . '<br>
             Bonus Travel point&nbsp;:&nbsp;' . htmlspecialchars($finbonustravelpoints) . '<br>
             Travel Coupon&nbsp;:&nbsp;' . htmlspecialchars($fintravelcoupon) . '<br>
-            Total Point&nbsp;:&nbsp;' . round($total, 2) . '';
+            Booking Point&nbsp;:&nbsp;' . $amount . '<br>
+            GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
+            Net Point:&nbsp;' . $total . '<br>';
         }
 
 
@@ -414,7 +445,10 @@ if ($values["status"] == "success") {
             $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $gettourdetails = $tourdetails->fetch_assoc();
 
-            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+            $gstamount = ($personinput * $gettourdetails["tour_amount"])*0.18;
+            $netamount = $personinput * $gettourdetails["tour_amount"];
+
+            $totalprice = round(($netamount+$gstamount), 2);
 
 
             $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
@@ -445,8 +479,8 @@ if ($values["status"] == "success") {
                 $debit = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark)
                 VALUES ('{$values["userid"]}','{$totalprice}','debit','Tour Booking at {$date}','Tour Booking')");
 
-                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,payment_amount,status)
-                VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Savings Travel Point','$totalprice','booked')");
+                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
+                VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Savings Travel Point','{$gstamount}','{$totalprice}','booked')");
 
                 if ($debit && $history) {
 
@@ -463,7 +497,9 @@ if ($values["status"] == "success") {
                     To Date&nbsp;:&nbsp;' . $gettourdetails["tour_todate"] . '<br>
                     No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
                     Wallet Type&nbsp;:&nbsp;Savings Travel Point<br>
-                    Used Point&nbsp;:&nbsp;' . $totalprice . '
+                    Booked Point&nbsp;:&nbsp;' . round(($personinput * $gettourdetails["tour_amount"]),2) . '<br>
+                    GST(18%)&nbsp;:&nbsp;' . round($gstamount,2) . '<br>
+                    Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                     </p>';
 
                     successmail($name, $email, $content);
@@ -504,7 +540,10 @@ if ($values["status"] == "success") {
             $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $gettourdetails = $tourdetails->fetch_assoc();
 
-            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+            $gstamount = ($personinput * $gettourdetails["tour_amount"])*0.18;
+            $netamount = $personinput * $gettourdetails["tour_amount"];
+
+            $totalprice = round(($netamount+$gstamount), 2);
 
 
             $bonustravel = $con->query("SELECT * FROM bonustravelpoints WHERE user_id='{$values["userid"]}'");
@@ -535,8 +574,8 @@ if ($values["status"] == "success") {
                 $debit = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_action,bt_bonusfrom,bt_lvl,bt_remark)
                 VALUES ('{$values["userid"]}','{$totalprice}','debit','Tour Booking at {$date}','','Tour Booking')");
 
-                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,payment_amount,status)
-                VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Bonus Travel Point','$totalprice','booked')");
+                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
+                VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Bonus Travel Point','{$gstamount}','{$totalprice}','booked')");
 
                 if ($debit && $history) {
 
@@ -553,7 +592,9 @@ if ($values["status"] == "success") {
                     To Date&nbsp;:&nbsp;' . $gettourdetails["tour_todate"] . '<br>
                     No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
                     Wallet Type&nbsp;:&nbsp;Bonus Travel Point<br>
-                    Used Point&nbsp;:&nbsp;' . $totalprice . '
+                    Booked Point&nbsp;:&nbsp;' . round(($personinput * $gettourdetails["tour_amount"]),2) . '<br>
+                    GST(18%)&nbsp;:&nbsp;' .round($gstamount,2) . '<br>
+                    Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                     </p>';
 
                     successmail($name, $email, $content);
@@ -593,7 +634,10 @@ if ($values["status"] == "success") {
             $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $gettourdetails = $tourdetails->fetch_assoc();
 
-            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+            $gstamount = ($personinput * $gettourdetails["tour_amount"])*0.18;
+            $netamount = $personinput * $gettourdetails["tour_amount"];
+
+            $totalprice = round(($netamount+$gstamount), 2);
 
             //Travel Coupon's
             $travelcoupon = $con->query("SELECT * FROM travelcouponpoints WHERE user_id='{$values["userid"]}'");
@@ -624,8 +668,8 @@ if ($values["status"] == "success") {
                 $debit = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
                 VALUES ('{$values["userid"]}','{$totalprice}','debit','Tour Booking at {$date}')");
 
-                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,payment_amount,status)
-                VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Travel Coupon','$totalprice','booked')");
+                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
+                VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Travel Coupon','{$gstamount}','$totalprice','booked')");
 
                 if ($debit && $history) {
 
@@ -642,7 +686,9 @@ if ($values["status"] == "success") {
                     To Date&nbsp;:&nbsp;' . $gettourdetails["tour_todate"] . '<br>
                     No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
                     Wallet Type&nbsp;:&nbsp;Travel Coupon<br>
-                    Used Point&nbsp;:&nbsp;' . $totalprice . '
+                    Booked Point&nbsp;:&nbsp;' . round(($personinput * $gettourdetails["tour_amount"]),2) . '<br>
+                    GST(18%)&nbsp;:&nbsp;' . round($gstamount,2) . '<br>
+                    Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                     </p>';
 
                     successmail($name, $email, $content);
@@ -749,8 +795,12 @@ if ($values["status"] == "success") {
                         $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
                         $gettourdetails = $tourdetails->fetch_assoc();
 
-                        $totalpriceuser = round($personinput * ($savingstravelpoints + $bonustravelpoints + $travelcouponpoints), 2);
-                        $totalprice = round($personinput * $gettourdetails["tour_amount"], 2);
+                        $totalpriceuser = round(($savingstravelpoints + $bonustravelpoints + $travelcouponpoints), 2);
+
+                        $gstamount = ($personinput * $gettourdetails["tour_amount"])*0.18;
+                        $netamount = $personinput * $gettourdetails["tour_amount"];
+            
+                        $totalprice = round(($netamount+$gstamount), 2);
 
                         if ($totalprice == $totalpriceuser) {
 
@@ -795,6 +845,7 @@ if ($values["status"] == "success") {
                             $st_escaped = $con->real_escape_string($st);
                             $bt_escaped = $con->real_escape_string($bt);
                             $tc_escaped = $con->real_escape_string($tc);
+                            $gstamount_escaped = $con->real_escape_string($gstamount);
                             $totalprice_escaped = $con->real_escape_string($totalprice);
 
                             // Construct the query
@@ -808,7 +859,8 @@ if ($values["status"] == "success") {
                                 booking_fromdate,
                                 booking_todate,
                                 paymentmethod_description,
-                                payment_amount,
+                                gst_amount,
+                                net_amount,
                                 status
                             ) VALUES (
                                 '$user_id',
@@ -820,6 +872,7 @@ if ($values["status"] == "success") {
                                 '$tour_fromdate',
                                 '$tour_todate',
                                 'Savings Travel Point, Bonus Travel Point, Travel Coupon <br> ($st_escaped + $bt_escaped + $tc_escaped)',
+                                '$gstamount_escaped',
                                 '$totalprice_escaped',
                                 'booked'
                             )";
@@ -845,6 +898,9 @@ if ($values["status"] == "success") {
                                 Savings Travel Point&nbsp;:&nbsp;' . $st_escaped . '<br>
                                 Bonus Travel Point&nbsp;:&nbsp;' . $bt_escaped . '<br>
                                 Travel Coupon&nbsp;:&nbsp;' . $tc_escaped . '<br>
+                                Booked Point&nbsp;:&nbsp;' . round(($personinput * $gettourdetails["tour_amount"]),2) . '<br>
+                                GST(18%)&nbsp;:&nbsp;' . round($gstamount,2) . '<br>
+                                Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                                 </p>';
 
                                 successmail($name, $email, $content);
@@ -854,7 +910,7 @@ if ($values["status"] == "success") {
                         } else {
                             $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                             $response["status"] = "error";
-                            $response["message"] = "Invalid TP";
+                            $response["message"] = $totalprice." ".$totalpriceuser;
                             echo json_encode($response);
                         }
 

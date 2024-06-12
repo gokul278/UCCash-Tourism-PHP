@@ -53,7 +53,7 @@ if ($values["status"] == "success") {
                 <th>' . $getdata["booking_destination"] . '</th>
                 <th style="white-space: nowrap;">' . $getdata["booking_fromdate"] . '</th>
                 <th style="white-space: nowrap;">' . $getdata["booking_todate"] . '</th>
-                <th>' . $getdata["payment_amount"] . '</th>
+                <th>' . $getdata["net_amount"] . '</th>
                 <th>' . $getdata["booking_person"] . '</th>
                 <th><button class="btn btn-success" onclick="changevisitedstatus(this)" id="' . $getdata["id"] . '">Change Status</button></th>
             </tr>
@@ -86,7 +86,7 @@ if ($values["status"] == "success") {
                 <th>' . $getdata["booking_destination"] . '</th>
                 <th style="white-space: nowrap;">' . $getdata["booking_fromdate"] . '</th>
                 <th style="white-space: nowrap;">' . $getdata["booking_todate"] . '</th>
-                <th>' . $getdata["payment_amount"] . '</th>
+                <th>' . $getdata["net_amount"] . '</th>
                 <th>' . $getdata["booking_person"] . '</th>
                 <th style="color:green">Visited</th>
             </tr>

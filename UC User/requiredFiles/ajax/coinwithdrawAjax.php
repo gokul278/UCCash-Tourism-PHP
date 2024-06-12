@@ -327,7 +327,7 @@ if ($values["status"] == "success") {
 
     } else if ($way == "cryptowithdraw") {
 
-        $withdrawvalue = $coinvalue;
+        $withdrawvalue = $_POST["withdrawvalue"];
         $otp = $_POST["otp"];
 
         $checkactivation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");

@@ -72,13 +72,13 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -219,9 +219,9 @@
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
@@ -245,20 +245,24 @@
                                 <div class="col-sm-6">
                                     <div class="d-flex align-items-center mb-4">
                                         <label for="fromDate" class="mr-2"><b>From</b></label>&nbsp;
-                                        <input type="date" id="fromDate" class="form-control mr-2"
+                                        <input type="date" id="fromDate" oninput="dateinput()" class="form-control mr-2"
                                             style="width: 120px;">
                                         &nbsp;&nbsp;&nbsp;
                                         <label for="toDate" class="mr-2"><b>To</b></label>&nbsp;
-                                        <input type="date" id="toDate" class="form-control mr-2" style="width: 120px;">
+                                        <input type="date" id="toDate" oninput="dateinput()" class="form-control mr-2" style="width: 120px;">
                                         &nbsp;
-                                        <button id="goButton" class="btn btn-primary">Go</button>
+                                        <button class="btn btn-warning" type="button" id="searchbtn" disabled><b>Search</b></button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-warning" type="button" id="clearbtnsearch" disabled><b>Clear</b></button>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input-group mb-3 mt-auto">
-                                        <input type="text" class="form-control" id="activationMemberID"
-                                            style="max-width: 200px;" placeholder="User ID">
-                                        <button class="btn btn-warning" type="button" id="searchButton">Search</button>
+                                        <input type="text" class="form-control" id="memberid"
+                                            style="max-width: 200px;" placeholder="User ID" oninput="checkuser()">
+                                        <button class="btn btn-warning" type="button" id="useridbtn" disabled><b>Search</b></button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-warning" type="button" id="useridclearbtn" disabled><b>Clear</b></button>
                                     </div>
                                 </div>
                             </div>
@@ -279,86 +283,41 @@
 
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>UCT1234</td>
-                                                <td>Bala</td>
-                                                <td>ID Activation</td>
-                                                <td>01/01/2024</td>
-                                                <td>100</td>
-                                                <td></td>
-                                                <td>100</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>UCT4321</td>
-                                                <td>Sam</td>
-                                                <td>ID Activation</td>
-                                                <td>02/01/2024</td>
-                                                <td>100</td>
-                                                <td></td>
-                                                <td>200</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>UCT6543</td>
-                                                <td>Gowtham</td>
-                                                <td>Saving's TP</td>
-                                                <td>03/01/2024</td>
-                                                <td>50</td>
-                                                <td></td>
-                                                <td>250</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td>UCT9876</td>
-                                                <td>Ashok</td>
-                                                <td>ID Activation</td>
-                                                <td>04/01/2024</td>
-                                                <td>100</td>
-                                                <td></td>
-                                                <td>350</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">5</th>
-                                                <td>UCT6547</td>
-                                                <td>Kumar</td>
-                                                <td>Withdraw</td>
-                                                <td>05/01/2024</td>
-                                                <td></td>
-                                                <td>50</td>
-                                                <td>300</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">6</th>
-                                                <td>UCT9852</td>
-                                                <td>Gokul</td>
-                                                <td>Tour Booking</td>
-                                                <td>06/01/2024</td>
-                                                <td></td>
-                                                <td>100</td>
-                                                <td>200</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">7</th>
-                                                <td>UCT2165</td>
-                                                <td>Raj</td>
-                                                <td>Hotel Booking</td>
-                                                <td>07/01/2024</td>
-                                                <td></td>
-                                                <td>50</td>
-                                                <td>150</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5" style="text-align: right;"><strong>Total :</strong></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>150</td>
-                                            </tr>
+                                        <tbody id="tabledata">
+                                           
                                         </tbody>
                                     </table>
                                 </strong>
+                            </div>
+                            <br>
+                            <div class="container" style="display: table; width: 100%; border-collapse: collapse;">
+                                <div class="row mb-2" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Credit</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totalcredit" align="center"><b>0.00</b></div>
+                                </div>
+                                <div class="row mb-2" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Debit</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totaldebit" align="center"><b>0.00</b></div>
+                                </div>
+                                <div class="row" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Balance</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totalbalance" align="center"><b>0.00</b></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -404,6 +363,8 @@
             },
         });
     </script>
+
+    <script src="./requiredFiles/js/companybalancesheet.js"></script>
 
 </body>
 
