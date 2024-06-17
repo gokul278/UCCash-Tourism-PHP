@@ -196,8 +196,8 @@
                     </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                    <a href="tour destination edit.php" class="nav-item nav-link active"><i class="far fa-map me-2"></i>Tour<p
-                            style="text-align: center;">Destinations</p></a>
+                    <a href="tour destination edit.php" class="nav-item nav-link active"><i
+                            class="far fa-map me-2"></i>Tour<p style="text-align: center;">Destinations</p></a>
                     <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
                         Booking<p style="text-align: center;"> History</p></a>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
@@ -212,8 +212,9 @@
                     <a href="member's bonus TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Member's<p style="text-align: center;"> Bonus
                             Travel Point Balance Sheet</p></a>
-                    <a href="fast start report.php" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Fast
-                        Start<p style="text-align: center;"> Report</p></a>
+                    <a href="adminbalancewithdraw.php" class="nav-item nav-link"><i
+                            class="fa fa-university me-2"></i>Admin
+                        Balance<p style="text-align: center;"> Withdraw</p></a>
                     <a href="business tools.php" class="nav-item nav-link"><i class="fa fa-tools me-2"></i>Business
                         Tools</a>
                     <div class="nav-item dropdown">
@@ -223,6 +224,7 @@
                             <a href="terms & conditions.php" class="dropdown-item">Terms & Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
                             <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
+                            <a href="membership agreements.php" class="dropdown-item">Membership Agreements</a>
                             <a href="independent distributor agreement.php" class="dropdown-item">Independent
                                 Distributor<p> Agreements</p></a>
                         </div>

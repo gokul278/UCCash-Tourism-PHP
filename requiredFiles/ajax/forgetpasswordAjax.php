@@ -109,7 +109,7 @@ if ($way == "forgetPassword") {
                                     <tr align="center">
                                         <td style="width: 50%;height: 50px;background-color: #F7C128;border-radius: 50px;"
                                             align="center">
-                                            <a href="http://localhost/UC-Tour/change_pwd.php?user_id=' . $userid . '&hash_value=' . $randomHash . '" style="text-decoration: none;color: black;">
+                                            <a href="https://uccashtourism.com/change_pwd.php?user_id=' . $userid . '&hash_value=' . $randomHash . '" style="text-decoration: none;color: black;">
                                                 Reset Password
                                             </a>
                                         </td>
@@ -123,7 +123,7 @@ if ($way == "forgetPassword") {
                                 <p>Did you forget your password? If you did not, please ignore this email. If so, please click the link below.</p>
                             </div>
                             <div align="start">
-                                <a href="http://localhost/UC-Tour/change_pwd.php?user_id=' . $userid . '&hash_value=' . $randomHash . '" style="color: black;">http://localhost/UC-Tour/change_pwd.php?user_id=' . $userid . '&hash_value=' . $randomHash . '</a>
+                                <a href="https://uccashtourism.com/change_pwd.php?user_id=' . $userid . '&hash_value=' . $randomHash . '" style="color: black;">https://uccashtourism.com/change_pwd.php?user_id=' . $userid . '&hash_value=' . $randomHash . '</a>
                             </div>
                             <div align="start">
                                 <p>Sincerely,<br>UCCASH Tourism ®</p>

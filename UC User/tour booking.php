@@ -166,7 +166,9 @@
                                 Conditions</a>
                             <a href="./img/UCCASH Tourism Privacy Policy.pdf" class="dropdown-item">Privacy Policies</a>
                             <a href="./img/UCCASH Tourism Payment Agreement.pdf" class="dropdown-item">Payment
-                                Agriments</a>
+                                Agreement</a>
+                            <a href="./img/UCCASH Tourism Membership Agreement.pdf" class="dropdown-item">Membership
+                                Agreement</a>
                             <a href="./img/UCCASH Tourism Indipendent Distributor Agreement.pdf"
                                 class="dropdown-item">Independent Distributor<p>Agreement</p></a>
                         </div>
@@ -223,282 +225,153 @@
                         <h1 class="mb-0">Popular <span style="color: #f7c128;">Destinations</span></h1>
                     </div>
                     <div class="packages-carousel owl-carousel" id="carddata">
-                        <div class="packages-item">
-                            <div class="packages-img">
-                                <img src="./img/tourdestination/202406011106490_20240512094414_IMG-20240512-WA0026.jpg"
-                                    class="img-fluid w-100 rounded-top" alt="honeymoon package"
-                                    style="width:275px;height:183px">
-                                <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
-                                    style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-                                    <small class="flex-fill text-center border-end py-2"><i
-                                            class="fa fa-calendar-alt me-2"></i>4 DAYS / 3 NIGHTS</small>
-                                </div>
-                            </div>
-                            <div class="packages-content bg-light">
-                                <div style="text-align: center;" class="p-4 pb-0">
-                                    <h5 class="mb-0">Thailand</h5>
-                                    <small class="text-uppercase">4 DAYS / 3 NIGHTS</small>
 
-                                    <p class="mb-4">500 TP</p>
-                                </div>
-                                <div class="row bg-primary rounded-bottom mx-0">
-                                    <div class="col-6 text-start px-0">
-                                        <a href="#" class="btn-hover btn text-white py-2 px-4"><b>Booking
-                                                Code-001</b></a>
-                                    </div>
-                                    <div class="col-6 text-end px-0">
-                                        <a href="tour description.php"
-                                            class="btn-hover btn text-white py-2 px-4"><b>View Details</b></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="packages-item">
-                            <div class="packages-img">
-                                <img src="img/family package.jpg" class="img-fluid rounded-top" alt="family package"
-                                    width="275" height="183">
-
-                                <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
-                                    style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-
-                                    <small class="flex-fill text-center border-end py-2"><i
-                                            class="fa fa-calendar-alt me-2"></i>5 DAYS / 4 NIGHTS</small>
-
-                                </div>
-
-                            </div>
-                            <div class="packages-content bg-light">
-                                <div style="text-align: center;" class="p-4 pb-0">
-                                    <h5 class="mb-0">Malaysia</h5>
-                                    <small class="text-uppercase">5 DAYS / 4 NIGHTS</small>
-
-                                    <p class="mb-4">650 TP</p>
-                                </div>
-                                <div class="row bg-primary rounded-bottom mx-0">
-                                    <div class="col-6 text-start px-0">
-                                        <a href="#" class="btn text-white py-2 px-4"><b>Booking Code-002</b></a>
-                                    </div>
-                                    <div class="col-6 text-end px-0">
-                                        <a href="tour description.php" class="btn text-white py-2 px-4"><b>View
-                                                Details</b></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="packages-item">
-                            <div class="packages-img">
-                                <img src="img/singapore.jpg" class="img-fluid rounded-top" alt="family package"
-                                    width="275" height="183">
-
-                                <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
-                                    style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-
-                                    <small class="flex-fill text-center border-end py-2"><i
-                                            class="fa fa-calendar-alt me-2"></i>7 DAYS / 8 NIGHTS</small>
-
-                                </div>
-
-                            </div>
-                            <div class="packages-content bg-light">
-                                <div style="text-align: center;" class="p-4 pb-0">
-                                    <h5 class="mb-0">Singapore</h5>
-                                    <small class="text-uppercase">7 DAYS / 8 NIGHTS</small>
-
-                                    <p class="mb-4">820 TP</p>
-                                </div>
-                                <div class="row bg-primary rounded-bottom mx-0">
-                                    <div class="col-6 text-start px-0">
-                                        <a href="#" class="btn-hover btn text-white py-2 px-4"><b>Booking
-                                                Code-003</b></a>
-                                    </div>
-                                    <div class="col-6 text-end px-0">
-                                        <a href="tour description.php"
-                                            class="btn-hover btn text-white py-2 px-4"><b>View Details</b></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="packages-item">
-                            <div class="packages-img">
-                                <img src="img/manarola1.png" class="img-fluid rounded-top" alt="family package"
-                                    width="275" height="183">
-
-                                <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
-                                    style="width: 100%; bottom: 0; left: 0; z-index: 5;">
-
-                                    <small class="flex-fill text-center border-end py-2"><i
-                                            class="fa fa-calendar-alt me-2"></i>6 DAYS / 7 NIGHTS</small>
-
-                                </div>
-
-                            </div>
-                            <div class="packages-content bg-light">
-                                <div style="text-align: center;" class="p-4 pb-0">
-                                    <h5 class="mb-0">Manarola</h5>
-                                    <small class="text-uppercase">6 DAYS / 7 NIGHTS</small>
-
-                                    <p class="mb-4">700 TP</p>
-                                </div>
-                                <div class="row bg-primary rounded-bottom mx-0">
-                                    <div class="col-6 text-start px-0">
-                                        <a href="#" class="btn-hover btn text-white py-2 px-4"><b>Booking
-                                                Code-004</b></a>
-                                    </div>
-                                    <div class="col-6 text-end px-0">
-                                        <a href="tour description.php"
-                                            class="btn-hover btn text-white py-2 px-4"><b>View Details</b></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-
-
-
-            <!-- Content End -->
-
-            <script src="./requiredFiles/js/tourbooking.js"></script>
-
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
+    </div>
 
-        <style>
-            .packages .packages-item .packages-img {
-                position: relative;
-                overflow: hidden;
-                transition: 0.5s;
-                border-top-right-radius: 10px;
-                border-top-left-radius: 10px;
-                z-index: 1;
-            }
 
-            .packages .packages-item .packages-img .packages-info {
-                background: rgba(0, 0, 0, .3);
-            }
 
-            .packages .packages-item .packages-img .packages-info small,
-            .packages .packages-item .packages-img .packages-info small i {
-                color: var(--bs-white);
-                transition: 0.5s;
-            }
+    <!-- Content End -->
 
-            .packages .packages-item .packages-img::after {
-                position: absolute;
-                content: "";
-                width: 0;
-                height: 0;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                border: 0px solid;
-                border-radius: 10px !important;
-                visibility: hidden;
-                transition: 0.7s;
-                z-index: 3;
-            }
+    <script src="./requiredFiles/js/tourbooking.js"></script>
 
-            .packages .packages-item .packages-img:hover.packages-img::after {
-                width: 100%;
-                height: 100%;
-                border: 300px solid;
-                border-color: rgba(19, 53, 123, 0.6) rgba(19, 53, 123, 0.6) rgba(19, 53, 123, 0.6) rgba(19, 53, 123, 0.6);
-                visibility: visible;
-            }
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
 
-            .packages .packages-item .packages-img small,
-            .packages .packages-item .packages-img small i {
-                transition: 0.5s;
-            }
+    <style>
+        .packages .packages-item .packages-img {
+            position: relative;
+            overflow: hidden;
+            transition: 0.5s;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+            z-index: 1;
+        }
 
-            .packages .packages-item .packages-img:hover small,
-            .packages .packages-item .packages-img:hover small i {
-                color: var(--bs-white) !important;
+        .packages .packages-item .packages-img .packages-info {
+            background: rgba(0, 0, 0, .3);
+        }
 
-            }
+        .packages .packages-item .packages-img .packages-info small,
+        .packages .packages-item .packages-img .packages-info small i {
+            color: var(--bs-white);
+            transition: 0.5s;
+        }
 
-            .packages .packages-item .packages-img img {
-                transition: 0.5s;
-            }
+        .packages .packages-item .packages-img::after {
+            position: absolute;
+            content: "";
+            width: 0;
+            height: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 0px solid;
+            border-radius: 10px !important;
+            visibility: hidden;
+            transition: 0.7s;
+            z-index: 3;
+        }
 
-            .packages .packages-item .packages-img:hover img {
-                transform: scale(1.3);
-            }
+        .packages .packages-item .packages-img:hover.packages-img::after {
+            width: 100%;
+            height: 100%;
+            border: 300px solid;
+            border-color: rgba(19, 53, 123, 0.6) rgba(19, 53, 123, 0.6) rgba(19, 53, 123, 0.6) rgba(19, 53, 123, 0.6);
+            visibility: visible;
+        }
 
-            .packages .packages-item .packages-img .packages-price {
-                position: absolute;
-                width: 100px;
-                top: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                display: inline-block;
-                background: var(--bs-primary);
-                color: var(--bs-white);
-                border-bottom-left-radius: 10px;
-                border-bottom-right-radius: 10px;
-                z-index: 5;
-            }
+        .packages .packages-item .packages-img small,
+        .packages .packages-item .packages-img small i {
+            transition: 0.5s;
+        }
 
-            .packages .packages-carousel {
-                position: relative;
-            }
+        .packages .packages-item .packages-img:hover small,
+        .packages .packages-item .packages-img:hover small i {
+            color: var(--bs-white) !important;
 
-            .packages .packages-carousel .owl-nav .owl-prev {
-                position: absolute;
-                top: -50px;
-                left: 0;
-                padding: 5px 30px;
-                border: 1px solid var(--bs-primary);
-                border-radius: 30px;
-                transition: 0.5s;
-            }
+        }
 
-            .packages .packages-carousel .owl-nav .owl-next {
-                position: absolute;
-                top: -50px;
-                right: 0;
-                padding: 5px 30px;
-                border: 1px solid var(--bs-primary);
-                border-radius: 30px;
-                transition: 0.5s;
-            }
+        .packages .packages-item .packages-img img {
+            transition: 0.5s;
+        }
 
-            .packages .packages-carousel .owl-nav .owl-prev i,
-            .packages .packages-carousel .owl-nav .owl-next i {
-                color: var(--bs-primary);
-                font-size: 17px;
-                transition: 0.5s;
-            }
+        .packages .packages-item .packages-img:hover img {
+            transform: scale(1.3);
+        }
 
-            .packages .packages-carousel .owl-nav .owl-prev:hover,
-            .packages .packages-carousel .owl-nav .owl-next:hover {
-                background: var(--bs-primary);
-            }
+        .packages .packages-item .packages-img .packages-price {
+            position: absolute;
+            width: 100px;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-block;
+            background: var(--bs-primary);
+            color: var(--bs-white);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            z-index: 5;
+        }
 
-            .packages .packages-carousel .owl-nav .owl-prev:hover i,
-            .packages .packages-carousel .owl-nav .owl-next:hover i {
-                color: var(--bs-white);
-            }
-        </style>
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/chart/chart.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/tempusdominus/js/moment.min.js"></script>
-        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        .packages .packages-carousel {
+            position: relative;
+        }
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
+        .packages .packages-carousel .owl-nav .owl-prev {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            padding: 5px 30px;
+            border: 1px solid var(--bs-primary);
+            border-radius: 30px;
+            transition: 0.5s;
+        }
+
+        .packages .packages-carousel .owl-nav .owl-next {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            padding: 5px 30px;
+            border: 1px solid var(--bs-primary);
+            border-radius: 30px;
+            transition: 0.5s;
+        }
+
+        .packages .packages-carousel .owl-nav .owl-prev i,
+        .packages .packages-carousel .owl-nav .owl-next i {
+            color: var(--bs-primary);
+            font-size: 17px;
+            transition: 0.5s;
+        }
+
+        .packages .packages-carousel .owl-nav .owl-prev:hover,
+        .packages .packages-carousel .owl-nav .owl-next:hover {
+            background: var(--bs-primary);
+        }
+
+        .packages .packages-carousel .owl-nav .owl-prev:hover i,
+        .packages .packages-carousel .owl-nav .owl-next:hover i {
+            color: var(--bs-white);
+        }
+    </style>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
 
 
 

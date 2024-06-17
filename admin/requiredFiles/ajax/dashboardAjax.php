@@ -26,12 +26,12 @@ if ($values["status"] == "success") {
         $response["profile_image"] = $getdetails["admin_profile"];
 
         $totalmember = $con->query("SELECT * FROM userdetails");
-        
-        $response["totalmembers"] = mysqli_num_rows($totalmember);
+
+        $response["totalmembers"] = mysqli_num_rows($totalmember) - 1;
 
         $totaldistributor = $con->query("SELECT * FROM userdetails WHERE user_referalStatus = 'activated'");
-        
-        $response["totaldistributor"] = mysqli_num_rows($totaldistributor);
+
+        $response["totaldistributor"] = mysqli_num_rows($totaldistributor) - 1;
 
         $totalmonthly = $con->query("SELECT * FROM userdetails WHERE user_referalStatus = 'notactivated'");
 
@@ -47,11 +47,11 @@ if ($values["status"] == "success") {
             foreach ($savingtravel as $getsavingtravel) {
                 if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
                     if ($getsavingtravel["st_action"] == "credit") {
-                        if(strpos($getsavingtravel["st_bonusfrom"], 'Transferred') === false){
+                        if (strpos($getsavingtravel["st_bonusfrom"], 'Transferred') === false) {
                             $stcredit += (float) $getsavingtravel["st_points"];
                         }
                     } else if ($getsavingtravel["st_action"] == "debit") {
-                        if(strpos($getsavingtravel["st_bonusfrom"], 'Transferred') === false){
+                        if (strpos($getsavingtravel["st_bonusfrom"], 'Transferred') === false) {
                             $stdebit += (float) $getsavingtravel["st_points"];
                         }
                     }
@@ -60,32 +60,32 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totalsavingtravel"] = number_format(($stcredit), 2);
-        $response["usedsavingtravel"] = number_format(($stdebit), 2);
-        $response["balancesavingtravel"] = number_format(($stcredit - $stdebit), 2);
+        $response["totalsavingtravel"] = number_format($stcredit, 2);
+        $response["usedsavingtravel"] = number_format($stdebit, 2);
+        $response["balancesavingtravel"] = number_format($stcredit - $stdebit, 2);
 
-         //Travel Coupon's
-         $travelcoupon = $con->query("SELECT * FROM travelcouponpoints");
-         $tccredit = 50;
-         $tcdebit = 0;
+        //Travel Coupon's
+        $travelcoupon = $con->query("SELECT * FROM travelcouponpoints");
+        $tccredit = 0;
+        $tcdebit = 0;
 
-         if (mysqli_num_rows($travelcoupon) >= 1) {
+        if (mysqli_num_rows($travelcoupon) >= 1) {
 
-             foreach ($travelcoupon as $gettravelcoupon) {
-                 if (isset($gettravelcoupon["tc_action"]) && strlen($gettravelcoupon["tc_action"]) >= 1) {
-                     if ($gettravelcoupon["tc_action"] == "credit") {
-                         $tccredit += (float) $gettravelcoupon["tc_points"];
-                     } else if ($gettravelcoupon["tc_action"] == "debit") {
-                         $tcdebit += (float) $gettravelcoupon["tc_points"];
-                     }
-                 }
-             }
+            foreach ($travelcoupon as $gettravelcoupon) {
+                if (isset($gettravelcoupon["tc_action"]) && strlen($gettravelcoupon["tc_action"]) >= 1) {
+                    if ($gettravelcoupon["tc_action"] == "credit") {
+                        $tccredit += (float) $gettravelcoupon["tc_points"];
+                    } else if ($gettravelcoupon["tc_action"] == "debit") {
+                        $tcdebit += (float) $gettravelcoupon["tc_points"];
+                    }
+                }
+            }
 
-         }
+        }
 
-         $response["totaltravelcoupon"] = number_format(($tccredit), 2);
-         $response["usedtravelcoupon"] = number_format(($tcdebit), 2);
-         $response["balancetravelcoupon"] = number_format(($tccredit - $tcdebit), 2);
+        $response["totaltravelcoupon"] = number_format($tccredit, 2);
+        $response["usedtravelcoupon"] = number_format($tcdebit, 2);
+        $response["balancetravelcoupon"] = number_format($tccredit - $tcdebit, 2);
 
 
         //Bonus Travel Points
@@ -107,9 +107,9 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totalbonustravel"] = number_format(($btcredit), 2);
-        $response["usedbonustravel"] = number_format(($btdebit), 2);
-        $response["balancebonustravel"] = number_format(($btcredit - $btdebit), 2);
+        $response["totalbonustravel"] = number_format($btcredit, 2);
+        $response["usedbonustravel"] = number_format($btdebit, 2);
+        $response["balancebonustravel"] = number_format($btcredit - $btdebit, 2);
 
 
         //Networking Income
@@ -131,9 +131,9 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totalnetworkingincome"] = number_format(($niwcredit), 2);
-        $response["usednetworkingincome"] = number_format(($niwdebit), 2);
-        $response["balancenetworkingincome"] = number_format(($niwcredit - $niwdebit), 2);
+        $response["totalnetworkingincome"] = number_format($niwcredit, 2);
+        $response["usednetworkingincome"] = number_format($niwdebit, 2);
+        $response["balancenetworkingincome"] = number_format($niwcredit - $niwdebit, 2);
 
         // Leadership Income
         $leadershipincome = $con->query("SELECT * FROM leadershipincomewallet");
@@ -152,9 +152,9 @@ if ($values["status"] == "success") {
             }
         }
 
-        $response["totalleadershipincome"] = number_format(($liwcredit), 2);
-        $response["usedleadershipincome"] = number_format(($liwdebit), 2);
-        $response["balanceleadershipincome"] = number_format(($liwcredit - $liwdebit), 2);
+        $response["totalleadershipincome"] = number_format($liwcredit, 2);
+        $response["usedleadershipincome"] = number_format($liwdebit, 2);
+        $response["balanceleadershipincome"] = number_format($liwcredit - $liwdebit, 2);
 
         //Car & House Fund
         $carandhousefund = $con->query("SELECT * FROM carandhousefundwallet");
@@ -175,9 +175,9 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totalcarandhousefund"] = number_format(($chfwcredit), 2);
-        $response["usedcarandhousefund"] = number_format(($chfwdebit), 2);
-        $response["balancecarandhousefund"] = number_format(($chfwcredit - $chfwdebit), 2);
+        $response["totalcarandhousefund"] = number_format($chfwcredit, 2);
+        $response["usedcarandhousefund"] = number_format($chfwdebit, 2);
+        $response["balancecarandhousefund"] = number_format($chfwcredit - $chfwdebit, 2);
 
 
         //Royalty Income
@@ -199,9 +199,9 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totalroyaltyincome"] = number_format(($riwcredit), 2);
-        $response["usedroyaltyincome"] = number_format(($riwdebit), 2);
-        $response["balanceroyaltyincome"] = number_format(($riwcredit - $riwdebit), 2);
+        $response["totalroyaltyincome"] = number_format($riwcredit, 2);
+        $response["usedroyaltyincome"] = number_format($riwdebit, 2);
+        $response["balanceroyaltyincome"] = number_format($riwcredit - $riwdebit, 2);
 
         //Savings Income
         $savingsincome = $con->query("SELECT * FROM savingsincome");
@@ -222,9 +222,9 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totalsavingsincome"] = number_format(($sicredit), 2);
-        $response["usedsavingsincome"] = number_format(($sidebit), 2);
-        $response["balancesavingsincome"] = number_format(($sicredit - $sidebit), 2);
+        $response["totalsavingsincome"] = number_format($sicredit, 2);
+        $response["usedsavingsincome"] = number_format($sidebit, 2);
+        $response["balancesavingsincome"] = number_format($sicredit - $sidebit, 2);
 
 
         //Available Withdraw Balance
@@ -246,10 +246,10 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totalavailablewithdrwabalance"] = number_format(($awbcredit), 2);
-        $response["usedavailablewithdrwabalance"] = number_format(($awbdebit), 2);
-        $response["balanceavailablewithdrwabalance"] = number_format(($awbcredit - $awbdebit), 2);
-        
+        $response["totalavailablewithdrwabalance"] = number_format($awbcredit, 2);
+        $response["usedavailablewithdrwabalance"] = number_format($awbdebit, 2);
+        $response["balanceavailablewithdrwabalance"] = number_format($awbcredit - $awbdebit, 2);
+
         //ID Reactivation Wallet
         $reactivationwallet = $con->query("SELECT * FROM reactivationwallet");
         $rawcredit = 0;
@@ -269,9 +269,9 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totalreactivationwallet"] = number_format(($rawcredit), 2);
-        $response["usedreactivationwallet"] = number_format(($rawdebit), 2);
-        $response["balancereactivationwallet"] = number_format(($rawcredit - $rawdebit), 2);
+        $response["totalreactivationwallet"] = number_format($rawcredit, 2);
+        $response["usedreactivationwallet"] = number_format($rawdebit, 2);
+        $response["balancereactivationwallet"] = number_format($rawcredit - $rawdebit, 2);
 
         //UCC Wallet
         $uccwallet = $con->query("SELECT * FROM uccwalletpoints");
@@ -292,9 +292,9 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totaluccwallet"] = number_format(($uccwcredit), 2);
-        $response["useduccwallet"] = number_format(($uccwdebit), 2);
-        $response["balanceuccwallet"] = number_format(($uccwcredit - $uccwdebit), 2);
+        $response["totaluccwallet"] = number_format($uccwcredit, 2);
+        $response["useduccwallet"] = number_format($uccwdebit, 2);
+        $response["balanceuccwallet"] = number_format($uccwcredit - $uccwdebit, 2);
 
         //Admin Wallet
         $adminnwallet = $con->query("SELECT * FROM admin_wallet");
@@ -315,9 +315,223 @@ if ($values["status"] == "success") {
 
         }
 
-        $response["totaladminnwallet"] = number_format(($awcredit), 2);
-        $response["usedadminnwallet"] = number_format(($awdebit), 2);
-        $response["balanceadminnwallet"] = number_format(($awcredit - $awdebit), 2);
+        $genealogy = $con->query("
+        SELECT *
+        FROM genealogy AS g
+        JOIN userdetails AS u ON g.user_id = u.user_id
+        WHERE u.user_referalStatus = 'activated';
+        ");
+
+
+        $totalperson = mysqli_num_rows($totaldistributor) - 1;
+
+        $awcredit += ($totalperson * 50) * 0.4521;
+
+
+        foreach ($genealogy as $getgenealogy) {
+
+            if ($getgenealogy["lvl1"] == null || strlen($getgenealogy["lvl1"]) <= 2) {
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 5;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+            if ($getgenealogy["lvl2"] == null || strlen($getgenealogy["lvl2"]) <= 2) {
+
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 2.5;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+            if ($getgenealogy["lvl3"] == null || strlen($getgenealogy["lvl3"]) <= 2) {
+
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 1.5;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+            if ($getgenealogy["lvl4"] == null || strlen($getgenealogy["lvl4"]) <= 2) {
+
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 1;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+            if ($getgenealogy["lvl5"] == null || strlen($getgenealogy["lvl5"]) <= 2) {
+
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 0.5;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+            if ($getgenealogy["lvl6"] == null || strlen($getgenealogy["lvl6"]) <= 2) {
+
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 0.5;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+            if ($getgenealogy["lvl7"] == null || strlen($getgenealogy["lvl7"]) <= 2) {
+
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 0.5;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+            if ($getgenealogy["lvl8"] == null || strlen($getgenealogy["lvl8"]) <= 2) {
+
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 0.5;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+            if ($getgenealogy["lvl9"] == null || strlen($getgenealogy["lvl9"]) <= 2) {
+
+                //Bonus Travel Point Wallet
+                $awcredit += 0.83;
+
+                //Networking Income Wallet
+                $awcredit += 0.5;
+
+                //Leadership Income Wallet
+                $awcredit += 0.22;
+
+                //Car&House Fund Wallet
+                $awcredit += 0.275;
+
+                //Royalty Income Wallet
+                $awcredit += 0.33;
+
+            }
+
+
+        }
+
+        $response["totaladminnwallet"] = number_format($awcredit, 2);
+        $response["usedadminnwallet"] = number_format($awdebit, 2);
+        $response["balanceadminnwallet"] = number_format($awcredit - $awdebit, 2);
+
+
+        //GST Wallet
+        $admingstwallet = $con->query("SELECT * FROM admingst_wallet");
+        $agstcredit = ($totalperson*9);
+        $agstdebit = 0;
+
+        if (mysqli_num_rows($admingstwallet) >= 1) {
+
+            foreach ($admingstwallet as $getadmingstwallet) {
+                if (isset($getadmingstwallet["agst_action"]) && strlen($getadmingstwallet["agst_action"]) >= 1) {
+                    if ($getadmingstwallet["agst_action"] == "credit") {
+                        $agstcredit += (float) $getadmingstwallet["agst_points"];
+                    } else if ($getadmingstwallet["agst_action"] == "debit") {
+                        $agstdebit += (float) $getadmingstwallet["agst_points"];
+                    }
+                }
+            }
+
+        }
+
+
+        $response["totaladmingst"] = number_format($agstcredit, 2);
+        $response["usedadmingst"] = number_format($agstdebit, 2);
+        $response["balanceadmingst"] = number_format($agstcredit - $agstdebit, 2);
+
 
         $response["status"] = "success";
         echo json_encode($response);

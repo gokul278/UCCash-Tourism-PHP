@@ -25,6 +25,8 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -61,13 +63,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -145,8 +148,9 @@
                     <a href="member's bonus TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Member's<p style="text-align: center;"> Bonus
                             Travel Point Balance Sheet</p></a>
-                    <a href="fast start report.php" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Fast
-                        Start<p style="text-align: center;"> Report</p></a>
+                    <a href="adminbalancewithdraw.php" class="nav-item nav-link"><i
+                            class="fa fa-university me-2"></i>Admin
+                        Balance<p style="text-align: center;"> Withdraw</p></a>
                     <a href="business tools.php" class="nav-item nav-link"><i class="fa fa-tools me-2"></i>Business
                         Tools</a>
                     <div class="nav-item dropdown">
@@ -156,6 +160,7 @@
                             <a href="terms & conditions.php" class="dropdown-item">Terms & Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
                             <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
+                            <a href="membership agreements.php" class="dropdown-item">Membership Agreements</a>
                             <a href="independent distributor agreement.php" class="dropdown-item">Independent
                                 Distributor<p> Agreements</p></a>
                         </div>
@@ -208,9 +213,9 @@
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
@@ -229,105 +234,94 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h4 style="color: #f7c128;" class="mb-5">Member's Income Balance Sheet</h4>
+                            <h4 style="color: #f7c128;" class="mb-3">Member's Income Balance Sheet</h4>
+                            <button type="button" class="btn btn-warning mb-5" onclick="exportToExcel()"><b>Print
+                                    PDF</b></button>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="d-flex align-items-center mb-4">
                                         <label for="fromDate" class="mr-2"><b>From</b></label>&nbsp;
-                                        <input type="date" id="fromDate" class="form-control mr-2"
+                                        <input type="date" id="fromDate" oninput="dateinput()" class="form-control mr-2"
                                             style="width: 120px;">
                                         &nbsp;&nbsp;&nbsp;
                                         <label for="toDate" class="mr-2"><b>To</b></label>&nbsp;
-                                        <input type="date" id="toDate" class="form-control mr-2" style="width: 120px;">
+                                        <input type="date" id="toDate" oninput="dateinput()" class="form-control mr-2"
+                                            style="width: 120px;">
                                         &nbsp;
-                                        <button id="goButton" class="btn btn-primary">Go</button>
+                                        <button class="btn btn-warning" type="button" id="searchbtn"
+                                            disabled><b>Search</b></button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-warning" type="button" id="clearbtnsearch"
+                                            disabled><b>Clear</b></button>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="input-group mb-3 mt-auto">
-                                        <input type="text" class="form-control" id="activationMemberID"
-                                            style="max-width: 200px;" placeholder="User ID">
-                                        <button class="btn btn-warning" type="button" id="searchButton">Search</button>
+                                        <input type="text" class="form-control" id="memberid" style="max-width: 200px;"
+                                            placeholder="User ID" oninput="checkuser()">
+                                        <button class="btn btn-warning" type="button" id="useridbtn"
+                                            disabled><b>Search</b></button>
+                                        &nbsp;&nbsp;
+                                        <button class="btn btn-warning" type="button" id="useridclearbtn"
+                                            disabled><b>Clear</b></button>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="table-responsive">
                                 <strong>
-                                    <table id="table-to-print" style="text-align: center;" class="table table-bordered">
+                                    <table id="myTable" style="text-align: center;" class="table table-bordered">
                                         <thead>
                                             <tr>
                                                 <th scope="col">S.NO</th>
-                                                <th scope="col">Date & Time</th>
                                                 <th scope="col">User ID</th>
                                                 <th scope="col">User Name</th>
                                                 <th scope="col">Description</th>
+                                                <th scope="col">Transaction</th>
+                                                <th scope="col">Date</th>
                                                 <th scope="col">Credit</th>
                                                 <th scope="col">Debit</th>
                                                 <th scope="col">Balance</th>
 
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tabledata">
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>01/01/2024 12:08 PM</td>
-                                                <td>UCT1234</td>
-                                                <td>Bala</td>
-                                                <td>Saving's Income</td>
-                                                <td>5</td>
-                                                <td></td>
-                                                <td>5</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>02/01/2024 10:20 AM</td>
-                                                <td>UCT4321</td>
-                                                <td>Sam</td>
-                                                <td>Saving's Income</td>
-                                                <td>10</td>
-                                                <td></td>
-                                                <td>15</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>03/01/2024 11:20 AM</td>
-                                                <td>UCT6543</td>
-                                                <td>Gowtham</td>
-                                                <td>Saving's Income</td>
-                                                <td>10</td>
-                                                <td></td>
-                                                <td>25</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td>07/01/2024 10:08 PM</td>
-                                                <td>UCT9876</td>
-                                                <td>Ashok</td>
-                                                <td>Withdraw Income</td>
-                                                <td></td>
-                                                <td>5</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">5</th>
-                                                <td>10/01/2024 01:10 PM</td>
-                                                <td>UCT6547</td>
-                                                <td>Kumar</td>
-                                                <td>Withdraw Income</td>
-                                                <td></td>
-                                                <td>20</td>
-                                                <td>00</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="5" style="text-align: right;"><strong>Total :</strong></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>00</td>
+                                                <td colspan="9">Loading ...</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </strong>
+                            </div>
+                            <br>
+                            <div class="container" style="display: table; width: 100%; border-collapse: collapse;">
+                                <div class="row mb-2" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Credit</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totalcredit" align="center"><b>0.00</b></div>
+                                </div>
+                                <div class="row mb-2" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Debit</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totaldebit" align="center"><b>0.00</b></div>
+                                </div>
+                                <div class="row" style="display: table-row;">
+                                    <div class="col-2 col-lg-8" style="display: table-cell; padding: 8px;"></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px;"><b>Total
+                                            Balance</b></div>
+                                    <div class="col-5 col-lg-2"
+                                        style="display: table-cell; border: 1px solid #fff; padding: 8px; color: #f7c128;"
+                                        id="totalbalance" align="center"><b>0.00</b></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -373,6 +367,8 @@
             },
         });
     </script>
+
+    <script src="./requiredFiles/js/membersiincomebalancesheet.js"></script>
 
 </body>
 

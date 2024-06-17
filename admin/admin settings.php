@@ -142,8 +142,8 @@
                     </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                        <a href="tour destination edit.php" class="nav-item nav-link "><i
-                        class="far fa-map me-2"></i>Tour<p style="text-align: center;">Destinations</p></a>
+                    <a href="tour destination edit.php" class="nav-item nav-link "><i class="far fa-map me-2"></i>Tour<p
+                            style="text-align: center;">Destinations</p></a>
                     <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
                         Booking<p style="text-align: center;"> History</p></a>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
@@ -158,8 +158,9 @@
                     <a href="member's bonus TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Member's<p style="text-align: center;"> Bonus
                             Travel Point Balance Sheet</p></a>
-                    <a href="fast start report.php" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Fast
-                        Start<p style="text-align: center;"> Report</p></a>
+                    <a href="adminbalancewithdraw.php" class="nav-item nav-link"><i
+                            class="fa fa-university me-2"></i>Admin
+                        Balance<p style="text-align: center;"> Withdraw</p></a>
                     <a href="business tools.php" class="nav-item nav-link"><i class="fa fa-tools me-2"></i>Business
                         Tools</a>
                     <div class="nav-item dropdown">
@@ -169,6 +170,7 @@
                             <a href="terms & conditions.php" class="dropdown-item">Terms & Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
                             <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
+                            <a href="membership agreements.php" class="dropdown-item">Membership Agreements</a>
                             <a href="independent distributor agreement.php" class="dropdown-item">Independent
                                 Distributor<p> Agreements</p></a>
                         </div>
@@ -228,7 +230,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
                             <a href="admin settings.php" class="dropdown-item">My Profile</a>
-                            <a href="signin.php" class="dropdown-item">Log Out</a>
+                            <a href="logout.php" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -261,8 +263,8 @@
                                 </a>
                                 <br>
                                 <label for="uploadButton" class="custom-upload-btn">Upload Image</label>
-                                <input type="file" id="uploadButton" name="profileimg" onchange="displayFileNameAndImage()"
-                                    style="display: none;" accept="image/*">
+                                <input type="file" id="uploadButton" name="profileimg"
+                                    onchange="displayFileNameAndImage()" style="display: none;" accept="image/*">
                                 <span id="fileName" class="file-name"></span>
                                 <input type="hidden" name="way" value="imgupdate">
                             </div>
@@ -281,12 +283,60 @@
                         </div> -->
 
                             <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary btn-lg mt-4" id="submitbtn" disabled>Save changes</button>
+                                <button type="submit" class="btn btn-primary btn-lg mt-4" id="submitbtn" disabled>Save
+                                    Changes</button>
                             </div>
                         </form>
 
                     </div>
                 </div>
+
+
+            </div>
+
+            <br>
+            <br>
+
+
+            <div class="d-flex justify-content-center">
+                <div class="col-sm-12 col-xl-6">
+                    <div class="bg-secondary rounded h-100 p-4 d-flex flex-column">
+                        <h4 style="color: #f7c128; text-align: center;" class="mb-4">Admin's Password Settings</h4>
+
+                        <br>
+                        <form id="passwordchanage">
+                            <div class="form-floating mb-3 mt-auto text-end">
+                                <input type="password" class="form-control" id="currentpassword" name="currentpassword" oninput="checkpass()"
+                                    onclick="clearerror()" placeholder="">
+                                <label for="password">Current Password</label>
+                            </div>
+                            <input type="hidden" name="way" value="passwordchnage">
+                            <div class="form-floating mb-3 mt-auto text-end">
+                                <input type="password" class="form-control" id="password" name="password" oninput="checkpass()"
+                                onclick="clearerror()" placeholder="">
+                                <label for="password">New Password</label>
+                            </div> 
+                            <div class="form-floating mb-3 mt-auto text-end">
+                                <input type="password" class="form-control" id="repassword" name="repassword" oninput="checkpass()"
+                                    onclick="clearerror()" placeholder="">
+                                <label for="password">Confirm Password</label>
+                            </div>
+                            <div class="form-floating mt-auto text-center">
+                                <p style="color:red;font-size:20px" id="errormsg"><b></b></p>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary btn-lg mt-3" id="submitpasswordbtn"
+                                    disabled>Save
+                                    changes</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+
+
             </div>
 
 
@@ -324,7 +374,7 @@
             const profileImage = document.getElementById('profileImage');
 
             if (input.files && input.files[0]) {
-                $("#submitbtn").prop("disabled",false)
+                $("#submitbtn").prop("disabled", false)
                 // Display the file name
                 fileName.textContent = input.files[0].name;
 

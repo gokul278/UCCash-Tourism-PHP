@@ -96,7 +96,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
-                            </a>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
@@ -110,7 +110,7 @@
                     <!-- <a href="monthly TP savings.php" class="nav-item nav-link"><i class="fa fa-comment-dollar me-2"></i>Monthly TP <p style="text-align: center;">Savings</p></a> -->
                     <a href="monthly TP savings status.php" class="nav-item nav-link  active"><i
                             class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
-                        </a>
+                    </a>
                     <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
@@ -127,7 +127,8 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
-                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i
+                            class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
@@ -172,7 +173,9 @@
                                 Conditions</a>
                             <a href="./img/UCCASH Tourism Privacy Policy.pdf" class="dropdown-item">Privacy Policies</a>
                             <a href="./img/UCCASH Tourism Payment Agreement.pdf" class="dropdown-item">Payment
-                                Agriments</a>
+                                Agreement</a>
+                            <a href="./img/UCCASH Tourism Membership Agreement.pdf" class="dropdown-item">Membership
+                                Agreement</a>
                             <a href="./img/UCCASH Tourism Indipendent Distributor Agreement.pdf"
                                 class="dropdown-item">Independent Distributor<p>Agreement</p></a>
                         </div>

@@ -176,27 +176,27 @@ if ($values["status"] == "success") {
 
             $incoicevalue = 50;
 
-            for($i = 1; $i <=9; $i++){
+            for ($i = 1; $i <= 9; $i++) {
 
-                $value=0;
-    
-                if($i == 1){ //lvl 1
+                $value = 0;
+
+                if ($i == 1) { //lvl 1
                     $value = $incoicevalue * 0.05; // 5% * incoicevalue
-                }else if($i >= 2 && $i <= 4){ //lvl 2 to 4
+                } else if ($i >= 2 && $i <= 4) { //lvl 2 to 4
                     $value = $incoicevalue * 0.02; // 2% * incoicevalue
-                }else if($i >= 5 && $i <= 7){ //lvl 5 to 7
+                } else if ($i >= 5 && $i <= 7) { //lvl 5 to 7
                     $value = $incoicevalue * 0.01; // 1% * incoicevalue
-                }else if($i >= 8 && $i<=9){//lvl 8 to 9
+                } else if ($i >= 8 && $i <= 9) {//lvl 8 to 9
                     $value = $incoicevalue * 0.005; // 0.5% * incoicevalue
-                }            
-    
+                }
+
                 $lvl = ${"lvl" . $i};
-    
-                if(strlen($lvl)>=5){
+
+                if (strlen($lvl) >= 5) {
                     $btpoint = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_lvl,si_action,si_remark)
                     VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Savings Income')");
                 }
-    
+
             }
 
 
@@ -227,15 +227,23 @@ if ($values["status"] == "success") {
 
                 try {
                     // Server settings
-                    $mail->SMTPDebug = SMTP::DEBUG_OFF;
                     $mail->isSMTP();
-                    $mail->Host = 'smtp.gmail.com';
-                    $mail->SMTPAuth = true;
-                    $mail->Username = 'redana.food@gmail.com';
-                    $mail->Password = 'zibwucwdyhhzmdan';
-                    $mail->SMTPSecure = 'ssl';
+                    $mail->SMTPDebug = SMTP::DEBUG_OFF;
+                    $mail->CharSet = 'UTF-8';
+                    $mail->Host = 'uccashtourism.com';
                     $mail->Port = 465;
-                    $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->SMTPOptions = [
+                        'ssl' => [
+                            'verify_peer' => false,
+                            'verify_peer_name' => false,
+                            'allow_self_signed' => true
+                        ]
+                    ];
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'noreply@uccashtourism.com';
+                    $mail->Password = 'adminuccashtourism';
+                    $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
                     $mail->addAddress($ressponser["user_email"]);
                     $mail->isHTML(true);
                     $mail->Subject = 'Completed Savings Invoice Details';

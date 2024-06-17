@@ -77,7 +77,7 @@ const getData = () => {
                 $("#tour_days").html('<b>Days : '+response.tour_days+'</b>')
                 $("#tour_fromdate").html('<b>From Date : '+response.tour_fromdate+'</b>')
                 $("#tour_todate").html('<b>To Date : '+response.tour_todate+'</b>')
-                $("#tour_amount").html('<b>Amount : '+response.tour_amount+' TP per person</b>')
+                $("#tour_amount").html('<b>Amount : '+response.tour_amount+' TP per person (Included GST 18%)</b>')
                 $("#tour_inclusion").html(response.tour_inclusion);
                 $("#tour_exclusion").html(response.tour_exclusion);
                 $("#tourname").html('<span style="color: #f7c128; text-align: center;">'+response.tour_name+'</span> Itinerary');

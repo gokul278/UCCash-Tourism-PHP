@@ -157,8 +157,8 @@
                     <a href="member's bonus TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Member's<p style="text-align: center;"> Bonus
                             Travel Point Balance Sheet</p></a>
-                    <a href="fast start report.php" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Fast
-                        Start<p style="text-align: center;"> Report</p></a>
+                    <a href="adminbalancewithdraw.php" class="nav-item nav-link"><i class="fa fa-university me-2"></i>Admin
+                        Balance<p style="text-align: center;"> Withdraw</p></a> 
                     <a href="business tools.php" class="nav-item nav-link"><i class="fa fa-tools me-2"></i>Business
                         Tools</a>
                     <div class="nav-item dropdown">
@@ -168,6 +168,7 @@
                             <a href="terms & conditions.php" class="dropdown-item">Terms & Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
                             <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
+                            <a href="membership agreements.php" class="dropdown-item">Membership Agreements</a>
                             <a href="independent distributor agreement.php" class="dropdown-item">Independent
                                 Distributor<p> Agreements</p></a>
                         </div>
@@ -628,6 +629,36 @@
                                     alt="image">
                                 <h5 class="card-title mb-2">Available Admin Balance</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balanceadminnwallet">0.00</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card rounded custom-bg-color text-center custom-height-card">
+                            <div class="card-body">
+                            <img src="./img/gst.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                    alt="image">
+                                <h5 class="card-title mb-2">Total Admin GST Balance</h5>
+                                <h5 class="card-text mb-0 text-color-custom" id="totaladmingst">0.00</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card rounded custom-bg-color text-center custom-height-card">
+                            <div class="card-body">
+                            <img src="./img/gst.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                    alt="image">
+                                <h5 class="card-title mb-2">Used Admin GST Balance</h5>
+                                <h5 class="card-text mb-0 text-color-custom" id="usedadmingst">0.00</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card rounded custom-bg-color text-center custom-height-card">
+                            <div class="card-body">
+                            <img src="./img/gst.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                    alt="image">
+                                <h5 class="card-title mb-2">Available Admin GST Balance</h5>
+                                <h5 class="card-text mb-0 text-color-custom" id="balanceadmingst">0.00</h5>
                             </div>
                         </div>
                     </div>

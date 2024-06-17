@@ -45,11 +45,11 @@ if ($values["status"] == "success") {
             $data = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $getdata = $data->fetch_assoc();
 
-            $gst = $getdata["tour_amount"]*0.18;
+            $gst = $getdata["tour_amount"] * 0.18;
 
-            $response["tour_amount"] = round($getdata["tour_amount"], 2);
-            $response["gstamount"] = round($gst,2);
-            $response["netamount"] = round(($gst+$getdata["tour_amount"]),2);
+            $response["gstamount"] = round($gst, 2);
+            $response["tour_amount"] = round(($getdata["tour_amount"] - $gst), 2);
+            $response["netamount"] = round(($getdata["tour_amount"]), 2);
 
             //Savings Travel Points
             $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$datarow["user_id"]}'");
@@ -130,11 +130,11 @@ if ($values["status"] == "success") {
 
         $totalamount = $personvalue * $amount;
 
-        $gst = $totalamount*0.18;
+        $gst = $totalamount * 0.18;
 
-        $response["tour_amount"] = $totalamount;
-        $response["gstamount"] = round($gst,2);
-        $response["netamount"] = round(($gst+$totalamount),2);
+        $response["gstamount"] = round($gst, 2);
+        $response["tour_amount"] = round(($totalamount - $gst), 2);
+        $response["netamount"] = round($totalamount, 2);
 
         $response["status"] = "success";
         echo json_encode($response);
@@ -152,8 +152,9 @@ if ($values["status"] == "success") {
             $finsavingstravelpoints = $_POST["savingstravelpoints"];
             $fintype = $type;
 
-            $amount = $personinput*$gettourdetails["tour_amount"];
-            $gst = round(($amount*0.18),2);
+            $amount = $personinput * $gettourdetails["tour_amount"];
+            $gst = round(($amount * 0.18), 2);
+            $amount = round(($amount - $gst), 2);
 
             $content .= '
             Type&nbsp;:&nbsp;Savings Travel point<br>
@@ -165,8 +166,10 @@ if ($values["status"] == "success") {
             $finbonustravelpoints = $_POST["bonustravelpoints"];
             $fintype = $type;
 
-            $amount = $personinput*$gettourdetails["tour_amount"];
-            $gst = round(($amount*0.18),2);
+            $amount = $personinput * $gettourdetails["tour_amount"];
+            $gst = round(($amount * 0.18), 2);
+            $amount = round(($amount - $gst), 2);
+
 
             $content .= '
             Type&nbsp;:&nbsp;Bonus Travel point<br>
@@ -178,8 +181,10 @@ if ($values["status"] == "success") {
             $fintravelcoupon = $_POST["travelcoupon"];
             $fintype = $type;
 
-            $amount = $personinput*$gettourdetails["tour_amount"];
-            $gst = round(($amount*0.18),2);
+            $amount = $personinput * $gettourdetails["tour_amount"];
+            $gst = round(($amount * 0.18), 2);
+            $amount = round(($amount - $gst), 2);
+
 
             $content .= '
             Type&nbsp;:&nbsp;Travel Coupon<br>
@@ -193,8 +198,9 @@ if ($values["status"] == "success") {
             $fintravelcoupon = isset($_POST["travelcoupon"]) ? (float) $_POST["travelcoupon"] : 0;
             $total = $finsavingstravelpoints + $finbonustravelpoints + $fintravelcoupon;
 
-            $amount = $personinput*$gettourdetails["tour_amount"];
-            $gst = round(($amount*0.18),2);
+            $amount = $personinput * $gettourdetails["tour_amount"];
+            $gst = round(($amount * 0.18), 2);
+            $amount = round(($amount - $gst), 2);
 
             $content .= '
             Type&nbsp;:&nbsp;All Points<br>
@@ -224,15 +230,23 @@ if ($values["status"] == "success") {
 
         try {
             // Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'redana.food@gmail.com';
-            $mail->Password = 'zibwucwdyhhzmdan';
-            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->CharSet = 'UTF-8';
+            $mail->Host = 'uccashtourism.com';
             $mail->Port = 465;
-            $mail->setFrom('redana.food@gmail.com', 'UCCASH TOURISM TEAM');
+            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+            $mail->SMTPAuth = true;
+            $mail->Username = 'noreply@uccashtourism.com';
+            $mail->Password = 'adminuccashtourism';
+            $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Tour Booking OTP';
@@ -445,10 +459,11 @@ if ($values["status"] == "success") {
             $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $gettourdetails = $tourdetails->fetch_assoc();
 
-            $gstamount = ($personinput * $gettourdetails["tour_amount"])*0.18;
+            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
             $netamount = $personinput * $gettourdetails["tour_amount"];
+            $netamount = $netamount - $gstamount;
 
-            $totalprice = round(($netamount+$gstamount), 2);
+            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
 
 
             $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
@@ -497,8 +512,8 @@ if ($values["status"] == "success") {
                     To Date&nbsp;:&nbsp;' . $gettourdetails["tour_todate"] . '<br>
                     No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
                     Wallet Type&nbsp;:&nbsp;Savings Travel Point<br>
-                    Booked Point&nbsp;:&nbsp;' . round(($personinput * $gettourdetails["tour_amount"]),2) . '<br>
-                    GST(18%)&nbsp;:&nbsp;' . round($gstamount,2) . '<br>
+                    Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
+                    GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                     Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                     </p>';
 
@@ -540,10 +555,11 @@ if ($values["status"] == "success") {
             $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $gettourdetails = $tourdetails->fetch_assoc();
 
-            $gstamount = ($personinput * $gettourdetails["tour_amount"])*0.18;
+            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
             $netamount = $personinput * $gettourdetails["tour_amount"];
+            $netamount = $netamount - $gstamount;
 
-            $totalprice = round(($netamount+$gstamount), 2);
+            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
 
 
             $bonustravel = $con->query("SELECT * FROM bonustravelpoints WHERE user_id='{$values["userid"]}'");
@@ -592,13 +608,13 @@ if ($values["status"] == "success") {
                     To Date&nbsp;:&nbsp;' . $gettourdetails["tour_todate"] . '<br>
                     No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
                     Wallet Type&nbsp;:&nbsp;Bonus Travel Point<br>
-                    Booked Point&nbsp;:&nbsp;' . round(($personinput * $gettourdetails["tour_amount"]),2) . '<br>
-                    GST(18%)&nbsp;:&nbsp;' .round($gstamount,2) . '<br>
+                    Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
+                    GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                     Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                     </p>';
 
                     successmail($name, $email, $content);
-                    
+
                 } else {
                     echo "queryerror";
                 }
@@ -634,10 +650,11 @@ if ($values["status"] == "success") {
             $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $gettourdetails = $tourdetails->fetch_assoc();
 
-            $gstamount = ($personinput * $gettourdetails["tour_amount"])*0.18;
+            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
             $netamount = $personinput * $gettourdetails["tour_amount"];
+            $netamount = $netamount - $gstamount;
 
-            $totalprice = round(($netamount+$gstamount), 2);
+            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
 
             //Travel Coupon's
             $travelcoupon = $con->query("SELECT * FROM travelcouponpoints WHERE user_id='{$values["userid"]}'");
@@ -686,8 +703,8 @@ if ($values["status"] == "success") {
                     To Date&nbsp;:&nbsp;' . $gettourdetails["tour_todate"] . '<br>
                     No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
                     Wallet Type&nbsp;:&nbsp;Travel Coupon<br>
-                    Booked Point&nbsp;:&nbsp;' . round(($personinput * $gettourdetails["tour_amount"]),2) . '<br>
-                    GST(18%)&nbsp;:&nbsp;' . round($gstamount,2) . '<br>
+                    Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
+                    GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                     Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                     </p>';
 
@@ -797,10 +814,10 @@ if ($values["status"] == "success") {
 
                         $totalpriceuser = round(($savingstravelpoints + $bonustravelpoints + $travelcouponpoints), 2);
 
-                        $gstamount = ($personinput * $gettourdetails["tour_amount"])*0.18;
+                        $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
                         $netamount = $personinput * $gettourdetails["tour_amount"];
-            
-                        $totalprice = round(($netamount+$gstamount), 2);
+
+                        $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
 
                         if ($totalprice == $totalpriceuser) {
 
@@ -898,8 +915,8 @@ if ($values["status"] == "success") {
                                 Savings Travel Point&nbsp;:&nbsp;' . $st_escaped . '<br>
                                 Bonus Travel Point&nbsp;:&nbsp;' . $bt_escaped . '<br>
                                 Travel Coupon&nbsp;:&nbsp;' . $tc_escaped . '<br>
-                                Booked Point&nbsp;:&nbsp;' . round(($personinput * $gettourdetails["tour_amount"]),2) . '<br>
-                                GST(18%)&nbsp;:&nbsp;' . round($gstamount,2) . '<br>
+                                Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
+                                GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                                 Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                                 </p>';
 
@@ -910,7 +927,7 @@ if ($values["status"] == "success") {
                         } else {
                             $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                             $response["status"] = "error";
-                            $response["message"] = $totalprice." ".$totalpriceuser;
+                            $response["message"] = $totalprice . " " . $totalpriceuser;
                             echo json_encode($response);
                         }
 
@@ -961,15 +978,23 @@ function successmail($name, $email, $content)
     try {
 
         // Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_OFF;
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'redana.food@gmail.com';
-        $mail->Password = 'zibwucwdyhhzmdan';
-        $mail->SMTPSecure = 'ssl';
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
+        $mail->CharSet = 'UTF-8';
+        $mail->Host = 'uccashtourism.com';
         $mail->Port = 465;
-        $mail->setFrom('redana.food@gmail.com', 'UCCASH TOURISM TEAM');
+        $mail->SMTPSecure = 'ssl';
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
+        $mail->SMTPAuth = true;
+        $mail->Username = 'noreply@uccashtourism.com';
+        $mail->Password = 'adminuccashtourism';
+        $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->Subject = 'Congratulations Your Booking is Confirmed';

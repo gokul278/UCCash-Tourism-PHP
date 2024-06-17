@@ -65,15 +65,23 @@ try {
 
                 try {
                     // Server settings
-                    $mail->SMTPDebug = SMTP::DEBUG_OFF;
                     $mail->isSMTP();
-                    $mail->Host = 'smtp.gmail.com';
-                    $mail->SMTPAuth = true;
-                    $mail->Username = 'redana.food@gmail.com';
-                    $mail->Password = 'zibwucwdyhhzmdan';
-                    $mail->SMTPSecure = 'ssl';
+                    $mail->SMTPDebug = SMTP::DEBUG_OFF;
+                    $mail->CharSet = 'UTF-8';
+                    $mail->Host = 'uccashtourism.com';
                     $mail->Port = 465;
-                    $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->SMTPOptions = [
+                        'ssl' => [
+                            'verify_peer' => false,
+                            'verify_peer_name' => false,
+                            'allow_self_signed' => true
+                        ]
+                    ];
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'noreply@uccashtourism.com';
+                    $mail->Password = 'adminuccashtourism';
+                    $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
                     $mail->addAddress($getmailrow["user_email"]);
                     $mail->isHTML(true);
                     $mail->Subject = 'Monthly savings Pending Invoice';
@@ -154,7 +162,7 @@ try {
                             <table>
                                 <tr align="center">
                                     <td style="width: 50%;height: 50px;background-color: #F7C128;border-radius: 50px;">
-                                        <a href="http://localhost/UC-Tour/UC%20User/monthly%20TP%20savings.php" style="text-decoration: none;color: black;">
+                                        <a href="https://uccashtourism.com/UC-Tour/UC%20User/monthly%20TP%20savings.php" style="text-decoration: none;color: black;">
                                             View and Pay Invoice
                                         </a>
                                     </td>

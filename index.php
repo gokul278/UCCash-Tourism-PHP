@@ -28,6 +28,8 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -158,11 +160,9 @@
                             <p class="mb-4">We provides differnt types of packages to various happy destinations.</p>
                         </div>
                         <div class="row bg-primary rounded-bottom mx-0">
-                            <div class="col-6 text-start px-0">
-                                <a href="services.php" class="btn-hover btn text-white py-2 px-4">Read More</a>
-                            </div>
-                            <div class="col-6 text-end px-0">
-                                <a href="signin.php" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                            <div class="col-12 text-center px-0">
+                                <button class="btn btn-warning text-white py-2 px-4" style="width: 100%;"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">For Enquiry</button>
                             </div>
                         </div>
                     </div>
@@ -189,11 +189,9 @@
                             </p>
                         </div>
                         <div class="row bg-primary rounded-bottom mx-0">
-                            <div class="col-6 text-start px-0">
-                                <a href="services.php" class="btn-hover btn text-white py-2 px-4">Read More</a>
-                            </div>
-                            <div class="col-6 text-end px-0">
-                                <a href="signin.php" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                            <div class="col-12 text-center px-0">
+                                <button class="btn btn-warning text-white py-2 px-4" style="width: 100%;"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">For Enquiry</button>
                             </div>
                         </div>
                     </div>
@@ -220,11 +218,9 @@
                             </p>
                         </div>
                         <div class="row bg-primary rounded-bottom mx-0">
-                            <div class="col-6 text-start px-0">
-                                <a href="services.php" class="btn-hover btn text-white py-2 px-4">Read More</a>
-                            </div>
-                            <div class="col-6 text-end px-0">
-                                <a href="signin.php" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                            <div class="col-12 text-center px-0">
+                                <button class="btn btn-warning text-white py-2 px-4" style="width: 100%;"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">For Enquiry</button>
                             </div>
                         </div>
                     </div>
@@ -249,11 +245,9 @@
                             <p class="mb-4">We organizes group packages for a team-out and for commercial gaterings.</p>
                         </div>
                         <div class="row bg-primary rounded-bottom mx-0">
-                            <div class="col-6 text-start px-0">
-                                <a href="services.php" class="btn-hover btn text-white py-2 px-4">Read More</a>
-                            </div>
-                            <div class="col-6 text-end px-0">
-                                <a href="signin.php" class="btn-hover btn text-white py-2 px-4">Book Now</a>
+                            <div class="col-12 text-center px-0">
+                                <button class="btn btn-warning text-white py-2 px-4" style="width: 100%;"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal">For Enquiry</button>
                             </div>
                         </div>
                     </div>
@@ -262,6 +256,43 @@
         </div>
     </div>
     <!-- Packages End -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="emailsubmit">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">For Enquiry</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" placeholder="Name" name="name" required>
+                            <label for="password">Your Name</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" placeholder="Email" name="email" required>
+                            <label for="password">Your Email</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" placeholder="Mobile Number" name="mobileno"
+                                required>
+                            <label for="password">Your Mobile Number</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <textarea class="form-control" placeholder="Description" name="description" id="address"
+                                style="height: 160px;" required></textarea>
+                            <label for="password">Enter What You Know About Our Package</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="submitbtn">Send Details to Contact Us</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Services Start -->
     <div class="container-fluid bg-light service py-5">
@@ -685,10 +716,13 @@
                         <a href="index.php"><img class=" me-3" src="img/logo2.png" alt="UCCASH LOGO"
                                 style="width:150px;height:100px;"></a>
                         <br>
-                        <p style="text-align: justify;color: white;">UCCASH Tourism is a leading tour's and travel company. we providing best tour packages with savings and free tour with Earning platform. book travel packages and enjoy your holidays distinctive experience with us.<br>
-                        <br>Tour with savings,<br>
-                        Tour with Discount,<br>
-                        Free Tour with Earnings.</p>
+                        <p style="text-align: justify;color: white;">UCCASH Tourism is a leading tour's and travel
+                            company. we providing best tour packages with savings and free tour with Earning platform.
+                            book travel packages and enjoy your holidays distinctive experience with us.<br>
+                            <br>Tour with savings,<br>
+                            Tour with Discount,<br>
+                            Free Tour with Earnings.
+                        </p>
 
                     </div>
                 </div>

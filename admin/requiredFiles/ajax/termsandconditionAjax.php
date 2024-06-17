@@ -33,40 +33,51 @@ if ($values["status"] == "success") {
         $pdfname = $_FILES["pdffile"]["name"];
 
         $newname = "UCCASH Tourism Terms and Conditions.pdf";
-        
+
         if (move_uploaded_file($_FILES["pdffile"]["tmp_name"], "../../.././UC User/img/" . $newname)) {
             $response["status"] = "success";
             echo json_encode($response);
         }
 
-    }else if( $way == "pppdfupload"){
+    } else if ($way == "pppdfupload") {
 
         $pdfname = $_FILES["pdffile"]["name"];
 
         $newname = "UCCASH Tourism Privacy Policy.pdf";
-        
+
         if (move_uploaded_file($_FILES["pdffile"]["tmp_name"], "../../.././UC User/img/" . $newname)) {
             $response["status"] = "success";
             echo json_encode($response);
         }
 
-    }else if ($way == "papdfupload"){
+    } else if ($way == "papdfupload") {
 
         $pdfname = $_FILES["pdffile"]["name"];
 
         $newname = "UCCASH Tourism Payment Agreement.pdf";
-        
+
         if (move_uploaded_file($_FILES["pdffile"]["tmp_name"], "../../.././UC User/img/" . $newname)) {
             $response["status"] = "success";
             echo json_encode($response);
         }
 
-    }else if($way == "idapdfupload"){
+    } else if ($way == "idapdfupload") {
 
         $pdfname = $_FILES["pdffile"]["name"];
 
         $newname = "UCCASH Tourism Indipendent Distributor Agreement.pdf";
-        
+
+        if (move_uploaded_file($_FILES["pdffile"]["tmp_name"], "../../.././UC User/img/" . $newname)) {
+            $response["status"] = "success";
+            echo json_encode($response);
+        }
+
+    } else if ($way == "mapdfupload") {
+
+        $pdfname = $_FILES["pdffile"]["name"];
+
+        $newname = "UCCASH Tourism Membership Agreement.pdf";
+
         if (move_uploaded_file($_FILES["pdffile"]["tmp_name"], "../../.././UC User/img/" . $newname)) {
             $response["status"] = "success";
             echo json_encode($response);

@@ -25,6 +25,8 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -146,8 +148,9 @@
                     <a href="member's bonus TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Member's<p style="text-align: center;"> Bonus
                             Travel Point Balance Sheet</p></a>
-                    <a href="fast start report.php" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Fast
-                        Start<p style="text-align: center;"> Report</p></a>
+                    <a href="adminbalancewithdraw.php" class="nav-item nav-link"><i
+                            class="fa fa-university me-2"></i>Admin
+                        Balance<p style="text-align: center;"> Withdraw</p></a>
                     <a href="business tools.php" class="nav-item nav-link"><i class="fa fa-tools me-2"></i>Business
                         Tools</a>
                     <div class="nav-item dropdown">
@@ -157,6 +160,7 @@
                             <a href="terms & conditions.php" class="dropdown-item">Terms & Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
                             <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
+                            <a href="membership agreements.php" class="dropdown-item">Membership Agreements</a>
                             <a href="independent distributor agreement.php" class="dropdown-item">Independent
                                 Distributor<p> Agreements</p></a>
                         </div>
@@ -230,7 +234,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h4 style="color: #f7c128;" class="mb-5">Travel Coupon Balance Sheet</h4>
+                            <h4 style="color: #f7c128;" class="mb-3">Travel Coupon Balance Sheet</h4>
+                            <button type="button" class="btn btn-warning mb-5" onclick="exportToExcel()"><b>Print
+                                    PDF</b></button>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="d-flex align-items-center mb-4">
@@ -279,7 +285,9 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tabledata">
-
+                                            <tr>
+                                                <td colspan="8">Loading ...</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </strong>

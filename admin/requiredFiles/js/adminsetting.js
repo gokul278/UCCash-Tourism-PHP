@@ -121,3 +121,82 @@ $("#updateimage").submit(function (e) {
     });
 
 });
+
+
+const checkpass = () =>{
+
+    var currentpassword = $("#currentpassword").val();
+    var pasasword = $("#password").val();
+    var repasasword = $("#repassword").val();
+
+    if(currentpassword.length >= 5){
+        if(pasasword.length >= 5){
+            if(repasasword == pasasword){
+                $("#submitpasswordbtn").prop("disabled",false);
+            }else{
+                $("#submitpasswordbtn").prop("disabled",true);
+            }
+        }else{
+            $("#submitpasswordbtn").prop("disabled",true);
+        }
+    }else{
+        $("#submitpasswordbtn").prop("disabled",true);
+    }
+
+}
+
+const clearerror = () =>{
+    $("#errormsg").html("");
+}
+
+
+$("#passwordchanage").submit(function (e) { 
+    e.preventDefault();
+    
+    var frm = $("#passwordchanage")[0];
+    var frmdata = new FormData(frm);
+    $.ajax({
+        type: "POST",
+        url: "./requiredFiles/ajax/adminsettingAjax.php",
+        data: frmdata,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (res) {
+            try {
+                var response = JSON.parse(res);
+
+                if (response.status == "auth_failed" && response.message == "Expired token") {
+                    location.replace("time_expried.php");
+                } else if (response.status == "auth_failed") {
+                    location.replace("unauth_login.php");
+                } else if (response.status == "success") {
+                    new Notify({
+                        status: 'success',
+                        title: 'Password Updated',
+                        text: 'Password Updated Successfully...!',
+                        effect: 'fade',
+                        speed: 300,
+                        customClass: '',
+                        customIcon: '',
+                        showIcon: true,
+                        showCloseButton: true,
+                        autoclose: true,
+                        autotimeout: 3000,
+                        notificationsGap: null,
+                        notificationsPadding: null,
+                        type: 'outline',
+                        position: 'right top',
+                        customWrapper: '',
+                    });
+                    frm.reset();
+                } else if (response.status == "error") {
+                    $("#errormsg").html("<b>"+response.message+"</b>");
+                    $("#submitpasswordbtn").prop("disabled", true);
+                }
+            } catch (e) {
+                console.error("Invalid JSON response from server:", res);
+            }
+        }
+    });
+});

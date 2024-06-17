@@ -209,3 +209,9 @@ $("#clearbtnsearch").click(function (e) {
     $("#clearbtnsearch").prop("disabled", true);
     return getData();
 });
+
+function exportToExcel() {
+    var table = document.getElementById("myTable");
+    var wb = XLSX.utils.table_to_book(table, {sheet: "Company Income Balance"});
+    XLSX.writeFile(wb, "Company_Income_Balance_Sheet.xlsx");
+}

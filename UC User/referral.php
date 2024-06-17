@@ -178,7 +178,9 @@
                                 Conditions</a>
                             <a href="./img/UCCASH Tourism Privacy Policy.pdf" class="dropdown-item">Privacy Policies</a>
                             <a href="./img/UCCASH Tourism Payment Agreement.pdf" class="dropdown-item">Payment
-                                Agriments</a>
+                                Agreement</a>
+                            <a href="./img/UCCASH Tourism Membership Agreement.pdf" class="dropdown-item">Membership
+                                Agreement</a>
                             <a href="./img/UCCASH Tourism Indipendent Distributor Agreement.pdf"
                                 class="dropdown-item">Independent Distributor<p>Agreement</p></a>
                         </div>

@@ -59,6 +59,8 @@ const getData = () => {
 $("#pdfsave").submit(function (e) {
     e.preventDefault();
 
+    $("#submitbtn").html("Loading ...");
+
     var frm = $("#pdfsave")[0];
     var frmdata = new FormData(frm);
     $.ajax({
@@ -105,6 +107,7 @@ $("#pdfsave").submit(function (e) {
 
                 var fileNameSpan = document.getElementById('fileName');
                 fileNameSpan.textContent = "";
+                $("#submitbtn").html("Submit");
                 $("#submitbtn").prop("disabled", true)
 
             }

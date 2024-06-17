@@ -310,7 +310,8 @@
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
                         </div>
                     </div>
-                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i
+                            class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
@@ -355,7 +356,9 @@
                                 Conditions</a>
                             <a href="./img/UCCASH Tourism Privacy Policy.pdf" class="dropdown-item">Privacy Policies</a>
                             <a href="./img/UCCASH Tourism Payment Agreement.pdf" class="dropdown-item">Payment
-                                Agriments</a>
+                                Agreement</a>
+                            <a href="./img/UCCASH Tourism Membership Agreement.pdf" class="dropdown-item">Membership
+                                Agreement</a>
                             <a href="./img/UCCASH Tourism Indipendent Distributor Agreement.pdf"
                                 class="dropdown-item">Independent Distributor<p>Agreement</p></a>
                         </div>

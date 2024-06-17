@@ -295,7 +295,9 @@
                                 Conditions</a>
                             <a href="./img/UCCASH Tourism Privacy Policy.pdf" class="dropdown-item">Privacy Policies</a>
                             <a href="./img/UCCASH Tourism Payment Agreement.pdf" class="dropdown-item">Payment
-                                Agriments</a>
+                                Agreement</a>
+                            <a href="./img/UCCASH Tourism Membership Agreement.pdf" class="dropdown-item">Membership
+                                Agreement</a>
                             <a href="./img/UCCASH Tourism Indipendent Distributor Agreement.pdf"
                                 class="dropdown-item">Independent Distributor<p>Agreement</p></a>
                         </div>
@@ -536,15 +538,18 @@
                             <tbody style="font-size: 17px;font-weight:700">
                                 <tr>
                                     <td style="width:50%;padding-bottom:10px;" align="left">Booking Amount</td>
-                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center" id="tour_amount">0 $</td>
+                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center"
+                                        id="tour_amount">0 $</td>
                                 </tr>
                                 <tr>
                                     <td style="width:50%;padding-bottom:10px;" align="left">GST(18%)</td>
-                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center" id="gstamount">0 $</td>
+                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center"
+                                        id="gstamount">0 $</td>
                                 </tr>
                                 <tr>
                                     <td style="width:50%;padding-bottom:10px;" align="left">Net Amount</td>
-                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center" id="netamount">0 $</td>
+                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center"
+                                        id="netamount">0 $</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -569,7 +574,8 @@
                                     </div>
                                     <br>
                                     <div id="paymentinput">
-                                        <input class="form-control" id="none" type="number" placeholder="Choose the Payment Type" style="height: 50px;" disabled>
+                                        <input class="form-control" id="none" type="number"
+                                            placeholder="Choose the Payment Type" style="height: 50px;" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -584,8 +590,8 @@
                     <div class="container">
                         <div class="row gx-3 mb-3 justify-content-center">
                             <div class="col-md-6 col-lg-4">
-                                <input class="form-control" id="otpinput"  onclick="clearerr()" type="number" placeholder="Enter OTP"
-                                    style="height: 50px;">
+                                <input class="form-control" id="otpinput" onclick="clearerr()" type="number"
+                                    placeholder="Enter OTP" style="height: 50px;">
                             </div>
                         </div>
 
@@ -617,7 +623,8 @@
                         <p align="center" id="errormsg" style="color:red"></p>
                         <br>
                         <div align="center">
-                        <h6>If you have any changes or insufficient balance message, please <a href="#" onclick="location.reload()">click here</a></h6>
+                            <h6>If you have any changes or insufficient balance message, please <a href="#"
+                                    onclick="location.reload()">click here</a></h6>
                         </div>
                     </div>
 

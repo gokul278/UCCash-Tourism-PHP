@@ -27,25 +27,46 @@ if ($way == "invoiceprint") {
     $bookingdate = $bookingdate->format('Y-m-d');
     $bookingmethod = $getbookingdetails["paymentmethod_description"];
     $bookinggst = $getbookingdetails["gst_amount"];
+    $bookingperson = $getbookingdetails["booking_person"];
+    $bookingfromdate = $getbookingdetails["booking_fromdate"];
+    $bookingtodate = $getbookingdetails["booking_todate"];
+    $bookingnetamount = $getbookingdetails["net_amount"];
+    $bookingamount = $getbookingdetails["booking_amount"];
+
+    $savingstp = "****";
+    $bonustp = "****";
+    $travelcoupontp = "****";
+
+
     if (strlen($bookingmethod) > 30) {
         // Use a regular expression to find the values inside the brackets
         if (preg_match('/\((\d+)\s*\+\s*(\d+)\s*\+\s*(\d+)\)/', $bookingmethod, $matches)) {
             // Extract the values
-            $val1 = $matches[1];
-            $val2 = $matches[2];
-            $val3 = $matches[3];
-
-            // Create the new string
-            $newValue = "SavingsTP, Bonus Tp, Travel Coupon ($val1+$val2+$val3)";
-
-            // Update the bookingmethod variable
-            $bookingmethod = $newValue;
+            $savingstp = $matches[1];
+            $bonustp = $matches[2];
+            $travelcoupontp = $matches[3];
+        }else{
+            if (preg_match('/\((\d+(\.\d+)?)\s*\+\s*(\d+(\.\d+)?)\s*\+\s*(\d+(\.\d+)?)\)/', $bookingmethod, $matches)) {
+                // Extract the values
+                $savingstp = $matches[1];
+                $bonustp = $matches[3];
+                $travelcoupontp = $matches[5];
+            } else {
+                $savingstp = "error";
+                $bonustp = "error";
+                $travelcoupontp = "error";
+            }
         }
+        
     } else {
-        $bookingmethod = "<br>" . $bookingmethod . "<br>";
+        if ($bookingmethod == "Savings Travel Point") {
+            $savingstp = $bookingnetamount;
+        } else if ($bookingmethod == "Bonus Travel Point") {
+            $bonustp = $bookingnetamount;
+        } else if ($bookingmethod == "Travel Coupon") {
+            $travelcoupontp = $bookingnetamount;
+        }
     }
-    $bookignperson = $getbookingdetails["booking_person"];
-    $bookingpayment = $getbookingdetails["net_amount"];
 
     $pdf = new TCPDF();
 
@@ -101,10 +122,10 @@ if ($way == "invoiceprint") {
             <td style="width:1.5%"></td>
             <td style="width:96%">
                 <div style="width:100%">
-                    <table border="1.5" cellpadding="6.1" style="width:100%">
+                    <table border="1" cellpadding="6.1" style="width:100%">
                         <tr style="width:100%;background-color:#191919;color:#fff;font-size:14px">
                             <td style="width:45%">
-                                Invoice No: UCTBI'. sprintf("%03d", $getbookingdetails["id"]).'
+                                Invoice No: <b>UCTBI' . sprintf("%03d", $getbookingdetails["id"]) . '</b>
                             </td>
                             <td style="width:55%">
                                 Booking Reservation Details
@@ -112,13 +133,13 @@ if ($way == "invoiceprint") {
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
                             <td style="width:45%">
-                                Reservation Status
+                                <b>Reservation Status</b>
                             </td>
                             <td style="width:27.5%">
-                                Payments
+                                <b>Payments</b>
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>Detials</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -129,7 +150,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookingcode.'</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -140,7 +161,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookingdestination.'</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -151,7 +172,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookingfromdate.'</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -162,7 +183,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookingtodate.'</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -173,7 +194,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookingamount.' TP</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -184,7 +205,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookingperson.'</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -195,7 +216,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.($getbookingdetails["booking_amount"]*$bookingperson)-$bookinggst.'</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -206,7 +227,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookinggst.'</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -217,7 +238,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookingnetamount.'</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -225,7 +246,7 @@ if ($way == "invoiceprint") {
                                 Savings Travel Point
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$savingstp.'</b>
                             </td>
                             <td style="width:27.5%">
                                 
@@ -236,7 +257,7 @@ if ($way == "invoiceprint") {
                                Bonus Travel point 
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bonustp.'</b>
                             </td>
                             <td style="width:27.5%">
                                 
@@ -247,7 +268,7 @@ if ($way == "invoiceprint") {
                                 Travel coupon
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$travelcoupontp.'</b>
                             </td>
                             <td style="width:27.5%">
                                 
@@ -258,7 +279,7 @@ if ($way == "invoiceprint") {
                                 Total Travel Point Used
                             </td>
                             <td style="width:27.5%">
-                                Detials
+                                <b>'.$bookingnetamount.'</b>
                             </td>
                             <td style="width:27.5%">
                                 
@@ -305,14 +326,14 @@ if ($way == "invoiceprint") {
                         <tr style="width:100%">
                             <td style="width:98%">
                                 <div>
-                                    <table border="1.5" cellpadding="8">
+                                    <table border="1" cellpadding="8">
                                         <tr>
                                             <td style="width:45%;background-color:#191919;color:#fff;font-size:14px">Passengers</td>
                                             <td style="width:55%;background-color:#191919;color:#fff;font-size:14px">Country of residence</td>
                                         </tr>
                                         <tr>
-                                            <td style="width:45%;color:#000;font-size:13px">2</td>
-                                            <td style="width:55%;color:#000;font-size:13px">India</td>
+                                            <td style="width:45%;color:#000;font-size:13px"><b>'.$bookingperson.'</b></td>
+                                            <td style="width:55%;color:#000;font-size:13px"><b>'.$getuserdetails["user_country"].'</b></td>
                                         </tr>
                                     </table>
                                 </div>

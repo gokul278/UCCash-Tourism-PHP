@@ -207,3 +207,9 @@ $("#clearbtnsearch").click(function (e) {
     $("#clearbtnsearch").prop("disabled", true);
     return getData();
 });
+
+function exportToExcel() {
+    var table = document.getElementById("myTable");
+    var wb = XLSX.utils.table_to_book(table, {sheet: "Travel Coupon Balance"});
+    XLSX.writeFile(wb, "Travel_Coupon_Balance_Sheet.xlsx");
+}

@@ -21,6 +21,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.2/xlsx.full.min.js"></script>
+
     <!-- Libraries Stylesheet -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
@@ -52,13 +54,14 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt=""
+                            style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Mr. Balakrishnan</h6>
+                        <h6 class="mb-0 adminname"></h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -136,8 +139,9 @@
                     <a href="member's bonus TP balance sheet.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Member's<p style="text-align: center;"> Bonus
                             Travel Point Balance Sheet</p></a>
-                    <a href="fast start report.php" class="nav-item nav-link"><i class="fa fa-file-alt me-2"></i>Fast
-                        Start<p style="text-align: center;"> Report</p></a>
+                    <a href="adminbalancewithdraw.php" class="nav-item nav-link"><i
+                            class="fa fa-university me-2"></i>Admin
+                        Balance<p style="text-align: center;"> Withdraw</p></a>
                     <a href="business tools.php" class="nav-item nav-link"><i class="fa fa-tools me-2"></i>Business
                         Tools</a>
                     <div class="nav-item dropdown">
@@ -147,6 +151,7 @@
                             <a href="terms & conditions.php" class="dropdown-item">Terms & Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
                             <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
+                            <a href="membership agreements.php" class="dropdown-item">Membership Agreements</a>
                             <a href="independent distributor agreement.php" class="dropdown-item">Independent
                                 Distributor<p> Agreements</p></a>
                         </div>
@@ -199,9 +204,9 @@
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle me-lg-2 profile_image" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
+                            <span style="color: #fff;" class="d-none d-lg-inline-flex adminname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0"
                             style="color: white;">
@@ -219,10 +224,11 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h4 style="color: #f7c128;" class="mb-5">Member's Details</h4>
-                            <!-- <button type="button" class="btn btn-warning mb-3" onclick="printPDF()"><b>Print PDF</b></button> -->
+                            <h4 style="color: #f7c128;" class="mb-4">Member's Details</h4>
+                            <button type="button" class="btn btn-warning mb-5" onclick="exportToExcel()"><b>Print
+                                    PDF</b></button>
                             <div class="table-responsive">
-                                <table id="table-to-print" style="text-align: center;" class="table table-bordered">
+                                <table id="myTable" style="text-align: center;" class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th scope="col">S.NO</th>
@@ -231,7 +237,8 @@
                                             <th scope="col">Email ID</th>
                                             <th scope="col">Mobile NO</th>
                                             <th scope="col">Address</th>
-                                            <th scope="col">Wallet Address</th>
+                                            <th scope="col">TRC20 Wallet Address</th>
+                                            <th scope="col">BEP20 Wallet Address</th>
                                             <th scope="col">Bank Details</th>
                                             <th scope="col">Pan NO</th>
                                             <th scope="col">Aadhaar NO</th>
@@ -240,48 +247,11 @@
                                             <th scope="col">Balance Sheet</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tabledata">
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>UCT123456</td>
-                                            <td>Sam</td>
-                                            <td>sam@gmail.com</td>
-                                            <td>9632587410</td>
-                                            <td>Erode</td>
-                                            <td>TRC20</td>
-                                            <td>Sam, KVBL000123, KVB, 1201100001234, Erode</td>
-                                            <td>ABDA125438</td>
-                                            <td>5821256535</td>
-                                            <td>Member</td>
-                                            <td></td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-warning"><b>GO</b></button>
-                                                </a>
-
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>UCT654321</td>
-                                            <td>Gowtham</td>
-                                            <td>gowtham@gmail.com</td>
-                                            <td>9360245580</td>
-                                            <td>Kallakurichi</td>
-                                            <td>BEP20</td>
-                                            <td>Gowtham, KVBL000123, KVB, 1201100001234, Kallakurichi</td>
-                                            <td>ABDG646465</td>
-                                            <td>58213132124</td>
-                                            <td>Distributor</td>
-                                            <td></td>
-                                            <td>
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-warning"><b>GO</b></button>
-                                                </a>
-                                            </td>
+                                            <td colspan="14">Loading ...</td>
                                         </tr>
                                     </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -320,7 +290,7 @@
     <script src="js/main.js"></script>
 
     <script>
-        var swiper = new Swiper('.swiper-container', {
+        var swiper = new Swiper('.swipbodyntainer', {
             slidesPerView: 'auto',
             spaceBetween: 20,
             pagination: {
@@ -339,6 +309,11 @@
         document.body.innerHTML = originalContents;
     }
 </script> -->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+
+    <script src="./requiredFiles/js/membersdetails.js"></script>
 
 </body>
 

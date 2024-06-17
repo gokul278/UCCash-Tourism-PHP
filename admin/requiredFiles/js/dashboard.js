@@ -94,6 +94,10 @@ const getData = () => {
                 $("#usedadminnwallet").html(response.usedadminnwallet+"$");
                 $("#balanceadminnwallet").html(response.balanceadminnwallet+"$");
 
+                $("#totaladmingst").html(response.totaladmingst+"$");
+                $("#usedadmingst").html(response.usedadmingst+"$");
+                $("#balanceadmingst").html(response.balanceadmingst+"$");
+
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
                 location.replace("time_expried.php");

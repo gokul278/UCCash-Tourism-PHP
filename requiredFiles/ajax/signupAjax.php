@@ -48,13 +48,13 @@ if ($way == "checksponser") {
 
     $emailquery = $con->query("SELECT * FROM userdetails WHERE user_email='{$email}'");
 
-    if(mysqli_num_rows($emailquery)>=1){
+    if (mysqli_num_rows($emailquery) >= 1) {
 
         $response["status"] = "failed";
         $response["message"] = "Email Already Registered";
-        
-    }else{
-        
+
+    } else {
+
         $response["status"] = "success";
         $response["message"] = "Email Available";
 
@@ -62,7 +62,7 @@ if ($way == "checksponser") {
 
     echo json_encode($response);
 
-}else if ($way == "otpsend") {
+} else if ($way == "otpsend") {
 
     // Mail for Registeration OTP
 
@@ -71,18 +71,26 @@ if ($way == "checksponser") {
 
     try {
         // Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_OFF;
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'redana.food@gmail.com';
-        $mail->Password = 'zibwucwdyhhzmdan';
-        $mail->SMTPSecure = 'ssl';
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
+        $mail->CharSet = 'UTF-8';
+        $mail->Host = 'uccashtourism.com';
         $mail->Port = 465;
-        $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+        $mail->SMTPSecure = 'ssl';
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
+        $mail->SMTPAuth = true;
+        $mail->Username = 'noreply@uccashtourism.com';
+        $mail->Password = 'adminuccashtourism';
+        $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
         $mail->addAddress($postemail);
+        $mail->Subject = 'E-Mail Verification Code for Registration';
         $mail->isHTML(true);
-        $mail->Subject = 'E-Mail Verification Code for Registeration';
         $mail->Body = '<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -396,15 +404,23 @@ if ($way == "checksponser") {
                             try {
 
                                 // Server settings
-                                $mail->SMTPDebug = SMTP::DEBUG_OFF;
                                 $mail->isSMTP();
-                                $mail->Host = 'smtp.gmail.com';
-                                $mail->SMTPAuth = true;
-                                $mail->Username = 'redana.food@gmail.com';
-                                $mail->Password = 'zibwucwdyhhzmdan';
-                                $mail->SMTPSecure = 'ssl';
+                                $mail->SMTPDebug = SMTP::DEBUG_OFF;
+                                $mail->CharSet = 'UTF-8';
+                                $mail->Host = 'uccashtourism.com';
                                 $mail->Port = 465;
-                                $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+                                $mail->SMTPSecure = 'ssl';
+                                $mail->SMTPOptions = [
+                                    'ssl' => [
+                                        'verify_peer' => false,
+                                        'verify_peer_name' => false,
+                                        'allow_self_signed' => true
+                                    ]
+                                ];
+                                $mail->SMTPAuth = true;
+                                $mail->Username = 'noreply@uccashtourism.com';
+                                $mail->Password = 'adminuccashtourism';
+                                $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
                                 $mail->addAddress($savedEmail);
                                 $mail->isHTML(true);
                                 $mail->Subject = 'Welcome to UCCASH TOURISM';
@@ -478,13 +494,13 @@ if ($way == "checksponser") {
                                                         <table>
                                                             <tr align="center">
                                                                 <td style="width: 40%;height: 50px;background-color: #F7C128;border-radius: 50px;">
-                                                                    <a href="http://localhost/UC-Tour/UC%20User/id%20activation.html" style="text-decoration: none;color: black;">
+                                                                    <a href="https://uccashtourism.com/UC%20User/id%20activation.html" style="text-decoration: none;color: black;">
                                                                         Join as Active Distributor
                                                                     </a>
                                                                 </td>
                                                                 <td style="width: 10%;">  </td>
                                                                 <td style="width: 40%;height: 50px;background-color: #F7C128;border-radius: 50px;">
-                                                                    <a href="http://localhost/UC-Tour/UC%20User/monthly%20savings%20pending%20invoice.html" style="text-decoration: none;color: black;">
+                                                                    <a href="https://uccashtourism.com/UC%20User/monthly%20savings%20pending%20invoice.html" style="text-decoration: none;color: black;">
                                                                         Pay Your Monthly Savings    
                                                                     </a>
                                                                 </td>
@@ -606,15 +622,23 @@ if ($way == "checksponser") {
 
                                     try {
                                         // Server settings
-                                        $mail->SMTPDebug = SMTP::DEBUG_OFF;
                                         $mail->isSMTP();
-                                        $mail->Host = 'smtp.gmail.com';
-                                        $mail->SMTPAuth = true;
-                                        $mail->Username = 'redana.food@gmail.com';
-                                        $mail->Password = 'zibwucwdyhhzmdan';
-                                        $mail->SMTPSecure = 'ssl';
+                                        $mail->SMTPDebug = SMTP::DEBUG_OFF;
+                                        $mail->CharSet = 'UTF-8';
+                                        $mail->Host = 'uccashtourism.com';
                                         $mail->Port = 465;
-                                        $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+                                        $mail->SMTPSecure = 'ssl';
+                                        $mail->SMTPOptions = [
+                                            'ssl' => [
+                                                'verify_peer' => false,
+                                                'verify_peer_name' => false,
+                                                'allow_self_signed' => true
+                                            ]
+                                        ];
+                                        $mail->SMTPAuth = true;
+                                        $mail->Username = 'noreply@uccashtourism.com';
+                                        $mail->Password = 'adminuccashtourism';
+                                        $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
                                         $mail->addAddress($savedEmail);
                                         $mail->isHTML(true);
                                         $mail->Subject = 'Monthly savings Pending Invoice';
@@ -695,7 +719,7 @@ if ($way == "checksponser") {
                                                                 <table>
                                                                     <tr align="center">
                                                                         <td style="width: 50%;height: 50px;background-color: #F7C128;border-radius: 50px;">
-                                                                            <a href="http://localhost/UC-Tour/UC%20User/monthly%20TP%20savings.php" style="text-decoration: none;color: black;">
+                                                                            <a href="https://uccashtourism.co/UC-Tour/UC%20User/monthly%20TP%20savings.php" style="text-decoration: none;color: black;">
                                                                                 View and Pay Invoice
                                                                             </a>
                                                                         </td>

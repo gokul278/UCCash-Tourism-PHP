@@ -41,7 +41,7 @@ if ($values["status"] == "success") {
                     tbh.booking_person,
                     tbh.booking_amount,
                     tbh.paymentmethod_description,
-                    tbh.payment_amount,
+                    tbh.net_amount,
                     tbh.status
                 FROM
                     travelcouponpoints AS tcp

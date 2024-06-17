@@ -207,3 +207,9 @@ $("#clearbtnsearch").click(function (e) {
     $("#clearbtnsearch").prop("disabled", true);
     return getData();
 });
+
+function exportToExcel() {
+    var table = document.getElementById("myTable");
+    var wb = XLSX.utils.table_to_book(table, {sheet: "Members Bonus Balance"});
+    XLSX.writeFile(wb, "Members_Bonus_Balance_Sheet.xlsx");
+}
