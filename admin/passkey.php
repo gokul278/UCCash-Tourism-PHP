@@ -3,13 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Admin Passkey</title>
+    <title>Admin Forget Password</title>
+    <link rel="shortcut icon" href="./img/favicon.png">
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +28,13 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+     <!-- Simple Notifier -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
 </head>
 
 <body>
@@ -49,23 +55,19 @@
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                         <div class="d-flex flex-column align-items-center mb-3">
                             <a href="#" class="">
-                                <img src="./img/user.png" style="width: 150px; height: 150px;" alt="User Image" class="me-2"> 
+                                <img src="./img/user.png" class="profile_image" style="width: 150px; height: 150px;border-radius: 100px;" alt="User Image" class="me-2"> 
                             </a>
                             <br>
-                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome Dr. P. Balakrishnnan</h4>
+                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome<br><p class="adminname"></p></h4>
                         </div>
-                        
-                        
-                        
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="Passkey" placeholder="">
-                            <label for="text">Admin's PassKey</label>
-                        </div>
+                        <h4 style="color: #fff; text-align: center;" class="mt-2">Forget Password ?</h4>
+                        <br>
                        
                         <div class="text-center">
-                            <a href="#" id="checkPasskeyLink" style="display: none;"></a> <!-- Hidden link -->
-                            <button type="button" class="btn btn-primary py-2 px-4 mb-2" style="font-weight: bold; font-size: 20px;">Check Passkey</button>
+                            <button type="button" class="btn btn-primary py-2 px-4 mb-2" style="font-weight: bold; font-size: 20px;" onclick="sendforgetpass()" id="sendbtn">Send Mail</button>
                         </div>
+                        <br>
+                        <p class="text-center mb-0"><a href="index.php"><b><i class="fa fa-sign-out-alt"></i> Back to Site</b></a></p>
                         
                     </div>
                 </div>
@@ -87,6 +89,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <script src="./requiredFiles/js/index.js"></script>
 </body>
 
 </html>

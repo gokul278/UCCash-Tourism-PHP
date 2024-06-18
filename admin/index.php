@@ -81,8 +81,6 @@
                             </div>
                         </form>
 
-                        <br>
-
 
                         <p class="text-center mb-0"><a href="passkey.php"><b>Forgot Password ?</b></a></p>
                     </div>

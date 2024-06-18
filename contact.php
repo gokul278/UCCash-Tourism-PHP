@@ -102,7 +102,7 @@
                             <div class="text-center mb-4">
                                 <i class="fa fa-phone-alt fa-3x text-primary mb-3"></i>
                                 <h4 class="text-primary">Mobile</h4>
-                                <p class="mb-0"><a style="color: #000;" href="tel:+91 9360248850"><b>+91 9360248850</b></a></p>
+                                <p class="mb-0"><a style="color: #000;" href="tel:+91 8124779993"><b>+91 8124779993</b></a></p>
                             </div>
                            
                             <div class="text-center">

@@ -98,7 +98,7 @@
                         <h1 class="mb-4">Hi! Welcome to <span class="text-primary">UCCash Tour & Travels</span></h1>
                         
                         <br>
-                        <p style="text-align: justify;color: black;" class="mb-4">Our well-established travel agency has been in business for over a decade. We are experts in every aspect of this business and have earned the respect of many people over the years. Our firm is well versed in the difficulties and annoyances associated with obtaining mandatory documents . So here we are , bringing you the stress -free foldaway.</p>
+                        <p style="text-align: justify;color: black;" class="mb-4">UCCASH Tourism is a Tours and Travels company. A tourism company created to fulfill the dream of the common middle class people to travel abroad, this company is created by more then 15 years well-experienced professionals in the field of tourism. Our UCCASH Tourism has created an opportunity to travel abroad with an easy savings plan and  everyone to travel abroad easily with earnings.</p>
                         <p style="text-align: justify;color: black;" class="mb-4">We provide first-class service whether you are travelling Domestically or Internationally. We offer our clients the best in class service at reasonable prices. Our services are much more prompt and competent.</p>
                         <p style="text-align: justify;color: black;" class="mb-4">People who have travelled with us attest to our extremely efficient and advanced services. they have shared their excellent travel experience with our company on our website. If you're interested in hearing more about it, please let us know and we'll get back to you as soon as possible.</p>
                         
