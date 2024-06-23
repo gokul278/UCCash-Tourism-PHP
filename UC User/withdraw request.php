@@ -346,22 +346,22 @@
                                         <h2 class="running-balance mt-2">
                                             <p id="availablewithdrwabalance"></p>
                                         </h2>
-                                        <h6>Minimum Withdraw 50$</h6>
+                                        <h6 id="minwithdraw">Minimum Withdraw 50$</h6>
                                     </div>
                                 </div>
 
                                 <br>
                                 <h6 class="mb-4">Withdraw Type</h6>
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                    <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="presentation" onclick="changeminbank()">
                                         <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-home" type="button" role="tab"
                                             aria-controls="pills-home" aria-selected="true">Crypto</button>
                                     </li>
-                                    <li class="nav-item" role="presentation">
+                                    <li class="nav-item" role="presentation" onclick="changemincrypto()">
                                         <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                                             data-bs-target="#pills-profile" type="button" role="tab"
-                                            aria-controls="pills-profile" aria-selected="false">Bank Acc</button>
+                                            aria-controls="pills-profile"  aria-selected="false">Bank Acc</button>
                                     </li>
                                 </ul>
                                 <strong id="payoption">

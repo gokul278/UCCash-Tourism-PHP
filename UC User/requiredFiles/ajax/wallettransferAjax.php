@@ -167,26 +167,26 @@ if ($values["status"] == "success") {
         $checkotp = $con->query("SELECT * FROM userbankdetails WHERE user_id='{$values["userid"]}'");
         $getcheckotp = $checkotp->fetch_assoc();
 
-        if($getcheckotp["otp"] == $otp){
+        if ($getcheckotp["otp"] == $otp) {
 
             if ($wallettype == "savingstravelpoints") {
 
                 $activation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}' AND user_referalStatus='activated'");
-    
+
                 if (mysqli_num_rows($activation)) {
-    
+
                     $checkid = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
                     // $getcheckid = $checkid->fetch_assoc();
-    
+
                     if (mysqli_num_rows($checkid) >= 1) {
-    
+
                         //Savings Travel Points
                         $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
                         $stcredit = 0;
                         $stdebit = 0;
-    
+
                         if (mysqli_num_rows($savingtravel) >= 1) {
-    
+
                             foreach ($savingtravel as $getsavingtravel) {
                                 if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
                                     if ($getsavingtravel["st_action"] == "credit") {
@@ -196,20 +196,20 @@ if ($values["status"] == "success") {
                                     }
                                 }
                             }
-    
+
                         }
-    
+
                         $savingsincomebalance = $stcredit - $stdebit;
-    
+
                         if ($transferpoints <= $savingsincomebalance) {
-                            
+
                             $debituser = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_bonusfrom,st_action,st_remark)
                             VALUES ('{$values["userid"]}','{$transferpoints}','Transferred for {$userid}','debit','transfer')");
-    
+
                             $credituser = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_bonusfrom,st_action,st_remark)
                             VALUES ('{$userid}','{$transferpoints}','Transferred From {$values["userid"]}','credit','transfer')");
-    
-    
+
+
                             if ($credituser && $debituser) {
                                 $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                                 $response["status"] = "success";
@@ -219,50 +219,50 @@ if ($values["status"] == "success") {
                                 $response["message"] = "sql error";
                                 echo json_encode($response);
                             }
-    
+
                         } else {
-    
+
                             $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                             $response["status"] = "error";
                             $response["message"] = "Insufficient balance";
                             echo json_encode($response);
-    
-    
+
+
                         }
-    
-    
-    
+
+
+
                     } else {
-    
+
                         $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                         $response["status"] = "error";
                         $response["message"] = "Invalid User ID";
                         echo json_encode($response);
-    
-    
+
+
                     }
-    
+
                 } else {
-    
+
                     $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                     $response["status"] = "error";
                     $response["message"] = "Activate Your ID";
                     echo json_encode($response);
-                    
+
                 }
-    
-    
+
+
             } else {
-    
+
                 $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                 $response["status"] = "error";
                 $response["message"] = "Choose Wallet Type";
                 echo json_encode($response);
-    
-    
+
+
             }
 
-        }else{
+        } else {
 
             $response["status"] = "error";
             $response["message"] = "Invalid OTP";
@@ -271,7 +271,7 @@ if ($values["status"] == "success") {
         }
 
 
-        
+
 
 
 
@@ -291,15 +291,23 @@ if ($values["status"] == "success") {
 
         try {
             // Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'redana.food@gmail.com';
-            $mail->Password = 'zibwucwdyhhzmdan';
-            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->CharSet = 'UTF-8';
+            $mail->Host = 'smtpout.secureserver.net';
             $mail->Port = 465;
-            $mail->setFrom('redana.food@gmail.com', 'UCCASH TOURISM TEAM');
+            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+            $mail->SMTPAuth = true;
+            $mail->Username = 'info@uccashtourism.com';
+            $mail->Password = 'Tourism@#$2023';
+            $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
             $mail->addAddress($getuserdata["user_email"]);
             $mail->isHTML(true);
             $mail->Subject = 'Wallet Transfer OTP';
@@ -383,7 +391,7 @@ if ($values["status"] == "success") {
                                     </div>
                                     <div align="start">
                                         <p>
-                                            Let us know if you have issues while applying Wallet Transfer or if you have any questions regarding it by emailing us at <a href="mailto:billing@uccashtourism.com" style="text-decoration: none;color: black;"><b>billing@uccashtourism.com</b></a>
+                                            Let us know if you have issues while applying Wallet Transfer or if you have any questions regarding it by emailing us at <a href="mailto:info@uccashtourism.com" style="text-decoration: none;color: black;"><b>info@uccashtourism.com</b></a>
                                         </p>
                                     </div>
                                     <div align="start">
@@ -456,26 +464,22 @@ if ($values["status"] == "success") {
                                                 </div>
                                                 <div>
                                                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                        <tr style="font-size:90%" align="center">
-                                                            <td style="width:6%" align="end">
-                                                                <a href="google.com"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="50%"
-                                                                        style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                                        <tr style="font-size: 100%;" align="center">
+                                                            <td style="width: 50%; padding: 0;" align="start">
+                                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                                    <tr>
+                                                                        <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                                        <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
-                                                            <td align="start" style="color:black; width:44%">
-                                                                <b>
-                                                                    <a style="text-decoration:none; color:black;"
-                                                                        href="https://uccashtourism.com">https://uccashtourism.com</a>
-                                                                </b>
-                                                            </td>
-                                                            <td width:6%" align="end">
-                                                                <a href="google.com"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="50%"
-                                                                        style="display: block; margin: 0 auto;" alt="Logo"></a>
-                                                            </td>
-                                                            <td align="start" style="color:black; width:44%"">
-                                                                        <b>
-                                                                            <a style=" text-decoration:none; color:black;"
-                                                                href="mailto:info@uccashtourism.com">info@uccashtourism.com</a>
-                                                                </b>
+                                                            <td style="width: 50%; padding: 0;" align="start">
+                                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                                    <tr>
+                                                                        <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                                        <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 5px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
                                                         </tr>
                                                     </table>

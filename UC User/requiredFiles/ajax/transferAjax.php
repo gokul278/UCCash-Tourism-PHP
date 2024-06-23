@@ -421,28 +421,12 @@ if ($values["status"] == "success") {
 
             } else if ($wallettype == "leadershipincome") {
 
-                $checkrank = $con->query("SELECT * FROM genealogy WHERE lvl2='{$values["userid"]}'");
-
-                $number = $checkrank->num_rows;
-
-                if ($number >= 25) {
-
-                    $debitwallet = $con->query("INSERT INTO leadershipincomewallet (user_id, liw_points, liw_bonusfrom, liw_lvl, liw_action, liw_remark)
-                    VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
-                    $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
-                    VALUES ('{$values["userid"]}', 'Leadership Income', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
-                    $response["status"] = "success";
-                    echo json_encode($response);
-
-                } else {
-
-                    $response["status"] = "error";
-                    $response["message"] = "To Unlock the Senior Director Rank";
-                    echo json_encode($response);
-
-                }
-
-
+                $debitwallet = $con->query("INSERT INTO leadershipincomewallet (user_id, liw_points, liw_bonusfrom, liw_lvl, liw_action, liw_remark)
+                VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
+                $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
+                VALUES ('{$values["userid"]}', 'Leadership Income', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
+                $response["status"] = "success";
+                echo json_encode($response);
 
             } else if ($wallettype == "carandhousefundincome") {
 

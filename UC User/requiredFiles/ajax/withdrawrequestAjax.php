@@ -126,15 +126,23 @@ if ($values["status"] == "success") {
 
         try {
             // Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'redana.food@gmail.com';
-            $mail->Password = 'zibwucwdyhhzmdan';
-            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->CharSet = 'UTF-8';
+            $mail->Host = 'smtpout.secureserver.net';
             $mail->Port = 465;
-            $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+            $mail->SMTPAuth = true;
+            $mail->Username = 'info@uccashtourism.com';
+            $mail->Password = 'Tourism@#$2023';
+            $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Withdraw Request OTP';
@@ -218,7 +226,7 @@ if ($values["status"] == "success") {
                                     </div>
                                     <div align="start">
                                         <p>
-                                            Let us know if you have issues while paying this applying withdraw or if you have any questions regarding it by emailing us at <a href="mailto:billing@uccashtourism.com" style="text-decoration: none;color: black;"><b>billing@uccashtourism.com</b></a>
+                                            Let us know if you have issues while paying this applying withdraw or if you have any questions regarding it by emailing us at <a href="mailto:info@uccashtourism.com" style="text-decoration: none;color: black;"><b>info@uccashtourism.com</b></a>
                                         </p>
                                     </div>
                                     <div align="start">
@@ -291,26 +299,22 @@ if ($values["status"] == "success") {
                                                 </div>
                                                 <div>
                                                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                        <tr style="font-size:90%" align="center">
-                                                            <td style="width:6%" align="end">
-                                                                <a href="google.com"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="50%"
-                                                                        style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                                        <tr style="font-size: 100%;" align="center">
+                                                            <td style="width: 50%; padding: 0;" align="start">
+                                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                                    <tr>
+                                                                        <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                                        <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
-                                                            <td align="start" style="color:black; width:44%">
-                                                                <b>
-                                                                    <a style="text-decoration:none; color:black;"
-                                                                        href="https://uccashtourism.com">https://uccashtourism.com</a>
-                                                                </b>
-                                                            </td>
-                                                            <td width:6%" align="end">
-                                                                <a href="google.com"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="50%"
-                                                                        style="display: block; margin: 0 auto;" alt="Logo"></a>
-                                                            </td>
-                                                            <td align="start" style="color:black; width:44%"">
-                                                                        <b>
-                                                                            <a style=" text-decoration:none; color:black;"
-                                                                href="mailto:info@uccashtourism.com">info@uccashtourism.com</a>
-                                                                </b>
+                                                            <td style="width: 50%; padding: 0;" align="start">
+                                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                                    <tr>
+                                                                        <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                                        <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 5px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -368,15 +372,23 @@ if ($values["status"] == "success") {
 
         try {
             // Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'redana.food@gmail.com';
-            $mail->Password = 'zibwucwdyhhzmdan';
-            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
+            $mail->CharSet = 'UTF-8';
+            $mail->Host = 'smtpout.secureserver.net';
             $mail->Port = 465;
-            $mail->setFrom('redana.food@gmail.com', 'Redana Team');
+            $mail->SMTPSecure = 'ssl';
+            $mail->SMTPOptions = [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                ]
+            ];
+            $mail->SMTPAuth = true;
+            $mail->Username = 'info@uccashtourism.com';
+            $mail->Password = 'Tourism@#$2023';
+            $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Withdraw Request OTP';
@@ -464,7 +476,7 @@ if ($values["status"] == "success") {
                                     </div>
                                     <div align="start">
                                         <p>
-                                            Let us know if you have issues while paying this applying withdraw or if you have any questions regarding it by emailing us at <a href="mailto:billing@uccashtourism.com" style="text-decoration: none;color: black;"><b>billing@uccashtourism.com</b></a>
+                                            Let us know if you have issues while paying this applying withdraw or if you have any questions regarding it by emailing us at <a href="mailto:info@uccashtourism.com" style="text-decoration: none;color: black;"><b>info@uccashtourism.com</b></a>
                                         </p>
                                     </div>
                                     <div align="start">
@@ -537,26 +549,22 @@ if ($values["status"] == "success") {
                                                 </div>
                                                 <div>
                                                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                        <tr style="font-size:90%" align="center">
-                                                            <td style="width:6%" align="end">
-                                                                <a href="google.com"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="50%"
-                                                                        style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                                        <tr style="font-size: 100%;" align="center">
+                                                            <td style="width: 50%; padding: 0;" align="start">
+                                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                                    <tr>
+                                                                        <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                                        <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
-                                                            <td align="start" style="color:black; width:44%">
-                                                                <b>
-                                                                    <a style="text-decoration:none; color:black;"
-                                                                        href="https://uccashtourism.com">https://uccashtourism.com</a>
-                                                                </b>
-                                                            </td>
-                                                            <td width:6%" align="end">
-                                                                <a href="google.com"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="50%"
-                                                                        style="display: block; margin: 0 auto;" alt="Logo"></a>
-                                                            </td>
-                                                            <td align="start" style="color:black; width:44%"">
-                                                                        <b>
-                                                                            <a style=" text-decoration:none; color:black;"
-                                                                href="mailto:info@uccashtourism.com">info@uccashtourism.com</a>
-                                                                </b>
+                                                            <td style="width: 50%; padding: 0;" align="start">
+                                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                                    <tr>
+                                                                        <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                                        <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 5px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
+                                                                    </tr>
+                                                                </table>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -584,7 +592,7 @@ if ($values["status"] == "success") {
 
     } else if ($way == "cryptowithdraw") {
 
-        $withdrawvalue = $coinvalue;
+        $withdrawvalue = $_POST["withdrawvalue"];
         $otp = $_POST["otp"];
 
         $checkactivation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
@@ -678,7 +686,7 @@ if ($values["status"] == "success") {
 
     } else if ($way == "bankwithdraw") {
 
-        $withdrawvalue = $dollarvalue;
+        $withdrawvalue = $_POST["withdrawvalue"];
         $otp = $_POST["otp"];
 
         $checkactivation = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
@@ -688,7 +696,7 @@ if ($values["status"] == "success") {
         if ($getcheckactivation["user_referalStatus"] == "activated") {
 
             //withdraw Limit
-            $minimumlimit = number_format(50, 2);
+            $minimumlimit = round(10, 2);
 
             if ($withdrawvalue >= $minimumlimit) {
 
@@ -753,7 +761,7 @@ if ($values["status"] == "success") {
 
             } else {
                 $response["status"] = "error";
-                $response["message"] = "Minimum Withdraw Limit 50$";
+                $response["message"] = "Minimum Withdraw Limit 10$";
                 echo json_encode($response);
             }
 

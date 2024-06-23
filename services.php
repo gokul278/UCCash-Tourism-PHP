@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>UCCASH TOURISM</title>
+        <title>UCCASH TOURISM - Services</title>
         <link rel="shortcut icon" href="./img/favicon.png">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
@@ -365,93 +365,119 @@ background: #f7c128 !important;
 
         <!-- Testimonial Start -->
         <div class="container-fluid testimonial py-5">
-            <div class="container py-5">
-                <div class="mx-auto text-center mb-5" style="max-width: 900px;">
-                    <h1 class="mb-0">Customer <span style="color: #f7c128;">Testimonials</span></h1>
+        <div class="container py-5">
+            <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+
+                <h1 class="mb-0">Customer <span style="color: #f7c128;">Testimonials</span></h1>
+            </div>
+            <div class="testimonial-carousel owl-carousel">
+                <div class="testimonial-item text-center rounded pb-4">
+                    <div class="testimonial-comment bg-light rounded p-4">
+                        <p class="text-center mb-5">
+                            Traveling with them has been an absolute joy! Each trip is uniquely planned, making every experience extraordinary. Our Thailand journey was remarkable, showcasing breathtaking landscapes and rich cultural heritage. Their flawless organization and tailored experiences truly elevated our adventure. I highly recommend their services for an outstanding travel experience.
+                        </p>
+                    </div>
+                    <div class="testimonial-img p-1">
+                        <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
+                    </div>
+                    <div style="margin-top: -35px;">
+                        <h5 class="mb-0">Vignesh Kumar K</h5>
+                        <p class="mb-0 pb-1">Salem, Tamilnadu, India</p>
+                        <div class="d-flex justify-content-center">
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                        </div>
+                    </div>
                 </div>
-                <div class="testimonial-carousel owl-carousel">
-                    <div class="testimonial-item text-center rounded pb-4">
-                        <div class="testimonial-comment bg-light rounded p-4">
-                            <p class="text-center mb-5">I have travel experience over years with them, all their plans where designed in unique manner and i enjoy travelling with them.
-                            </p>
-                        </div>
-                        <div class="testimonial-img p-1">
-                            <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
-                        </div>
-                        <div style="margin-top: -35px;">
-                            <h5 class="mb-0">Ashok Kumar</h5>
-                            <p class="mb-0">Tamilnadu, India</p>
-                            <div class="d-flex justify-content-center">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
+                <div class="testimonial-item text-center rounded pb-4">
+                    <div class="testimonial-comment bg-light rounded p-4">
+                        <p class="text-center mb-5">
+                        I have had years of travel experience with them, and their meticulously crafted plans always stand out. My journey in Singapore was exceptional, offering a unique blend of modernity and culture. Their thoughtful arrangements and personalized approach made every moment enjoyable. I highly recommend their services for an unforgettable travel experience!
+                        </p>
+                    </div>
+                    <div class="testimonial-img p-1">
+                        <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
+                    </div>
+                    <div style="margin-top: -35px;">
+                        <h5 class="mb-0">Meganathan S</h5>
+                        <p class="mb-0 pb-1">Salem, Tamilnadu, India</p>
+                        <div class="d-flex justify-content-center">
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
                         </div>
                     </div>
-                    <div class="testimonial-item text-center rounded pb-4">
-                        <div class="testimonial-comment bg-light rounded p-4">
-                            <p class="text-center mb-5">I have travel experience over years with them, all their plans where designed in unique manner and i enjoy travelling with them.
-                            </p>
-                        </div>
-                        <div class="testimonial-img p-1">
-                            <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
-                        </div>
-                        <div style="margin-top: -35px;">
-                            <h5 class="mb-0">Ashok Kumar</h5>
-                            <p class="mb-0">Tamilnadu, India</p>
-                            <div class="d-flex justify-content-center">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
+                </div>
+                <div class="testimonial-item text-center rounded pb-4">
+                    <div class="testimonial-comment bg-light rounded p-4">
+                        <p class="text-center mb-5">
+                        Traveling with them over the years has been amazing. Their unique plans never fail to impress. My Yercaud Hill View trip was incredible, featuring stunning views and flawless organization. The attention to detail and personalized service made it truly memorable. I highly recommend their tours for an exceptional experience!
+                        </p>
+                    </div>
+                    <div class="testimonial-img p-1">
+                        <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
+                    </div>
+                    <div style="margin-top: -35px;">
+                        <h5 class="mb-0">Arangarasan K</h5>
+                        <p class="mb-0 pb-1">Thanjavur, Tamilnadu, India</p>
+                        <div class="d-flex justify-content-center">
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
                         </div>
                     </div>
-                    <div class="testimonial-item text-center rounded pb-4">
-                        <div class="testimonial-comment bg-light rounded p-4">
-                            <p class="text-center mb-5">I have travel experience over years with them, all their plans where designed in unique manner and i enjoy travelling with them.
-                            </p>
-                        </div>
-                        <div class="testimonial-img p-1">
-                            <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
-                        </div>
-                        <div style="margin-top: -35px;">
-                            <h5 class="mb-0">Ashok Kumar</h5>
-                            <p class="mb-0">Tamilnadu, India</p>
-                            <div class="d-flex justify-content-center">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
+                </div>
+                <div class="testimonial-item text-center rounded pb-4">
+                    <div class="testimonial-comment bg-light rounded p-4">
+                        <p class="text-center mb-5">
+                            Traveling with them over the years has been exceptional. Their distinctive plans make each journey unique. My Bangkok trip was outstanding, showcasing vibrant culture and breathtaking sights. The flawless organization and personalized service made it unforgettable. I highly recommend their tours for a remarkable travel experience!
+                        </p>
+                    </div>
+                    <div class="testimonial-img p-1">
+                        <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
+                    </div>
+                    <div style="margin-top: -35px;">
+                        <h5 class="mb-0">Sellappa S R</h5>
+                        <p class="mb-0 pb-1">Thuraiyur, Tamilnadu, India</p>
+                        <div class="d-flex justify-content-center">
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
                         </div>
                     </div>
-                    <div class="testimonial-item text-center rounded pb-4">
-                        <div class="testimonial-comment bg-light rounded p-4">
-                            <p class="text-center mb-5">I have travel experience over years with them, all their plans where designed in unique manner and i enjoy travelling with them.
-                            </p>
-                        </div>
-                        <div class="testimonial-img p-1">
-                            <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
-                        </div>
-                        <div style="margin-top: -35px;">
-                            <h5 class="mb-0">Ashok Kumar</h5>
-                            <p class="mb-0">Tamilnadu, India</p>
-                            <div class="d-flex justify-content-center">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                            </div>
+                </div>
+                <div class="testimonial-item text-center rounded pb-4">
+                    <div class="testimonial-comment bg-light rounded p-4">
+                        <p class="text-center mb-5">
+                            Traveling with them over the years has been fantastic. Their distinctive plans consistently amaze me. My Yercaud Hill View trip was extraordinary, featuring awe-inspiring views and flawless coordination. Their meticulous attention and personalized touch made it truly memorable. I wholeheartedly recommend their tours for an unparalleled experience!
+                        </p>
+                    </div>
+                    <div class="testimonial-img p-1">
+                        <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
+                    </div>
+                    <div style="margin-top: -35px;">
+                        <h5 class="mb-0">Kumaravel K</h5>
+                        <p class="mb-0 pb-1">Ponnamaravathy, Tamilnadu, India</p>
+                        <div class="d-flex justify-content-center">
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <!-- Testimonial End -->
 
@@ -538,6 +564,14 @@ background: #f7c128 !important;
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
+        <script type="application/ld+json">
+    {
+      "@context" : "https://schema.org",
+      "@type" : "WebSite",
+      "name" : "UCCash Foundation - Services",
+      "url" : "https://www.uccashfoundation.com/services.php"
+    }
+  </script>
         
         <!-- JavaScript Libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

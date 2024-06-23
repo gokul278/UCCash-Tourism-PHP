@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>UCCASH TOURISM</title>
+    <title>UCCASH TOURISM - Home</title>
     <link rel="shortcut icon" href="./img/favicon.png">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -22,6 +22,9 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -30,6 +33,12 @@
     <link href="css/style.css" rel="stylesheet">
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <style>
+        .iti {
+            width: 100%
+        }
+    </style>
 </head>
 
 <body>
@@ -115,11 +124,11 @@
                     <h1 class="mb-4">Hi! Welcome to <span class="text-primary">UCCash Tour & Travels</span></h1>
 
                     <br>
-                    <p style="text-align: justify;color: black;" class="mb-4">Our well-established travel agency has
-                        been in business for over a decade. We are experts in every aspect of this business and have
-                        earned the respect of many people over the years. Our firm is well versed in the difficulties
-                        and annoyances associated with obtaining mandatory documents . So here we are , bringing you the
-                        stress -free foldaway.</p>
+                    <p style="text-align: justify;color: black;" class="mb-4">UCCASH Tourism is a Tours and Travels
+                        company. A tourism company created to fulfill the dream of the common middle class people to
+                        travel abroad, this company is created by more then 15 years well-experienced professionals in
+                        the field of tourism. Our UCCASH Tourism has created an opportunity to travel abroad with an
+                        easy savings plan and everyone to travel abroad easily with earnings.</p>
                     <p style="text-align: justify;color: black;" class="mb-4">We provide first-class service whether you
                         are travelling Domestically or Internationally. We offer our clients the best in class service
                         at reasonable prices. Our services are much more prompt and competent.</p>
@@ -262,32 +271,65 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form id="emailsubmit">
-                    <div class="modal-header">
+                    <div style="background-color:#f7c128" class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">For Enquiry</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="form-floating mb-4">
                             <input type="text" class="form-control" placeholder="Name" name="name" required>
-                            <label for="password">Your Name</label>
+                            <label for="password">Name</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" placeholder="Email" name="address" required>
+                            <label for="password">City of Residence</label>
                         </div>
                         <div class="form-floating mb-4">
                             <input type="text" class="form-control" placeholder="Email" name="email" required>
-                            <label for="password">Your Email</label>
+                            <label for="password">Email</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="text" class="form-control" placeholder="Mobile Number" name="mobileno"
+                            <div class="col-12">
+                                <input id="phone" type="tel" class="form-control" placeholder="Mobile Number"
+                                    name="phone" style="width:100%;height:63px" required />
+                                <input type="hidden" id="phone_country" name="phone_country">
+                            </div>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <div class="col-12">
+                                <input style="width:100%;height:63px" id="whatsno" type="tel" class="form-control"
+                                    placeholder="Whatsapp Number" name="whatsappno" required />
+                                <input type="hidden" id="whatsno_country" name="whatsno_country">
+                            </div>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" placeholder="Email" name="traveldestination"
                                 required>
-                            <label for="password">Your Mobile Number</label>
+                            <label for="password">Travel Destination</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <textarea class="form-control" placeholder="Description" name="description" id="address"
-                                style="height: 160px;" required></textarea>
-                            <label for="password">Enter What You Know About Our Package</label>
+                            <input type="date" class="form-control" placeholder="Email" name="dateoftravel" required>
+                            <label for="password">Date of Travel</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="number" class="form-control" placeholder="Email" name="noofpeople" required>
+                            <label for="password">No.of People</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="package" id="package">
+                                <option value="" selected disabled>Select Package</option>
+                                <option value="Family Package">Family Package</option>
+                                <option value="Weekend Package">Weekend Package</option>
+                                <option value="Group Package">Group Package</option>
+                                <option value="Honeymoon Package">Honeymoon Package</option>
+                            </select>
+                            <label for="password">Vacation Type</label>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id="submitbtn">Send Details to Contact Us</button>
+                        <button type="submit" class="btn btn-primary"
+                            style="color:black;width:100%;height:63px;font-weight:700" id="submitbtn">Send Details to
+                            Contact Us</button>
                     </div>
                 </form>
             </div>
@@ -619,16 +661,20 @@
             <div class="testimonial-carousel owl-carousel">
                 <div class="testimonial-item text-center rounded pb-4">
                     <div class="testimonial-comment bg-light rounded p-4">
-                        <p class="text-center mb-5">I have travel experience over years with them, all their plans where
-                            designed in unique manner and i enjoy travelling with them.
+                        <p class="text-center mb-5">
+                            Traveling with them has been an absolute joy! Each trip is uniquely planned, making every
+                            experience extraordinary. Our Thailand journey was remarkable, showcasing breathtaking
+                            landscapes and rich cultural heritage. Their flawless organization and tailored experiences
+                            truly elevated our adventure. I highly recommend their services for an outstanding travel
+                            experience.
                         </p>
                     </div>
                     <div class="testimonial-img p-1">
                         <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
                     </div>
                     <div style="margin-top: -35px;">
-                        <h5 class="mb-0">Ashok Kumar</h5>
-                        <p class="mb-0">Tamilnadu, India</p>
+                        <h5 class="mb-0">Vignesh Kumar K</h5>
+                        <p class="mb-0 pb-1">Salem, Tamilnadu, India</p>
                         <div class="d-flex justify-content-center">
                             <i class="fas fa-star text-primary"></i>
                             <i class="fas fa-star text-primary"></i>
@@ -640,16 +686,19 @@
                 </div>
                 <div class="testimonial-item text-center rounded pb-4">
                     <div class="testimonial-comment bg-light rounded p-4">
-                        <p class="text-center mb-5">I have travel experience over years with them, all their plans where
-                            designed in unique manner and i enjoy travelling with them.
+                        <p class="text-center mb-5">
+                            I have had years of travel experience with them, and their meticulously crafted plans always
+                            stand out. My journey in Singapore was exceptional, offering a unique blend of modernity and
+                            culture. Their thoughtful arrangements and personalized approach made every moment
+                            enjoyable. I highly recommend their services for an unforgettable travel experience!
                         </p>
                     </div>
                     <div class="testimonial-img p-1">
                         <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
                     </div>
                     <div style="margin-top: -35px;">
-                        <h5 class="mb-0">Ashok Kumar</h5>
-                        <p class="mb-0">Tamilnadu, India</p>
+                        <h5 class="mb-0">Meganathan S</h5>
+                        <p class="mb-0 pb-1">Salem, Tamilnadu, India</p>
                         <div class="d-flex justify-content-center">
                             <i class="fas fa-star text-primary"></i>
                             <i class="fas fa-star text-primary"></i>
@@ -661,16 +710,19 @@
                 </div>
                 <div class="testimonial-item text-center rounded pb-4">
                     <div class="testimonial-comment bg-light rounded p-4">
-                        <p class="text-center mb-5">I have travel experience over years with them, all their plans where
-                            designed in unique manner and i enjoy travelling with them.
+                        <p class="text-center mb-5">
+                            Traveling with them over the years has been amazing. Their unique plans never fail to
+                            impress. My Yercaud Hill View trip was incredible, featuring stunning views and flawless
+                            organization. The attention to detail and personalized service made it truly memorable. I
+                            highly recommend their tours for an exceptional experience!
                         </p>
                     </div>
                     <div class="testimonial-img p-1">
                         <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
                     </div>
                     <div style="margin-top: -35px;">
-                        <h5 class="mb-0">Ashok Kumar</h5>
-                        <p class="mb-0">Tamilnadu, India</p>
+                        <h5 class="mb-0">Arangarasan K</h5>
+                        <p class="mb-0 pb-1">Thanjavur, Tamilnadu, India</p>
                         <div class="d-flex justify-content-center">
                             <i class="fas fa-star text-primary"></i>
                             <i class="fas fa-star text-primary"></i>
@@ -682,16 +734,43 @@
                 </div>
                 <div class="testimonial-item text-center rounded pb-4">
                     <div class="testimonial-comment bg-light rounded p-4">
-                        <p class="text-center mb-5">I have travel experience over years with them, all their plans where
-                            designed in unique manner and i enjoy travelling with them.
+                        <p class="text-center mb-5">
+                            Traveling with them over the years has been exceptional. Their distinctive plans make each
+                            journey unique. My Bangkok trip was outstanding, showcasing vibrant culture and breathtaking
+                            sights. The flawless organization and personalized service made it unforgettable. I highly
+                            recommend their tours for a remarkable travel experience!
                         </p>
                     </div>
                     <div class="testimonial-img p-1">
                         <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
                     </div>
                     <div style="margin-top: -35px;">
-                        <h5 class="mb-0">Ashok Kumar</h5>
-                        <p class="mb-0">Tamilnadu, India</p>
+                        <h5 class="mb-0">Sellappa S R</h5>
+                        <p class="mb-0 pb-1">Thuraiyur, Tamilnadu, India</p>
+                        <div class="d-flex justify-content-center">
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                            <i class="fas fa-star text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item text-center rounded pb-4">
+                    <div class="testimonial-comment bg-light rounded p-4">
+                        <p class="text-center mb-5">
+                            Traveling with them over the years has been fantastic. Their distinctive plans consistently
+                            amaze me. My Yercaud Hill View trip was extraordinary, featuring awe-inspiring views and
+                            flawless coordination. Their meticulous attention and personalized touch made it truly
+                            memorable. I wholeheartedly recommend their tours for an unparalleled experience!
+                        </p>
+                    </div>
+                    <div class="testimonial-img p-1">
+                        <img src="img/testimonial.png" class="img-fluid rounded-circle" alt="Image">
+                    </div>
+                    <div style="margin-top: -35px;">
+                        <h5 class="mb-0">Kumaravel K</h5>
+                        <p class="mb-0 pb-1">Ponnamaravathy, Tamilnadu, India</p>
                         <div class="d-flex justify-content-center">
                             <i class="fas fa-star text-primary"></i>
                             <i class="fas fa-star text-primary"></i>
@@ -813,6 +892,37 @@
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i
             class="fa fa-arrow-up"></i></a>
+
+    <script type="application/ld+json">
+    {
+      "@context" : "https://schema.org",
+      "@type" : "WebSite",
+      "name" : "UCCash Tourism - Home",
+      "url" : "https://www.uccashtourism.com/"
+    }
+  </script>
+
+    <script>
+        const phoneInputField = document.querySelector("#phone");
+        const phoneCountryField = document.querySelector('#phone_country');
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            preferredCountries: ["in"],
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        // Get the country data on initialization
+        phoneCountryField.value = phoneInput.getSelectedCountryData().dialCode;
+
+        const phoneInputFieldWhatsapp = document.querySelector("#whatsno");
+        const whatsappCountryField = document.querySelector('#whatsno_country');
+        const phoneInputWhatsapp = window.intlTelInput(phoneInputFieldWhatsapp, {
+            preferredCountries: ["in"],
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+
+        // Get the country data on initialization
+        whatsappCountryField.value = phoneInputWhatsapp.getSelectedCountryData().dialCode;
+    </script>
 
 
     <!-- JavaScript Libraries -->

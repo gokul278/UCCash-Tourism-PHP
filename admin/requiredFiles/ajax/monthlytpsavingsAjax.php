@@ -230,7 +230,7 @@ if ($values["status"] == "success") {
                     $mail->isSMTP();
                     $mail->SMTPDebug = SMTP::DEBUG_OFF;
                     $mail->CharSet = 'UTF-8';
-                    $mail->Host = 'uccashtourism.com';
+                    $mail->Host = 'smtpout.secureserver.net';
                     $mail->Port = 465;
                     $mail->SMTPSecure = 'ssl';
                     $mail->SMTPOptions = [
@@ -241,9 +241,9 @@ if ($values["status"] == "success") {
                         ]
                     ];
                     $mail->SMTPAuth = true;
-                    $mail->Username = 'noreply@uccashtourism.com';
-                    $mail->Password = 'adminuccashtourism';
-                    $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
+                    $mail->Username = 'info@uccashtourism.com';
+                    $mail->Password = 'Tourism@#$2023';
+                    $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
                     $mail->addAddress($ressponser["user_email"]);
                     $mail->isHTML(true);
                     $mail->Subject = 'Completed Savings Invoice Details';
@@ -321,7 +321,7 @@ if ($values["status"] == "success") {
                                                                 </div>
                                                                 <div align="start">
                                                                     <p>
-                                                                        Let us know if you have issues while paying this invoice or if you have any questions regarding it by emailing us at <a href="mailto:billing@uccashtourism.com" style="text-decoration: none;color: black;"><b>billing@uccashtourism.com</b></a>
+                                                                        Let us know if you have issues while paying this invoice or if you have any questions regarding it by emailing us at <a href="mailto:info@uccashtourism.com" style="text-decoration: none;color: black;"><b>info@uccashtourism.com</b></a>
                                                                     </p>
                                                                 </div>
                                                                 <div align="start">
@@ -394,26 +394,22 @@ if ($values["status"] == "success") {
                                         </div>
                                         <div>
                                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                                <tr style="font-size:90%" align="center">
-                                                    <td style="width:6%" align="end">
-                                                        <a href="google.com"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="50%"
-                                                                style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                                <tr style="font-size: 100%;" align="center">
+                                                    <td style="width: 50%; padding: 0;" align="start">
+                                                        <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                            <tr>
+                                                                <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                                <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
+                                                            </tr>
+                                                        </table>
                                                     </td>
-                                                    <td align="start" style="color:black; width:44%">
-                                                        <b>
-                                                            <a style="text-decoration:none; color:black;"
-                                                                href="https://uccashtourism.com">https://uccashtourism.com</a>
-                                                        </b>
-                                                    </td>
-                                                    <td width:6%" align="end">
-                                                        <a href="google.com"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="50%"
-                                                                style="display: block; margin: 0 auto;" alt="Logo"></a>
-                                                    </td>
-                                                    <td align="start" style="color:black; width:44%"">
-                                                                <b>
-                                                                    <a style=" text-decoration:none; color:black;"
-                                                        href="mailto:info@uccashtourism.com">info@uccashtourism.com</a>
-                                                        </b>
+                                                    <td style="width: 50%; padding: 0;" align="start">
+                                                        <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                            <tr>
+                                                                <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                                <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 5px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
+                                                            </tr>
+                                                        </table>
                                                     </td>
                                                 </tr>
                                             </table>

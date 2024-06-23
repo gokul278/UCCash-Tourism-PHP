@@ -50,7 +50,7 @@ const getData = () => {
 
                 } else if (response.user_referalStatus == "activated") {
 
-                    var referralurl = "https://uccash.in/signup.php?referral="+response.user_id;
+                    var referralurl = "https://uccashtourism.com/signup.php?referral="+response.user_id;
                     var qrcode = new QRCode(document.getElementById("qrcode"), {
                         text: referralurl,
                         width: 128,

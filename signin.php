@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Signin</title>
+    <title>UCCASH Tourism - Signin</title>
     <link rel="shortcut icon" href="./img/favicon.png">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -106,6 +106,16 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+
+    <script type="application/ld+json">
+    {
+      "@context" : "https://schema.org",
+      "@type" : "WebSite",
+      "name" : "UCCash Foundation - Signin",
+      "url" : "https://www.uccashfoundation.com/signin.php"
+    }
+  </script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

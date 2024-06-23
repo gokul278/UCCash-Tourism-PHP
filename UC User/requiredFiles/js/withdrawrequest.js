@@ -60,7 +60,7 @@ const getData = () => {
 
                 location.replace("unauth_login.php");
 
-            } else if(response.status == "nopay"){
+            } else if (response.status == "nopay") {
 
                 if (response.user_profileimg !== null) {
                     $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
@@ -69,7 +69,7 @@ const getData = () => {
                 $(".user_name").html(response.user_name);
                 $("#availablewithdrwabalance").html(response.availablewithdrwabalance + "$");
 
-                $("#payoption").html("<h6 style='color:red;width:100%' align='center'>"+response.message+"</h6>")
+                $("#payoption").html("<h6 style='color:red;width:100%' align='center'>" + response.message + "</h6>")
 
             }
         }
@@ -81,8 +81,13 @@ const checkcrypto = () => {
 
     if ($("#trc20_address").val().length >= 1) {
         if ($("#cryptovalue").val().length >= 1) {
-            $("#cryptowiithdrawbtn").prop("disabled", false);
-            $("#cryptootpbtn").prop("disabled", false)
+            if ($("#cryptovalue").val() >= 50) {
+                $("#cryptowiithdrawbtn").prop("disabled", false);
+                $("#cryptootpbtn").prop("disabled", false)
+            } else {
+                $("#cryptowiithdrawbtn").prop("disabled", true);
+                $("#cryptootpbtn").prop("disabled", true);
+            }
         } else {
             $("#cryptowiithdrawbtn").prop("disabled", true);
             $("#cryptootpbtn").prop("disabled", true);
@@ -102,8 +107,13 @@ const checkbank = () => {
                 if ($("#ifsc_code").val().length >= 1) {
                     if ($("#branch").val().length >= 1) {
                         if ($("#bankvalue").val().length >= 1) {
-                            $("#bankwithdrawbtn").prop("disabled", false);
-                            $("#bankotpbtn").prop("disabled", false);
+                            if ($("#bankvalue").val() >= 10) {
+                                $("#bankwithdrawbtn").prop("disabled", false);
+                                $("#bankotpbtn").prop("disabled", false);
+                            } else {
+                                $("#bankwithdrawbtn").prop("disabled", true);
+                                $("#bankotpbtn").prop("disabled", true);
+                            }
                         } else {
                             $("#bankwithdrawbtn").prop("disabled", true);
                             $("#bankotpbtn").prop("disabled", true);
@@ -224,7 +234,7 @@ const bankotp = () => {
                     position: 'right top',
                     customWrapper: '',
                 })
-                $("#bankotpbtn").html("Resend OTP"); 
+                $("#bankotpbtn").html("Resend OTP");
             }
         }
     });
@@ -232,6 +242,7 @@ const bankotp = () => {
 
 $("#cryptosubmit").submit(function (e) {
     e.preventDefault();
+
 
     var frm = $("#cryptosubmit")[0];
     var frmdata = new FormData(frm);
@@ -277,9 +288,9 @@ const clearmsgbank = () => {
 }
 
 
-$("#banksubmit").submit(function (e) { 
+$("#banksubmit").submit(function (e) {
     e.preventDefault();
-    
+
     var frm = $("#banksubmit")[0];
     var frmdata = new FormData(frm);
 
@@ -314,3 +325,12 @@ $("#banksubmit").submit(function (e) {
     });
 
 });
+
+
+const changeminbank = () => {
+    $("#minwithdraw").html("Minimum Withdraw 10$");
+}
+
+const changemincrypto = () => {
+    $("#minwithdraw").html("Minimum Withdraw 10$");
+}

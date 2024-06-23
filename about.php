@@ -3,7 +3,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>UCCASH TOURISM</title>
+        <title>UCCASH TOURISM - About</title>
         <link rel="shortcut icon" href="./img/favicon.png">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
@@ -347,6 +347,15 @@ a:hover, a:active {
         <a href="#" class="btn btn-primary btn-primary-outline-0 btn-md-square back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
         
+        <script type="application/ld+json">
+    {
+      "@context" : "https://schema.org",
+      "@type" : "WebSite",
+      "name" : "UCCash Foundation - About",
+      "url" : "https://www.uccashfoundation.com/about.php"
+    }
+  </script>
+
         <!-- JavaScript Libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>

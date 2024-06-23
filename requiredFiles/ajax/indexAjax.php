@@ -11,15 +11,23 @@ require 'vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 $name = $_POST["name"];
+$address = $_POST["address"];
 $email = $_POST["email"];
-$mobileno = $_POST["mobileno"];
-$description = $_POST["description"];
+$phone = $_POST["phone"];
+$phone_country = $_POST["phone_country"];
+$whatsappno = $_POST["whatsappno"];
+$whatsno_country = $_POST["whatsno_country"];
+$traveldestination = $_POST["traveldestination"];
+$dateoftravel = $_POST["dateoftravel"];
+$noofpeople = $_POST["noofpeople"];
+$package = $_POST["package"];
 
 try {
+    // Server settings
     $mail->isSMTP();
     $mail->SMTPDebug = SMTP::DEBUG_OFF;
     $mail->CharSet = 'UTF-8';
-    $mail->Host = 'uccashtourism.com';
+    $mail->Host = 'smtpout.secureserver.net';
     $mail->Port = 465;
     $mail->SMTPSecure = 'ssl';
     $mail->SMTPOptions = [
@@ -30,11 +38,11 @@ try {
         ]
     ];
     $mail->SMTPAuth = true;
-    $mail->Username = 'noreply@uccashtourism.com';
-    $mail->Password = 'adminuccashtourism';
-    $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
-    $mail->addAddress("support@uccashtourism.com");
-    $mail->Subject = 'Enquiry Details From ' . $email;
+    $mail->Username = 'support@uccashtourism.com';
+    $mail->Password = 'Tourism@#$2023';
+    $mail->setFrom('support@uccashtourism.com', 'UCCASH Tourism');
+    $mail->addAddress("info@uccashtourism.com");
+    $mail->Subject = 'Contact Us Mail From '.$name;
     $mail->isHTML(true);
     $mail->Body = '<!DOCTYPE html>
     <html lang="en">
@@ -84,22 +92,41 @@ try {
                             </tr>
                             <tr>
                                 <td align="left" style="width: 60%; height: 100%;">
+                                    <p style="color: black; text-align: center;font-size:120%">Address : <b>' . $address . '</b></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="width: 60%; height: 100%;">
                                     <p style="color: black; text-align: center;font-size:120%">Email : <b>' . $email . '</b></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" style="width: 60%; height: 100%;">
-                                    <p style="color: black; text-align: center;font-size:120%">Mobile Number : <b>' . $mobileno . '</b></p>
+                                    <p style="color: black; text-align: center;font-size:120%">Phone No : <b>+'.$phone_country.' '. $phone . '</b></p>
+                                </td>
+                            </tr><tr>
+                                <td align="left" style="width: 60%; height: 100%;">
+                                    <p style="color: black; text-align: center;font-size:120%">Whatsapp No : <b>+'.$whatsno_country.' '. $whatsappno . '</b></p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left" style="width: 60%;">
-                                    <p style="color: black; text-align: center;font-size:120%">Description</b></p>
+                                <td align="left" style="width: 60%; height: 100%;">
+                                    <p style="color: black; text-align: center;font-size:120%">Travel Destination : <b>' . $traveldestination . '</b></p>
+                                </td>
+                            </tr>
+                             <tr>
+                                <td align="left" style="width: 60%; height: 100%;">
+                                    <p style="color: black; text-align: center;font-size:120%">Date of Travel : <b>' . $dateoftravel . '</b></p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="left" style="width: 60%;">
-                                    <p style="color: black; text-align: center;font-size:120%"><b>' . $description . '</b></p>
+                                <td align="left" style="width: 60%; height: 100%;">
+                                    <p style="color: black; text-align: center;font-size:120%">Number of people : <b>' . $noofpeople . '</b></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="width: 60%; height: 100%;">
+                                    <p style="color: black; text-align: center;font-size:120%">Package : <b>' . $package . '</b></p>
                                 </td>
                             </tr>
                         </table>
@@ -109,7 +136,7 @@ try {
             <tr>
                         <td align="center" bgcolor="#ffffff">
                             <div
-                                style="width: 100%; max-width: 600px; height: 100px; background-color:#F7C128; display: table;padding-bottom:20px;">
+                                style="width: 100%; max-width: 600px; height: 100px; background-color:#F7C128; display: table;padding-bottom:10px;">
                                 <div>
                                     <p style="color:white;font-size:150%"><b>JOIN OUR TEAM</b></p>
                                 </div>
@@ -170,26 +197,22 @@ try {
                                 </div>
                                 <div>
                                     <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                        <tr style="font-size:90%" align="center">
-                                            <td style="width:6%" align="end">
-                                                <a href="google.com"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="50%"
-                                                        style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                        <tr style="font-size: 100%;" align="center">
+                                            <td style="width: 50%; padding: 0;" align="start">
+                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                    <tr>
+                                                        <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                        <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
+                                                    </tr>
+                                                </table>
                                             </td>
-                                            <td align="start" style="color:black; width:44%">
-                                                <b>
-                                                    <a style="text-decoration:none; color:black;"
-                                                        href="https://uccashtourism.com">https://uccashtourism.com</a>
-                                                </b>
-                                            </td>
-                                            <td width:6%" align="end">
-                                                <a href="google.com"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="50%"
-                                                        style="display: block; margin: 0 auto;" alt="Logo"></a>
-                                            </td>
-                                            <td align="start" style="color:black; width:44%"">
-                                                        <b>
-                                                            <a style=" text-decoration:none; color:black;"
-                                                href="mailto:info@uccashtourism.com">info@uccashtourism.com</a>
-                                                </b>
+                                            <td style="width: 50%; padding: 0;" align="start">
+                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                    <tr>
+                                                        <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                        <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 5px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
+                                                    </tr>
+                                                </table>
                                             </td>
                                         </tr>
                                     </table>

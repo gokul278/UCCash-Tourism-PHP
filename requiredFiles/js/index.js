@@ -1,6 +1,14 @@
 $("#emailsubmit").submit(function (e) {
     e.preventDefault();
 
+    const phoneCountryData = phoneInput.getSelectedCountryData();
+    const whatsappCountryData = phoneInputWhatsapp.getSelectedCountryData();
+
+    // Set country data to hidden fields
+    document.querySelector('#phone_country').value = phoneCountryData.dialCode;
+    document.querySelector('#whatsno_country').value = whatsappCountryData.dialCode;
+
+
     $("#submitbtn").html("Loading ...");
 
     var frm = $("#emailsubmit")[0];
@@ -29,7 +37,7 @@ $("#emailsubmit").submit(function (e) {
                 $("#submitbtn").html("Send Details to Contact Us");
                 $("#exampleModal").modal("hide")
                 swal({
-                    title: "Good job!",
+                    title: "Thank You!",
                     text: "Your Details Were Submitted and We Contact as Soon !",
                     icon: "success",
                     button: "Close",

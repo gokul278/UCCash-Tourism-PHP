@@ -74,7 +74,7 @@ if ($way == "checksponser") {
         $mail->isSMTP();
         $mail->SMTPDebug = SMTP::DEBUG_OFF;
         $mail->CharSet = 'UTF-8';
-        $mail->Host = 'uccashtourism.com';
+        $mail->Host = 'smtpout.secureserver.net';
         $mail->Port = 465;
         $mail->SMTPSecure = 'ssl';
         $mail->SMTPOptions = [
@@ -85,12 +85,12 @@ if ($way == "checksponser") {
             ]
         ];
         $mail->SMTPAuth = true;
-        $mail->Username = 'noreply@uccashtourism.com';
-        $mail->Password = 'adminuccashtourism';
-        $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
+        $mail->Username = 'info@uccashtourism.com';
+        $mail->Password = 'Tourism@#$2023';
+        $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
         $mail->addAddress($postemail);
-        $mail->Subject = 'E-Mail Verification Code for Registration';
         $mail->isHTML(true);
+        $mail->Subject = 'E-Mail Verification Code for Registration';
         $mail->Body = '<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -216,26 +216,22 @@ if ($way == "checksponser") {
                                     </div>
                                     <div>
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                            <tr style="font-size:90%" align="center">
-                                                <td style="width:6%" align="end">
-                                                    <a href="google.com"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="50%"
-                                                            style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                            <tr style="font-size: 100%;" align="center">
+                                                <td style="width: 50%; padding: 0;" align="start">
+                                                    <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                        <tr>
+                                                            <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                            <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
+                                                        </tr>
+                                                    </table>
                                                 </td>
-                                                <td align="start" style="color:black; width:44%">
-                                                    <b>
-                                                        <a style="text-decoration:none; color:black;"
-                                                            href="https://uccashtourism.com">https://uccashtourism.com</a>
-                                                    </b>
-                                                </td>
-                                                <td width:6%" align="end">
-                                                    <a href="google.com"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="50%"
-                                                            style="display: block; margin: 0 auto;" alt="Logo"></a>
-                                                </td>
-                                                <td align="start" style="color:black; width:44%"">
-                                                            <b>
-                                                                <a style=" text-decoration:none; color:black;"
-                                                    href="mailto:info@uccashtourism.com">info@uccashtourism.com</a>
-                                                    </b>
+                                                <td style="width: 50%; padding: 0;" align="start">
+                                                    <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                        <tr>
+                                                            <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                            <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 10px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
+                                                        </tr>
+                                                    </table>
                                                 </td>
                                             </tr>
                                         </table>
@@ -402,12 +398,11 @@ if ($way == "checksponser") {
 
 
                             try {
-
                                 // Server settings
                                 $mail->isSMTP();
                                 $mail->SMTPDebug = SMTP::DEBUG_OFF;
                                 $mail->CharSet = 'UTF-8';
-                                $mail->Host = 'uccashtourism.com';
+                                $mail->Host = 'smtpout.secureserver.net';
                                 $mail->Port = 465;
                                 $mail->SMTPSecure = 'ssl';
                                 $mail->SMTPOptions = [
@@ -418,9 +413,9 @@ if ($way == "checksponser") {
                                     ]
                                 ];
                                 $mail->SMTPAuth = true;
-                                $mail->Username = 'noreply@uccashtourism.com';
-                                $mail->Password = 'adminuccashtourism';
-                                $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
+                                $mail->Username = 'info@uccashtourism.com';
+                                $mail->Password = 'Tourism@#$2023';
+                                $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
                                 $mail->addAddress($savedEmail);
                                 $mail->isHTML(true);
                                 $mail->Subject = 'Welcome to UCCASH TOURISM';
@@ -494,13 +489,13 @@ if ($way == "checksponser") {
                                                         <table>
                                                             <tr align="center">
                                                                 <td style="width: 40%;height: 50px;background-color: #F7C128;border-radius: 50px;">
-                                                                    <a href="https://uccashtourism.com/UC%20User/id%20activation.html" style="text-decoration: none;color: black;">
+                                                                    <a href="https://uccashtourism.com/UC%20User/id%20activation.php" style="text-decoration: none;color: black;">
                                                                         Join as Active Distributor
                                                                     </a>
                                                                 </td>
                                                                 <td style="width: 10%;">  </td>
                                                                 <td style="width: 40%;height: 50px;background-color: #F7C128;border-radius: 50px;">
-                                                                    <a href="https://uccashtourism.com/UC%20User/monthly%20savings%20pending%20invoice.html" style="text-decoration: none;color: black;">
+                                                                    <a href="https://uccashtourism.com/UC%20User/monthly%20savings%20pending%20invoice.php" style="text-decoration: none;color: black;">
                                                                         Pay Your Monthly Savings    
                                                                     </a>
                                                                 </td>
@@ -625,7 +620,7 @@ if ($way == "checksponser") {
                                         $mail->isSMTP();
                                         $mail->SMTPDebug = SMTP::DEBUG_OFF;
                                         $mail->CharSet = 'UTF-8';
-                                        $mail->Host = 'uccashtourism.com';
+                                        $mail->Host = 'smtpout.secureserver.net';
                                         $mail->Port = 465;
                                         $mail->SMTPSecure = 'ssl';
                                         $mail->SMTPOptions = [
@@ -636,9 +631,9 @@ if ($way == "checksponser") {
                                             ]
                                         ];
                                         $mail->SMTPAuth = true;
-                                        $mail->Username = 'noreply@uccashtourism.com';
-                                        $mail->Password = 'adminuccashtourism';
-                                        $mail->setFrom('noreply@uccashtourism.com', 'UCCASH TOURISM');
+                                        $mail->Username = 'info@uccashtourism.com';
+                                        $mail->Password = 'Tourism@#$2023';
+                                        $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
                                         $mail->addAddress($savedEmail);
                                         $mail->isHTML(true);
                                         $mail->Subject = 'Monthly savings Pending Invoice';
@@ -801,34 +796,25 @@ if ($way == "checksponser") {
                                     </div>
                                     <div>
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0">
-                                            <tr style="font-size:90%" align="center">
-                                                <td style="width:6%" align="end">
-                                                    <a href="google.com"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="50%"
-                                                            style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                            <tr style="font-size: 100%;" align="center">
+                                                <td style="width: 50%; padding: 0;" align="start">
+                                                    <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                        <tr>
+                                                            <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                            <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
+                                                        </tr>
+                                                    </table>
                                                 </td>
-                                                <td align="start" style="color:black; width:44%">
-                                                    <b>
-                                                        <a style="text-decoration:none; color:black;"
-                                                            href="https://uccashtourism.com">https://uccashtourism.com</a>
-                                                    </b>
-                                                </td>
-                                                <td width:6%" align="end">
-                                                    <a href="google.com"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="50%"
-                                                            style="display: block; margin: 0 auto;" alt="Logo"></a>
-                                                </td>
-                                                <td align="start" style="color:black; width:44%"">
-                                                            <b>
-                                                                <a style=" text-decoration:none; color:black;"
-                                                    href="mailto:info@uccashtourism.com">info@uccashtourism.com</a>
-                                                    </b>
+                                                <td style="width: 50%; padding: 0;" align="start">
+                                                    <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+                                                        <tr>
+                                                            <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                            <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 10px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
+                                                        </tr>
+                                                    </table>
                                                 </td>
                                             </tr>
                                         </table>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                                            </table>
                                         </body>
                                         
                                         </html>

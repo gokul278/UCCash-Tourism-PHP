@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Create a Member Account</title>
+    <title>UCCASH TOURISM - Signup</title>
     <link rel="shortcut icon" href="./img/favicon.png">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -565,6 +565,15 @@
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context" : "https://schema.org",
+      "@type" : "WebSite",
+      "name" : "UCCash Foundation - Signup",
+      "url" : "https://www.uccashfoundation.com/signup.php"
+    }
+  </script>
 
     <script>
         const togglePassword = document.getElementById('togglePassword');
