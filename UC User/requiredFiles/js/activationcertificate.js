@@ -47,7 +47,7 @@ $(document).ready(() => {
               
                       // Create a link element to download the image
                       var link = document.createElement('a');
-                      link.download = 'Independent Distributor Certificate NO_'+certificateId+'.png';
+                      link.download = 'Independent Distributor Certificate.png';
                       link.href = canvas.toDataURL('image/png');
                       link.click();
                     };
