@@ -430,11 +430,11 @@ if ($values["status"] == "success") {
 
             } else if ($wallettype == "carandhousefundincome") {
 
-                $checkrank = $con->query("SELECT * FROM genealogy WHERE lvl3='{$values["userid"]}'");
+                // $checkrank = $con->query("SELECT * FROM genealogy WHERE lvl3='{$values["userid"]}'");
 
-                $number = $checkrank->num_rows;
+                // $number = $checkrank->num_rows;
 
-                if ($number >= 125) {
+                // if ($number >= 125) {
 
                     $debitwallet = $con->query("INSERT INTO carandhousefundwallet (user_id, chfw_points, chfw_bonusfrom, chfw_lvl, chfw_action, chfw_remark)
                     VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
@@ -443,21 +443,21 @@ if ($values["status"] == "success") {
                     $response["status"] = "success";
                     echo json_encode($response);
 
-                } else {
+                // } else {
 
-                    $response["status"] = "error";
-                    $response["message"] = "To Unlock the Bronze Director Rank";
-                    echo json_encode($response);
+                //     $response["status"] = "error";
+                //     $response["message"] = "To Unlock the Bronze Director Rank";
+                //     echo json_encode($response);
 
-                }
+                // }
 
             } else if ($wallettype == "royaltyincome") {
 
-                $checkrank = $con->query("SELECT * FROM genealogy WHERE lvl4='{$values["userid"]}'");
+                // $checkrank = $con->query("SELECT * FROM genealogy WHERE lvl4='{$values["userid"]}'");
 
-                $number = $checkrank->num_rows;
+                // $number = $checkrank->num_rows;
 
-                if ($number >= 375) {
+                // if ($number >= 375) {
 
                     $debitwallet = $con->query("INSERT INTO royaltyincomewallet (user_id, riw_points, riw_bonusfrom, riw_lvl, riw_action, riw_remark)
                     VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
@@ -466,13 +466,13 @@ if ($values["status"] == "success") {
                     $response["status"] = "success";
                     echo json_encode($response);
 
-                }else{
+                // }else{
 
-                    $response["status"] = "error";
-                    $response["message"] = "To Unlock the Silver Director Rank";
-                    echo json_encode($response);
+                //     $response["status"] = "error";
+                //     $response["message"] = "To Unlock the Silver Director Rank";
+                //     echo json_encode($response);
 
-                }
+                // }
 
             }
 

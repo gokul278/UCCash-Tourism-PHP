@@ -61,7 +61,7 @@ if ($values["status"] == "success") {
                 <td>
                 <div>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal' . $key . '">
-                    <b>Reject</b>
+  z                  <b>Reject</b>
                 </button>
             </div>
             <div class="modal fade" id="exampleModal' . $key . '" tabdashboard="-1" role="dialog"
@@ -181,7 +181,7 @@ if ($values["status"] == "success") {
                 $value = 0;
 
                 if ($i == 1) { //lvl 1
-                    $value = $incoicevalue * 0.05; // 5% * incoicevalue
+                    $value = $incoicevalue * 0.10; // 10% * incoicevalue
                 } else if ($i >= 2 && $i <= 4) { //lvl 2 to 4
                     $value = $incoicevalue * 0.02; // 2% * incoicevalue
                 } else if ($i >= 5 && $i <= 7) { //lvl 5 to 7

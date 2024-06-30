@@ -56,12 +56,14 @@ if ($values["status"] == "success") {
                 $name = $con->query("SELECT * FROM userdetails WHERE user_id='{$getpointsdata["si_bonusfrom"]}'");
                 $getname = $name->fetch_assoc();
 
+                $recivename = isset($getname["user_name"]) ? $getname["user_name"]  : "-";
+
                 $pointstable .= '
                 <tr>
                     <th scope="row">'.$index.'</th>
                     <td>'.$date.'<p class="time">'.$time.'</p></td>
                     <td>'.$getpointsdata["si_bonusfrom"].'</td>
-                    <td>'.$getname["user_name"].'</td>
+                    <td>'.$recivename.'</td>
                     <td>'.$getpointsdata["si_lvl"].'</td>
                     <td>'.$getpointsdata["si_remark"].'</td>
                 ';
