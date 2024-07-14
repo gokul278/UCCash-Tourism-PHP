@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
@@ -29,25 +28,44 @@ if ($values["status"] == "success") {
 
         $tabledata = "";
 
+        $btn = "";
+
         foreach ($data as $index => $getdata) {
+
+            $btn = "";
+
+
+            if ($getdata["user_referalStatus"] == "activated") {
+                $idactivation = $con->prepare("SELECT * FROM idactivation WHERE user_id=?");
+                $idactivation->bind_param("s", $getdata["user_id"]);
+                $idactivation->execute();
+                $getidactivation = $idactivation->get_result();
+
+                if ($getidactivation->num_rows > 0) {
+                    $row = $getidactivation->fetch_assoc();
+                    $certificateid = $row["idactivation_id"];
+                    $btn = '<button class="btn btn-info" onclick="downloadinvoice(\'' . $certificateid . '\')">Invoice</button>';
+                }
+            } else {
+                $btn = "";
+            }
 
             $bankdetails = $con->query("SELECT * FROM userbankdetails WHERE user_id='{$getdata["user_id"]}'");
             $getbankdetails = $bankdetails->fetch_assoc();
 
             $bankdetails = $con->query("SELECT * FROM userbankdetails WHERE user_id='{$getdata["user_id"]}'");
             if ($bankdetails && $bankdetails->num_rows > 0) {
-                if($getbankdetails["trc20_address"] == null){
+                if ($getbankdetails["trc20_address"] == null) {
                     $trc20 = "";
                     $bep20 = "";
-    
+
                     $bank = "";
-                }else{
+                } else {
                     $trc20 = $getbankdetails["trc20_address"];
                     $bep20 = $getbankdetails["bep20_address"];
 
-                    $bank = $getbankdetails["ac_holdername"] . ',<br>' . $getbankdetails["ac_bankname"] . ',<br>' . $getbankdetails["ac_number"] . ',<br>'. $getbankdetails["ifsc_code"] . ',<br>' . $getbankdetails["branch"];
+                    $bank = $getbankdetails["ac_holdername"] . ',<br>' . $getbankdetails["ac_bankname"] . ',<br>' . $getbankdetails["ac_number"] . ',<br>' . $getbankdetails["ifsc_code"] . ',<br>' . $getbankdetails["branch"];
                 }
-
             } else {
                 $trc20 = "";
                 $bep20 = "";
@@ -91,47 +109,41 @@ if ($values["status"] == "success") {
                 }
             }
 
-            
+
 
 
 
             if ($getdata["user_id"] != "UCT99999") {
                 $tabledata .= '
-                <tr>
-                    <td>' . ($index) . '</td>
-                    <td>' . $getdata["user_id"] . '</td>
-                    <td>' . $getdata["user_name"] . '</td>
-                    <td>' . $getdata["user_email"] . '</td>
-                    <td>' . $getdata["user_phoneno"] . '</td>
-                    <td>' . $getdata["user_address"] . ',<br>' . $getdata["user_city"] . ',<br>' . $getdata["user_state"] . ',<br>' . $getdata["user_country"] . ',<br>Pincode-' . $getdata["user_zipcode"] . '</td>
-                    <td>' . $trc20 . '</td>
-                    <td>' . $bep20 . '</td>
-                    <td>' . $bank . '</td>
-                    <td>' . $getdata["user_panno"] . '</td>
-                    <td>' . $getdata["user_panno"] . '</td>
-                    <td>' . $memberstatus . '</td>
-                    <td>' . $rank . '</td>
-                    <td><a class="btn btn-success" href="members income balance sheet.php?userid=' . $getdata["user_id"] . '">Go</a></td>
-                </tr>
-                ';
+            <tr>
+                <td>' . ($index) . '</td>
+                <td>' . $getdata["user_id"] . '</td>
+                <td>' . $getdata["user_name"] . '</td>
+                <td>' . $getdata["user_email"] . '</td>
+                <td>' . $getdata["user_phoneno"] . '</td>
+                <td>' . $getdata["user_address"] . ',<br>' . $getdata["user_city"] . ',<br>' . $getdata["user_state"] . ',<br>' . $getdata["user_country"] . ',<br>Pincode-' . $getdata["user_zipcode"] . '</td>
+                <td>' . $trc20 . '</td>
+                <td>' . $bep20 . '</td>
+                <td>' . $bank . '</td>
+                <td>' . $getdata["user_panno"] . '</td>
+                <td>' . $getdata["user_panno"] . '</td>
+                <td>' . $memberstatus . '</td>
+                <td>' . $rank . '</td>
+                <td><a class="btn btn-success" href="members income balance sheet.php?userid=' . $getdata["user_id"] . '">Go</a></td>
+                <td>' . $btn . '</td>
+            </tr>
+            ';
             }
-
-
         }
 
         $response["tabledata"] = $tabledata;
 
         $response["status"] = "success";
         echo json_encode($response);
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

@@ -47,8 +47,6 @@ const getData = () => {
                     $("#tabledata").html(response.tabledata);
                     let table = new DataTable('#myTable', {
                         ordering: false,
-                        lengthChange: false, // Disable page length control
-                        paging: false
                     });
                 } else {
                     $("#tabledata").html("<td colspan='14'>No Data Found</td>");
@@ -67,6 +65,29 @@ const getData = () => {
         }
     });
 
+}
+
+const downloadinvoice = (certificateid) => {
+    // Create a form element
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'activationinvoice.php';
+    form.target = '_blank';
+
+    // Create an input element for the certificateid
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'certificateid';
+    input.value = certificateid;
+
+    // Append the input to the form
+    form.appendChild(input);
+
+    // Append the form to the body (not visible)
+    document.body.appendChild(form);
+
+    // Submit the form
+    form.submit();
 }
 
 
