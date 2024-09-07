@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
@@ -32,7 +31,6 @@ if ($values["status"] == "success") {
 
             $response["status"] = "success";
             echo json_encode($response);
-
         } else {
 
             $checkpaypaid = $con->query("SELECT * FROM idactivation WHERE user_id='{$values["userid"]}' AND action='paid'");
@@ -40,7 +38,6 @@ if ($values["status"] == "success") {
             if (mysqli_num_rows($checkpaypaid) >= 1) {
 
                 $response["action"] = "notpay";
-
             } else {
 
                 $response["action"] = "pay";
@@ -59,15 +56,12 @@ if ($values["status"] == "success") {
                 $response["upi_id"] = $getaddress["upi_id"];
                 $response["deposit_value"] = $getaddress["deposit_value"];
                 $response["userid"] = $values["userid"];
-
             }
 
 
             $response["status"] = "success";
             echo json_encode($response);
-
         }
-
     } else if ($way == "cryptoaddress") {
 
         $user_id = $_POST["user_id"];
@@ -99,7 +93,6 @@ if ($values["status"] == "success") {
         $tcvalue = $con->query("SELECT * FROM idactivationvalue");
         $gettcvalue = $tcvalue->fetch_assoc();
 
-
         $insertactivationidhistory = $con->query("INSERT INTO idactivationhistory (idactivation_id,user_id,deposite_type,crypto_value,txnhash_id,travel_coupon,action,remark) VALUES
         ('{$idactivationid}',  '{$user_id}', 'Crypto', '{$crypto_value}', '{$txnhashid}', '{$gettcvalue["value"]}','admin', 'Waiting for Approval')");
 
@@ -109,7 +102,6 @@ if ($values["status"] == "success") {
         } else {
             echo "error";
         }
-
     } else if ($way == "activationbank") {
 
         $user_id = $_POST["user_id"];
@@ -151,21 +143,14 @@ if ($values["status"] == "success") {
             } else {
                 echo "error";
             }
-
         } else {
 
             echo "error";
-
         }
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

@@ -25,7 +25,26 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
     $invoiceid = $_POST["certificateid"];
     $invoicedate = date("d-m-Y", strtotime($getdetails["paid_date"]));
 
-    if($getdetails["deposite_type"] == 'Crypto'){
+    if ($getdetails["deposite_type"] == 'Crypto') {
+
+        $netAmount = 0;
+        $gstAmount = 0;
+        $gst = 0;
+
+        if ($getdetails["crypto_value"] == '$ 59') {
+            $netAmount = '50 USDT';
+            $gstAmount = '9 USDT';
+            $totalAmount = '59 USDT';
+            $gst = '18%';
+        } else if ($getdetails["crypto_value"] == '$ 52.5') {
+            $netAmount = '50 USDT';
+            $gstAmount = '2.5 USDT';
+            $totalAmount = '52.5 USDT';
+            $gst = '5%';
+        }
+
+
+
         $content = ' <tr>
             <td style="width:100%;font-size:14px;">
                 <table style="width:99%">
@@ -39,18 +58,18 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoiceid . '</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoicedate . '</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>50 TC</b></td>
-                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>50 USDT</b></td>
+                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $netAmount . '</b></td>
                         </tr>
                         <tr align="center">
                             <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
                                 <table style="margin: 0; padding: 0;">
                                     <tr>
                                         <td style="width:65%"></td>
-                                        <td style="color:#6F6F6F;font-size:15px;"><b>GST 18%:</b></td>
+                                        <td style="color:#6F6F6F;font-size:15px;"><b>GST ' . $gst . ':</b></td>
                                     </tr>
                                 </table>
                             </td>
-                            <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>9 USDT</b></td>
+                            <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $gstAmount . '</b></td>
                         </tr>
                         <tr align="center">
                             <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
@@ -61,12 +80,29 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                                     </tr>
                                 </table>
                             </td>
-                            <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>59 USDT</b></td>
+                            <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $totalAmount . '</b></td>
                         </tr>
                 </table>
             </td>
         </tr>';
-    }else if($getdetails["deposite_type"] == 'Bank'){
+    } else if ($getdetails["deposite_type"] == 'Bank') {
+
+        $netAmount = 0;
+        $gstAmount = 0;
+        $gst = 0;
+
+        if ($getdetails["bank_value"] == 'Rs 5310') {
+            $netAmount = ' Rs 4500';
+            $gstAmount = 'Rs 810';
+            $totalAmount = 'Rs 5310';
+            $gst = '18%';
+        } else if ($getdetails["bank_value"] == 'Rs 4999') {
+            $netAmount = ' Rs 4749';
+            $gstAmount = 'Rs 250';
+            $totalAmount = 'Rs 4999';
+            $gst = '5%';
+        }
+
         $content = ' <tr>
         <td style="width:100%;font-size:14px;">
             <table style="width:99%">
@@ -80,18 +116,18 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoiceid . '</b></td>
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoicedate . '</b></td>
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>50 TC</b></td>
-                        <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>Rs.4500</b></td>
+                        <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $netAmount . '</b></td>
                     </tr>
                     <tr align="center">
                         <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
                             <table style="margin: 0; padding: 0;">
                                 <tr>
                                     <td style="width:65%"></td>
-                                    <td style="color:#6F6F6F;font-size:15px;"><b>GST 18%:</b></td>
+                                    <td style="color:#6F6F6F;font-size:15px;"><b>GST ' . $gst . ':</b></td>
                                 </tr>
                             </table>
                         </td>
-                        <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>Rs.&nbsp;810</b></td>
+                        <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $gstAmount . '</b></td>
                     </tr>
                     <tr align="center">
                         <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
@@ -102,12 +138,12 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                                 </tr>
                             </table>
                         </td>
-                        <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>Rs.5310</b></td>
+                        <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $totalAmount . '</b></td>
                     </tr>
             </table>
         </td>
     </tr>';
-    }else if($getdetails["deposite_type"] == 'Wallet'){
+    } else if ($getdetails["deposite_type"] == 'Wallet') {
         $content = ' <tr>
         <td style="width:100%;font-size:14px;">
             <table style="width:99%">
@@ -187,11 +223,11 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
         </div>
             </td>
             <td style="width:30%">
-                <div style="font-size:13px;color:#6F6F6F;"><b>Date: '.date('d/m/Y').'</b></div>
+                <div style="font-size:13px;color:#6F6F6F;"><b>Date: ' . date('d/m/Y') . '</b></div>
             </td>
         </tr>
         <tr><td></td></tr>
-        '.$content.'   
+        ' . $content . '   
         <br/>
         <tr>
             <td><img src="../UC User/requiredFiles/ajax/img/ActivationInvoice-bottom.jpg"/></td>
@@ -208,4 +244,3 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
     $pdf->Output('Invoice NO_' . $_POST["certificateid"] . '.pdf');
     exit;
 }
-?>

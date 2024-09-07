@@ -276,7 +276,7 @@
                 }
             </style>
             <div class="container-fluid">
-                <div>
+                <!-- <div>
                     <div class="d-flex align-items-center mb-4">
                         <label for="fromDate" class="mr-2"><b style="color: #000;">From</b></label>
                         <input type="date" id="fromDate" oninput="changebtn()" class="form-control mr-2"
@@ -287,7 +287,7 @@
                         <button onclick="goButton()" id="gobtn" class="btn btn-primary" disabled>Go</button>&nbsp;&nbsp;
                         <button onclick="clearbtn()" class="btn btn-primary">Clear</button>
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">

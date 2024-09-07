@@ -1,6 +1,6 @@
 <?php
 
-include ("./DBConnection.php"); //DB Connection File
+include("./DBConnection.php"); //DB Connection File
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -31,12 +31,10 @@ if ($way == "checksponser") {
         $row = $res->fetch_assoc();
         $response["status"] = "success";
         $response["message"] = $row["user_name"];
-
     } else {
 
         $response["status"] = "failed";
         $response["message"] = "Invalid Sponser ID";
-
     }
 
     echo json_encode($response);
@@ -52,16 +50,13 @@ if ($way == "checksponser") {
 
         $response["status"] = "failed";
         $response["message"] = "Email Already Registered";
-
     } else {
 
         $response["status"] = "success";
         $response["message"] = "Email Available";
-
     }
 
     echo json_encode($response);
-
 } else if ($way == "otpsend") {
 
     // Mail for Registeration OTP
@@ -251,14 +246,11 @@ if ($way == "checksponser") {
             file_put_contents('otp.txt', $generatedOTP);
             echo json_encode($response);
         }
-
     } catch (Exception $e) {
         //Error Message
         $response["status"] = "error";
         echo json_encode($response);
     }
-
-
 } else if ($way == "newsignup") {
 
     //New Account SignUp
@@ -283,7 +275,6 @@ if ($way == "checksponser") {
                 $response["status"] = "failed";
                 $response["message"] = "Email Already Exits";
                 echo json_encode($response);
-
             } else {
 
                 //Checking the Already Exitsing Phone Number
@@ -298,7 +289,6 @@ if ($way == "checksponser") {
                     $response["status"] = "failed";
                     $response["message"] = "Phone Number Already Exits";
                     echo json_encode($response);
-
                 } else {
 
                     //Checking the Sponser ID it should be in Activation status
@@ -349,19 +339,42 @@ if ($way == "checksponser") {
 
                                 $getinvoiceid = $invoiceid->fetch_assoc();
                                 $id = (int) $getinvoiceid["id"] + 1;
-                                $invoiceid = "MSI-" . $id;
-
+                                $invoiceid1 = "MSI-" . $id;
+                                $invoiceid2 = "MSI-" . $id + 1;
+                                $invoiceid3 = "MSI-" . $id + 2;
                             } else {
-                                $invoiceid = "MSI-1";
+                                $invoiceid1 = "MSI-1";
+                                $invoiceid2 = "MSI-2";
+                                $invoiceid3 = "MSI-3";
                             }
 
-                            $insertpendinginvoicesql = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action,remark)
-                            VALUES ('$invoiceid','{$getuserrow["user_id"]}','50$','5','55','pending','')";
-                            $insertpendinginvoiceres = $con->query($insertpendinginvoicesql);
+                            $savingsvalue1 = 25;
+                            $savingsvalue2 = 50;
+                            $savingsvalue3 = 100;
 
-                            $checkinvoice = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$getuserrow["user_id"]}'";
-                            $checkinvoiceres = $con->query($checkinvoice);
-                            $getinvoice = $checkinvoiceres->fetch_assoc();
+                            $bonusvalue1 = 0.10 * $savingsvalue1;
+                            $bonusvalue2 = 0.10 * $savingsvalue2;
+                            $bonusvalue3 = 0.10 * $savingsvalue3;
+
+                            $totalvalue1 = $savingsvalue1 + $bonusvalue1;
+                            $totalvalue2 = $savingsvalue2 + $bonusvalue2;
+                            $totalvalue3 = $savingsvalue3 + $bonusvalue3;
+
+                            $insertpendinginvoicesql1 = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action,remark)
+                            VALUES ('$invoiceid1','{$getuserrow["user_id"]}','{$savingsvalue1}$','{$bonusvalue1}','{$totalvalue1}','pending','')";
+                            $insertpendinginvoiceres = $con->query($insertpendinginvoicesql1);
+
+                            $insertpendinginvoicesql2 = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action,remark)
+                            VALUES ('$invoiceid2','{$getuserrow["user_id"]}','{$savingsvalue2}$','{$bonusvalue2}','{$totalvalue2}','pending','')";
+                            $insertpendinginvoiceres = $con->query($insertpendinginvoicesql2);
+
+                            $insertpendinginvoicesql3 = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action,remark)
+                            VALUES ('$invoiceid3','{$getuserrow["user_id"]}','{$savingsvalue3}$','{$bonusvalue3}','{$totalvalue3}','pending','')";
+                            $insertpendinginvoiceres = $con->query($insertpendinginvoicesql3);
+
+                            // $checkinvoice = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$getuserrow["user_id"]}'";
+                            // $checkinvoiceres = $con->query($checkinvoice);
+                            // $getinvoice = $checkinvoiceres->fetch_assoc();
 
 
                             $lvl1 = $sponserid;
@@ -390,7 +403,6 @@ if ($way == "checksponser") {
 
                                 $insertgenealogy = $con->query("INSERT INTO genealogy (user_id,lvl1,lvl2,lvl3,lvl4,lvl5,lvl6,lvl7,lvl8,lvl9)
                                 VALUES ('{$user_id}','{$lvl1}','{$lvl2}','{$lvl3}','{$lvl4}','{$lvl5}','{$lvl6}','{$lvl7}','{$lvl8}','{$lvl9}')");
-
                             } else {
                                 $insertgenealogy = $con->query("INSERT INTO genealogy (user_id,lvl1) VALUES ('{$user_id}','{$lvl1}')");
                             }
@@ -697,18 +709,10 @@ if ($way == "checksponser") {
                                                                 <p>Your latest invoice for your UCCASH Tourism® membership is now past due.</p>
                                                             </div>
                                                             <div align="start">
-                                                                <p>As a reminder, your 55 Savings Travel Points will be add in from your cleared invoice</p>
+                                                                <p>As a reminder, your Savings Travel Points will be add in from your cleared invoice</p>
                                                             </div>
                                                             <div align="start">
                                                                 <p>Your Savings TP will not receive until this invoice is paid.</p>
-                                                            </div>
-                                                            <div align="start">
-                                                                <p><b>Invoice Details:</b><br>
-                                                                    Invoice Number&nbsp;:&nbsp;' . $getinvoice["invoice_id"] . '<br>
-                                                                    Status&nbsp;:&nbsp;Pending <br>
-                                                                    Creation Date&nbsp;:&nbsp;' . date("d-m-Y") . ' <br>
-                                                                    Amount Due&nbsp;:&nbsp;50$ worth of UCC
-                                                                </p>
                                                             </div>
                                                             <div align="start" style="margin-top: 40px;margin-bottom: 40px;">
                                                                 <table>
@@ -824,40 +828,29 @@ if ($way == "checksponser") {
                                             $response["status"] = "success";
                                             echo json_encode($response);
                                         }
-
                                     } catch (Exception $e) {
                                         $response["status"] = "error";
                                         echo json_encode($response);
                                     }
-
                                 }
-
                             } catch (Exception $e) {
                                 $response["status"] = "failed";
                                 echo json_encode($response);
                             }
-
                         } else {
 
                             $response["status"] = "failed";
                             $response["message"] = $con->error;
                             echo json_encode($response);
-
                         }
-
                     } else {
 
                         $response["status"] = "failed";
                         $response["message"] = "Enter Valid Sponser ID";
                         echo json_encode($response);
-
                     }
-
                 }
-
             }
-
-
         } else {  // OTP Verification - failed
             $response["status"] = "failed";
             $response["message"] = "Invalid OTP";
@@ -868,13 +861,9 @@ if ($way == "checksponser") {
         $response["message"] = "Generate New OTP";
         echo json_encode($response);
     }
-
-
-
 } else {
     $response["message"] = "failed";
     echo json_encode($response);
 }
 
 return 0;
-?>

@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
@@ -52,19 +51,17 @@ if ($values["status"] == "success") {
                     <td>' . $rowhistorydata["crypto_value"] . '</td>
                     <td>' . $rowhistorydata["txnhash_id"] . '</td>                    
                 ';
-
             } else if ($rowhistorydata["deposite_type"] == "Bank") {
 
                 $tabledata .= '
                     <td>' . $rowhistorydata["bank_value"] . '</td> 
                     <td>' . $rowhistorydata["transaction_id"] . '<br><button class="btn btn-success view-proof-image" data-src=".././UC User/img/proofImage/' . $rowhistorydata["proof_image"] . '"><i class="bi bi-eye-fill"></i></button></td>
                 ';
-
             }
 
             $tabledata .= '
                 <td>
-                    <button type="button" class="btn btn-success" onclick="approveactivation(' . $index . ')" id="approvebtn'.$index.'"><b>Approve</b></button>
+                    <button type="button" class="btn btn-success" onclick="approveactivation(' . $index . ')" id="approvebtn' . $index . '"><b>Approve</b></button>
                 </td>
                 <td>
                 <div>
@@ -113,7 +110,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "rejectactivation") {
 
         $userid = $_POST["userid"];
@@ -126,7 +122,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "approveactivation") {
 
         $userid = $_POST["userid"];
@@ -165,85 +160,80 @@ if ($values["status"] == "success") {
         VALUES ('{$userid}','{$tcvalue}','credit','Travel Coupon')");
 
         //Bonus Travel Point Wallet
-        for($i = 1; $i <=9; $i++){
+        for ($i = 1; $i <= 9; $i++) {
 
-            $value = $tcvalue * 0.0166; // 1.66 % * tcvalue
+            $value = $tcvalue * 0.0222; // 2.22 % * tcvalue
 
             $lvl = ${"lvl" . $i};
 
-            if(strlen($lvl)>=5){
+            if (strlen($lvl) >= 5) {
                 $btpoint = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_bonusfrom,bt_lvl,bt_action,bt_remark)
                 VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Bonus Travel Points')");
             }
-
         }
 
         //Networking Income Wallet
-        for($i = 1; $i <=9; $i++){
+        for ($i = 1; $i <= 9; $i++) {
 
-            $value=0;
+            $value = 0;
 
-            if($i == 1){ //lvl 1
+            if ($i == 1) { //lvl 1
                 $value = $tcvalue * 0.1; // 10% * tcvalue
-            }else if($i == 2){ //lvl 2
+            } else if ($i == 2) { //lvl 2
                 $value = $tcvalue * 0.05; // 5% * tcvalue
-            }else if($i == 3){ //lvl 3
+            } else if ($i == 3) { //lvl 3
                 $value = $tcvalue * 0.03; // 3% * tcvalue
-            }else if ($i == 4){ //lvl4
+            } else if ($i == 4) { //lvl4
                 $value = $tcvalue * 0.02; // 2% * tcvalue
-            }else if($i >= 5 && $i<=9){
-                $value = $tcvalue * 0.01; // 1% * tcvalue
-            }            
+            } else if ($i >= 5 && $i <= 9) {
+                $value = $tcvalue * 0.02; // 2% * tcvalue
+            }
 
             $lvl = ${"lvl" . $i};
 
-            if(strlen($lvl)>=5){
+            if (strlen($lvl) >= 5) {
                 $btpoint = $con->query("INSERT INTO networkingincomewallet (user_id,niw_points,niw_bonusfrom,niw_lvl,niw_action,niw_remark)
                 VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Networking Income')");
             }
-
         }
 
         //Leadership Income Wallet
-        for($i = 1; $i <=9; $i++){
+        for ($i = 1; $i <= 9; $i++) {
 
             $value = $tcvalue * 0.0044; // 0.44 % * tcvalue
 
             $lvl = ${"lvl" . $i};
 
-            if(strlen($lvl)>=5){
+            if (strlen($lvl) >= 5) {
                 $btpoint = $con->query("INSERT INTO leadershipincomewallet (user_id,liw_points,liw_bonusfrom,liw_lvl,liw_action,liw_remark)
                 VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Leadership Income')");
             }
-
         }
 
         //Car&House Fund Wallet
-        for($i = 1; $i <=9; $i++){
+        for ($i = 1; $i <= 9; $i++) {
 
             $value = $tcvalue * 0.0055; // 0.55 % * tcvalue
 
             $lvl = ${"lvl" . $i};
 
-            if(strlen($lvl)>=5){
+            if (strlen($lvl) >= 5) {
                 $btpoint = $con->query("INSERT INTO carandhousefundwallet (user_id,chfw_points,chfw_bonusfrom,chfw_lvl,chfw_action,chfw_remark)
                 VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Car & House Fund')");
             }
-
         }
 
         //Royalty Income Wallet
-        for($i = 1; $i <=9; $i++){
+        for ($i = 1; $i <= 9; $i++) {
 
             $value = $tcvalue * 0.0066; // 0.66 % * tcvalue
 
             $lvl = ${"lvl" . $i};
 
-            if(strlen($lvl)>=5){
+            if (strlen($lvl) >= 5) {
                 $btpoint = $con->query("INSERT INTO royaltyincomewallet (user_id,riw_points,riw_bonusfrom,riw_lvl,riw_action,riw_remark)
                 VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Royalty Income')");
             }
-
         }
 
         $approveactivation = $con->query("UPDATE idactivation SET action='paid', remark='' WHERE idactivation_id='{$activationid}'");
@@ -252,18 +242,13 @@ if ($values["status"] == "success") {
 
         $approveuserdeatils = $con->query("UPDATE userdetails SET user_referalStatus='activated' WHERE user_id='{$userid}'");
 
-        
+
         $response["status"] = "success";
         echo json_encode($response);
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

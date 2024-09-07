@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
@@ -37,7 +36,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "updateactivationvalue") {
 
         $activationvalue = $_POST["activationvalue"];
@@ -46,7 +44,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getusername") {
 
         $user_id = $_POST["userid"];
@@ -59,16 +56,12 @@ if ($values["status"] == "success") {
             $response["message"] = $getuser["user_name"];
             $response["status"] = "success";
             echo json_encode($response);
-
-
         } else {
 
             $response["message"] = "noid";
             $response["status"] = "success";
             echo json_encode($response);
-
         }
-
     } else if ($way == "idactivation") {
 
         $password = $_POST["adminpass"];
@@ -92,7 +85,6 @@ if ($values["status"] == "success") {
                     $response["message"] = "User Already Activated";
                     $response["status"] = "error";
                     echo json_encode($response);
-
                 } else {
 
                     $crypto_value = $_POST["cryptovalue"];
@@ -160,7 +152,7 @@ if ($values["status"] == "success") {
                     //Bonus Travel Point Wallet
                     for ($i = 1; $i <= 9; $i++) {
 
-                        $value = $tcvalue * 0.0166; // 1.66 % * tcvalue
+                        $value = $tcvalue * 0.0222; // 2.22 % * tcvalue
 
                         $lvl = ${"lvl" . $i};
 
@@ -168,7 +160,6 @@ if ($values["status"] == "success") {
                             $btpoint = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_bonusfrom,bt_lvl,bt_action,bt_remark)
                             VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Bonus Travel Points')");
                         }
-
                     }
 
                     //Networking Income Wallet
@@ -185,7 +176,7 @@ if ($values["status"] == "success") {
                         } else if ($i == 4) { //lvl4
                             $value = $tcvalue * 0.02; // 2% * tcvalue
                         } else if ($i >= 5 && $i <= 9) {
-                            $value = $tcvalue * 0.01; // 1% * tcvalue
+                            $value = $tcvalue * 0.02; // 2% * tcvalue
                         }
 
                         $lvl = ${"lvl" . $i};
@@ -194,7 +185,6 @@ if ($values["status"] == "success") {
                             $btpoint = $con->query("INSERT INTO networkingincomewallet (user_id,niw_points,niw_bonusfrom,niw_lvl,niw_action,niw_remark)
                             VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Networking Income')");
                         }
-
                     }
 
                     //Leadership Income Wallet
@@ -208,7 +198,6 @@ if ($values["status"] == "success") {
                             $btpoint = $con->query("INSERT INTO leadershipincomewallet (user_id,liw_points,liw_bonusfrom,liw_lvl,liw_action,liw_remark)
                             VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Leadership Income')");
                         }
-
                     }
 
                     //Car&House Fund Wallet
@@ -222,7 +211,6 @@ if ($values["status"] == "success") {
                             $btpoint = $con->query("INSERT INTO carandhousefundwallet (user_id,chfw_points,chfw_bonusfrom,chfw_lvl,chfw_action,chfw_remark)
                             VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Car & House Fund')");
                         }
-
                     }
 
                     //Royalty Income Wallet
@@ -236,41 +224,30 @@ if ($values["status"] == "success") {
                             $btpoint = $con->query("INSERT INTO royaltyincomewallet (user_id,riw_points,riw_bonusfrom,riw_lvl,riw_action,riw_remark)
                             VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Royalty Income')");
                         }
-
                     }
 
 
                     $approveactivation = $con->query("UPDATE idactivation SET action='paid', remark='' WHERE idactivation_id='{$idactivationid}'");
 
                     $approvehistory = $con->query("UPDATE idactivationhistory SET action='paid', remark='Activation Successful' WHERE idactivation_id='{$idactivationid}'");
-            
+
                     $approveuserdeatils = $con->query("UPDATE userdetails SET user_referalStatus='activated' WHERE user_id='{$userid}'");
-            
-                    
+
+
                     $response["status"] = "success";
                     echo json_encode($response);
-                    
-
                 }
-
             } else {
 
                 $response["message"] = "Incorrect Password";
                 $response["status"] = "error";
                 echo json_encode($response);
-
             }
         }
-
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

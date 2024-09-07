@@ -14,134 +14,100 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
+
+        $invoice_id = $_POST["invoice_id"];
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
         $datares = $con->query($datasql);
 
-        if (mysqli_num_rows($datares) == 1) {
+        if (mysqli_num_rows($datares) > 0) {
 
             $datarow = $datares->fetch_assoc();
+
             $response["user_name"] = $datarow["user_name"];
             $response["user_profileimg"] = $datarow["user_profileimg"];
 
-            $checckpay = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='admin'");
 
-            if (mysqli_num_rows($checckpay) >= 1) {
+            $checkinvoice_id = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE invoice_id='{$invoice_id}' AND user_id='{$values["userid"]}'");
 
-                $response["invoiceid"] = "Waiting for Admin Approve for Previous Pay";
-                $getuccsql = "SELECT * FROM uccvalue";
-                $getuccres = $con->query($getuccsql);
+            if (mysqli_num_rows($checkinvoice_id) == 1) {
 
-                $getuccrow = $getuccres->fetch_assoc();
+                $getinvoicedata = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' ORDER BY id DESC LIMIT 3");
 
-                $response["uccvalue"] = $getuccrow["value"];
-                $response["status"] = "success";
-                echo json_encode($response);
+                foreach ($getinvoicedata as $row) {
+                    if ($row["invoice_id"] == $invoice_id) {
 
-            } else {
+                        if ($row["action"] == "pending") {
+                            $date = $row["created_at"];
+                            $dateTime = new DateTime($date);
+                            $formattedDate = $dateTime->format('Y-m-d');
 
-                $getinvoicesql = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='pending'";
-                $getinvoiceres = $con->query($getinvoicesql);
+                            $getuccvalue = $con->query("SELECT * FROM uccvalue WHERE id=1");
+                            $resgetuccvalue = $getuccvalue->fetch_assoc();
 
-                if (mysqli_num_rows($getinvoiceres) >= 1) {
-
-                    $getinvoicerow = $getinvoiceres->fetch_assoc();
-
-                    $getuccsql = "SELECT * FROM uccvalue";
-                    $getuccres = $con->query($getuccsql);
-                    
-                    $getuccrow = $getuccres->fetch_assoc();
-                    
-                    $response["uccvalue"] = $getuccrow["value"];
-                    $response["status"] = "success";
-
-
-                    $checkrow = $con->query("SELECT MAX(paid_date) as created_at FROM monthlytpsavinghistory WHERE user_id='{$values["userid"]}' AND action='paid'");
-
-                    if (mysqli_num_rows($checkrow) >= 1) {
-                        $getcheckrow = $checkrow->fetch_assoc();
-
-                        $datetimeString = $getcheckrow["created_at"];
-                        $dateOnly = date("Y-m-d", strtotime($datetimeString));
-
-                        $date = new DateTime($dateOnly);
-                        $today = new DateTime();
-                        $interval = $date->diff($today);
-
-                        if ($interval->days > 30) {
-                            $response["invoiceid"] = $getinvoicerow["invoice_id"];
-                            $response["invoicedate"] = date("Y-m-d", strtotime($getinvoicerow["created_at"]));
-                        } else {
-                            $response["invoiceid"] = "nextmonth";
+                            $response["invoice_id"] = $invoice_id;
+                            $response["created_at"] = $formattedDate;
+                            $response["deposite_value"] = round(($row["totaltp_value"] - $row["bonustp_value"]) / $resgetuccvalue["value"],2);
+                            $response["status"] = "success";
+                        } else if ($row["action"] == "admin") {
+                            $response["status"] = "error";
+                            $response["message"] = "Waiting For Approval";
+                        } else if ($row["action"] == "paid") {
+                            $response["status"] = "error";
+                            $response["message"] = "You Already Paid the Invoice";
                         }
+
+                        break;
                     } else {
-                        $response["invoiceid"] = $getinvoicerow["invoice_id"];
-                        $response["invoicedate"] = date("Y-m-d", strtotime($getinvoicerow["created_at"]));
+                        $response["status"] = "error";
+                        $response["message"] = "Expired Invoice ID";
                     }
-                    
-                    echo json_encode($response);
-                    
-                } else {
-
-
-                    $response["invoiceid"] = "nullID";
-                    $getuccsql = "SELECT * FROM uccvalue";
-                    $getuccres = $con->query($getuccsql);
-
-                    $getuccrow = $getuccres->fetch_assoc();
-
-                    $response["uccvalue"] = $getuccrow["value"];
-                    $response["status"] = "success";
-                    echo json_encode($response);
-
                 }
-
+            } else {
+                $response["status"] = "error";
+                $response["message"] = "Invalid Invoice ID";
             }
 
 
-
+            echo json_encode($response);
         }
-
     } else if ($way == "submithashid") {
 
         $uccvalue = $_POST["uccvalue"];
         $txnhashid = $_POST["txnhashid"];
         $invoiceidval = $_POST["invoiceidval"];
 
-        $updatestatussql = "UPDATE monthlysavingpendinginvoice SET action = 'admin' WHERE invoice_id='{$invoiceidval}' ";
-        $updatestatusres = $con->query($updatestatussql);
+        $checkinvoice_id = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE invoice_id='{$invoiceidval}' AND user_id='{$values["userid"]}'");
 
-        $getselectsql = "SELECT * FROM monthlysavingpendinginvoice WHERE invoice_id='{$invoiceidval}'";
-        $getselectres = $con->query($getselectsql);
+        if (mysqli_num_rows($checkinvoice_id) == 1) {
 
-        $getselectrow = $getselectres->fetch_assoc();
+            $updatestatussql = "UPDATE monthlysavingpendinginvoice SET action = 'admin' WHERE invoice_id='{$invoiceidval}' ";
+            $updatestatusres = $con->query($updatestatussql);
 
-        $insertinvoicehistorysql = "INSERT INTO monthlytpsavinghistory (user_id, invoice_id,invoice_date, txn_hashid, payment_type, amount, tp_value, bonus_tp, credit_tp, balance_tp, action)
-        VALUES ('{$values["userid"]}', '{$getselectrow["invoice_id"]}', '{$getselectrow["created_at"]}', '{$txnhashid}', 'To Crypto', '{$uccvalue}', '50', '5', '55', '', 'admin')";
-        $insertinvoicehistoryres = $con->query($insertinvoicehistorysql);
+            $getselectsql = "SELECT * FROM monthlysavingpendinginvoice WHERE invoice_id='{$invoiceidval}'";
+            $getselectres = $con->query($getselectsql);
 
-        if ($insertinvoicehistoryres) {
+            $getselectrow = $getselectres->fetch_assoc();
 
-            $response["status"] = "success";
-            echo json_encode($response);
+            $insertinvoicehistorysql = "INSERT INTO monthlytpsavinghistory (user_id, invoice_id,invoice_date, txn_hashid, payment_type, amount, tp_value, bonus_tp, credit_tp, balance_tp, action)
+        VALUES ('{$values["userid"]}', '{$getselectrow["invoice_id"]}', '{$getselectrow["created_at"]}', '{$txnhashid}', 'To Crypto', '{$uccvalue}', '{$getselectrow["saving_value"]}', '{$getselectrow["bonustp_value"]}', '{$getselectrow["totaltp_value"]}', '', 'admin')";
+            $insertinvoicehistoryres = $con->query($insertinvoicehistorysql);
 
-        } else {
+            if ($insertinvoicehistoryres) {
 
-            $response["status"] = $con->error;
-            echo json_encode($response);
+                $response["status"] = "success";
+                echo json_encode($response);
+            } else {
 
+                $response["status"] = $con->error;
+                echo json_encode($response);
+            }
         }
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

@@ -236,6 +236,7 @@
                                                 <th scope="col">ID</th>
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Description</th>
+                                                <th scope="col">TP Value</th>
                                                 <th scope="col">Amount TP</th>
                                                 <th scope="col">TXN ID</th>
                                                 <th scope="col">Approve</th>

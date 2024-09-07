@@ -52,7 +52,7 @@ if ($values["status"] == "success") {
                 st_id AS record_id,
                 st_createdat AS record_date,
                 user_id,
-                '50' AS points,
+                st_points AS points,
                 st_action AS action,
                 st_remark AS remark,
                 'savingstravelpoints' AS source_table

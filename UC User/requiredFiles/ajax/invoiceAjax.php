@@ -16,6 +16,9 @@ if ($way == "invoiceprint") {
     $invoicedate = $_GET["invoicedate"];
     $paiddate = $_GET["paiddate"];
 
+    $getdata = $con->query("SELECT * FROM monthlytpsavinghistory WHERE invoice_id='{$invoiceid}'");
+    $resgetdata = $getdata->fetch_assoc();
+
     $pdf = new TCPDF();
 
     $pdf->SetMargins(0, 0, 0);
@@ -96,8 +99,8 @@ if ($way == "invoiceprint") {
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoicedate . '</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $paiddate . '</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>Paid</b></td>
-                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>55 TP</b></td>
-                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;font-size:19px;"><b>50 $</b></td>
+                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>'.$resgetdata["credit_tp"].' TP</b></td>
+                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;font-size:19px;"><b>'.$resgetdata["tp_value"].'</b></td>
                         </tr>
                         <tr align="center">
                             <td style="width:83.35%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:20px;">
@@ -108,7 +111,7 @@ if ($way == "invoiceprint") {
                                     </tr>
                                 </table>
                             </td>
-                            <td style="width:16.65%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:20px;"><b>50 $</b></td>
+                            <td style="width:16.65%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:20px;"><b>'.$resgetdata["tp_value"].'</b></td>
                         </tr>
                 </table>
             </td>

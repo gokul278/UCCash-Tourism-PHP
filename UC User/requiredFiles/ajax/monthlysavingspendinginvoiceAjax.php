@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
@@ -26,98 +25,47 @@ if ($values["status"] == "success") {
             $response["user_name"] = $datarow["user_name"];
             $response["user_profileimg"] = $datarow["user_profileimg"];
 
-            $tabledata = "";
 
-            $getTable = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='pending'";
+            $getTable = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' ORDER BY id DESC LIMIT 3";
             $getTableres = $con->query($getTable);
 
-            if (mysqli_num_rows($getTableres) >= 1) {
-
+            if ($getTableres->num_rows >= 1) {
+                $tabledata = "";
 
                 $index = 0;
 
-                $checkpay = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='admin'");
+                foreach ($getTableres as $row) {
 
-                if (mysqli_num_rows($checkpay) >= 1) {
-                    foreach ($getTableres as $getTablerow) {
-                        $index++;
-                        $tabledata .= '<tr>';
+                    $index++;
+                    $date = $row["created_at"];
+                    $dateTime = new DateTime($date);
+                    $formattedDate = $dateTime->format('Y-m-d');
 
-                        $tabledata .= '<th scope="row">' . $index . '</th>';
-                        $tabledata .= '<td>' . $getTablerow["invoice_id"] . '</td>';
-                        $tabledata .= '<td>' . $getTablerow["user_id"] . '</td>';
-                        $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['created_at'])) . '</td>';
-                        $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
-                        $tabledata .= '<td>' . $getTablerow["bonustp_value"] . '</td>';
-                        $tabledata .= '<td>' . $getTablerow["totaltp_value"] . '</td>';
-                        $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>zxzPay</button></a></td>';
+                    $tabledata .= '<tr><td>' . $index . '</td>';
+                    $tabledata .= '<td>' . $row["invoice_id"] . '</td>';
+                    $tabledata .= '<td>' . $row["user_id"] . '</td>';
+                    $tabledata .= '<td>' . $formattedDate . '</td>';
+                    $tabledata .= '<td>' . $row["saving_value"] . '</td>';
+                    $tabledata .= '<td>' . $row["bonustp_value"] . '</td>';
+                    $tabledata .= '<td>' . $row["totaltp_value"] . '</td>';
 
-                        $tabledata .= '</tr>';
-                    }
-                } else {
-
-                    foreach ($getTableres as $getTablerow) {
-                        $index++;
-                        $tabledata .= '<tr>';
-
-                        $tabledata .= '<th scope="row">' . $index . '</th>';
-                        $tabledata .= '<td>' . $getTablerow["invoice_id"] . '</td>';
-                        $tabledata .= '<td>' . $getTablerow["user_id"] . '</td>';
-                        $tabledata .= '<td>' . date('Y-m-d', strtotime($getTablerow['created_at'])) . '</td>';
-                        $tabledata .= '<td>' . $getTablerow["saving_value"] . '</td>';
-                        $tabledata .= '<td>' . $getTablerow["bonustp_value"] . '</td>';
-                        $tabledata .= '<td>' . $getTablerow["totaltp_value"] . '</td>';
-
-                        if ($index == 1) {
-
-                            if (isset($getTablerow["remark"]) && strlen($getTablerow["remark"]) > 0) {
-
-                                $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a><br><p style="color:red">' . $getTablerow["remark"] . '</p></td>';
-                            } else {
-
-                                $checkrow = $con->query("SELECT MAX(paid_date) as created_at FROM monthlytpsavinghistory WHERE user_id='{$values["userid"]}' AND action='paid'");
-
-                                if (mysqli_num_rows($checkrow) >= 1) {
-                                    $getcheckrow = $checkrow->fetch_assoc();
-
-                                    $datetimeString = $getcheckrow["created_at"];
-                                    $dateOnly = date("Y-m-d", strtotime($datetimeString));
-
-                                    $date = new DateTime($dateOnly);
-                                    $today = new DateTime();
-                                    $interval = $date->diff($today);
-
-                                    if ($interval->days >= 30) {
-                                        $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
-
-                                    } else {
-                                        $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>Pay</button></a></td>';
-
-                                    }
-                                } else {
-                                    $tabledata .= '<td><a href="monthly TP savings.php"><button type="button" class="btn btn-success">Pay</button></a></td>';
-                                }
-                            }
-
+                    if ($row["action"] == "pending") {
+                        if (strlen($row["remark"]) > 0) {
+                            $tabledata .= '<td><a href="monthly TP savings.php?invoice_id='.$row["invoice_id"].'"><button type="button" class="btn btn-success">Pay</button></a><br/><span style="color:red">' . $row["remark"] . '</span></td></tr>';
                         } else {
-                            $tabledata .= '<td><a><button type="button" class="btn btn-success" disabled>Pay</button></a></td>';
+                            $tabledata .= '<td><a href="monthly TP savings.php?invoice_id='.$row["invoice_id"].'"><button type="button" class="btn btn-success">Pay</button></a></td></tr>';
                         }
-
-                        $tabledata .= '</tr>';
-
+                    } else if ($row["action"] == "admin") {
+                        $tabledata .= '<td style="color:red">Waiting for Admin Approve</td></tr>';
+                    } else if ($row["action"] == "paid") {
+                        $tabledata .= '<td style="color:green">Paided</td></tr>';
                     }
-
-
-
                 }
-
-
 
 
                 $response["table_data"] = $tabledata;
                 $response["status"] = "success";
                 echo json_encode($response);
-
             } else {
 
                 $tabledata = "";
@@ -128,11 +76,8 @@ if ($values["status"] == "success") {
                 $response["table_data"] = $tabledata;
                 $response["status"] = "success";
                 echo json_encode($response);
-
             }
         }
-
-
     } else if ($way = "filterdate") {
 
         $getpaysql = "SELECT * FROM monthlysavingpendinginvoice WHERE user_id='{$values["userid"]}' AND action='pending'";
@@ -180,7 +125,6 @@ if ($values["status"] == "success") {
             $response["filter_data"] = $tabledata;
             $response["status"] = "success";
             echo json_encode($response);
-
         } else {
 
             $tabledata = "";
@@ -191,17 +135,11 @@ if ($values["status"] == "success") {
             $response["filter_data"] = $tabledata;
             $response["status"] = "success";
             echo json_encode($response);
-
         }
-        
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

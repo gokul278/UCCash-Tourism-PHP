@@ -33,8 +33,7 @@
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
         <!-- Spinner Start -->
-        <div id="spinner"
-            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
@@ -45,14 +44,11 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3"
-                    style="width: 150px; height: 60px;">
+                <img src="./img/uc logo.png" alt="UCCASH" class="navbar-brand mx-4 mb-3" style="width: 150px; height: 60px;">
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle user_profileimg" src="img/user.png" alt=""
-                            style="width: 40px; height: 40px;">
-                        <div
-                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        <img class="rounded-circle user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
                     </div>
                     <div class="ms-3">
@@ -63,8 +59,7 @@
                 <div class="navbar-nav w-100">
                     <a href="index.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-user me-2"></i>Profiles</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user me-2"></i>Profiles</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="profile.php" class="dropdown-item">Profile</a>
                             <a href="user bank details.php" class="dropdown-item">Bank & Wallet Details</a>
@@ -78,8 +73,7 @@
                     <a href="referral.php" class="nav-item nav-link"><i class="fa fa-user-plus me-2"></i>Refferal
                         Link</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-users me-2"></i>My Team</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-users me-2"></i>My Team</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="genealogy.php" class="dropdown-item">Genealogy</a>
                             <a href="team list.php" class="dropdown-item">Team List</a>
@@ -94,30 +88,25 @@
                         </div>
                     </div> -->
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
                         </div>
                     </div>
-                    <a href="distributor activation status.php" class="nav-item nav-link"><i
-                            class="fa fa-signal me-2"></i>ID Activation <p style="text-align: center;">History</p></a>
+                    <a href="distributor activation status.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>ID Activation <p style="text-align: center;">History</p></a>
                     <!-- <a href="coupon purchase history.php" class="nav-item nav-link"><i class="fa fa-gift me-2"></i>Coupon <p style="text-align: center;">Purchase History</p></a> -->
                     <a href="coupon usage history.php" class="nav-item nav-link"><i class="fa fa-gift me-2"></i>Travel
                         Coupon <p style="text-align: center;">Usage History</p></a>
                     <!-- <a href="monthly TP savings.php" class="nav-item nav-link"><i class="fa fa-comment-dollar me-2"></i>Monthly TP <p style="text-align: center;">Savings</p></a> -->
-                    <a href="monthly TP savings status.php" class="nav-item nav-link"><i
-                            class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
+                    <a href="monthly TP savings status.php" class="nav-item nav-link"><i class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
                     </a>
-                    <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
-                            class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
+                    <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
                     <a href="rank board.php" class="nav-item nav-link"><i class="fa fa-star me-2"></i>Rank Board</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-wallet me-2"></i>Income History</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-wallet me-2"></i>Income History</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="savings income.php" class="dropdown-item">Savings Income</a>
                             <a href="bonus travel point.php" class="dropdown-item">Bonus Travel Point</a>
@@ -129,12 +118,10 @@
                     </div>
                     <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
-                    <a href="transfer history.php" class="nav-item nav-link"><i
-                            class="fa fa-exchange-alt me-2"></i>Transfer History</a>
+                    <a href="transfer history.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer History</a>
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-university me-2"></i>Withdraw</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-university me-2"></i>Withdraw</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="coin withdraw.php" class="dropdown-item">Coin Withdraw</a>
                             <a href="withdraw request.php" class="dropdown-item">Withdraw Request</a>
@@ -155,8 +142,7 @@
                         History</a>
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-tools me-2"></i>Business Tools</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="#" class="dropdown-item">1 PDF </a>
                             <a href="#" class="dropdown-item">2 PDF</a>
@@ -165,8 +151,7 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-info-circle me-2"></i>Information</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-info-circle me-2"></i>Information</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="./img/UCCASH Tourism Terms and Conditions.pdf" class="dropdown-item">Terms &
                                 Conditions</a>
@@ -175,8 +160,7 @@
                                 Agreement</a>
                             <a href="./img/UCCASH Tourism Membership Agreement.pdf" class="dropdown-item">Membership
                                 Agreement</a>
-                            <a href="./img/UCCASH Tourism Indipendent Distributor Agreement.pdf"
-                                class="dropdown-item">Independent Distributor<p>Agreement</p></a>
+                            <a href="./img/UCCASH Tourism Indipendent Distributor Agreement.pdf" class="dropdown-item">Independent Distributor<p>Agreement</p></a>
                         </div>
                     </div>
                     <a href="supports.php" class="nav-item nav-link"><i class="fa fa-comment me-2"></i>Supports</a>
@@ -206,8 +190,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt=""
-                                style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2 user_profileimg" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex"><b class="user_name"></b></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -310,9 +293,7 @@
                                     <form style="color: #000;" id="submithashid">
                                         <!-- Image tag added here -->
                                         <div class="col-md-6 mx-auto text-center">
-                                            <img src="img/Monthly TP Savings.jpg" alt="Profile Image"
-                                                class="img-fluid mx-auto d-block mb-3"
-                                                style="max-width: 35%; height:40%;">
+                                            <img src="img/Monthly TP Savings.jpg" alt="Profile Image" class="img-fluid mx-auto d-block mb-3" style="max-width: 35%; height:40%;">
                                             <p>UCC (BEP20)</p>
                                         </div>
 
@@ -321,46 +302,41 @@
                                             <div class="col-md-6 mx-auto">
                                                 <div id="nullID">
                                                     <p class="small mb-1" align="start">Pay For</p>
-                                                    <p class="small mb-1" align="start">Invoice ID : <span
-                                                            style="color:red" class="invoiceid">1</span></p>
-                                                    <p class="small mb-2" align="start">Invoice Date : <span
-                                                            style="color:red" id="invoicedate"></span></p>
-                                                </div>
-                                                <label class="small mb-1" for="deposit address">Deposit Address</label>
-                                                <div class="input-group">
-                                                    <span class="form-control" id="deposit address"
-                                                        readonly>0x647c9D727286F975104cA8eAEC3f8699A9e3CF96</span>
-                                                    <button class="btn btn-outline-secondary copy-button" type="button"
-                                                        onclick="copyText('deposit address')"><b>Copy</b></button>
+                                                    <p class="small mb-1" align="start">Invoice ID : <span style="color:red" class="invoiceid">1</span></p>
+                                                    <p class="small mb-2" align="start">Invoice Date : <span style="color:red" id="invoicedate"></span></p>
+                                                    <label class="small mb-1" for="deposit address">Deposit Address</label>
+                                                    <div class="input-group">
+                                                        <span class="form-control" id="deposit address" readonly>0x647c9D727286F975104cA8eAEC3f8699A9e3CF96</span>
+                                                        <button class="btn btn-outline-secondary copy-button" type="button" onclick="copyText('deposit address')"><b>Copy</b></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                        <div id="contenterror">
 
-                                        <div class="row gx-3 mb-3 justify-content-center">
-                                            <div class="col-md-6">
-                                                <label class="small mb-1" for="deposit value">Deposit Value</label>
-                                                <input class="form-control" id="depositvalue" type="text"
-                                                    placeholder="Enter Deposit Value" readonly>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row gx-3 mb-3">
-                                            <div class="col-md-6 mx-auto">
-                                                <input type="hidden" id="invoiceidval">
-                                                <label class="small mb-1" for="pasteBox">TXN Hash ID</label>
-                                                <div class="copy-paste-box input-group">
-                                                    <textarea class="form-control" id="pasteBox"
-                                                        placeholder="Paste here" required></textarea>
-                                                    <button class="btn btn-outline-secondary paste-button" type="button"
-                                                        onclick="pasteContent()"><b>Paste</b></button>
+                                            <div class="row gx-3 mb-3 justify-content-center">
+                                                <div class="col-md-6">
+                                                    <label class="small mb-1" for="deposit value">Deposit Value</label>
+                                                    <input class="form-control" id="depositvalue" type="text" placeholder="Enter Deposit Value" readonly>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="text-center">
-                                            <button class="btn btn-primary" type="submit" id="notbtn"
-                                                onclick="submithashid()">Submit</button>
+
+                                            <div class="row gx-3 mb-3">
+                                                <div class="col-md-6 mx-auto">
+                                                    <input type="hidden" id="invoiceidval">
+                                                    <label class="small mb-1" for="pasteBox">TXN Hash ID</label>
+                                                    <div class="copy-paste-box input-group">
+                                                        <textarea class="form-control" id="pasteBox" placeholder="Paste here" required></textarea>
+                                                        <button class="btn btn-outline-secondary paste-button" type="button" onclick="pasteContent()"><b>Paste</b></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center">
+                                                <button class="btn btn-primary" type="submit" id="notbtn" onclick="submithashid()">Submit</button>
+                                            </div>
                                         </div>
 
                                     </form>

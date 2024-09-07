@@ -244,8 +244,8 @@
                                             <th scope="col">Aadhaar NO</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Rank</th>
-                                            <th scope="col">Invoice</th>
                                             <th scope="col">Balance Sheet</th>
+                                            <th scope="col">Invoice</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tabledata">

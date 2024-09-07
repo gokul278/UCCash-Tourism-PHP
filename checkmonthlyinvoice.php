@@ -1,12 +1,14 @@
 <?php
 
 require_once(__DIR__ . './requiredFiles/ajax/DBConnection.php');
+// require_once('./requiredFiles/ajax/DBConnection.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 require_once(__DIR__ . './requiredFiles/ajax/vendor/autoload.php');
+// require_once('./requiredFiles/ajax/vendor/autoload.php');
 
 // Check invoice processing status
 $statusCheck = "SELECT invoiceprocessing_status FROM invoiceprocess WHERE id=1";
@@ -43,16 +45,42 @@ try {
                 $invoiceid = $con->query("SELECT MAX(id) as id FROM monthlysavingpendinginvoice");
 
                 if (mysqli_num_rows($invoiceid) >= 1) {
+
                     $getinvoiceid = $invoiceid->fetch_assoc();
                     $id = (int) $getinvoiceid["id"] + 1;
-                    $invoiceid = "MSI-" . $id;
+                    $invoiceid1 = "MSI-" . $id;
+                    $invoiceid2 = "MSI-" . $id + 1;
+                    $invoiceid3 = "MSI-" . $id + 2;
                 } else {
-                    $invoiceid = "MSI-1";
+                    $invoiceid1 = "MSI-1";
+                    $invoiceid2 = "MSI-2";
+                    $invoiceid3 = "MSI-3";
                 }
 
-                $insertsql = "INSERT INTO monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action)
-                VALUES ('{$invoiceid}','{$checkrow["user_id"]}','50$','5','55','pending')";
-                $insertres = $con->query($insertsql);
+                $savingsvalue1 = 25;
+                $savingsvalue2 = 50;
+                $savingsvalue3 = 100;
+
+                $bonusvalue1 = 0.10 * $savingsvalue1;
+                $bonusvalue2 = 0.10 * $savingsvalue2;
+                $bonusvalue3 = 0.10 * $savingsvalue3;
+
+                $totalvalue1 = $savingsvalue1 + $bonusvalue1;
+                $totalvalue2 = $savingsvalue2 + $bonusvalue2;
+                $totalvalue3 = $savingsvalue3 + $bonusvalue3;
+
+                $insertpendinginvoicesql1 = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action,remark)
+                            VALUES ('$invoiceid1','{$checkrow["user_id"]}','{$savingsvalue1}$','{$bonusvalue1}','{$totalvalue1}','pending','')";
+                $insertpendinginvoiceres = $con->query($insertpendinginvoicesql1);
+
+                $insertpendinginvoicesql2 = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action,remark)
+                            VALUES ('$invoiceid2','{$checkrow["user_id"]}','{$savingsvalue2}$','{$bonusvalue2}','{$totalvalue2}','pending','')";
+                $insertpendinginvoiceres = $con->query($insertpendinginvoicesql2);
+
+                $insertpendinginvoicesql3 = "INSERT INTO  monthlysavingpendinginvoice (invoice_id, user_id, saving_value, bonustp_value, totaltp_value, action,remark)
+                            VALUES ('$invoiceid3','{$checkrow["user_id"]}','{$savingsvalue3}$','{$bonusvalue3}','{$totalvalue3}','pending','')";
+                $insertpendinginvoiceres = $con->query($insertpendinginvoicesql3);
+
 
                 $getmailsql = "SELECT * FROM userdetails WHERE user_id='{$checkrow["user_id"]}'";
                 $getmailres = $con->query($getmailsql);
@@ -146,14 +174,6 @@ try {
                         </div>
                         <div align="start">
                             <p>Your Savings TP will not receive until this invoice is paid.</p>
-                        </div>
-                        <div align="start">
-                            <p><b>Invoice Details:</b><br>
-                                Invoice Number&nbsp;:&nbsp;' . $invoiceid . '<br>
-                                Status&nbsp;:&nbsp;Pending <br>
-                                Creation Date&nbsp;:&nbsp;' . date("d-m-Y") . ' <br>
-                                Amount Due&nbsp;:&nbsp;50$ worth of UCC
-                            </p>
                         </div>
                         <div align="start" style="margin-top: 40px;margin-bottom: 40px;">
                             <table>
@@ -274,7 +294,6 @@ try {
                         $response["status"] = "success";
                         echo json_encode($response);
                     }
-
                 } catch (Exception $e) {
                     $response["status"] = "error";
                     echo json_encode($response);
@@ -287,5 +306,3 @@ try {
     $resetStatus = "UPDATE invoiceprocess SET invoiceprocessing_status = NULL WHERE id=1";
     $con->query($resetStatus);
 }
-
-?>

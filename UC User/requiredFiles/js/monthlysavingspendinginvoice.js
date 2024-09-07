@@ -58,17 +58,17 @@ const getData = () => {
 
 }
 
-const changebtn = () =>{
-    if($("#fromDate").val().length >0 && $("#toDate").val().length >0){
-        $("#gobtn").prop("disabled", false);
-    }
-}
+// const changebtn = () =>{
+//     if($("#fromDate").val().length >0 && $("#toDate").val().length >0){
+//         $("#gobtn").prop("disabled", false);
+//     }
+// }
 
-const clearbtn = () =>{
-    $("#fromDate").val("");
-    $("#toDate").val("");
-    return getData();
-}
+// const clearbtn = () =>{
+//     $("#fromDate").val("");
+//     $("#toDate").val("");
+//     return getData();
+// }
 
 const goButton = () =>{
     var fromDate = $("#fromDate").val();

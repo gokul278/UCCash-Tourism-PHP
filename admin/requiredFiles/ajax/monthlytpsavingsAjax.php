@@ -25,7 +25,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
@@ -53,6 +52,7 @@ if ($values["status"] == "success") {
                 <td>' . $rowtable["user_id"] . '</td>
                 <td>' . $rowtable["user_name"] . '</td>
                 <td>' . $rowtable["payment_type"] . '</td>
+                <td>' . $rowtable["tp_value"] . '</td>
                 <td>' . $rowtable["amount"] . '</td>
                 <td>' . $rowtable["txn_hashid"] . '</td>
                 <td>
@@ -61,7 +61,7 @@ if ($values["status"] == "success") {
                 <td>
                 <div>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal' . $key . '">
-  z                  <b>Reject</b>
+                    <b>Reject</b>
                 </button>
             </div>
             <div class="modal fade" id="exampleModal' . $key . '" tabdashboard="-1" role="dialog"
@@ -107,7 +107,6 @@ if ($values["status"] == "success") {
         $response["tabledata"] = $table;
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "rejectinvoice") {
         $userid = $_POST["userid"];
         $invoiceid = $_POST["invoiceid"];
@@ -132,7 +131,6 @@ if ($values["status"] == "success") {
                 echo json_encode($response);
             }
         }
-
     } else if ($way == "approveinvoice") {
 
         $userid = $_POST["userid"];
@@ -141,12 +139,17 @@ if ($values["status"] == "success") {
 
         $pendinginvoice = $con->query("UPDATE monthlysavingpendinginvoice SET action='paid', remark='' WHERE id='{$invoiceid}' AND  user_id='{$userid}'");
 
+        $getinvoicedata = $con->query("SELECT * FROM monthlysavingpendinginvoice WHERE invoice_id='{$invoiceid}' AND  user_id='{$userid}'");
+        $resgetinvoicedata = $getinvoicedata->fetch_assoc();
+
+        $totalvalue = $resgetinvoicedata["totaltp_value"] - $resgetinvoicedata["bonustp_value"];
+
         if ($pendinginvoice) {
 
             $sponserid = $con->query("SELECT * FROM userdetails WHERE user_id='{$userid}'");
             $ressponser = $sponserid->fetch_assoc();
 
-            $insertuserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark) VALUES ('{$userid}','55','credit','{$userid}','Savings Travel Points')");
+            $insertuserSTP = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark) VALUES ('{$userid}','{$resgetinvoicedata["totaltp_value"]}','credit','{$userid}','Savings Travel Points')");
             // $insertsponserSTP = $con->query("INSERT INTO savingsincome (user_id,si_points,si_action,si_bonusfrom,si_remark) VALUES ('{$ressponser["user_sponserid"]}','5','credit','{$userid}','Savings Income')");
 
             $lvl1 = "";
@@ -174,7 +177,7 @@ if ($values["status"] == "success") {
             }
 
 
-            $incoicevalue = 50;
+            $incoicevalue = $totalvalue;
 
             for ($i = 1; $i <= 9; $i++) {
 
@@ -186,7 +189,7 @@ if ($values["status"] == "success") {
                     $value = $incoicevalue * 0.02; // 2% * incoicevalue
                 } else if ($i >= 5 && $i <= 7) { //lvl 5 to 7
                     $value = $incoicevalue * 0.01; // 1% * incoicevalue
-                } else if ($i >= 8 && $i <= 9) {//lvl 8 to 9
+                } else if ($i >= 8 && $i <= 9) { //lvl 8 to 9
                     $value = $incoicevalue * 0.005; // 0.5% * incoicevalue
                 }
 
@@ -196,7 +199,6 @@ if ($values["status"] == "success") {
                     $btpoint = $con->query("INSERT INTO savingsincome (user_id,si_points,si_bonusfrom,si_lvl,si_action,si_remark)
                     VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Savings Income')");
                 }
-
             }
 
 
@@ -211,7 +213,6 @@ if ($values["status"] == "success") {
                     $credit_tp += (int) $element["st_points"];
                 } else if ($element["st_action"] == "debit") {
                     $debit_tp += (int) $element["st_points"];
-
                 }
             }
 
@@ -307,17 +308,7 @@ if ($values["status"] == "success") {
                                                                     <p>Your latest invoice for your UCCASH Tourism® membership monthly savings is now Paid.</p>
                                                                 </div>
                                                                 <div align="start">
-                                                                    <p>Your 55 TP Points added successfully in your Saving TP wallet.</p>
-                                                                </div>
-                                                                <div align="start">
-                                                                    <p><b>Invoice Details:</b><br>
-                                                                        Invoice Number&nbsp;:&nbsp;' . $invoiceid . '<br>
-                                                                        Invoice Month&nbsp;:&nbsp;' . explode(" ", $reshistory["invoice_date"])[0] . '<br>
-                                                                        Status&nbsp;:&nbsp;Completed <br>
-                                                                        Creation Date&nbsp;:&nbsp;' . explode(" ", $reshistory["paid_date"])[0] . ' <br>
-                                                                        Due Date&nbsp;:&nbsp;' . explode(" ", $reshistory["paid_date"])[0] . ' <br>
-                                                                        Amount Due&nbsp;:&nbsp;50$ worth of UCC
-                                                                    </p>
+                                                                    <p>Your ' . $totalvalue . ' TP Points added successfully in your Saving TP wallet.</p>
                                                                 </div>
                                                                 <div align="start">
                                                                     <p>
@@ -428,25 +419,17 @@ if ($values["status"] == "success") {
                         $response["status"] = "success";
                         echo json_encode($response);
                     }
-
                 } catch (Exception $e) {
                     //Error Message
                     $response["status"] = "error";
                     echo json_encode($response);
                 }
-
             }
-
         }
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

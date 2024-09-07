@@ -26,11 +26,16 @@ $(document).ready(() => {
 
 const getData = () => {
 
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+    const invoiceId = params.get('invoice_id');
+
     $.ajax({
         type: "POST",
         url: "./requiredFiles/ajax/monthlyTPsavingsAjax.php",
         data: {
-            "way": "getData"
+            "way": "getData",
+            "invoice_id": invoiceId
         },
         success: function (res) {
             var response = JSON.parse(res);
@@ -42,30 +47,21 @@ const getData = () => {
 
                 $(".user_name").html(response.user_name);
 
-                $("#depositvalue").val(response.uccvalue + " UCC")
+                $("#depositvalue").val(response.deposite_value + " UCC")
 
-                if (response.invoiceid == "nullID") {
+                $(".invoiceid").html(response.invoice_id);
+                $("#invoiceidval").val(response.invoice_id);
+                $("#invoicedate").html(response.created_at);
 
-                    $("#nullID").html("<p style='color:red'>No Pending Invoice</p>");
-                    $("#notbtn").prop("disabled", true);
-
-                } else if (response.invoiceid == "Waiting for Admin Approve for Previous Pay") {
-
-                    $("#nullID").html("<p style='color:red'>"+response.invoiceid+"</p>");
-                    $("#notbtn").prop("disabled", true);
-
-                }else if (response.invoiceid == "nextmonth"){
-                    $("#nullID").html("<p style='color:red'>Waiting for Next Due Date of Pay</p>");
-                    $("#notbtn").prop("disabled", true);
-                }
-                else {
-
-                    $(".invoiceid").html(response.invoiceid);
-                    $("#invoiceidval").val(response.invoiceid);
-                    $("#invoicedate").html(response.invoicedate);
-
+            } else if (response.status == "error") {
+                if (response.user_profileimg != null) {
+                    $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
                 }
 
+                $(".user_name").html(response.user_name);
+                $("#nullID").html("<p style='color:red;font-size:25px' align='center'>" + response.message + "</p>");
+                $("#contenterror").html("");
+                $("#notbtn").prop("disabled", true);
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
 
                 location.replace("time_expried.php");
