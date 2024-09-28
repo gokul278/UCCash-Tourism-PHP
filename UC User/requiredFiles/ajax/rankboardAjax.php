@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
@@ -30,14 +29,14 @@ if ($values["status"] == "success") {
 
             $levels = [
                 ['level' => 'lvl1', 'threshold' => 5, 'rank' => 'Director', 'reward' => 'Bonus Travel Point Redeem'],
-                ['level' => 'lvl2', 'threshold' => 25, 'rank' => 'Senior Director', 'reward' => 'Leadership Income Redeem'],
-                ['level' => 'lvl3', 'threshold' => 125, 'rank' => 'Bronze Director', 'reward' => 'Car & House Fund Redeem'],
-                ['level' => 'lvl4', 'threshold' => 375, 'rank' => 'Silver Director', 'reward' => 'Royalty Income Redeem'],
+                ['level' => 'lvl2', 'threshold' => 25, 'rank' => 'Senior Director', 'reward' => 'Training in Star Hotel'],
+                ['level' => 'lvl3', 'threshold' => 125, 'rank' => 'Bronze Director', 'reward' => 'Local Tour with Flight'],
+                ['level' => 'lvl4', 'threshold' => 375, 'rank' => 'Silver Director', 'reward' => 'Recognitions'],
                 ['level' => 'lvl5', 'threshold' => 1500, 'rank' => 'Gold Director', 'reward' => '2 Lakh Car Fund**'],
                 ['level' => 'lvl6', 'threshold' => 5000, 'rank' => 'Diamond Director', 'reward' => '5 Lakh Diamond Reward'],
                 ['level' => 'lvl7', 'threshold' => 15000, 'rank' => 'Crow Director', 'reward' => '15 Lakh worth Fully Paid Car']
             ];
-            
+
             foreach ($levels as $index => $level) {
                 $query = "
                     SELECT COUNT(*) as count
@@ -45,16 +44,16 @@ if ($values["status"] == "success") {
                     JOIN userdetails u ON g.user_id = u.user_id
                     WHERE g.{$level['level']} = '{$values["userid"]}' AND u.user_referalStatus = 'activated'
                 ";
-            
+
                 $result = $con->query($query);
                 $row = $result->fetch_assoc();
                 $count = $row['count'];
-                $lvlvalue =  $index+1;
+                $lvlvalue =  $index + 1;
 
                 $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$values["userid"]}' AND level{$lvlvalue}reward_status='granted'");
 
-                $award = mysqli_num_rows($check)>=1 ? "<p style='color:green'>Awared</p>" : "<p style='color:red'>Not Received</p>";
-            
+                $award = mysqli_num_rows($check) >= 1 ? "<p style='color:green'>Awared</p>" : "<p style='color:red'>Not Received</p>";
+
                 $tabledata .= "<tr>
                     <th scope='row'>" . ($index + 1) . "</th>
                     <th>{$level['threshold']}</th>
@@ -71,17 +70,11 @@ if ($values["status"] == "success") {
 
             $response["status"] = "success";
             echo json_encode($response);
-
         }
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

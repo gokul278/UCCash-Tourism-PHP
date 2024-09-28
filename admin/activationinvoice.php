@@ -97,8 +97,8 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
             $totalAmount = 'Rs 5310';
             $gst = '18%';
         } else if ($getdetails["bank_value"] == 'Rs 4999') {
-            $netAmount = ' Rs 4749';
-            $gstAmount = 'Rs 250';
+            $netAmount = ' Rs 4760.95';
+            $gstAmount = 'Rs 238.05';
             $totalAmount = 'Rs 4999';
             $gst = '5%';
         }

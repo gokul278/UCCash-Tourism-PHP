@@ -14,13 +14,12 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
         $datares = $con->query($datasql);
 
-        if (mysqli_num_rows($datares) == 1) {
+        if (mysqli_num_rows(result: $datares) == 1) {
 
             $datarow = $datares->fetch_assoc();
             $response["user_id"] = $datarow["user_id"];
@@ -30,7 +29,6 @@ if ($values["status"] == "success") {
             if ($datarow["user_referalStatus"] == "notactivated") {
 
                 $response["activation"] = "false";
-
             } else if ($datarow["user_referalStatus"] == "activated") {
 
                 $response["activation"] = "true";
@@ -42,7 +40,6 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-
     } else if ($way == "levelcheck") {
 
         $level = $_POST["levelsend"];
@@ -228,15 +225,10 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

@@ -85,9 +85,9 @@ if ($values["status"] == "success") {
                             </button>
                             <br/>
                             <br/>
-                            <!-- <button type="button" class="btn btn-danger" tourid="' . $getdata['id'] . '" onclick="deletetour(this)">
+                             <button type="button" class="btn btn-danger" tourid="' . $getdata['id'] . '" onclick="deletetour(this)">
                             <b>Delete</b>
-                        </button> --!>
+                        </button> 
                             <div class="modal fade" id="exampleModal' . $count . '" tabindex="-1" role="dialog"
                                                 aria-labelledby="exampleModalLabel' . $count . '" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
