@@ -38,7 +38,7 @@ if ($way == "login") {
                 array(
                     'iat' => time(),
                     'nbf' => time(),
-                    'exp' => time() + 3600,
+                    'exp' => time() + 18000,
                     'data' => array(
                         'admin_id' => $row["admin_id"],
                         'admin_name' => $row["admin_name"]

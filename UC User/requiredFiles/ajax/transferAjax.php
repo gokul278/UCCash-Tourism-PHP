@@ -401,10 +401,10 @@ if ($values["status"] == "success") {
 
         if ($valid) {
 
-            if ($wallettype == "savingsincome") {
+            if ($wallettype == "savingsincome") {w
 
-                $debitwallet = $con->query("INSERT INTO savingsincome (user_id, si_points, si_bonusfrom, si_action, si_remark)
-                VALUES ('{$values["userid"]}', '{$transfervalue}', '', 'debit', 'Available Withdraw Balance')");
+                $debitwallet = $con->query("INSERT INTO savingsincome (user_id, si_points, si_bonusfrom, si_lvl, si_action, si_remark)
+                VALUES ('{$values["userid"]}', '{$transfervalue}', '', '','debit', 'Available Withdraw Balance')");
                 $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
                 VALUES ('{$values["userid"]}', 'Savings Income', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
                 $response["status"] = "success";

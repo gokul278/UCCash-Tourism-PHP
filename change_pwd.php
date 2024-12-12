@@ -69,7 +69,7 @@
 
                 $row = $checkuseridres->fetch_assoc();
 
-                if ($row["forgetpass_hash"] === $hash_value) {
+                if ($row["forgetpass_hash"] == $hash_value) {
 
                     $pageshow = true;
 

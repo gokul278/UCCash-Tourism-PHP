@@ -37,7 +37,7 @@ if ($way == "forgetPassword") {
         //Checking the forgetpassword Mail and storing the HASH Value
 
         if (mysqli_num_rows($checkforgetmailres) == 1) {
-            $updatesql = "UPDATE forgetpassword SET forgetpass_hash = '{$randomHash}' WHERE user_id = '{$userid}'";
+            $updatesql = "UPDATE forgetpassword SET forgetpass_hash = '{$randomHash}' WHERE user_id = '{$userid}', remark='pending'";
             $updateres = $con->query($updatesql);
         } else {
             $insertsql = "INSERT INTO forgetpassword (user_id, forgetpass_hash, remark) VALUES ('{$userid}','{$randomHash}','pending')";

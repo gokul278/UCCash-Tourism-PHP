@@ -179,7 +179,7 @@ try {
                             <table>
                                 <tr align="center">
                                     <td style="width: 50%;height: 50px;background-color: #F7C128;border-radius: 50px;">
-                                        <a href="https://uccashtourism.com/UC-Tour/UC%20User/monthly%20TP%20savings.php" style="text-decoration: none;color: black;">
+                                        <a href="https://uccashtourism.com/UC%20User/monthly%20savings%20pending%20invoice.php" style="text-decoration: none;color: black;">
                                             View and Pay Invoice
                                         </a>
                                     </td>
