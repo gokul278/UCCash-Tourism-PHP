@@ -225,8 +225,42 @@
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
                             <h4 style="color: #f7c128;" class="mb-4">Member's Details</h4>
-                            <button type="button" class="btn btn-warning mb-5" onclick="exportToExcel()"><b>Print
+                            <button type="button" class="btn btn-warning mb-2" onclick="exportToExcel()"><b>Print
                                     PDF</b></button>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <form id="invoiceDateFilter">
+                                        <h5>Invoice Date</h5>
+                                        <div class="d-flex align-items-center mb-4">
+                                            <label for="fromDate" class="mr-2"><b>From</b></label>&nbsp;
+                                            <input type="date" id="fromDate" onchange="changeFilterInput()" class="form-control mr-2"
+                                                style="width: 120px;" required>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <label for="toDate" class="mr-2"><b>To</b></label>&nbsp;
+                                            <input type="date" id="toDate" class="form-control mr-2" style="width: 120px;" required>
+                                            &nbsp;
+                                            <button class="btn btn-primary" type="submit">Go</button>&nbsp;&nbsp;&nbsp;
+                                            <button class="btn btn-warning" type="button" id="dateclear" onclick="clearFilterStatus()">Clear</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h5>Status</h5>
+                                    <form id="statusSubmit">
+                                        <div class="input-group mb-3 mt-auto">
+                                            <select class="form-select" id="typevalue" style="max-width: 200px;" required>
+                                                <option value="" selected>Select Status</option>
+                                                <option value="Member">Member</option>
+                                                <option value="Distributor">Distributor</option>
+                                            </select>
+                                            <button class="btn btn-warning" type="submit">Search</button>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <button class="btn btn-warning" type="button" onclick="clearFilterStatus()">Clear</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <div class="table-responsive">
                                 <table id="myTable" style="text-align: center;" class="table table-bordered">
                                     <thead>
