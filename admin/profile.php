@@ -236,104 +236,116 @@
                 }
             </style>
             <!-- Content End -->
-            <div class="container d-flex justify-content-center">
-                <div class="col-sm-12 col-xl-10">
-                    <div class="bg-secondary rounded h-100 p-4">
-                        <h4 style="color: #f7c128;" class="mb-4">My Profile</h4>
-                        <form id="updateEdit">
-                            <div class="d-flex align-items-center mb-4">
-                                <label for="memberid" class="mr-2"><b>Enter Member ID</b></label>&nbsp;&nbsp;
-                                <input type="text" id="memberid" class="form-control mr-2" oninput="textid()"
-                                    style="width: 180px;">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <button type="button" id="goButton" class="btn btn-primary" onclick="memeberid()"
-                                    disabled>Go</button>
-                                &nbsp;&nbsp;&nbsp;
-                                <button type="button" onclick="clearbtn()" class="btn btn-primary">Clear</button>
-                            </div>
-                            <br>
+            <div class="container-fluid d-flex justify-content-center">
+                <div class="row w-100">
+                    <div class="col-sm-12 col-xl-10">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h4 style="color: #f7c128;" class="mb-4">My Profile</h4>
+                            <form id="updateEdit">
+                                <div class="container-fluid p-0">
+                                    <div class="row g-3 align-items-center">
+                                        <!-- Label (Full-width on mobile, inline on larger screens) -->
+                                        <div class="col-12 col-md-auto">
+                                            <label for="memberid" class="fw-bold">Enter Member ID</label>
+                                        </div>
 
+                                        <!-- Input Field (Full-width on mobile, auto width on larger screens) -->
+                                        <div class="col-12 col-md-auto">
+                                            <input type="text" id="memberid" class="form-control" oninput="textid()" style="min-width:100%;max-width: 180px;">
+                                        </div>
 
-                            <div class="row mb-3">
-                                <div class="col-sm-6">
-                                    <label for="referralid" class="col-form-label">Referral ID</label>
-                                    <input type="text" class="form-control disabled-input" id="sponserid" disabled
-                                        style="height: 50px;">
+                                        <!-- Buttons (Stacked on mobile, inline on larger screens) -->
+                                        <div class="col-12 col-md-auto d-flex gap-2">
+                                            <button type="button" id="goButton" class="btn btn-primary" style="min-width:45%;max-width: 180px;" onclick="memeberid()" disabled>Go</button>
+                                            <button type="button" onclick="clearbtn()" style="min-width:45%;max-width: 180px;" class="btn btn-danger">Clear</button>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="col-sm-6">
-                                    <label for="name" class="col-form-label">Name</label>
-                                    <input type="text" class="form-control" name="username" id="name"
-                                        style="height: 50px;" disabled required>
-                                </div>
-                            </div>
+                                <br>
 
-                            <div class="row mb-3">
-                                <div class="col-sm-6">
-                                    <label for="inputDOB" class="col-form-label">Date of Birth</label>
-                                    <input type="date" class="form-control" name="dob" id="inputDOB"
-                                        style="height: 50px;" disabled>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="Aadhaar" class="col-form-label">Aadhaar Number</label>
-                                    <input type="tel" class="form-control" name="aadhaarno" id="Aadhaar"
-                                        style="height: 50px;" disabled>
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="referralid" class="col-form-label">Referral ID</label>
+                                        <input type="text" class="form-control disabled-input" id="sponserid" disabled
+                                            style="height: 50px;color:#fff">
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label for="name" class="col-form-label">Name</label>
+                                        <input type="text" class="form-control" name="username" id="name"
+                                            style="height: 50px;" disabled required>
+                                    </div>
                                 </div>
 
-                            </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="inputDOB" class="col-form-label">Date of Birth</label>
+                                        <input type="date" class="form-control" name="dob" id="inputDOB"
+                                            style="height: 50px;" disabled>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="Aadhaar" class="col-form-label">Aadhaar Number</label>
+                                        <input type="tel" class="form-control" name="aadhaarno" id="Aadhaar"
+                                            style="height: 50px;" disabled>
+                                    </div>
 
-                            <div class="row mb-3">
-
-
-                                <div class="col-sm-6">
-                                    <label for="Pancard" class="col-form-label">Pancard</label>
-                                    <input type="text" class="form-control" name="panno" id="Pancard"
-                                        style="height: 50px;" disabled>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label for="Mobile" class="col-form-label">Mobile No</label>
-                                    <input type="tel" class="form-control" name="phoneno" id="phone"
-                                        style="height: 50px;" disabled>
+
+                                <div class="row mb-3">
+
+
+                                    <div class="col-sm-6">
+                                        <label for="Pancard" class="col-form-label">Pancard</label>
+                                        <input type="text" class="form-control" name="panno" id="Pancard"
+                                            style="height: 50px;" disabled>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="Mobile" class="col-form-label">Mobile No</label>
+                                        <input type="tel" class="form-control" name="phoneno" id="phone"
+                                            style="height: 50px;" disabled>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <input type="hidden" name="userid" id="userid">
-                            <input type="hidden" name="sponserid" id="sponser">
-                            <input type="hidden" name="way" value="updateeditprofile">
+                                <input type="hidden" name="userid" id="userid">
+                                <input type="hidden" name="sponserid" id="sponser">
+                                <input type="hidden" name="way" value="updateeditprofile">
 
-                            <div class="row mb-3">
+                                <div class="row mb-3">
 
 
-                                <div class="col-sm-6">
-                                    <label for="email" class="col-form-label">Email ID</label>
-                                    <input type="email" class="form-control" name="email" id="email"
-                                        style="height: 50px;" disabled>
+                                    <div class="col-sm-6">
+                                        <label for="email" class="col-form-label">Email ID</label>
+                                        <input type="email" class="form-control" name="email" id="email"
+                                            style="height: 50px;" disabled>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="walllet" class="col-form-label">TRC 20 Wallet Address</label>
+                                        <input type="text" class="form-control" name="wallet" id="walllet"
+                                            style="height: 50px;" disabled>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label for="walllet" class="col-form-label">TRC 20 Wallet Address</label>
-                                    <input type="text" class="form-control" name="wallet" id="walllet"
-                                        style="height: 50px;" disabled>
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-6" id="user_gender">
+                                        <p class="small mb-1">Gender</p>
+                                        <input type="radio" name="gender" id="male" value="male" disabled> Male
+                                        &nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="gender" id="female" value="female" disabled> Female
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row mb-3">
-                                <div class="col-sm-6" id="user_gender">
-                                    <p class="small mb-1">Gender</p>
-                                    <input type="radio" name="gender" id="male" value="male" disabled> Male
-                                    &nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="gender" id="female" value="female" disabled> Female
+
+                                <div class="row mb-3">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-primary" type="submit" id="submitbtn"
+                                            disabled>Submit</button>
+                                    </div>
                                 </div>
-                            </div>
 
-
-                            <div class="row mb-3">
-                                <div class="col-sm-12">
-                                    <button class="btn btn-primary" type="submit" id="submitbtn"
-                                        disabled>Submit</button>
-                                </div>
-                            </div>
-
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

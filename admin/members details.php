@@ -229,23 +229,38 @@
                                     PDF</b></button>
                             <hr>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-7 mb-5 mb-sm-0">
                                     <form id="invoiceDateFilter">
                                         <h5>Invoice Date</h5>
-                                        <div class="d-flex align-items-center mb-4">
-                                            <label for="fromDate" class="mr-2"><b>From</b></label>&nbsp;
-                                            <input type="date" id="fromDate" onchange="changeFilterInput()" class="form-control mr-2"
-                                                style="width: 120px;" required>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <label for="toDate" class="mr-2"><b>To</b></label>&nbsp;
-                                            <input type="date" id="toDate" class="form-control mr-2" style="width: 120px;" required>
-                                            &nbsp;
-                                            <button class="btn btn-primary" type="submit">Go</button>&nbsp;&nbsp;&nbsp;
-                                            <button class="btn btn-warning" type="button" id="dateclear" onclick="clearFilterStatus()">Clear</button>
+
+                                        <div class="row">
+                                            <!-- From Date -->
+                                            <div class="col-12 col-sm-4 d-flex align-items-center mb-2 mb-sm-0">
+                                                <label for="fromDate" class="mr-2"><b>From</b></label>
+                                                <input type="date" id="fromDate" onchange="changeFilterInput()" class="form-control" required>
+                                            </div>
+
+                                            <!-- To Date -->
+                                            <div class="col-12 col-sm-4 d-flex align-items-center mb-2 mb-sm-0">
+                                                <label for="toDate" class="mr-2"><b>To</b></label>
+                                                <input type="date" id="toDate" onchange="changeFilterInput()" class="form-control" required>
+                                            </div>
+
+                                            <!-- Go Button -->
+                                            <div class="col-6 col-sm-2">
+                                                <button class="btn btn-primary w-100" style="color:#000" type="submit">Go</button>
+                                            </div>
+
+                                            <!-- Clear Button -->
+                                            <div class="col-6 col-sm-2">
+                                                <button class="btn btn-warning w-100" type="button" id="dateclear" onclick="clearFilterDate()">Clear</button>
+                                            </div>
                                         </div>
+
                                     </form>
                                 </div>
-                                <div class="col-sm-6">
+
+                                <div class="col-sm-5">
                                     <h5>Status</h5>
                                     <form id="statusSubmit">
                                         <div class="input-group mb-3 mt-auto">
