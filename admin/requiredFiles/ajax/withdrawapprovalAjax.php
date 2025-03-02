@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
@@ -53,29 +52,29 @@ if ($values["status"] == "success") {
                 <td>' . $getdata["payment_method"] . '</td>';
 
 
-                if($getdata["payment_method"] == "UCC"){
-                    $tabledata .="
-                    <th>".$getdata["withdraw_amount"]."$</th>
+            if ($getdata["payment_method"] == "UCC") {
+                $tabledata .= "
+                    <th>" . $getdata["withdraw_amount"] . "$</th>
                     <th>-</th>
                     <th>-</th>
-                    <th>".$getdata["net_amount"]."$</th>
-                    <th>".$getdata["to_withdraw"]."</th>
+                    <th>" . $getdata["net_amount"] . "$</th>
+                    <th>" . $getdata["to_withdraw"] . "</th>
                     ";
-                }else{
-                    $tabledata .= "
-                    <th>".$getdata["withdraw_amount"]."$</th>
-                    <th>".$getdata["admin_fees"]."$</th>
-                    <th>".$getdata["retopup_fees"]."$</th>
-                    <th>".$getdata["net_amount"]."$</th>
-                    <th>".$getdata["to_withdraw"]."</th>
+            } else {
+                $tabledata .= "
+                    <th>" . $getdata["withdraw_amount"] . "$</th>
+                    <th>" . $getdata["admin_fees"] . "$</th>
+                    <th>" . $getdata["retopup_fees"] . "$</th>
+                    <th>" . $getdata["net_amount"] . "$</th>
+                    <th>" . $getdata["to_withdraw"] . "</th>
                     ";
-                }
-                // <td>' . $getdata["withdraw_amount"] . '$</td>
-                // <td>' . $getdata["admin_fees"] . '$</td>
-                // <td>' . $getdata["retopup_fees"] . '$</td>
-                // <td>' . $getdata["net_amount"] . '$</td>
-                // <td>' . $getdata["to_withdraw"] . '</td>
-                $tabledata .= '<td>
+            }
+            // <td>' . $getdata["withdraw_amount"] . '$</td>
+            // <td>' . $getdata["admin_fees"] . '$</td>
+            // <td>' . $getdata["retopup_fees"] . '$</td>
+            // <td>' . $getdata["net_amount"] . '$</td>
+            // <td>' . $getdata["to_withdraw"] . '</td>
+            $tabledata .= '<td>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#accept' . $index . '">
                         <b>Approve</b>
                     </button>
@@ -145,7 +144,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "rejectwithdraw") {
         $withdrawid = $_POST["withdrawid"];
         $rejectreason = $_POST["rejectreason"];
@@ -157,7 +155,6 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-
     } else if ($way == "approvewithdraw") {
 
         $withdrawid = $_POST["withdrawid"];
@@ -213,7 +210,6 @@ if ($values["status"] == "success") {
                                         }
                                     }
                                 }
-
                             }
 
                             $reactivationvalue = number_format(($rawcredit - $rawdebit), 2);
@@ -296,7 +292,6 @@ if ($values["status"] == "success") {
                                         $btpoint = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_bonusfrom,bt_lvl,bt_action,bt_remark)
                                         VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Bonus Travel Points')");
                                     }
-
                                 }
 
                                 //Networking Income Wallet
@@ -322,7 +317,6 @@ if ($values["status"] == "success") {
                                         $btpoint = $con->query("INSERT INTO networkingincomewallet (user_id,niw_points,niw_bonusfrom,niw_lvl,niw_action,niw_remark)
                                         VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Networking Income')");
                                     }
-
                                 }
 
                                 //Leadership Income Wallet
@@ -336,7 +330,6 @@ if ($values["status"] == "success") {
                                         $btpoint = $con->query("INSERT INTO leadershipincomewallet (user_id,liw_points,liw_bonusfrom,liw_lvl,liw_action,liw_remark)
                                         VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Leadership Income')");
                                     }
-
                                 }
 
                                 //Car&House Fund Wallet
@@ -350,7 +343,6 @@ if ($values["status"] == "success") {
                                         $btpoint = $con->query("INSERT INTO carandhousefundwallet (user_id,chfw_points,chfw_bonusfrom,chfw_lvl,chfw_action,chfw_remark)
                                         VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Car & House Fund')");
                                     }
-
                                 }
 
                                 //Royalty Income Wallet
@@ -364,7 +356,6 @@ if ($values["status"] == "success") {
                                         $btpoint = $con->query("INSERT INTO royaltyincomewallet (user_id,riw_points,riw_bonusfrom,riw_lvl,riw_action,riw_remark)
                                         VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Royalty Income')");
                                     }
-
                                 }
 
                                 $approveactivation = $con->query("UPDATE idactivation SET action='paid', remark='' WHERE idactivation_id='{$activationid}'");
@@ -377,57 +368,36 @@ if ($values["status"] == "success") {
                                 VALUES ('{$userid}','{$activationlimit}','debit','Reactivation Fees')");
 
                                 $response["status"] = "success";
-
                             } else {
 
                                 $response["status"] = "success";
-
                             }
-
                         } else {
 
                             $response["status"] = "error5";
-
                         }
-
                     } else {
 
                         $response["status"] = "error4";
-
                     }
-
-
                 } else {
 
                     $response["status"] = "error3";
-
                 }
-
-
             } else {
 
-                 $response["status"] = "success";
-
+                $response["status"] = "success";
             }
-
-
         } else {
 
             $response["status"] = "error1";
-
         }
 
         echo json_encode($response);
-
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

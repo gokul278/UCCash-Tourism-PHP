@@ -244,8 +244,8 @@
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Payment Method</th>
                                                 <th scope="col">Withdraw Amount</th>
-                                                <th scope="col">Admin Fee 5%</th>
-                                                <th scope="col">Re Topup Activation 5%</th>
+                                                <th scope="col">Admin Fee 0%</th>
+                                                <th scope="col">Re Topup Activation 10%</th>
                                                 <th scope="col">Net Amount</th>
                                                 <th scope="col">To Withdraw</th>
                                                 <th scope="col">TXN ID</th>

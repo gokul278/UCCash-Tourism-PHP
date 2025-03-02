@@ -26,7 +26,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
@@ -60,7 +59,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["availablewithdrwabalance"] = number_format(($awbcredit - $awbdebit), 2);
@@ -90,19 +88,13 @@ if ($values["status"] == "success") {
 
                 $response["status"] = "success";
                 echo json_encode($response);
-
             } else {
 
                 $response["status"] = "nopay";
                 $response["message"] = "Previous Withdraw Pending";
                 echo json_encode($response);
-
             }
-
-
-
         }
-
     } else if ($way == "cryptootp") {
         $amount = $_POST["amount"];
         $coinvalue = $amount;
@@ -331,15 +323,10 @@ if ($values["status"] == "success") {
                 $response["status"] = "success";
                 echo json_encode($response);
             }
-
         } catch (Exception $e) {
             $response["status"] = "error";
             echo json_encode($response);
         }
-
-
-
-
     } else if ($way == "bankotp") {
         $amount = $_POST["amount"];
         $dollarvalue = $amount;
@@ -581,15 +568,10 @@ if ($values["status"] == "success") {
                 $response["status"] = "success";
                 echo json_encode($response);
             }
-
         } catch (Exception $e) {
             $response["status"] = "error";
             echo json_encode($response);
         }
-
-
-
-
     } else if ($way == "cryptowithdraw") {
 
         $withdrawvalue = $_POST["withdrawvalue"];
@@ -636,8 +618,8 @@ if ($values["status"] == "success") {
                     $totalbalance = $awbcredit - $awbdebit;
                     $formattedTotalBalance = $totalbalance;
 
-                    $adminfees = number_format((0.05 * $withdrawvalue), 2);
-                    $reactivationtopup = number_format((0.05 * $withdrawvalue), 2);
+                    $adminfees = number_format((0 * $withdrawvalue), 2);
+                    $reactivationtopup = number_format((0.1 * $withdrawvalue), 2);
                     $netamount = number_format((0.9 * $withdrawvalue), 2);
 
                     if ($formattedTotalBalance < $withdrawvalue) {
@@ -665,25 +647,17 @@ if ($values["status"] == "success") {
                     $response["message"] = "Invalid OTP";
                     echo json_encode($response);
                 }
-
             } else {
                 $response["status"] = "error";
                 $response["message"] = "Minimum Withdraw Limit 50$";
                 echo json_encode($response);
             }
-
         } else {
 
             $response["status"] = "error";
             $response["message"] = "Activate your Account";
             echo json_encode($response);
-
         }
-
-
-
-
-
     } else if ($way == "bankwithdraw") {
 
         $withdrawvalue = $_POST["withdrawvalue"];
@@ -729,8 +703,8 @@ if ($values["status"] == "success") {
                     $totalbalance = $awbcredit - $awbdebit;
                     $formattedTotalBalance = $totalbalance;
 
-                    $adminfees = number_format((0.05 * $withdrawvalue), 2);
-                    $reactivationtopup = number_format((0.05 * $withdrawvalue), 2);
+                    $adminfees = number_format((0 * $withdrawvalue), 2);
+                    $reactivationtopup = number_format((0.1 * $withdrawvalue), 2);
                     $netamount = number_format((0.9 * $withdrawvalue), 2);
 
                     if ($formattedTotalBalance < $withdrawvalue) {
@@ -758,30 +732,21 @@ if ($values["status"] == "success") {
                     $response["message"] = "Invalid OTP";
                     echo json_encode($response);
                 }
-
             } else {
                 $response["status"] = "error";
                 $response["message"] = "Minimum Withdraw Limit 10$";
                 echo json_encode($response);
             }
-
         } else {
 
             $response["status"] = "error";
             $response["message"] = "Activate your Account";
             echo json_encode($response);
-
         }
-
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

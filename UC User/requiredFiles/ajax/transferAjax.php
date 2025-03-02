@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getflashbanner") {
 
         $getflashbanner = $con->query("SELECT * FROM flashbanner WHERE id=1");
@@ -24,7 +23,6 @@ if ($values["status"] == "success") {
         $response["status"] = "success";
         $response["flashbanner"] = $flashbanner["bannerimage"];
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
@@ -52,7 +50,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["savingsincome"] = number_format(($sicredit - $sidebit), 2);
@@ -112,7 +109,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["carandhousefund"] = number_format(($chfwcredit - $chfwdebit), 2);
@@ -133,7 +129,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["royaltyincome"] = number_format(($riwcredit - $riwdebit), 2);
@@ -144,9 +139,7 @@ if ($values["status"] == "success") {
 
             $response["status"] = "success";
             echo json_encode($response);
-
         }
-
     } else if ($way == "savingsincome") {
 
         //Savings Income
@@ -165,14 +158,12 @@ if ($values["status"] == "success") {
                     }
                 }
             }
-
         }
 
         $response["balanacevalue"] = number_format(($sicredit - $sidebit), 2);
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "networkingincome") {
 
         //Networking Income
@@ -196,7 +187,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "leadershipincome") {
 
         // Leadership Income
@@ -220,7 +210,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "carandhousefundincome") {
 
         //Car & House Fund
@@ -239,14 +228,12 @@ if ($values["status"] == "success") {
                     }
                 }
             }
-
         }
 
         $response["balanacevalue"] = number_format(($chfwcredit - $chfwdebit), 2);
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "royaltyincome") {
 
         //Royalty Income
@@ -265,14 +252,12 @@ if ($values["status"] == "success") {
                     }
                 }
             }
-
         }
 
         $response["balanacevalue"] = number_format(($riwcredit - $riwdebit), 2);
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "transfer") {
 
         $wallettype = $_POST["wallettype"];
@@ -298,12 +283,10 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $walletvalue = number_format(($sicredit - $sidebit), 2);
             $valid = $walletvalue >= $transfervalue;
-
         } else if ($wallettype == "networkingincome") {
 
             //Networking Income
@@ -325,7 +308,6 @@ if ($values["status"] == "success") {
 
             $walletvalue = number_format(($niwcredit - $niwdebit), 2);
             $valid = $walletvalue >= $transfervalue;
-
         } else if ($wallettype == "leadershipincome") {
 
             // Leadership Income
@@ -347,7 +329,6 @@ if ($values["status"] == "success") {
 
             $walletvalue = number_format(($liwcredit - $liwdebit), 2);
             $valid = $walletvalue >= $transfervalue;
-
         } else if ($wallettype == "carandhousefundincome") {
 
             //Car & House Fund
@@ -366,12 +347,10 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $walletvalue = number_format(($chfwcredit - $chfwdebit), 2);
             $valid = $walletvalue >= $transfervalue;
-
         } else if ($wallettype == "royaltyincome") {
 
             //Royalty Income
@@ -390,26 +369,22 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $walletvalue = number_format(($riwcredit - $riwdebit), 2);
             $valid = $walletvalue >= $transfervalue;
-
         }
 
 
         if ($valid) {
 
-            if ($wallettype == "savingsincome") {w
+            if ($wallettype == "savingsincome") {
 
-                $debitwallet = $con->query("INSERT INTO savingsincome (user_id, si_points, si_bonusfrom, si_lvl, si_action, si_remark)
-                VALUES ('{$values["userid"]}', '{$transfervalue}', '', '','debit', 'Available Withdraw Balance')");
+                $debitwallet = $con->query("INSERT INTO savingsincome (user_id, si_points, si_bonusfrom, si_lvl, si_action, si_remark) VALUES ('{$values["userid"]}', '{$transfervalue}', '', '','debit', 'Available Withdraw Balance')");
                 $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
                 VALUES ('{$values["userid"]}', 'Savings Income', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
                 $response["status"] = "success";
                 echo json_encode($response);
-
             } else if ($wallettype == "networkingincome") {
 
                 $debitwallet = $con->query("INSERT INTO networkingincomewallet (user_id, niw_points, niw_bonusfrom, niw_lvl, niw_action, niw_remark)
@@ -418,7 +393,6 @@ if ($values["status"] == "success") {
                 VALUES ('{$values["userid"]}', 'Networking Income', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
                 $response["status"] = "success";
                 echo json_encode($response);
-
             } else if ($wallettype == "leadershipincome") {
 
                 $debitwallet = $con->query("INSERT INTO leadershipincomewallet (user_id, liw_points, liw_bonusfrom, liw_lvl, liw_action, liw_remark)
@@ -427,7 +401,6 @@ if ($values["status"] == "success") {
                 VALUES ('{$values["userid"]}', 'Leadership Income', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
                 $response["status"] = "success";
                 echo json_encode($response);
-
             } else if ($wallettype == "carandhousefundincome") {
 
                 // $checkrank = $con->query("SELECT * FROM genealogy WHERE lvl3='{$values["userid"]}'");
@@ -436,12 +409,12 @@ if ($values["status"] == "success") {
 
                 // if ($number >= 125) {
 
-                    $debitwallet = $con->query("INSERT INTO carandhousefundwallet (user_id, chfw_points, chfw_bonusfrom, chfw_lvl, chfw_action, chfw_remark)
+                $debitwallet = $con->query("INSERT INTO carandhousefundwallet (user_id, chfw_points, chfw_bonusfrom, chfw_lvl, chfw_action, chfw_remark)
                     VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
-                    $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
+                $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
                     VALUES ('{$values["userid"]}', 'Car & House Fund', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
-                    $response["status"] = "success";
-                    echo json_encode($response);
+                $response["status"] = "success";
+                echo json_encode($response);
 
                 // } else {
 
@@ -459,12 +432,12 @@ if ($values["status"] == "success") {
 
                 // if ($number >= 375) {
 
-                    $debitwallet = $con->query("INSERT INTO royaltyincomewallet (user_id, riw_points, riw_bonusfrom, riw_lvl, riw_action, riw_remark)
+                $debitwallet = $con->query("INSERT INTO royaltyincomewallet (user_id, riw_points, riw_bonusfrom, riw_lvl, riw_action, riw_remark)
                     VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
-                    $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
+                $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
                     VALUES ('{$values["userid"]}', 'Royalty Income', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
-                    $response["status"] = "success";
-                    echo json_encode($response);
+                $response["status"] = "success";
+                echo json_encode($response);
 
                 // }else{
 
@@ -475,25 +448,16 @@ if ($values["status"] == "success") {
                 // }
 
             }
-
-
         } else {
 
             $response["status"] = "error";
             $response["message"] = "Insufficient Balance";
             echo json_encode($response);
-
         }
-
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>
