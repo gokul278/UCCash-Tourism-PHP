@@ -411,7 +411,7 @@
                                                     <img id="imgaddress" src="" alt="Profile Image"
                                                         class="img-fluid mx-auto d-block mb-3"
                                                         style="max-width: 35%; height:40%;">
-                                                    <p>USDT (TRC20)</p>
+                                                    <p>USDT (BEP20)</p>
                                                 </div>
                                                 <div class="row gx-3 mb-3">
                                                     <div class="col-md-6 mx-auto">
@@ -637,7 +637,7 @@
                     <script>
                         function showPage(pageId) {
                             var pages = document.querySelectorAll('.page');
-                            pages.forEach(function (page) {
+                            pages.forEach(function(page) {
                                 if (page.id === pageId) {
                                     page.classList.add('active');
                                 } else {
@@ -646,7 +646,7 @@
                             });
 
                             var buttons = document.querySelectorAll('.toggle-button');
-                            buttons.forEach(function (button) {
+                            buttons.forEach(function(button) {
                                 if (button.id === 'toggle-button-' + pageId.slice(-1)) {
                                     button.classList.add('active');
                                 } else {
@@ -759,7 +759,7 @@
                     </script>
 
                     <script>
-                        document.getElementById('formFileMultiple').addEventListener('change', function () {
+                        document.getElementById('formFileMultiple').addEventListener('change', function() {
                             document.getElementById('fileName').textContent = this.files[0].name;
                         });
                     </script>

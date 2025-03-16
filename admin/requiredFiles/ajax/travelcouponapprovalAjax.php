@@ -159,6 +159,37 @@ if ($values["status"] == "success") {
         $travelcoupon = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
         VALUES ('{$userid}','{$tcvalue}','credit','Travel Coupon')");
 
+        //Travel Coupon Convert to Available amount for Level 1
+        if (strlen($lvl1) >= 5) {
+            //calculate Travel Coupon
+            $travelcoupon = $con->query("SELECT * FROM travelcouponpoints WHERE user_id='{$lvl1}'");
+            $tccredit = 0;
+            $tcdebit = 0;
+
+            if (mysqli_num_rows($travelcoupon) >= 1) {
+
+                foreach ($travelcoupon as $gettravelcoupon) {
+                    if (isset($gettravelcoupon["tc_action"]) && strlen($gettravelcoupon["tc_action"]) >= 1) {
+                        if ($gettravelcoupon["tc_action"] == "credit") {
+                            $tccredit += (float) $gettravelcoupon["tc_points"];
+                        } else if ($gettravelcoupon["tc_action"] == "debit") {
+                            $tcdebit += (float) $gettravelcoupon["tc_points"];
+                        }
+                    }
+                }
+            }
+
+            $lvl1travelCouponBalance = number_format(($tccredit - $tcdebit), 2);
+
+            if ($lvl1travelCouponBalance >= 5.00) {
+                $travelcoupondebit = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
+                                VALUES ('{$lvl1}','5','debit','Travel Coupon')");
+                $availablewithdrawabalance = $con->query("INSERT INTO availablewithdrwabalance (user_id,awb_from,awb_to,awb_points,awb_action)
+                                VALUES ('{$lvl1}','Travel Coupon','Available Withdraw Balance','5','credit')");
+            }
+        }
+
+
         //Bonus Travel Point Wallet
         for ($i = 1; $i <= 9; $i++) {
 
