@@ -373,7 +373,7 @@
                                                 <label for="cryptoType" class="form-label">Crypto Type:</label>
                                                 <input type="text" class="form-control" id="walletAddress"
                                                     placeholder="Enter your crypto wallet address" disabled
-                                                    value="USDT (TRC20)">
+                                                    value="USDT (BEP20)">
                                             </div>
 
                                             <div class="mb-3">

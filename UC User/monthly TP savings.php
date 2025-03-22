@@ -28,6 +28,22 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <style>
+        .btn-custom-color {
+            background-color: #075175 !important;
+            border-color: #075175 !important;
+        }
+
+        .btn-custom-color:hover {
+            background-color: #064e64 !important;
+            border-color: #064e64 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -281,17 +297,79 @@
                 .paste-button {
                     border: 3px solid black;
                 }
+
+                .toggle-button-container {
+                    margin-top: 20px;
+                    /* Adjust as needed */
+                    text-align: center;
+                }
+
+                .toggle-button {
+                    background-color: #f7c128;
+                    /* Green */
+                    border: none;
+                    color: white;
+                    padding: 10px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px;
+                    cursor: pointer;
+                    border-radius: 5px;
+                }
+
+                .toggle-button-alt {
+                    background-color: #075175;
+                    /* Blue */
+                }
+
+                .page-container {
+                    /* text-align: center; */
+                    margin-top: 10px;
+                    /* Adjust as needed */
+                }
+
+                .page {
+                    display: none;
+                    /* margin-top: 10px; */
+                    /* Adjust as needed */
+                    padding-bottom: 30px;
+                }
+
+                .page.active {
+                    display: block;
+                }
+
+                .btn-custom-color {
+                    background-color: #075175 !important;
+                    border-color: #075175 !important;
+                }
+
+                .btn-custom-color:hover {
+                    background-color: #064e64 !important;
+                    border-color: #064e64 !important;
+                }
             </style>
 
             <div class="container-xl px-4 mt-4">
                 <div class="row">
-                    <div class="col-xl-8 mx-auto">
+                    <div class="card-header">Monthly TP Savings</div>
+
+                    <div class="toggle-button-container">
+                        <button id="toggle-button-1" class="toggle-button" onclick="showPage('page1')"><b>Crypto
+                                Deposit</b></button>
+                        <button id="toggle-button-2" class="toggle-button toggle-button-alt" onclick="showPage('page2')"><b>Bank
+                                Deposit</b></button>
+                    </div>
+
+                    <!-- <div class="col-xl-8 mx-auto">
+                        <div class="card-header">Monthly TP Savings</div>
                         <div class="card mb-4">
-                            <div class="card-header">Monthly TP Savings</div>
+                            <div class="card-header">Crypto Deposit</div>
                             <div class="card-body">
                                 <strong>
                                     <form style="color: #000;" id="submithashid">
-                                        <!-- Image tag added here -->
                                         <div class="col-md-6 mx-auto text-center">
                                             <img src="img/Monthly TP Savings.jpg" alt="Profile Image" class="img-fluid mx-auto d-block mb-3" style="max-width: 35%; height:40%;">
                                             <p>UCC (BEP20)</p>
@@ -312,7 +390,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div id="contenterror">
 
                                             <div class="row gx-3 mb-3 justify-content-center">
@@ -343,8 +421,244 @@
                                 </strong>
                             </div>
                         </div>
+                    </div> -->
+
+
+                    <div class="mt-5">
+                        <div class="row gx-3">
+                            <div class="col-md-6 mx-auto">
+                                <div id="nullID">
+                                    <p class="small mb-1" align="start">Pay For</p>
+                                    <p class="small mb-1" align="start">Invoice ID : <span style="color:red" class="invoiceid">1</span></p>
+                                    <p class="small mb-2" align="start">Invoice Date : <span style="color:red" id="invoicedate"></span></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                    <div id="pagecontent" class="page-container">
+                        <div id="page1" class="page active">
+
+                            <!-- Content of page 1 -->
+                            <div class="container-xl px-4 mt-4">
+                                <div class="row">
+                                    <div class="col-xl-8 mx-auto">
+                                        <div class="card mb-4">
+                                            <div class="card-header">Crypto Deposit</div>
+                                            <div class="card-body">
+                                                <strong>
+                                                    <form id="activationcrypto" style="color: #000;">
+                                                        <div class="col-md-6 mx-auto text-center">
+                                                            <img id="imgaddress" src="" alt="Profile Image"
+                                                                class="img-fluid mx-auto d-block mb-3"
+                                                                style="max-width: 35%; height:40%;">
+                                                            <p>USDT (BEP20)</p>
+                                                        </div>
+                                                        <div class="row gx-3 mb-3">
+                                                            <div class="col-md-6 mx-auto">
+                                                                <label class="small mb-1" for="deposit address">Deposit
+                                                                    Address</label>
+                                                                <div class="input-group">
+                                                                    <span class="form-control" id="deposit address"></span>
+                                                                    <button class="btn btn-outline-secondary copy-button"
+                                                                        type="button"
+                                                                        onclick="copyText('deposit address')"><b>Copy</b></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row gx-3 mb-3 justify-content-center">
+                                                            <div class="col-md-6">
+                                                                <label class="small mb-1" for="deposit value">Deposit
+                                                                    Value</label>
+                                                                <input class="form-control" id="deposit value" type="text"
+                                                                    placeholder="Enter Deposit Value" readonly>
+
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" name="way" value="cryptoaddress">
+                                                        <div class="row gx-3 mb-3">
+                                                            <div class="col-md-6 mx-auto">
+                                                                <label class="small mb-1" for="pasteBox">TXN Hash ID</label>
+                                                                <div class="copy-paste-box input-group">
+                                                                    <textarea class="form-control" name="txnhashid"
+                                                                        id="pasteBox" placeholder="Paste here"
+                                                                        required></textarea>
+                                                                    <button class="btn btn-outline-secondary paste-button"
+                                                                        type="button"
+                                                                        onclick="pasteContent()"><b>Paste</b></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-center">
+                                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="page2" class="page">
+                            <!-- Content of page 2 -->
+                            <div class="container mx-auto">
+                                <div class="main-body">
+                                    <div class="row">
+                                        <div class="col-lg-6 mx-auto">
+                                            <div class="card mt-4">
+                                                <div class="card-body">
+                                                    <h6 style="color: #69707a;" class="mb-4">Bank Deposit</h6>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">A/C Holder Name</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <div class="input-group">
+                                                                <span class="form-control" id="ac_holdername"></span>
+                                                                <button class="btn btn-outline-secondary" type="button"
+                                                                    onclick="copyholdername()"><b>Copy</b></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">A/C Number</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <div class="input-group">
+                                                                <span class="form-control" id="ac_number"></span>
+                                                                <button class="btn btn-outline-secondary" type="button"
+                                                                    onclick="copyaccnum()"><b>Copy</b></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">IFS Code</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <div class="input-group">
+                                                                <span class="form-control" id="ifsc_code"></span>
+                                                                <button class="btn btn-outline-secondary" type="button"
+                                                                    onclick="copyifsc()"><b>Copy</b></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">Branch</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <span class="form-control" id="branch"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <h6 class="mb-0">UPI ID</h6>
+                                                        </div>
+                                                        <div class="col-sm-9 text-secondary">
+                                                            <div class="input-group">
+                                                                <span class="form-control" id="upi_id"></span>
+                                                                <button class="btn btn-outline-secondary" type="button"
+                                                                    onclick="copyUpiId()"><b>Copy</b></button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <div class="dropdown">
+                                                                <button class="btn btn-custom-color" type="button"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false" style="color: #fff;">
+                                                                    <b>Show QR</b>
+                                                                </button>
+                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                    <div class="dropdown-item" id="qrContainer"
+                                                                        style="background-color: #fff;">
+                                                                        <img src="" id="bankaddress" alt="QR Code"
+                                                                            style="width:250px; height: 280px; align-items: center; border-radius: 10px;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br><br><br>
+                                                        <input type="hidden" name="cryptovalue" id="cryptovalue">
+                                                        <form id="activationbank">
+                                                            <input type="hidden" name="invoiceidval" id="invoiceidval">
+                                                            <div class="row mb-3">
+                                                                <div class="col-sm-3">
+                                                                    <h6 class="mb-0">Deposit Value</h6>
+                                                                </div>
+                                                                <div class="col-sm-9 text-secondary">
+                                                                    <span class="form-control" id="deposit_value"></span>
+                                                                </div>
+                                                            </div>
+                                                            <br><br><br>
+
+                                                            <input type="hidden" name="way" value="activationbank">
+                                                            <input type="hidden" name="uccvalue" id="bankvalue">
+                                                            <div class="row mb-3">
+                                                                <div class="col-sm-3">
+                                                                    <h6 class="mb-0">Transaction ID</h6>
+                                                                </div>
+                                                                <div class="col-sm-9 text-secondary">
+                                                                    <input type="text" name="txnhashid"
+                                                                        class="form-control" required>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="mb-3" style="margin-bottom: 15px;">
+                                                                <label for="formFileMultiple"
+                                                                    style="font-weight: bold; color: #333;">Upload Payment
+                                                                    Proof</label>
+                                                                <div
+                                                                    style="background-color: #f9f9f9; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                                                                    <input class="form-control" type="file"
+                                                                        id="formFileMultiple" accept="image/*"
+                                                                        style="display: none;" name="proofimage" required>
+                                                                    <label for="formFileMultiple"
+                                                                        style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
+                                                                        Image</label>
+                                                                    <span id="fileName" style="margin-left: 10px;"></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <br><br><br>
+
+                                                            <div class="row">
+                                                                <div class="col-sm-3"></div>
+                                                                <div
+                                                                    class="col-sm-9 text-secondary d-flex justify-content-center">
+                                                                    <input type="submit" class="btn btn-primary px-4"
+                                                                        value="Submit">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+                                <script type="text/javascript"></script>
+
+
+
+
+
+                                <!-- Content End -->
+
+
+                                <!-- Back to Top -->
+                                <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+                                        class="bi bi-arrow-up"></i></a>
+                            </div>
+                        </div>
+                    </div>
 
 
                     <script>
@@ -361,6 +675,26 @@
                                 .catch((err) => {
                                     console.error('Failed to read clipboard content: ', err);
                                 });
+                        }
+
+                        function showPage(pageId) {
+                            var pages = document.querySelectorAll('.page');
+                            pages.forEach(function(page) {
+                                if (page.id === pageId) {
+                                    page.classList.add('active');
+                                } else {
+                                    page.classList.remove('active');
+                                }
+                            });
+
+                            var buttons = document.querySelectorAll('.toggle-button');
+                            buttons.forEach(function(button) {
+                                if (button.id === 'toggle-button-' + pageId.slice(-1)) {
+                                    button.classList.add('active');
+                                } else {
+                                    button.classList.remove('active');
+                                }
+                            });
                         }
                     </script>
 
@@ -393,6 +727,65 @@
                     </script>
 
 
+                    <script>
+                        function copyUpiId() {
+                            var copyText = document.getElementById("upi_id");
+                            var tempInput = document.createElement("input");
+                            tempInput.value = copyText.textContent;
+                            document.body.appendChild(tempInput);
+                            tempInput.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(tempInput);
+                            alert("UPI ID copied: " + tempInput.value);
+                        }
+                    </script>
+
+                    <script>
+                        function copyholdername() {
+                            var copyText = document.getElementById("ac_holdername");
+                            var tempInput = document.createElement("input");
+                            tempInput.value = copyText.textContent;
+                            document.body.appendChild(tempInput);
+                            tempInput.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(tempInput);
+                            alert("Holder Name copied: " + tempInput.value);
+                        }
+                    </script>
+
+                    <script>
+                        function copyaccnum() {
+                            var copyText = document.getElementById("ac_number");
+                            var tempInput = document.createElement("input");
+                            tempInput.value = copyText.textContent;
+                            document.body.appendChild(tempInput);
+                            tempInput.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(tempInput);
+                            alert("A/C Number copied: " + tempInput.value);
+                        }
+                    </script>
+
+                    <script>
+                        function copyifsc() {
+                            var copyText = document.getElementById("ifsc_code");
+                            var tempInput = document.createElement("input");
+                            tempInput.value = copyText.textContent;
+                            document.body.appendChild(tempInput);
+                            tempInput.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(tempInput);
+                            alert("IFSC Code copied: " + tempInput.value);
+                        }
+                    </script>
+
+                    <script>
+                        document.getElementById('formFileMultiple').addEventListener('change', function() {
+                            document.getElementById('fileName').textContent = this.files[0].name;
+                        });
+                    </script>
+
+
 
 
                     <!--Referral End-->
@@ -421,6 +814,10 @@
 
             <!-- Template Javascript -->
             <script src="js/main.js"></script>
+            <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script type="text/javascript"></script>
+
 
             <script src="./requiredFiles/js/monthlyTPsavings.js"></script>
 </body>

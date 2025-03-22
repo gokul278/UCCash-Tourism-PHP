@@ -30,6 +30,63 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 9999;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal content */
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        /* Modal body */
+        .modal-body {
+            background-color: rgba(255, 0, 0, 0);
+            padding: 2px 16px;
+        }
+
+        /* Modal footer */
+        .modal-footer {
+            padding: 2px 16px;
+            color: white;
+        }
+
+        /* Close button */
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -92,13 +149,14 @@
                             <a href="travel coupon purchase history.php" class="dropdown-item">ID Activation History</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown">
+                    <div class="nav-item dropdown ">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="monthly tp savings.php" class="dropdown-item active" style="color:#f7c128">Monthly
-                                TP Saving's <p>
-                                    Approval</p></a>
+                            <a href="monthlycryptodeposite.php" class="dropdown-item">Crypto Deposite</a>
+                            <a href="monthlybankdeposite.php" class="dropdown-item">Bank Deposite</a>
+                            <a href="monthly tp savings.php" class="dropdown-item active" style="color:#f7c128">Monthly TP Saving's <p>Approval</p>
+                            </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
                                     History</p></a>
                         </div>
@@ -169,6 +227,22 @@
 
 
         <!-- Content Start -->
+
+
+        <!-- Modal for viewing proof image -->
+        <div class="modal fade" id="proofImageModal" tabindex="-1" role="dialog" aria-labelledby="proofImageModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <img id="proofImage" src="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">

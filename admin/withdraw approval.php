@@ -96,6 +96,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
+                            <a href="monthlycryptodeposite.php" class="dropdown-item">Crypto Deposite</a>
+                            <a href="monthlybankdeposite.php" class="dropdown-item">Bank Deposite</a>
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
                             </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
@@ -235,8 +237,8 @@
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Payment Method</th>
                                                 <th scope="col">Withdraw Amount</th>
-                                                <th scope="col">Admin Fee 5%</th>
-                                                <th scope="col">Re Topup Activation 5%</th>
+                                                <!-- <th scope="col">Admin Fee 5%</th> -->
+                                                <th scope="col">Re Topup Activation 10%</th>
                                                 <th scope="col">Net Amount</th>
                                                 <th scope="col">To Withdraw</th>
                                                 <th scope="col">Approve</th>

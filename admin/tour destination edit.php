@@ -82,7 +82,7 @@
         .file-input-container:hover {
             border: 3px solid #f7c128;
             background-color: #000;
-            color
+            /* color */
         }
 
         .file-input-container.file-selected::after {
@@ -97,6 +97,7 @@
             width: calc(100% - 20px);
             font-size: 14px;
             color: #f7c128;
+            /* Ensure previous rules have semicolons */
         }
 
         input[readonly] {
@@ -171,6 +172,8 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
+                            <a href="monthlycryptodeposite.php" class="dropdown-item">Crypto Deposite</a>
+                            <a href="monthlybankdeposite.php" class="dropdown-item">Bank Deposite</a>
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
                             </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>

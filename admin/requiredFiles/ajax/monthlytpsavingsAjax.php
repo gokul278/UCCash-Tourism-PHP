@@ -42,7 +42,22 @@ if ($values["status"] == "success") {
 
         $table = "";
 
+
         foreach ($gettable as $key => $rowtable) {
+
+            $tabledata = "";
+
+
+            if ($rowtable["payment_type"] == "To Crypto") {
+                $tabledata .= '
+                    <td>' . $rowtable["txn_hashid"] . '</td>               
+                ';
+            } else if ($rowtable["payment_type"] == "To Bank") {
+
+                $tabledata .= '
+                    <td>' . $rowtable["txn_hashid"] . '<br><button class="btn btn-success view-proof-image" data-src=".././UC User/img/proofImage/' . $rowtable["proof_image"] . '"><i class="bi bi-eye-fill"></i></button></td>
+                ';
+            }
             $table .= '
             <tr>
                 <td scope="row">' . $key + 1 . '</td>
@@ -51,10 +66,10 @@ if ($values["status"] == "success") {
                 <td>' . $rowtable["invoice_date"] . '</td>
                 <td>' . $rowtable["user_id"] . '</td>
                 <td>' . $rowtable["user_name"] . '</td>
-                <td>' . $rowtable["payment_type"] . '</td>
+                <td>' . $rowtable["payment_type"] . '</td>  
                 <td>' . $rowtable["tp_value"] . '</td>
                 <td>' . $rowtable["amount"] . '</td>
-                <td>' . $rowtable["txn_hashid"] . '</td>
+                ' . $tabledata . '
                 <td>
                     <button type="button" class="btn btn-success" onclick="approveinvoice(this)" key="' . $key . '" id="approvebtn' . $key . '" value="' . $rowtable["id"] . '" user_id="' . $rowtable["user_id"] . '"  way="approveinvoice" invoiceid="' . $rowtable["invoice_id"] . '"><b>Approve</b></button>
                 </td>

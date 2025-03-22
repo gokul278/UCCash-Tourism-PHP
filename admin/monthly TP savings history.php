@@ -105,12 +105,12 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
+                            <a href="monthlycryptodeposite.php" class="dropdown-item">Crypto Deposite</a>
+                            <a href="monthlybankdeposite.php" class="dropdown-item">Bank Deposite</a>
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
                             </a>
-                            <a href="monthly TP savings history.php" class="dropdown-item active"
-                                style="color:#f7c128">Monthly TP Saving's
-                                <p>History</p>
-                            </a>
+                            <a href="monthly TP savings history.php" class="dropdown-item active" style="color:#f7c128">Monthly TP Saving's <p>
+                                    History</p></a>
                         </div>
                     </div>
                     <a href="travel coupon usage history.php" class="nav-item nav-link"><i

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Payment Agreements</title>
+    <title>Monthly - Bank Deposit</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -37,20 +37,6 @@
 
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
-
-    <style>
-        #fileName {
-            display: inline-block;
-            max-width: 200px;
-            /* Adjust the max-width as needed */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            vertical-align: middle;
-            margin-left: 10px;
-            /* Space between the label and the file name */
-        }
-    </style>
 </head>
 
 <body>
@@ -107,18 +93,19 @@
                                 class="fa fa-id-card me-2"></i>ID Activation</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="crypto deposit.php" class="dropdown-item">Crypto Deposit</a>
-                            <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
+                            <a href="bank deposit.php" class="dropdown-item">Bank
+                                Deposit</a>
                             <a href="travel coupon activation.php" class="dropdown-item">ID Activation</a>
                             <a href="travel coupon approval.php" class="dropdown-item">ID Activation Approval</a>
                             <a href="travel coupon purchase history.php" class="dropdown-item">ID Activation History</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="monthlycryptodeposite.php" class="dropdown-item">Crypto Deposite</a>
-                            <a href="monthlybankdeposite.php" class="dropdown-item">Bank Deposite</a>
+                            <a href="monthlycryptodeposite.php" class="dropdown-item ">Crypto Deposite</a>
+                            <a href="monthlybankdeposite.php" class="dropdown-item active" style="color:#f7c128">Bank Deposite</a>
                             <a href="monthly tp savings.php" class="dropdown-item">Monthly TP Saving's <p>Approval</p>
                             </a>
                             <a href="monthly TP savings history.php" class="dropdown-item">Monthly TP Saving's <p>
@@ -166,12 +153,12 @@
                     <a href="business tools.php" class="nav-item nav-link"><i class="fa fa-tools me-2"></i>Business
                         Tools</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-info-circle me-2"></i>Information</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="terms & conditions.php" class="dropdown-item">Terms & Condition</a>
                             <a href="privacy policies.php" class="dropdown-item">Privacy Policies</a>
-                            <a href="payment agreements.php" class="dropdown-item active" style="color:#f7c128">Payment Agreements</a>
+                            <a href="payment agreements.php" class="dropdown-item">Payment Agreements</a>
                             <a href="membership agreements.php" class="dropdown-item">Membership Agreements</a>
                             <a href="independent distributor agreement.php" class="dropdown-item">Independent
                                 Distributor<p> Agreements</p></a>
@@ -238,46 +225,90 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-            <br><br>
 
+            <br><br>
             <!-- Blank Start -->
-            <div style="text-align: center;">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <form id="pdfsave">
-                                <div class="bg-secondary rounded h-100 p-4" style="display: inline-block;">
-                                    <h4 style="color: #f7c128;" class="mb-5">Payment Agreements</h4>
-                                    <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
+            <div class="container-fluid pt-4 px-4">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h4 style="color: #f7c128;" class="mb-5">Bank Deposit Edit</h4>
+
+                            <form id="updateimage">
+                                <div class="d-flex justify-content-center">
+                                    <div class="mb-3" style="margin-bottom: 15px; max-width: 280px;">
                                         <label for="formFileMultiple" style="font-weight: bold; color: #fff;">Upload
-                                            PDF</label>
-                                        <br><br>
+                                            Image</label>
+                                        <input type="hidden" name="way" value="updateimage">
                                         <div
-                                            style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 50px;">
-                                            <input class="form-control" type="file" id="formFileMultiple" name="pdffile"
-                                                accept=".pdf" onchange="displayFileName()" style="display: none;">
+                                            style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                                            <input class="form-control" type="file" name="updateimage"
+                                                id="formFileMultiple" accept="image/*" onchange="displayFileName()"
+                                                style="display: none;" required>
                                             <label for="formFileMultiple"
                                                 style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
-                                                PDF File</label>
+                                                QR Code</label>
                                             <span id="fileName" style="margin-left: 10px;"></span>
+                                            <button type="submit" class="btn btn-primary">Upload</button>
                                         </div>
                                     </div>
-
-                                    <br>
-                                    <button type="submit" id="submitbtn" class="btn btn-primary"
-                                        disabled>Update</button>
                                 </div>
-                                <input type="hidden" name="way" value="papdfupload">
                             </form>
+
+                            <form id="updatedetails">
+                                <div class="container">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="ac_holdername" id="ac_holdername"
+                                            placeholder="A/C Holder Name">
+                                        <label for="holderName">A/C Holder Name</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="tel" class="form-control" name="ac_number" id="ac_number"
+                                            placeholder="A/C Number">
+                                        <label for="accountNumber">A/C Number</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="ifsc_code" id="ifsc_code"
+                                            placeholder="IFS Code">
+                                        <label for="ifscCode">IFSC Code</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="branch" id="branch"
+                                            placeholder="Branch">
+                                        <label for="branch">Branch</label>
+                                    </div>
+                                    <input type="hidden" name="way" value="updatedetails">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="upi_id" id="upi_id"
+                                            placeholder="UPI ID">
+                                        <label for="upiId">UPI ID</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" name="deposit_value" id="deposit_value"
+                                            placeholder="Deposit Value">
+                                        <label for="depositValue">Deposit Value</label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
                     </div>
                 </div>
+
+
+                <br><br>
+
+
+
+                <!-- Blank End -->
+
+
+
             </div>
-
-
-            <!-- Blank End -->
-
-
         </div>
         <!-- Content End -->
 
@@ -305,11 +336,10 @@
             var input = document.getElementById('formFileMultiple');
             var fileNameSpan = document.getElementById('fileName');
             fileNameSpan.textContent = input.files[0].name;
-            $("#submitbtn").prop("disabled", false)
         }
     </script>
 
-    <script src="./requiredFiles/js/termsandcondition.js"></script>
+    <script src="./requiredFiles/js/monthlybankdeposite.js"></script>
 </body>
 
 </html>

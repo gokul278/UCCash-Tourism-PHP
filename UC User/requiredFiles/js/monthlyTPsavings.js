@@ -1,112 +1,161 @@
 $(document).ready(() => {
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingsAjax.php",
-        data: {
-            "way": "login"
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/monthlyTPsavingsAjax.php",
+    data: {
+      way: "login",
+    },
+    success: function (res) {
+      var response = JSON.parse(res);
 
-            if (response.status == "auth_failed" && response.message == "Expired token") {
-
-                location.replace("time_expried.php");
-
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
-            } else if (response.status == "success") {
-                return getData();
-            }
-        }
-    });
-
+      if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      } else if (response.status == "success") {
+        return getData();
+      }
+    },
+  });
 });
 
 const getData = () => {
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.search);
+  const invoiceId = params.get("invoice_id");
 
-    const url = new URL(window.location.href);
-    const params = new URLSearchParams(url.search);
-    const invoiceId = params.get('invoice_id');
-
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingsAjax.php",
-        data: {
-            "way": "getData",
-            "invoice_id": invoiceId
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
-
-                if (response.user_profileimg != null) {
-                    $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
-                }
-
-                $(".user_name").html(response.user_name);
-
-                $("#depositvalue").val(response.deposite_value + " UCC")
-
-                $(".invoiceid").html(response.invoice_id);
-                $("#invoiceidval").val(response.invoice_id);
-                $("#invoicedate").html(response.created_at);
-
-            } else if (response.status == "error") {
-                if (response.user_profileimg != null) {
-                    $(".user_profileimg").attr("src", "./img/user/" + response.user_profileimg);
-                }
-
-                $(".user_name").html(response.user_name);
-                $("#nullID").html("<p style='color:red;font-size:25px' align='center'>" + response.message + "</p>");
-                $("#contenterror").html("");
-                $("#notbtn").prop("disabled", true);
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
-
-                location.replace("time_expried.php");
-
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
-            }
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/monthlyTPsavingsAjax.php",
+    data: {
+      way: "getData",
+      invoice_id: invoiceId,
+    },
+    success: function (res) {
+      var response = JSON.parse(res);
+      if (response.status == "success") {
+        if (response.user_profileimg != null) {
+          $(".user_profileimg").attr(
+            "src",
+            "./img/user/" + response.user_profileimg
+          );
         }
-    });
 
-}
+        $(".user_name").html(response.user_name);
 
-$("#submithashid").submit(function (e) {
-    e.preventDefault();
-    var uccvalue = $("#depositvalue").val();
-    var txnhashid = $("#pasteBox").val();
-    var invoiceidval = $("#invoiceidval").val();
+        // $("#depositvalue").val(response.deposite_value + " UCC")
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingsAjax.php",
-        data: {
-            "way": "submithashid",
-            "uccvalue": uccvalue,
-            "txnhashid": txnhashid,
-            "invoiceidval": invoiceidval
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+        document.getElementById("deposit address").innerHTML =
+          response.crypto_address;
+        document.getElementById("deposit value").value =
+          response.ucc_value + " UCC";
+        document.getElementById("cryptovalue").value =
+          response.ucc_value + " UCC";
+        document.getElementById("imgaddress").src =
+          "../admin/img/monthly/" + response.crypto_image;
+        document.getElementById("bankaddress").src =
+          "../admin/img/monthly/" + response.bankdeposit_image;
+        document.getElementById("ac_holdername").innerHTML =
+          response.ac_holdername;
+        document.getElementById("ac_number").innerHTML = response.ac_number;
+        document.getElementById("ifsc_code").innerHTML = response.ifsc_code;
+        document.getElementById("branch").innerHTML = response.branch;
+        document.getElementById("upi_id").innerHTML = response.upi_id;
+        document.getElementById("deposit_value").innerHTML =
+          "Rs " + response.deposit_value;
+        // document.getElementById("userid").value = response.userid;
+        document.getElementById("bankvalue").value =
+          "Rs " + response.deposit_value;
 
-                location.replace("monthly TP savings status.php");
-
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
-
-                location.replace("time_expried.php");
-
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
-            }
+        $(".invoiceid").html(response.invoice_id);
+        $("#invoiceidval").val(response.invoice_id);
+        $("#invoicedate").html(response.created_at);
+      } else if (response.status == "error") {
+        if (response.user_profileimg != null) {
+          $(".user_profileimg").attr(
+            "src",
+            "./img/user/" + response.user_profileimg
+          );
         }
-    });
 
+        $(".user_name").html(response.user_name);
+        $("#nullID").html(
+          "<p style='color:red;font-size:25px' align='center'>" +
+            response.message +
+            "</p>"
+        );
+        $("#contenterror").html("");
+        $("#notbtn").prop("disabled", true);
+      } else if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      }
+    },
+  });
+};
+
+$("#activationcrypto").submit(function (e) {
+  e.preventDefault();
+  var uccvalue = $("#cryptovalue").val();
+  var txnhashid = $("#pasteBox").val();
+  var invoiceidval = $("#invoiceidval").val();
+
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/monthlyTPsavingsAjax.php",
+    data: {
+      way: "cryptosubmithashid",
+      uccvalue: uccvalue,
+      txnhashid: txnhashid,
+      invoiceidval: invoiceidval,
+    },
+    success: function (res) {
+      var response = JSON.parse(res);
+      if (response.status == "success") {
+        location.replace("monthly TP savings status.php");
+      } else if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      }
+    },
+  });
+});
+
+$("#activationbank").submit(function (e) {
+  e.preventDefault();
+
+  var frm = $("#activationbank")[0];
+  var frmdata = new FormData(frm);
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/monthlyTPsavingsAjax.php",
+    data: frmdata,
+    processData: false,
+    contentType: false,
+    cache: false,
+    success: function (res) {
+      var response = JSON.parse(res);
+      if (response.status == "success") {
+        location.replace("monthly TP savings status.php");
+      } else if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      }
+    },
+  });
 });

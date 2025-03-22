@@ -53,6 +53,15 @@ const getData = () => {
                     $("#tabledata").html("<tr><td colspan='11'>No Invoice Approval</td></tr>")
                 }
 
+                $('.view-proof-image').click(function() {
+                    // Get the image source from the data-src attribute
+                    var proofImageSrc = $(this).data('src');
+                    // Set the src attribute of the proof image in the modal
+                    $('#proofImage').attr('src', proofImageSrc);
+                    // Open the modal
+                    $('#proofImageModal').modal('show');
+                });
+
 
 
             } else if (response.status == "auth_failed" && response.message == "Expired token") {
