@@ -451,7 +451,7 @@
                                                         <div class="col-md-6 mx-auto text-center">
                                                             <img id="imgaddress" src="" alt="Profile Image"
                                                                 class="img-fluid mx-auto d-block mb-3"
-                                                                style="max-width: 35%; height:40%;">
+                                                                style="max-width: 35%">
                                                             <p>USDT (BEP20)</p>
                                                         </div>
                                                         <div class="row gx-3 mb-3">

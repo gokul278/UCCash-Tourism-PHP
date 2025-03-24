@@ -369,17 +369,17 @@
                                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                             aria-labelledby="pills-home-tab">
 
-                                            <div class="mb-3">
+                                            <!-- <div class="mb-3">
                                                 <label for="cryptoType" class="form-label">Crypto Type:</label>
                                                 <input type="text" class="form-control" id="walletAddress"
                                                     placeholder="Enter your crypto wallet address" disabled
                                                     value="USDT (BEP20)">
-                                            </div>
+                                            </div> -->
 
                                             <div class="mb-3">
                                                 <label for="walletAddress" class="form-label">Crypto Wallet
-                                                    Address:</label>
-                                                <input type="text" class="form-control" id="trc20_address"
+                                                    Address - USDT (BEP20):</label>
+                                                <input type="text" class="form-control" id="bep20_address"
                                                     placeholder="Enter your crypto wallet address" disabled required>
                                             </div>
                                             <form id="cryptosubmit">

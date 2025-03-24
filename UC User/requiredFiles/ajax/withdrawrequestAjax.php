@@ -80,6 +80,7 @@ if ($values["status"] == "success") {
                         $response["ac_number"] = $getbankdetails["ac_number"];
                         $response["ifsc_code"] = $getbankdetails["ifsc_code"];
                         $response["branch"] = $getbankdetails["branch"];
+                        $response["bep20_address"] = $getbankdetails["bep20_address"];
                     }
                 }
 
@@ -629,7 +630,7 @@ if ($values["status"] == "success") {
                     } else {
                         // Use prepared statements for inserting data
                         $stmt = $con->prepare("INSERT INTO withdrawhistory (user_id, payment_method, withdraw_amount, admin_fees, retopup_fees, net_amount, to_withdraw, txn_id, remark, action) VALUES (?, 'Crypto', ?, ?, ?, ?, ?, 'pending', 'waiting for Payment', 'admin')");
-                        $stmt->bind_param('ssssss', $values["userid"], $withdrawvalue, $adminfees, $reactivationtopup, $netamount, $getcheckotp["trc20_address"]);
+                        $stmt->bind_param('ssssss', $values["userid"], $withdrawvalue, $adminfees, $reactivationtopup, $netamount, $getcheckotp["bep20_address"]);
                         $cryptowithdraw = $stmt->execute();
 
                         if ($cryptowithdraw) {

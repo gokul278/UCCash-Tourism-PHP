@@ -284,7 +284,7 @@
                                         </div>
                                         <br>
                                         <h6 style="text-align: center; color: #69707a;" class="mb-4">Wallet Address</h6>
-                                        <div class="row mb-3">
+                                        <!-- <div class="row mb-3">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">TRC20 Address</h6>
                                             </div>
@@ -292,7 +292,9 @@
                                                 <input type="text" class="form-control" id="trc20address"
                                                     name="trc20address" placeholder="Enter the TRC20 Address" required>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        <input type="hidden" class="form-control" value="null"
+                                            name="trc20address" placeholder="Enter the TRC20 Address" required>
                                         <div class="row mb-3">
                                             <div class="col-sm-3">
                                                 <h6 class="mb-0">BEP20 Address</h6>

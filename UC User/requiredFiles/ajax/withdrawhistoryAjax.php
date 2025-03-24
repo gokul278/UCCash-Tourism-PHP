@@ -59,7 +59,6 @@ if ($values["status"] == "success") {
                 }else{
                     $tabledata .= "
                     <th>".$gethistory["withdraw_amount"]."$</th>
-                    <th>".$gethistory["admin_fees"]."$</th>
                     <th>".$gethistory["retopup_fees"]."$</th>
                     <th>".$gethistory["net_amount"]."$</th>
                     <th>".$gethistory["to_withdraw"]."</th>

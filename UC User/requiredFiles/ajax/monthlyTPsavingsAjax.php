@@ -15,13 +15,13 @@ if ($values["status"] == "success") {
         $response["status"] = "success";
         echo json_encode($response);
     } else if ($way == "getData") {
-        
-        
+
+
         $invoice_id = $_POST["invoice_id"];
-        
+
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
         $datares = $con->query($datasql);
-        
+
         if (mysqli_num_rows($datares) > 0) {
 
             $datarow = $datares->fetch_assoc();
@@ -100,8 +100,6 @@ if ($values["status"] == "success") {
             $response["message"] = "Invalid Invoice ID";
             echo json_encode($response);
         }
-
-
     } else if ($way == "cryptosubmithashid") {
 
         $uccvalue = $_POST["uccvalue"];

@@ -41,7 +41,7 @@ const getData = () => {
 
         $(".user_name").html(response.user_name);
 
-        $("#trc20_address").val(response.trc20_address);
+        $("#bep20_address").val(response.bep20_address);
         $("#ac_bankname").val(response.ac_bankname);
         $("#ac_holdername").val(response.ac_holdername);
         $("#ac_number").val(response.ac_number);
@@ -82,7 +82,7 @@ const getData = () => {
 };
 
 const checkcrypto = () => {
-  if ($("#trc20_address").val().length >= 1) {
+  if ($("#bep20_address").val().length >= 1) {
     if ($("#cryptovalue").val().length >= 1) {
       if ($("#cryptovalue").val() >= 50) {
         $("#cryptowiithdrawbtn").prop("disabled", false);

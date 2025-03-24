@@ -290,7 +290,7 @@
                                                 <th scope="col">Date & Time</th>
                                                 <th scope="col">Payment Method</th>
                                                 <th scope="col">Withdraw Amount</th>
-                                                <th scope="col">Admin Fees 0%</th>
+                                                <!-- <th scope="col">Admin Fees 0%</th> -->
                                                 <th scope="col">Re-Activation Topup Fees 10%</th>
                                                 <th scope="col">Net Amount</th>
                                                 <th scope="col">To Withdraw</th>
