@@ -283,36 +283,70 @@
                     /* font-size: 10px; Increase font size */
                     margin: 5px;
                 }
+
+                #visitingcard {
+                    width: 100%;
+                    height: auto;
+                    border: 5px solid #f7c128;
+                    border-radius: 10px;
+                }
+
+                @media (min-width: 1024px) {
+                    #visitingcard {
+                        width: 50%;
+                    }
+                }
             </style>
 
+            <div class="container-xl px-4 mt-4">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card mb-4">
+                            <div class="card-header">Visiting Card</div>
+                            <div class="card-body" id="visitingCard" style="width:100%;display: flex;justify-content:center; flex-direction:column; align-items:center">
 
-            <div class="id-card-hook"></div>
-            <div class="id-card-holder mb-2">
-                <div class="id-card">
-                    <div class="header">
-                        <img src="img/uc logo.png">
+                            </div>
+                        </div>
                     </div>
-                    <div class="photo">
-                        <img style="width: 100px;height:100px;border-radius:50%" class="user_profileimg"
-                            src="img/user.png">
-                    </div>
-                    <h2 class="user_name"></h2>
-                    <div class="qr-code">
-                        <img id="barcode" />
-                    </div>
-                    <p style="color: #000;">This is a <b>Premium Identity</b> card.</p>
-                    <p style="color: #000;">It is non transferable.</p>
-                    <hr>
-                    <p><strong>Member ID : </strong><span id="memberid">UCT123456</span><br> <strong>Phone :
-                        </strong><span id="memberphone">9360248850</span></p>
-                    <p><strong>Address : </strong><span id="memberaddress">Salem, 606202</span>
-                    <p>
+                    <div class="col-xl-12">
+                        <div class="card mb-4">
+                            <div class="card-header">ID Card</div>
+                            <div class="card-body">
+                                <div class="id-card-hook"></div>
+                                <div class="id-card-holder mb-2">
+                                    <div class="id-card">
+                                        <div class="header">
+                                            <img src="img/uc logo.png">
+                                        </div>
+                                        <div class="photo">
+                                            <img style="width: 100px;height:100px;border-radius:50%" class="user_profileimg"
+                                                src="img/user.png">
+                                        </div>
+                                        <h2 class="user_name"></h2>
+                                        <div class="qr-code">
+                                            <img id="barcode" />
+                                        </div>
+                                        <p style="color: #000;">This is a <b>Premium Identity</b> card.</p>
+                                        <p style="color: #000;">It is non transferable.</p>
+                                        <hr>
+                                        <p><strong>Member ID : </strong><span id="memberid">UCT123456</span><br> <strong>Phone :
+                                            </strong><span id="memberphone">9360248850</span></p>
+                                        <p><strong>Address : </strong><span id="memberaddress">Salem, 606202</span>
+                                        <p>
 
-                    <p style="color: #000;"><strong>UCCASH TOURISM <a href="https://uccashtourism.com"
-                                target="_blank">www.uccashtourism.com</strong></a></p>
+                                        <p style="color: #000;"><strong>UCCASH TOURISM <a href="https://uccashtourism.com"
+                                                    target="_blank">www.uccashtourism.com</strong></a></p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
+
+
 
 
             <!--ID Card End-->
