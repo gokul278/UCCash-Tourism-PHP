@@ -490,7 +490,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="text-center">
-                                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                                            <button class="btn btn-primary" id="cryptoDepositeBtn" type="submit">Submit</button>
                                                         </div>
                                                     </form>
                                                 </strong>
@@ -627,14 +627,9 @@
 
                                                             <br><br><br>
 
-                                                            <div class="row">
-                                                                <div class="col-sm-3"></div>
-                                                                <div
-                                                                    class="col-sm-9 text-secondary d-flex justify-content-center">
-                                                                    <input type="submit" class="btn btn-primary px-4"
-                                                                        value="Submit">
-                                                                </div>
-                                                            </div>
+                                                            <div class="text-center">
+                                                            <button class="btn btn-primary" id="bankDepositeBtn" type="submit">Submit</button>
+                                                        </div>
                                                         </form>
 
                                                     </div>

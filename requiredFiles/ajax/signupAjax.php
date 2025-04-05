@@ -104,7 +104,7 @@ if ($way == "checksponser") {
                                         <table width="100%" cellpad ding="0" cellspacing="0" border="0">
                                             <tr>
                                                 <td align="start" style="width: 60%; height: 100%;">
-                                                    <img src="https://i.ibb.co/TwMTf3t/logo2.png" width="90%" style="display: block; margin: 0 auto;" alt="Logo">
+                                                    <img src="https://uccashtourism.com/img/logo2.png" width="90%" style="display: block; margin: 0 auto;" alt="Logo">
                                                 </td>
                                                 <td align="end" style="width: 40%; height: 100%;">
                                                     <p style="color: white; text-align: center;font-size:120%"><b>Let\'s go</b></p>
@@ -162,35 +162,35 @@ if ($way == "checksponser") {
                                             <tr align="center">
                                                 <td>
                                                     <a href="https://www.facebook.com/uccashtourism"><img
-                                                            src="https://i.ibb.co/VQNTT0Q/facebook.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/fb.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://www.instagram.com/uccashtourism"><img
-                                                            src="https://i.ibb.co/WFJGYwZ/instagram.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/instagram.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://www.linkedin.com/in/uccashtourism"><img
-                                                            src="https://i.ibb.co/xz1ymRw/linkedin.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/linkedin.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://t.me/uccashtourism"><img
-                                                            src="https://i.ibb.co/g9kx8W3/telegram.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/telegram.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://whatsapp.com/channel/0029VaNZVU117En3yKTBiu2b"><img
-                                                            src="https://i.ibb.co/9wGnSY4/whatsapp.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/whatsapp.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
-                                                    <a href="https://x.com/uccashtourism"><img src="https://i.ibb.co/nkHQYgG/X.jpg" width="50%" style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                                    <a href="https://x.com/uccashtourism"><img src="https://uccashtourism.com/MailImg/twitterx.png" width="50%" style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://youtube.com/@UCCASHTOURISM"><img
-                                                            src="https://i.ibb.co/Yc6bNND/youtube.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/youtube.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                             </tr>
@@ -215,7 +215,7 @@ if ($way == "checksponser") {
                                                 <td style="width: 50%; padding: 0;" align="start">
                                                     <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
                                                         <tr>
-                                                            <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                            <td align="right" style="padding-right: 5px;"><img src="https://uccashtourism.com/MailImg/website.png" width="16" height="16" alt="Logo"></td>
                                                             <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
                                                         </tr>
                                                     </table>
@@ -223,7 +223,7 @@ if ($way == "checksponser") {
                                                 <td style="width: 50%; padding: 0;" align="start">
                                                     <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
                                                         <tr>
-                                                            <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                            <td align="right"><img src="https://uccashtourism.com/MailImg/mail.png" width="16" height="16" alt="Logo"></td>
                                                             <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 10px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
                                                         </tr>
                                                     </table>
@@ -452,7 +452,7 @@ if ($way == "checksponser") {
                                                                 <table width="100%" cellpad ding="0" cellspacing="0" border="0">
                                                                     <tr>
                                                                         <td align="start" style="width: 60%; height: 100%;">
-                                                                            <img src="https://i.ibb.co/TwMTf3t/logo2.png" width="90%"
+                                                                            <img src="https://uccashtourism.com/img/logo2.png" width="90%"
                                                                                 style="display: block; margin: 0 auto;" alt="Logo">
                                                                         </td>
                                                                         <td align="end" style="width: 40%; height: 100%;">
@@ -544,35 +544,35 @@ if ($way == "checksponser") {
                                             <tr align="center">
                                                 <td>
                                                     <a href="https://www.facebook.com/uccashtourism"><img
-                                                            src="https://i.ibb.co/VQNTT0Q/facebook.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/fb.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://www.instagram.com/uccashtourism"><img
-                                                            src="https://i.ibb.co/WFJGYwZ/instagram.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/instagram.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://www.linkedin.com/in/uccashtourism"><img
-                                                            src="https://i.ibb.co/xz1ymRw/linkedin.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/linkedin.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://t.me/uccashtourism"><img
-                                                            src="https://i.ibb.co/g9kx8W3/telegram.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/telegram.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://whatsapp.com/channel/0029VaNZVU117En3yKTBiu2b"><img
-                                                            src="https://i.ibb.co/9wGnSY4/whatsapp.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/whatsapp.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
-                                                    <a href="https://x.com/uccashtourism"><img src="https://i.ibb.co/nkHQYgG/X.jpg" width="50%" style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                                    <a href="https://x.com/uccashtourism"><img src="https://uccashtourism.com/MailImg/twitterx.png" width="50%" style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://youtube.com/@UCCASHTOURISM"><img
-                                                            src="https://i.ibb.co/Yc6bNND/youtube.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/youtube.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                             </tr>
@@ -595,7 +595,7 @@ if ($way == "checksponser") {
                                         <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                             <tr style="font-size:90%" align="center">
                                                 <td style="width:6%" align="end">
-                                                    <a href="google.com"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="50%"
+                                                    <a href="google.com"><img src="https://uccashtourism.com/MailImg/website.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td align="start" style="color:black; width:44%">
@@ -605,7 +605,7 @@ if ($way == "checksponser") {
                                                     </b>
                                                 </td>
                                                 <td width:6%" align="end">
-                                                    <a href="google.com"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="50%"
+                                                    <a href="google.com"><img src="https://uccashtourism.com/MailImg/mail.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td align="start" style="color:black; width:44%"">
@@ -670,7 +670,7 @@ if ($way == "checksponser") {
                                                                         <table width="100%" cellpad ding="0" cellspacing="0" border="0">
                                                                             <tr>
                                                                                 <td align="start" style="width: 60%; height: 100%;">
-                                                                                    <img src="https://i.ibb.co/TwMTf3t/logo2.png" width="90%"
+                                                                                    <img src="https://uccashtourism.com/img/logo2.png" width="90%"
                                                                                         style="display: block; margin: 0 auto;" alt="Logo">
                                                                                 </td>
                                                                                 <td align="end" style="width: 40%; height: 100%;">
@@ -751,35 +751,35 @@ if ($way == "checksponser") {
                                             <tr align="center">
                                                 <td>
                                                     <a href="https://www.facebook.com/uccashtourism"><img
-                                                            src="https://i.ibb.co/VQNTT0Q/facebook.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/fb.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://www.instagram.com/uccashtourism"><img
-                                                            src="https://i.ibb.co/WFJGYwZ/instagram.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/instagram.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://www.linkedin.com/in/uccashtourism"><img
-                                                            src="https://i.ibb.co/xz1ymRw/linkedin.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/linkedin.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://t.me/uccashtourism"><img
-                                                            src="https://i.ibb.co/g9kx8W3/telegram.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/telegram.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://whatsapp.com/channel/0029VaNZVU117En3yKTBiu2b"><img
-                                                            src="https://i.ibb.co/9wGnSY4/whatsapp.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/whatsapp.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
-                                                    <a href="https://x.com/uccashtourism"><img src="https://i.ibb.co/nkHQYgG/X.jpg" width="50%" style="display: block; margin: 0 auto;" alt="Logo"></a>
+                                                    <a href="https://x.com/uccashtourism"><img src="https://uccashtourism.com/MailImg/twitterx.png" width="50%" style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                                 <td>
                                                     <a href="https://youtube.com/@UCCASHTOURISM"><img
-                                                            src="https://i.ibb.co/Yc6bNND/youtube.jpg" width="50%"
+                                                            src="https://uccashtourism.com/MailImg/youtube.png" width="50%"
                                                             style="display: block; margin: 0 auto;" alt="Logo"></a>
                                                 </td>
                                             </tr>
@@ -804,7 +804,7 @@ if ($way == "checksponser") {
                                                 <td style="width: 50%; padding: 0;" align="start">
                                                     <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
                                                         <tr>
-                                                            <td align="right" style="padding-right: 5px;"><img src="https://i.ibb.co/0QpNTr1/website.jpg" width="16" height="16" alt="Logo"></td>
+                                                            <td align="right" style="padding-right: 5px;"><img src="https://uccashtourism.com/MailImg/website.png" width="16" height="16" alt="Logo"></td>
                                                             <td align="left"><a style="text-decoration: none; color: black;" href="https://uccashtourism.com">https://uccashtourism.com</a></td>
                                                         </tr>
                                                     </table>
@@ -812,7 +812,7 @@ if ($way == "checksponser") {
                                                 <td style="width: 50%; padding: 0;" align="start">
                                                     <table cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
                                                         <tr>
-                                                            <td align="right"><img src="https://i.ibb.co/fS2MpZm/email.jpg" width="16" height="16" alt="Logo"></td>
+                                                            <td align="right"><img src="https://uccashtourism.com/MailImg/mail.png" width="16" height="16" alt="Logo"></td>
                                                             <td align="right"  style="width: 20px;">&nbsp;&nbsp;<a style="padding-right: 10px;text-decoration: none; color: black;" href="mailto:info@uccashtourism.com">info@uccashtourism.com</a></td>
                                                         </tr>
                                                     </table>

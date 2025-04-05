@@ -103,6 +103,9 @@ const getData = () => {
 
 $("#activationcrypto").submit(function (e) {
   e.preventDefault();
+
+  $("#cryptoDepositeBtn").html("Loading");
+
   var uccvalue = $("#cryptovalue").val();
   var txnhashid = $("#pasteBox").val();
   var invoiceidval = $("#invoiceidval").val();
@@ -134,6 +137,8 @@ $("#activationcrypto").submit(function (e) {
 
 $("#activationbank").submit(function (e) {
   e.preventDefault();
+
+  $("#bankDepositeBtn").html("Loading")
 
   var frm = $("#activationbank")[0];
   var frmdata = new FormData(frm);
