@@ -85,7 +85,7 @@
                         <span>Admin</span>
                     </div>
                 </div>
-                <div class="navbar-nav w-100">
+                <div id="sidebar" class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
                     <div class="nav-item dropdown">
@@ -248,7 +248,35 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
-                            <h4 style="color: #f7c128;" class="mb-5">ID Activation History</h4>
+                            <h4 style="color: #f7c128;" class="mb-3">ID Activation History</h4>
+                            <button type="button" class="btn btn-warning mb-3" onclick="exportToExcel()"><b>Print
+                                    PDF</b></button>
+                            <div class="container">
+                                <div class="row">
+                                    <!-- From Date -->
+                                    <div class="col-12 col-sm-4 d-flex align-items-center mb-2 mb-sm-0">
+                                        <label for="fromDate" class="mr-2"><b>From</b></label>
+                                        <input type="date" id="fromDate" onchange="changeFilterInput()" class="form-control" required>
+                                    </div>
+
+                                    <!-- To Date -->
+                                    <div class="col-12 col-sm-4 d-flex align-items-center mb-2 mb-sm-0">
+                                        <label for="toDate" class="mr-2"><b>To</b></label>
+                                        <input type="date" id="toDate" onchange="changeFilterInput()" class="form-control" required>
+                                    </div>
+
+                                    <!-- Go Button -->
+                                    <div class="col-6 col-sm-2">
+                                        <button class="btn btn-primary w-100" id="searchButton" style="color:#000" type="submit">Go</button>
+                                    </div>
+
+                                    <!-- Clear Button -->
+                                    <div class="col-6 col-sm-2">
+                                        <button class="btn btn-warning w-100" type="button" id="dateclear" onclick="clearFilterDate()">Clear</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
                             <div class="table-responsive">
                                 <strong>
                                     <table id="myTable" style="text-align: center;" class="table table-bordered">
@@ -292,6 +320,17 @@
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
+      <!-- JavaScript Libraries -->
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/chart/chart.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
@@ -319,6 +358,8 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script> <!-- Include XLSX library -->
 
     <script src="./requiredFiles/js/travelcouponpurchasehistory.js"></script>
 

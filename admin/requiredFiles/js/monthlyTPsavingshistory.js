@@ -1,68 +1,94 @@
 $(document).ready(() => {
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingshistoryAjax.php",
-        data: {
-            "way": "login"
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/monthlyTPsavingshistoryAjax.php",
+    data: {
+      way: "login",
+    },
+    success: function (res) {
+      var response = JSON.parse(res);
 
-            if (response.status == "auth_failed" && response.message == "Expired token") {
+      if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      } else if (response.status == "success") {
+        return getData(); // Load initial data
+      }
+    },
+  });
 
-                location.replace("time_expried.php");
+  // Event listener for the search button
+  $("#searchButton").on("click", function () {
+    getData(); // Call getData when the button is clicked
+  });
 
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
-            } else if (response.status == "success") {
-                return getData();
-            }
-        }
-    });
-
+  // Clear button functionality
+  $("#dateclear").on("click", function () {
+    $("#fromDate").val(""); // Clear the from date input
+    $("#toDate").val(""); // Clear the to date input
+    getData(); // Refresh the data without any filters
+  });
 });
 
+let flag = false;
+
 const getData = () => {
+  const fromDate = $("#fromDate").val();
+  const toDate = $("#toDate").val();
 
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/monthlyTPsavingshistoryAjax.php",
-        data: {
-            "way": "getData"
-        },
-        success: function (res) {
-            var response = JSON.parse(res);
-            if (response.status == "success") {
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/monthlyTPsavingshistoryAjax.php",
+    data: {
+      way: "getData",
+      fromDate: fromDate,
+      toDate: toDate,
+    },
+    success: function (res) {
+      var response = JSON.parse(res);
+      if (response.status == "success") {
+        $(".adminname").html(response.admin_name);
 
-                $(".adminname").html(response.admin_name);
-
-                if (response.profile_image !== null) {
-                    $(".profile_image").attr("src", "./img/user/" + response.profile_image);
-                }
-                
-                if(response.table.length>0){
-                    $("#tabledata").html(response.table);
-                    let table = new DataTable('#myTable',{
-                        ordering:  false
-                    });
-                }else{
-                    $("#tabledata").html("<tr><td colspan='11'>No Invoice Approval</td></tr>")
-                }
-                
-                
-
-            } else if (response.status == "auth_failed" && response.message == "Expired token") {
-
-                location.replace("time_expried.php");
-
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
-            }
+        if (response.profile_image !== null) {
+          $(".profile_image").attr(
+            "src",
+            "./img/user/" + response.profile_image
+          );
         }
-    });
 
+        if (response.table.length > 0) {
+          $("#tabledata").html(response.table);
+          if (!flag) {
+            let table = new DataTable("#myTable", {
+              ordering: false,
+            });
+          }
+        } else {
+          $("#tabledata").html(
+            "<tr><td colspan='11'>No Invoice Approval</td></tr>"
+          );
+        }
+
+        flag = true;
+      } else if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      }
+    },
+  });
+};
+
+// Function to export table data to Excel
+function exportToExcel() {
+  var table = document.getElementById("myTable");
+  var wb = XLSX.utils.table_to_book(table, { sheet: "Monthly TP Savings" });
+  XLSX.writeFile(wb, "Monthly_TP_Savings_History.xlsx");
 }

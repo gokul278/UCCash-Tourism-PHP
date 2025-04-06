@@ -14,22 +14,28 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
-
         $response["admin_name"] = $values["admin_name"];
-
         $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
-
         $getdetails = $details->fetch_assoc();
-
         $response["profile_image"] = $getdetails["admin_profile"];
 
-        $gettable = $con->query("SELECT msh.*, ud.user_name
-        FROM monthlytpsavinghistory AS msh
-        JOIN userdetails AS ud ON msh.user_id = ud.user_id
-        WHERE msh.action != 'admin'");
+        // Get the fromDate and toDate from the POST request
+        $fromDate = $_POST['fromDate'];
+        $toDate = $_POST['toDate'];
 
+        // Prepare the SQL query with date filtering
+        $query = "SELECT msh.*, ud.user_name
+                  FROM monthlytpsavinghistory AS msh
+                  JOIN userdetails AS ud ON msh.user_id = ud.user_id
+                  WHERE msh.action != 'admin'";
+
+        // Add date filtering if both dates are provided
+        if (!empty($fromDate) && !empty($toDate)) {
+            $query .= " AND msh.paid_date BETWEEN '$fromDate' AND '$toDate'";
+        }
+
+        $gettable = $con->query($query);
         $table = "";
 
         foreach ($gettable as $key => $element) {
@@ -44,7 +50,7 @@ if ($values["status"] == "success") {
                 <td>' . $element["payment_type"] . '</td>
                 <td>' . $element["txn_hashid"] . '</td>
                 <td>' . $element["amount"] . '</td>
-                ';
+            ';
 
             if ($element["action"] == "reject") {
                 $table .= '
@@ -62,15 +68,10 @@ if ($values["status"] == "success") {
         $response["table"] = $table;
         $response["status"] = "success";
         echo json_encode($response);
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

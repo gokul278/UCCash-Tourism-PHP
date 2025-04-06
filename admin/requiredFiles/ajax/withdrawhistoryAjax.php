@@ -16,75 +16,80 @@ if ($values["status"] == "success") {
         echo json_encode($response);
 
     } else if ($way == "getData") {
-
         $response["admin_name"] = $values["admin_name"];
-
         $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
-
         $getdetails = $details->fetch_assoc();
-
         $response["profile_image"] = $getdetails["admin_profile"];
-
+    
+        // Get the fromDate and toDate from the POST request
+        $fromDate = $_POST['fromDate'];
+        $toDate = $_POST['toDate'];
+    
+        // Prepare the SQL query with date filtering
+        $query = "SELECT * FROM withdrawhistory WHERE action != 'admin'";
+        
+        // Add date filtering if both dates are provided
+        if (!empty($fromDate) && !empty($toDate)) {
+            $query .= " AND paid_date BETWEEN '$fromDate' AND '$toDate'";
+        }
+    
+        $history = $con->query($query);
         $tabledata = "";
-            $index = 0;
-
-            $history = $con->query("SELECT * FROM withdrawhistory WHERE action != 'admin'");
-
-            foreach($history as $gethistory){
-                $dateString = $gethistory["paid_date"];
-
-                $name = $con->query("SELECT * FROM userdetails WHERE user_id='{$gethistory["user_id"]}'");
-                $getname = $name->fetch_assoc();
-
-                $parts = explode(" ", $dateString);
-
-                $date = $parts[0];
-                $time = $parts[1];
-                $index++;
-                $tabledata .= "
-                <tr>
-                    <th>".$index."</th>
-                    <th>".$date.'<p class="time">'.$time."</p></th>
-                    <th>".$gethistory["user_id"]."</th>
-                    <th>".$getname["user_name"]."</th>
-                    <th>".$gethistory["payment_method"]."</th>";
-
-                    if($gethistory["payment_method"] == "UCC"){
-                        $tabledata .="
-                        <th>".$gethistory["withdraw_amount"]."$</th>
-                        <th>-</th>
-                        <th>".$gethistory["net_amount"]."$</th>
-                        <th>".$gethistory["to_withdraw"]."</th>
-                        ";
-                    }else{
-                        $tabledata .= "
-                        <th>".$gethistory["withdraw_amount"]."$</th>
-                        <th>".$gethistory["retopup_fees"]."$</th>
-                        <th>".$gethistory["net_amount"]."$</th>
-                        <th>".$gethistory["to_withdraw"]."</th>
-                        ";
-                    }
-                    
-                if($gethistory["action"] == "reject"){
+        $index = 0;
+    
+        foreach($history as $gethistory){
+            $dateString = $gethistory["paid_date"];
+    
+            $name = $con->query("SELECT * FROM userdetails WHERE user_id='{$gethistory["user_id"]}'");
+            $getname = $name->fetch_assoc();
+    
+            $parts = explode(" ", $dateString);
+    
+            $date = $parts[0];
+            $time = $parts[1];
+            $index++;
+            $tabledata .= "
+            <tr>
+                <th>".$index."</th>
+                <th>".$date.'<p class="time">'.$time."</p></th>
+                <th>".$gethistory["user_id"]."</th>
+                <th>".$getname["user_name"]."</th>
+                <th>".$gethistory["payment_method"]."</th>";
+    
+                if($gethistory["payment_method"] == "UCC"){
+                    $tabledata .="
+                    <th>".$gethistory["withdraw_amount"]."$</th>
+                    <th>-</th>
+                    <th>".$gethistory["net_amount"]."$</th>
+                    <th>".$gethistory["to_withdraw"]."</th>
+                    ";
+                }else{
                     $tabledata .= "
+                    <th>".$gethistory["withdraw_amount"]."$</th>
+                    <th>".$gethistory["retopup_fees"]."$</th>
+                    <th>".$gethistory["net_amount"]."$</th>
+                    <th>".$gethistory["to_withdraw"]."</th>
+                    ";
+                }
+                
+            if($gethistory["action"] == "reject"){
+                $tabledata .= "
                         <th>-</th>
                         <th style='color:red;'>Rejected<br>Reason: ".$gethistory["remark"]."</th>
                     </tr>
                     ";
-                }else if($gethistory["action"] == "paid"){
-                    $tabledata .= "
+            }else if($gethistory["action"] == "paid"){
+                $tabledata .= "
                         <th>".$gethistory["txn_id"]."</th>
                         <th style='color:green;'>".$gethistory["remark"]."</th>
                     </tr>
                     ";
-                }
             }
-
-            $response["tabledata"] = $tabledata;
-
+        }
+    
+        $response["tabledata"] = $tabledata;
         $response["status"] = "success";
         echo json_encode($response);
-
     }
 
 } else if ($values["status"] == "auth_failed") {

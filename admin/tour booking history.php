@@ -72,7 +72,7 @@
                         <span>Admin</span>
                     </div>
                 </div>
-                <div class="navbar-nav w-100">
+                <div id="sidebar" class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
                     <div class="nav-item dropdown">
@@ -234,6 +234,27 @@
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
                             <h4 style="color: #f7c128;" class="mb-5">Tour Booking History</h4>
+                            <!-- Search Filters -->
+                            <div class="row mb-3">
+                                <div class="col-12 col-sm-4 d-flex align-items-center mb-2 mb-sm-0">
+                                    <label for="fromDate" class="mr-2"><b>From</b></label>
+                                    <input type="date" id="fromDate" class="form-control" required>
+                                </div>
+                                <div class="col-12 col-sm-4 d-flex align-items-center mb-2 mb-sm-0">
+                                    <label for="toDate" class="mr-2"><b>To</b></label>
+                                    <input type="date" id="toDate" class="form-control" required>
+                                </div>
+                                <div class="col-6 col-sm-2">
+                                    <button class="btn btn-primary w-100" id="searchButton" type="button">Go</button>
+                                </div>
+                                <div class="col-6 col-sm-2">
+                                    <button class="btn btn-warning w-100" id="dateclear" type="button">Clear</button>
+                                </div>
+                            </div>
+
+                            <!-- Download Button -->
+                            <button type="button" class="btn btn-success mb-3" onclick="exportToExcel()"><b>Download PDF</b></button>
+
                             <div class="table-responsive">
                                 <strong>
                                     <table id="myTable" style="text-align: center;" class="table table-bordered">
@@ -307,7 +328,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <script src="./requiredFiles/js/tourbookinghistory.js"></script>
 

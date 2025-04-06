@@ -65,7 +65,7 @@
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-                        <img class="rounded-circle" src="img/user.png" alt="" style="width: 40px; height: 40px;">
+                        <img class="rounded-circle profile_image" src="img/user.png" alt="" style="width: 40px; height: 40px;">
                         <div
                             class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
                         </div>
@@ -216,7 +216,7 @@
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.png" alt=""
+                            <img class="rounded-circle profile_image me-lg-2" src="img/user.png" alt=""
                                 style="width: 40px; height: 40px;">
                             <span style="color: #fff;" class="d-none d-lg-inline-flex">Mr. Balakrishnan</span>
                         </a>
@@ -237,6 +237,27 @@
                     <div class="col-12">
                         <div class="bg-secondary rounded h-100 p-4">
                             <h4 style="color: #f7c128;" class="mb-5">Bonus Travel Point Usage History</h4>
+                            <!-- Search Filters -->
+                            <div class="row mb-3">
+                                <div class="col-12 col-sm-4 d-flex align-items-center mb-2 mb-sm-0">
+                                    <label for="fromDate" class="mr-2"><b>From</b></label>
+                                    <input type="date" id="fromDate" class="form-control" required>
+                                </div>
+                                <div class="col-12 col-sm-4 d-flex align-items-center mb-2 mb-sm-0">
+                                    <label for="toDate" class="mr-2"><b>To</b></label>
+                                    <input type="date" id="toDate" class="form-control" required>
+                                </div>
+                                <div class="col-6 col-sm-2">
+                                    <button class="btn btn-primary w-100" id="searchButton" type="button">Go</button>
+                                </div>
+                                <div class="col-6 col-sm-2">
+                                    <button class="btn btn-warning w-100" id="dateclear" type="button">Clear</button>
+                                </div>
+                            </div>
+
+                            <!-- Download Button -->
+                            <button type="button" class="btn btn-success mb-3" onclick="exportToExcel()"><b>Download Excel</b></button>
+
                             <div class="table-responsive">
                                 <strong>
                                     <table id="myTable" style="text-align: center;" class="table table-bordered">
@@ -304,6 +325,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <script src="./requiredFiles/js/bonustravelpointusagehistory.js"></script>
 

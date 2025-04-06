@@ -1,8 +1,8 @@
 <?php
 
-include ("../../../requiredFiles/ajax/DBConnection.php");
+include("../../../requiredFiles/ajax/DBConnection.php");
 
-require ("./php_jwt/vendor/autoload.php");
+require("./php_jwt/vendor/autoload.php");
 
 use Firebase\JWT\JWT;
 
@@ -50,25 +50,21 @@ if ($way == "login") {
 
             setcookie("token", $token, time() + 3600, "/", "", true, true);
 
+            $response["roleId"] = $row["admin_roleid"];
             $response["status"] = "success";
             echo json_encode($response);
-
         } else {
 
             $response["status"] = "failed";
             $response["message"] = "Invalid Password";
             echo json_encode($response);
-
         }
-
     } else {
 
         $response["status"] = "failed";
         $response["message"] = "Invalid E-Mail";
         echo json_encode($response);
-
     }
-
 } else if ($way == "getData") {
 
 
@@ -82,7 +78,6 @@ if ($way == "login") {
 
     $response["status"] = "success";
     echo json_encode($response);
-
 } else if ($way == "forgetpassword") {
 
     // Generate a random string
@@ -290,17 +285,13 @@ if ($way == "login") {
             $response["message"] = "Forget Password Link Sended for Your Mail";
             echo json_encode($response);
         }
-
     } catch (Exception $e) {
         $response["status"] = "failed";
         $response["message"] = "Mail Error";
         echo json_encode($response);
     }
-
 } else {
     $response["status"] = "failed";
     $response["message"] = "try Again";
     echo json_encode($response);
 }
-
-?>

@@ -78,7 +78,7 @@
                         <span>Admin</span>
                     </div>
                 </div>
-                <div class="navbar-nav w-100">
+                <div id="sidebar" class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
                     <div class="nav-item dropdown">

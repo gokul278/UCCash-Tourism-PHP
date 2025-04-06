@@ -14,21 +14,29 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
-
         $response["admin_name"] = $values["admin_name"];
 
         $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
-
         $getdetails = $details->fetch_assoc();
-
         $response["profile_image"] = $getdetails["admin_profile"];
 
-        $historydata = $con->query("SELECT iah.*, ud.user_name
-        FROM idactivationhistory AS iah
-        JOIN userdetails AS ud ON iah.user_id = ud.user_id
-        WHERE iah.action != 'admin'");
+        // Get the fromDate and toDate from the POST request
+        $fromDate = $_POST['fromDate'];
+        $toDate = $_POST['toDate'];
+
+        // Prepare the SQL query with date filtering
+        $query = "SELECT iah.*, ud.user_name
+                  FROM idactivationhistory AS iah
+                  JOIN userdetails AS ud ON iah.user_id = ud.user_id
+                  WHERE iah.action != 'admin'";
+
+        // Add date filtering if both dates are provided
+        if (!empty($fromDate) && !empty($toDate)) {
+            $query .= " AND iah.paid_date BETWEEN '$fromDate' AND '$toDate'";
+        }
+
+        $historydata = $con->query($query);
 
         $tabledata = "";
         $index = 0;
@@ -45,32 +53,24 @@ if ($values["status"] == "success") {
                 <td>' . $rowhistorydata["deposite_type"] . '</td>
             ';
 
-
             if ($rowhistorydata["deposite_type"] == "Crypto") {
-
                 $tabledata .= '
                     <td>' . $rowhistorydata["crypto_value"] . '</td>
                     <td>' . $rowhistorydata["txnhash_id"] . '</td>                    
                 ';
-
             } else if ($rowhistorydata["deposite_type"] == "Bank") {
-
                 $tabledata .= '
                     <td>' . $rowhistorydata["bank_value"] . '</td> 
                     <td>' . $rowhistorydata["transaction_id"] . '<br><button class="btn btn-success view-proof-image" data-src=".././UC User/img/proofImage/' . $rowhistorydata["proof_image"] . '"><i class="bi bi-eye-fill"></i></button></td>
                 ';
-
             } else if ($rowhistorydata["deposite_type"] == "Wallet") {
-
                 $tabledata .= '
                     <td>' . $rowhistorydata["crypto_value"] . '</td>
                     <td>' . $rowhistorydata["txnhash_id"] . '</td>                    
                 ';
-
             }
 
-            if($rowhistorydata["action"] == "paid"){
-
+            if ($rowhistorydata["action"] == "paid") {
                 $tabledata .= '
                 <td style="color:#49f4a4">
                     Approved
@@ -78,35 +78,24 @@ if ($values["status"] == "success") {
                 <td style="color:#49f4a4">
                 ' . $rowhistorydata["remark"] . '
                 </td>';
-
-
-            }else if($rowhistorydata["action"] == "reject"){
-
+            } else if ($rowhistorydata["action"] == "reject") {
                 $tabledata .= '
                 <td style="color:red">
                     Rejected
                 </td>
                 <td style="color:red">
-                    '.$rowhistorydata["remark"].'
+                ' . $rowhistorydata["remark"] . '
                 </td>';
-
             }
-
         }
 
         $response["tabledata"] = $tabledata;
-
         $response["status"] = "success";
         echo json_encode($response);
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

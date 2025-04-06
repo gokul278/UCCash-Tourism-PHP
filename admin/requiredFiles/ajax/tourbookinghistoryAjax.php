@@ -14,8 +14,11 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
+
+        // Get the fromDate and toDate from the POST request
+        $fromDate = $_POST['fromDate'];
+        $toDate = $_POST['toDate'];
 
         $response["admin_name"] = $values["admin_name"];
 
@@ -27,7 +30,15 @@ if ($values["status"] == "success") {
 
         $tabledata = "";
 
-        $data = $con->query("SELECT * FROM tourbookinghistory WHERE status = 'booked'");
+        $query = "SELECT * FROM tourbookinghistory tbh WHERE tbh.status = 'booked'";
+
+        // Add date filtering if both dates are provided
+        if (!empty($fromDate) && !empty($toDate)) {
+            $query .= " AND tbh.booking_date BETWEEN '$fromDate' AND '$toDate'";
+        }
+
+        $data = $con->query($query);
+
 
         foreach ($data as $index => $getdata) {
 
@@ -97,7 +108,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way = "changevisitedstatus") {
 
         $id = $_POST["id"];
@@ -108,16 +118,11 @@ if ($values["status"] == "success") {
 
             $response["status"] = "success";
             echo json_encode($response);
-
         }
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

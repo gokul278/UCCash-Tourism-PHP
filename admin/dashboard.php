@@ -83,7 +83,7 @@
                         <span>Admin</span>
                     </div>
                 </div>
-                <div class="navbar-nav w-100">
+                <div id="sidebar" class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link active"><i
                             class="fa fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
                     <div class="nav-item dropdown">
@@ -244,7 +244,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/Total Members.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/Total Members.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Members</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalmembers">0</h5>
@@ -255,7 +255,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/savingsmember.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/savingsmember.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Member</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalmonthly">0</h5>
@@ -265,7 +265,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/Distributor.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/Distributor.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Distributor</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totaldistributor">0</h5>
@@ -275,7 +275,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/coins.png" style="width: 100px;heigth:100px;padding-bottom:10px"
+                                <img src="./img/coins.png" style="width: 100px;height:100px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Saving's TP's</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalsavingtravel">0.00</h5>
@@ -285,7 +285,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/coins.png" style="width: 100px;heigth:100px;padding-bottom:10px"
+                                <img src="./img/coins.png" style="width: 100px;height:100px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Used Saving's TP's</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedsavingtravel">0.00</h5>
@@ -295,7 +295,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/coins.png" style="width: 100px;heigth:100px;padding-bottom:10px"
+                                <img src="./img/coins.png" style="width: 100px;height:100px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Saving's TP's</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balancesavingtravel">0.00</h5>
@@ -305,7 +305,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/coupon.png" style="width: 100px;heigth:100px;padding-bottom:10px"
+                                <img src="./img/coupon.png" style="width: 100px;height:100px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Travel Coupon's</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totaltravelcoupon">0.00</h5>
@@ -315,7 +315,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/coupon.png" style="width: 100px;heigth:100px;padding-bottom:10px"
+                                <img src="./img/coupon.png" style="width: 100px;height:100px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Used Travel Coupon</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedtravelcoupon">0.00</h5>
@@ -325,7 +325,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/coupon.png" style="width: 100px;heigth:100px;padding-bottom:10px"
+                                <img src="./img/coupon.png" style="width: 100px;height:100px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Travel Coupon</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balancetravelcoupon">0.00</h5>
@@ -335,7 +335,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/gift.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/gift.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Bonus Travel Point</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalbonustravel">0.00</h5>
@@ -345,7 +345,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/gift.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/gift.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Used Bonus Travel Point</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedbonustravel">0.00</h5>
@@ -355,7 +355,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/gift.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/gift.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Bonus Travel Point</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balancebonustravel">0.00</h5>
@@ -365,7 +365,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/circle.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/circle.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Networking Income Wallet</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalnetworkingincome">0.00</h5>
@@ -375,7 +375,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/circle.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/circle.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Withdraw Networking Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usednetworkingincome">0.00</h5>
@@ -385,7 +385,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/circle.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/circle.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Networking Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balancenetworkingincome">0.00</h5>
@@ -395,7 +395,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/steps.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/steps.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Leadership Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalleadershipincome">0.00</h5>
@@ -405,7 +405,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/steps.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/steps.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Withdraw Leadership Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedleadershipincome">0.00</h5>
@@ -415,7 +415,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/steps.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/steps.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Leadership Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balanceleadershipincome">0.00</h5>
@@ -425,7 +425,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/house fund.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/house fund.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Car & House Fund</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalcarandhousefund">0.00</h5>
@@ -435,7 +435,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/house fund.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/house fund.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Withdraw Car & House Fund</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedcarandhousefund">0.00</h5>
@@ -445,7 +445,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/house fund.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/house fund.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Car & House Fund</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balancecarandhousefund">0.00</h5>
@@ -455,7 +455,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/star.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/star.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Royalty Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalroyaltyincome">0.00</h5>
@@ -465,7 +465,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/star.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/star.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Withdraw Royalty Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedroyaltyincome">0.00</h5>
@@ -475,7 +475,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/star.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/star.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Royalty Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balanceroyaltyincome">0.00</h5>
@@ -485,7 +485,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/bitcoin.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/bitcoin.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Saving's Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalsavingsincome">0.00</h5>
@@ -495,7 +495,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/bitcoin.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/bitcoin.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Withdraw Saving's Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedsavingsincome">0.00</h5>
@@ -505,7 +505,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/bitcoin.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/bitcoin.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Saving's Income</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balancesavingsincome">0.00</h5>
@@ -515,7 +515,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/UCC Wallet.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/UCC Wallet.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total UCC Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totaluccwallet">0.00</h5>
@@ -525,7 +525,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/UCC Wallet.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/UCC Wallet.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Used UCC Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="useduccwallet">0.00</h5>
@@ -535,7 +535,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/UCC Wallet.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/UCC Wallet.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance UCC Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balanceuccwallet">0.00</h5>
@@ -545,7 +545,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/id.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/id.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Reactivation Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalreactivationwallet">0.00</h5>
@@ -555,7 +555,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/id.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/id.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Used Reactivation Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedreactivationwallet">0.00</h5>
@@ -565,7 +565,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/id.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/id.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Reactivation Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balancereactivationwallet">0.00</h5>
@@ -575,7 +575,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/withdraw.png" style="width: 150px;heigth:150px;padding-bottom:10px"
+                                <img src="./img/withdraw.png" style="width: 150px;height:150px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Withdraw Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totalavailablewithdrwabalance">0.00
@@ -586,7 +586,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/withdraw.png" style="width: 150px;heigth:150px;padding-bottom:10px"
+                                <img src="./img/withdraw.png" style="width: 150px;height:150px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Used Withdraw Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedavailablewithdrwabalance">0.00</h5>
@@ -596,7 +596,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/withdraw.png" style="width: 150px;heigth:150px;padding-bottom:10px"
+                                <img src="./img/withdraw.png" style="width: 150px;height:150px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Balance Withdraw Amount</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balanceavailablewithdrwabalance">0.00
@@ -607,7 +607,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/adminfee.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/adminfee.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Admin Wallet Balance</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totaladminnwallet">0.00</h5>
@@ -617,7 +617,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/adminfee.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/adminfee.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Used Admin Balance</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedadminnwallet">0.00</h5>
@@ -627,7 +627,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/adminfee.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/adminfee.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Available Admin Balance</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balanceadminnwallet">0.00</h5>
@@ -637,7 +637,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/gst.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/gst.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Total Admin GST Balance</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="totaladmingst">0.00</h5>
@@ -647,7 +647,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/gst.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/gst.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Used Admin GST Balance</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="usedadmingst">0.00</h5>
@@ -657,7 +657,7 @@
                     <div class="col-md-4">
                         <div class="card rounded custom-bg-color text-center custom-height-card">
                             <div class="card-body">
-                                <img src="./img/gst.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                <img src="./img/gst.png" style="width: 80px;height:80px;padding-bottom:10px"
                                     alt="image">
                                 <h5 class="card-title mb-2">Available Admin GST Balance</h5>
                                 <h5 class="card-text mb-0 text-color-custom" id="balanceadmingst">0.00</h5>

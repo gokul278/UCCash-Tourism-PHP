@@ -265,7 +265,7 @@
                         <div class="col-md-4">
                             <div class="card rounded custom-bg-color text-center custom-height-card">
                                 <div class="card-body">
-                                    <img src="./img/adminfee.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                    <img src="./img/adminfee.png" style="width: 80px;height:80px;padding-bottom:10px"
                                         alt="image">
                                     <h5 class="card-title mb-2">Total Admin Wallet Balance</h5>
                                     <h5 class="card-text mb-0 text-color-custom" id="balanceadminnwallet">0.00</h5>
@@ -275,7 +275,7 @@
                         <div class="col-md-4">
                             <div class="card rounded custom-bg-color text-center custom-height-card">
                                 <div class="card-body">
-                                    <img src="./img/gst.png" style="width: 80px;heigth:80px;padding-bottom:10px"
+                                    <img src="./img/gst.png" style="width: 80px;height:80px;padding-bottom:10px"
                                         alt="image">
                                     <h5 class="card-title mb-2">Total Admin GST Balance</h5>
                                     <h5 class="card-text mb-0 text-color-custom" id="balanceadmingst">0.00</h5>
@@ -351,7 +351,7 @@
                                     </div>
                                     <div class="col-2"></div>
                                 </div>
-                                
+
                                 <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
                                     Launch demo modal

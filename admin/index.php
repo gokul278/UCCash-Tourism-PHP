@@ -53,7 +53,8 @@
                                     class="me-2 profile_image">
                             </a>
                             <br>
-                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome<br><p class="adminname"></p>
+                            <h4 style="color: #f7c128; text-align: center;" class="mt-2">Welcome<br>
+                                <p class="adminname"></p>
                             </h4>
                         </div>
 
