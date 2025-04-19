@@ -103,8 +103,9 @@ $(document).ready(() => {
   // Use event delegation for dynamically generated elements
   $(document).on("click", ".view-proof-image", function () {
     var proofImageSrc = $(this).data("src");
+    console.log(proofImageSrc)
     $("#proofImage").attr("src", proofImageSrc);
-    $("#proofImageModal").model("show");
+    $("#proofImageModal").modal("show");
   });
 });
 

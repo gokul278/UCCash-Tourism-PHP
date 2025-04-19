@@ -8,7 +8,8 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon --><link rel="shortcut icon" href="./img/favicon.png">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./img/favicon.png">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

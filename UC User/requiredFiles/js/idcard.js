@@ -101,3 +101,17 @@ const getData = () => {
     },
   });
 };
+
+function downloadIDCard() {
+  const idCard = document.querySelector('#totalidcard');
+
+  html2canvas(idCard, {
+      scale: 3, // Increase this for higher quality (e.g., 3x resolution)
+      useCORS: true // Ensures external images are handled
+  }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'ID_Card.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+  });
+}

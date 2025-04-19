@@ -1,8 +1,8 @@
 <?php
 
-include ("./DBConnection.php"); //DB Connection File
+include("./DBConnection.php"); //DB Connection File
 
-require ("../../UC User/requiredFiles/ajax/php_jwt/vendor/autoload.php");
+require("../../UC User/requiredFiles/ajax/php_jwt/vendor/autoload.php");
 
 use Firebase\JWT\JWT;
 
@@ -35,35 +35,31 @@ if ($way == "login") {
                         'user_id' => $userid,
                         'user_name' => $row["user_name"]
                     )
-                ), 
+                ),
                 $key,
                 'HS256'
             );
 
-            setcookie("token", $token, time()+3600, "/", "", true, true);
+            setcookie("token", $token, time() + 3600, "/", "", true, true);
+
+            $response["token"] = $token;
 
             $response["status"] = "success";
             echo json_encode($response);
-
         } else {
 
             $response["status"] = "failed";
             $response["message"] = "Invalid Password";
             echo json_encode($response);
-
         }
-
     } else {
 
         $response["status"] = "failed";
         $response["message"] = "Invalid User ID";
         echo json_encode($response);
-
     }
-
 } else {
     $response["status"] = "failed";
     $response["message"] = "try Again";
     echo json_encode($response);
 }
-?>

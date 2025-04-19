@@ -311,9 +311,9 @@
                     <div class="col-xl-12">
                         <div class="card mb-4">
                             <div class="card-header">ID Card</div>
-                            <div class="card-body">
+                            <div class="card-body" >
                                 <div class="id-card-hook"></div>
-                                <div class="id-card-holder mb-2">
+                                <div class="id-card-holder mb-2" id="totalidcard">
                                     <div class="id-card">
                                         <div class="header">
                                             <img src="img/uc logo.png">
@@ -340,6 +340,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div style="width:100%;margin-top:10px" align="center">
+                                <button class="btn btn-warning" onclick="downloadIDCard()">Download ID Card</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <br>
                         </div>
                     </div>
 
@@ -372,6 +376,8 @@
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
