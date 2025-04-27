@@ -374,7 +374,105 @@
                                         value="" onclick="clearerror()"
                                         oninput="this.value = this.value.replace(/[^0-9]/g, '');" id="pin">
                                 </div>
+
                                 <div class="row">
+                                    <!-- Country Dropdown -->
+                                    <div class="col-md-6">
+                                        <label for="country">Country<span style="color: red;"> *</span></label>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="country">
+                                                <option value="" selected disabled>Loading countries...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- State Dropdown -->
+                                    <div class="col-md-6">
+                                        <label for="state">State<span style="color: red;"> *</span></label>
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="state">
+                                                <option value="" selected disabled>Select a country first</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // Get the select elements
+                                    const countrySelect = document.getElementById('country');
+                                    const stateSelect = document.getElementById('state');
+
+                                    // Function to load all countries
+                                    async function loadCountries() {
+                                        try {
+                                            const response = await fetch('https://countriesnow.space/api/v0.1/countries/positions');
+                                            const data = await response.json();
+                                            const countries = data.data;
+
+                                            countrySelect.innerHTML = '<option value="" selected disabled>Select Country</option>';
+
+                                            countries.forEach(country => {
+                                                const option = document.createElement('option');
+                                                option.value = country.name;
+                                                option.textContent = country.name;
+                                                countrySelect.appendChild(option);
+                                            });
+                                        } catch (error) {
+                                            console.error('Error loading countries:', error);
+                                            countrySelect.innerHTML = '<option value="" selected disabled>Error loading countries</option>';
+                                        }
+                                    }
+
+                                    // Function to load states based on selected country
+                                    async function loadStates(countryName) {
+                                        try {
+                                            stateSelect.innerHTML = '<option value="" selected disabled>Loading states...</option>';
+
+                                            const response = await fetch('https://countriesnow.space/api/v0.1/countries/states', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify({
+                                                    country: countryName
+                                                })
+                                            });
+
+                                            const data = await response.json();
+                                            const states = data.data.states;
+
+                                            stateSelect.innerHTML = '<option value="" selected disabled>Select State</option>';
+
+                                            if (states.length === 0) {
+                                                const option = document.createElement('option');
+                                                option.textContent = 'No states available';
+                                                option.disabled = true;
+                                                stateSelect.appendChild(option);
+                                            } else {
+                                                states.forEach(state => {
+                                                    const option = document.createElement('option');
+                                                    option.value = state.name;
+                                                    option.textContent = state.name;
+                                                    stateSelect.appendChild(option);
+                                                });
+                                            }
+                                        } catch (error) {
+                                            console.error('Error loading states:', error);
+                                            stateSelect.innerHTML = '<option value="" selected disabled>Error loading states</option>';
+                                        }
+                                    }
+
+                                    // When user selects a country
+                                    countrySelect.addEventListener('change', function() {
+                                        const selectedCountry = this.value;
+                                        loadStates(selectedCountry);
+                                    });
+
+                                    // Load countries when page loads
+                                    loadCountries();
+                                </script>
+
+                                <!-- <div class="row">
                                     <div class="col-md-6">
                                         <label for="country">Country<span style="color: red;"> *</span></label>
                                         <div class="form-floating mb-3">
@@ -478,7 +576,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <label for="Password">Password<span style="color: red;"> *</span></label>
                                 <div class="input-group mb-3 col-md-6" style="height: 60px;">
                                     <input type="password" class="form-control" id="password" onclick="clearerror()"
@@ -567,20 +665,20 @@
     <script type="text/javascript"></script>
 
     <script type="application/ld+json">
-    {
-      "@context" : "https://schema.org",
-      "@type" : "WebSite",
-      "name" : "UCCash Foundation - Signup",
-      "url" : "https://www.uccashfoundation.com/signup.php"
-    }
-  </script>
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "UCCash Foundation - Signup",
+            "url": "https://www.uccashfoundation.com/signup.php"
+        }
+    </script>
 
     <script>
         const togglePassword = document.getElementById('togglePassword');
         const passwordField = document.getElementById('password');
         const eyeIcon = document.getElementById('eyeIcon');
 
-        togglePassword.addEventListener('click', function () {
+        togglePassword.addEventListener('click', function() {
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
                 eyeIcon.classList.remove('bi-eye-slash');
@@ -592,12 +690,12 @@
             }
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const passwordField = document.getElementById("repassword");
             const toggleButton = document.getElementById("togglerePassword");
             const eyeIcon = document.getElementById("reeyeIcon");
 
-            toggleButton.addEventListener("click", function () {
+            toggleButton.addEventListener("click", function() {
                 if (passwordField.type === "password") {
                     passwordField.type = "text";
                     eyeIcon.classList.remove("bi-eye-slash");
