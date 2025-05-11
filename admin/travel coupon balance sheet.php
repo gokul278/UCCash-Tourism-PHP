@@ -105,6 +105,15 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-wallet me-2"></i>Topup Wallet</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="topupapproval.php" class="dropdown-item ">Topup Wallet
+                                Approval</a>
+                            <a href="topuphistory.php" class="dropdown-item">Topup Wallet History</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-donate me-2"></i>Monthly TP<p style="text-align: center;"> Savings</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="monthlycryptodeposite.php" class="dropdown-item">Crypto Deposite</a>
@@ -134,10 +143,23 @@
                     </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                    <a href="tour destination edit.php" class="nav-item nav-link "><i class="far fa-map me-2"></i>Tour<p
-                            style="text-align: center;">Destinations</p></a>
-                    <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
-                        Booking<p style="text-align: center;"> History</p></a>
+                        <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i
+                                class="far fa-map me-2"></i>Tour<p
+                                style="text-align: center;">Destinations</p></a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="tour destination edit.php" class="dropdown-item ">International Destination</a>
+                            <a href="domestictourdestinationedit.php" class="dropdown-item">Domestic Destinantion</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Tour
+                            Booking<p style="text-align: center;"> History</p></a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="tour booking history.php" class="dropdown-item">International History</a>
+                            <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic History</a>
+                        </div>
+                    </div>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
                         Booking<p style="text-align: center;"> Edit</p></a>
                     <a href="hotel booking history.php" class="nav-item nav-link"><i

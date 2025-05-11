@@ -1,0 +1,153 @@
+$(document).ready(() => {
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/topuphistoryAjax.php",
+    data: {
+      way: "login",
+    },
+    success: function (res) {
+      var response = JSON.parse(res);
+
+      if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      } else if (response.status == "success") {
+        return getData();
+      }
+    },
+  });
+});
+
+const getData = () => {
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/topuphistoryAjax.php",
+    data: {
+      way: "getData",
+    },
+    success: function (res) {
+      var response = JSON.parse(res);
+      if (response.status == "success") {
+        $(".user_name").html(response.user_name);
+        if (response.user_profileimg != null) {
+          $(".user_profileimg").attr(
+            "src",
+            "./img/user/" + response.user_profileimg
+          );
+        }
+
+        if (response.tabledata.length > 0) {
+          $("#tabledata").html(response.tabledata);
+          $(document).on("click", ".activationdownload", function () {
+            downloadActivation(this);
+          });
+          $(document).on("click", ".invoicedownload", function () {
+            downloadInvoice(this);
+          });
+        } else {
+          $("#tabledata").html("<tr><th colspan='10'>No Data Found</th></tr>");
+        }
+      } else if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      }
+    },
+  });
+};
+
+const check = () => {
+  var fromdate = $("#fromDate").val();
+  var todate = $("#toDate").val();
+
+  if (fromdate.length > 0 && todate.length > 0) {
+    $("#goButton").prop("disabled", false);
+  } else {
+    $("#goButton").prop("disabled", true);
+  }
+};
+
+$("#clearbtn").click(function () {
+  $("#fromDate").val("");
+  $("#toDate").val("");
+  $("#goButton").prop("disabled", true);
+  return getData();
+});
+
+$("#filterDate").submit(function (e) {
+  e.preventDefault();
+
+  var fromdate = $("#fromDate").val();
+  var todate = $("#toDate").val();
+
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/topuphistoryAjax.php",
+    data: {
+      way: "filterdate",
+      fromDate: fromdate,
+      toDate: todate,
+    },
+    success: function (res) {
+      var response = JSON.parse(res);
+      if (response.status == "success") {
+        if (response.tabledata.length > 0) {
+          $("#tabledata").html(response.tabledata);
+          $(document).on("click", ".activationdownload", function () {
+            downloadActivation(this);
+          });
+          $(document).on("click", ".invoicedownload", function () {
+            downloadInvoice(this);
+          });
+        } else {
+          $("#tabledata").html("<tr><th colspan='10'>No Data Found</th></tr>");
+        }
+      } else if (
+        response.status == "auth_failed" &&
+        response.message == "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status == "auth_failed") {
+        location.replace("unauth_login.php");
+      }
+    },
+  });
+});
+
+const downloadActivation = (button) => {
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "./activationcertificate.php";
+
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "certificateid";
+  input.value = button.value;
+
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+};
+
+const downloadInvoice = (button) => {
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "./activationinvoice.php";
+  form.target = "_blank";
+
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "certificateid";
+  input.value = button.value;
+
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+};

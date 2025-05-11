@@ -92,6 +92,7 @@ const getData = () => {
         $("#reactivationwallet").html(response.reactivationwallet);
         $("#availablewithdrwabalance").html(response.availablewithdrwabalance);
         $("#uccwallet").html(response.uccwallet);
+        $("#tu_points").html(response.tu_points);
 
         if (response.rank.length >= 1) {
           $("#rank").html(response.rank);

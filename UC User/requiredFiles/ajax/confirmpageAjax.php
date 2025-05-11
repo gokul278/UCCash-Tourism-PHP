@@ -28,7 +28,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
@@ -67,7 +66,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["savingtravel"] = number_format(($stcredit - $stdebit), 2);
@@ -88,7 +86,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["bonustravel"] = number_format(($btcredit - $btdebit), 2);
@@ -109,36 +106,101 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["travelcoupon"] = number_format(($tccredit - $tcdebit), 2);
 
+
+            //Topup Wallet
+            $topupwallet = $con->query("SELECT * FROM topup_wallet WHERE user_id='{$datarow["user_id"]}'");
+            $topupcreadit = 0;
+            $topupwdebit = 0;
+
+            if (mysqli_num_rows($topupwallet) >= 1) {
+
+                foreach ($topupwallet as $gettopupwallet) {
+                    if (isset($gettopupwallet["tu_action"]) && strlen($gettopupwallet["tu_action"]) >= 1) {
+                        if ($gettopupwallet["tu_action"] == "credit") {
+                            $topupcreadit += (float) $gettopupwallet["tu_points"];
+                        } else if ($gettopupwallet["tu_action"] == "debit") {
+                            $topupwdebit += (float) $gettopupwallet["tu_points"];
+                        }
+                    }
+                }
+            }
+
+            $response["tu_points"] = number_format(($topupcreadit - $topupwdebit), 2);
+
             $response["status"] = "success";
             echo json_encode($response);
-
         }
-
     } else if ($way == "checkamount") {
         $personvalue = round(($_POST["person"]), 2);
         $bookingid = $_POST["bookingid"];
+        $selectType = $_POST["selectType"];
 
         $data = $con->query("SELECT * FROM tourdestination WHERE id='{$bookingid}'");
         $getdata = $data->fetch_assoc();
 
-        $amount = round(($getdata["tour_amount"]), 2);
+        if ($selectType === "topupwallet") {
 
-        $totalamount = $personvalue * $amount;
+            $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
+            $datares = $con->query($datasql);
+            $datarow = $datares->fetch_assoc();
 
-        $gst = $totalamount * 0.18;
+            $activationStatus = $datarow["user_referalStatus"];
 
-        $response["gstamount"] = round($gst, 2);
-        $response["tour_amount"] = round(($totalamount - $gst), 2);
-        $response["netamount"] = round($totalamount, 2);
+            if ($activationStatus == "activated") {
+                $amount = round(($getdata["tour_amount"]), 2);
+
+                $totalamount = $personvalue * $amount;
+                $discount = 0.05 * $totalamount;
+                $netamount = $totalamount - $discount;
+
+                $gst = $netamount * 0.18;
+
+                $response["gstamount"] = round($gst, 2);
+                $response["tour_amount"] = round(($netamount - $gst), 2);
+                $response["netamount"] = round($netamount, 2);
+                $response["discountamount"] = round($discount, 2);
+            } else {
+                $amount = round(($getdata["tour_amount"]), 2);
+
+                $totalamount = $personvalue * $amount;
+
+                $gst = $totalamount * 0.18;
+
+                $response["gstamount"] = round($gst, 2);
+                $response["tour_amount"] = round(($totalamount - $gst), 2);
+                $response["netamount"] = round($totalamount, 2);
+                $amount = round(($getdata["tour_amount"]), 2);
+
+                $totalamount = $personvalue * $amount;
+
+                $gst = $totalamount * 0.18;
+
+                $response["gstamount"] = round($gst, 2);
+                $response["tour_amount"] = round(($totalamount - $gst), 2);
+                $response["netamount"] = round($totalamount, 2);
+                $response["discountamount"] = 0;
+            }
+        } else {
+            $amount = round(($getdata["tour_amount"]), 2);
+
+            $totalamount = $personvalue * $amount;
+
+            $gst = $totalamount * 0.18;
+
+            $response["gstamount"] = round($gst, 2);
+            $response["tour_amount"] = round(($totalamount - $gst), 2);
+            $response["netamount"] = round($totalamount, 2);
+            $response["discountamount"] = 0;
+        }
+
+
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getotp") {
         $content = "";
         $type = $_POST["type"];
@@ -161,7 +223,8 @@ if ($values["status"] == "success") {
             Person&nbsp;:&nbsp;' . $personinput . '<br>
             Booking Point&nbsp;:&nbsp;' . $amount . '<br>
             GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
-            Net Point:&nbsp;' . $finsavingstravelpoints . '<br>';
+            Net Point:&nbsp;' . $finsavingstravelpoints . '<br>
+            Booking Type&nbsp;:&nbsp;International Tour<br>';
         } else if ($type == "bonustravelpoints") {
             $finbonustravelpoints = $_POST["bonustravelpoints"];
             $fintype = $type;
@@ -176,7 +239,8 @@ if ($values["status"] == "success") {
             Person&nbsp;:&nbsp;' . $personinput . '<br>
             Booking Point&nbsp;:&nbsp;' . $amount . '<br>
             GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
-            Net Point:&nbsp;' . $finbonustravelpoints . '<br>';
+            Net Point:&nbsp;' . $finbonustravelpoints . '<br>
+            Booking Type&nbsp;:&nbsp;International Tour<br>';
         } else if ($type == "travelcoupon") {
             $fintravelcoupon = $_POST["travelcoupon"];
             $fintype = $type;
@@ -191,7 +255,40 @@ if ($values["status"] == "success") {
             Person&nbsp;:&nbsp;' . $personinput . '<br>
             Booking Point&nbsp;:&nbsp;' . $amount . '<br>
             GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
-            Net Point:&nbsp;' . $fintravelcoupon . '<br>';
+            Net Point:&nbsp;' . $fintravelcoupon . '<br>
+            Booking Type&nbsp;:&nbsp;International Tour<br>';
+        } else if ($type == "topupwalletpoint") {
+            $fintravelcoupon = $_POST["topupwalletpoint"];
+            $fintype = $type;
+
+            $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
+            $datares = $con->query($datasql);
+            $datarow = $datares->fetch_assoc();
+
+            $activationStatus = $datarow["user_referalStatus"];
+
+            if ($activationStatus == "activated") {
+                $amount = $personinput * $gettourdetails["tour_amount"];
+                $discount = 0.05 * $amount;
+                $amount = $amount - $discount;
+                $gst = round(($amount * 0.18), 2);
+                $amount = round(($amount - $gst), 2);
+                $discout = round(($discount), 2);
+            } else {
+                $amount = $personinput * $gettourdetails["tour_amount"];
+                $gst = round(($amount * 0.18), 2);
+                $amount = round(($amount - $gst), 2);
+                $discout = "Not Applicable";
+            }
+
+            $content .= '
+            Type&nbsp;:&nbsp;Top-up Wallet<br>
+            Person&nbsp;:&nbsp;' . $personinput . '<br>
+            Booking Point&nbsp;:&nbsp;' . $amount . '<br>
+            GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
+            Net Point:&nbsp;' . $fintravelcoupon . '<br>
+            Discount:&nbsp;' . $discount . '<br>
+            Booking Type&nbsp;:&nbsp;International Tour<br>';
         } else if ($type == "allpoints") {
             $finsavingstravelpoints = isset($_POST["savingstravelpoints"]) ? (float) $_POST["savingstravelpoints"] : 0;
             $finbonustravelpoints = isset($_POST["bonustravelpoints"]) ? (float) $_POST["bonustravelpoints"] : 0;
@@ -210,7 +307,8 @@ if ($values["status"] == "success") {
             Travel Coupon&nbsp;:&nbsp;' . htmlspecialchars($fintravelcoupon) . '<br>
             Booking Point&nbsp;:&nbsp;' . $amount . '<br>
             GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
-            Net Point:&nbsp;' . $total . '<br>';
+            Net Point:&nbsp;' . $total . '<br>
+            Booking Type&nbsp;:&nbsp;International Tour<br>';
         }
 
 
@@ -226,8 +324,20 @@ if ($values["status"] == "success") {
 
         $otp = rand(100000, 999999);
 
-        $updateotp = $con->query("UPDATE userbankdetails SET otp='{$otp}' WHERE user_id='{$values["userid"]}'");
+        $otp = $con->real_escape_string($otp);
+        $userid = $con->real_escape_string($values["userid"]);
 
+        // First, try to update
+        $con->query("UPDATE userbankdetails SET otp='$otp' WHERE user_id='$userid'");
+
+        // Now check if the row exists
+        $result = $con->query("SELECT * FROM userbankdetails WHERE user_id='$userid'");
+        $getUpdateOTP = $result->fetch_assoc();
+
+        // If no row exists, insert a new one
+        if (!$getUpdateOTP) {
+            $con->query("INSERT INTO userbankdetails (user_id, otp) VALUES ('$userid', '$otp')");
+        }
         try {
             // Server settings
             $mail->isSMTP();
@@ -435,12 +545,10 @@ if ($values["status"] == "success") {
                 $response["status"] = "success";
                 echo json_encode($response);
             }
-
         } catch (Exception $e) {
             $response["status"] = "error";
             echo json_encode($response);
         }
-
     } else if ($way == "tourbooksavingstravelpoints") {
 
         $userotp = $_POST["otp"];
@@ -477,7 +585,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $balance = round(($stcredit - $stdebit), 2);
@@ -511,15 +618,13 @@ if ($values["status"] == "success") {
                     Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
                     GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                     Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
+                    Booking Type&nbsp;:&nbsp;International Tour<br>
                     </p>';
 
                     successmail($name, $email, $content);
-
                 } else {
                     echo $con->error;
                 }
-
-
             } else {
 
                 $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
@@ -527,16 +632,12 @@ if ($values["status"] == "success") {
                 $response["message"] = "Insufficient Balance";
                 echo json_encode($response);
             }
-
         } else {
 
             $response["status"] = "error";
             $response["message"] = "Invalid OTP";
             echo json_encode($response);
-
         }
-
-
     } else if ($way == "tourbookbonustravelpoints") {
 
         $userotp = $_POST["otp"];
@@ -573,7 +674,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $balance = round(($btcredit - $btdebit), 2);
@@ -607,15 +707,13 @@ if ($values["status"] == "success") {
                     Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
                     GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                     Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
+                    Booking Type&nbsp;:&nbsp;International Tour<br>
                     </p>';
 
                     successmail($name, $email, $content);
-
                 } else {
                     echo "queryerror";
                 }
-
-
             } else {
 
                 $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
@@ -623,15 +721,12 @@ if ($values["status"] == "success") {
                 $response["message"] = "Insufficient Balance";
                 echo json_encode($response);
             }
-
         } else {
 
             $response["status"] = "error";
             $response["message"] = "Invalid OTP";
             echo json_encode($response);
-
         }
-
     } else if ($way == "tourbooktravelcoupon") {
 
         $userotp = $_POST["otp"];
@@ -668,7 +763,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $balance = round(($tccredit - $tcdebit), 2);
@@ -702,15 +796,13 @@ if ($values["status"] == "success") {
                     Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
                     GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                     Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
+                    Booking Type&nbsp;:&nbsp;International Tour<br>
                     </p>';
 
                     successmail($name, $email, $content);
-
                 } else {
                     echo "queryerror";
                 }
-
-
             } else {
 
                 $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
@@ -718,15 +810,133 @@ if ($values["status"] == "success") {
                 $response["message"] = "Insufficient Balance";
                 echo json_encode($response);
             }
-
         } else {
 
             $response["status"] = "error";
             $response["message"] = "Invalid OTP";
             echo json_encode($response);
-
         }
+    } else if ($way == "tourbooktopupwallet") {
 
+        $userotp = $_POST["otp"];
+
+        $otp = $con->query("SELECT * FROM userbankdetails WHERE user_id='{$values["userid"]}'");
+        $getotp = $otp->fetch_assoc();
+
+        if ($userotp == $getotp["otp"]) {
+            $personinput = $_POST["personinput"];
+            $tourid = $_POST["bookingid"];
+
+            $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
+            $gettourdetails = $tourdetails->fetch_assoc();
+
+            $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
+            $datares = $con->query($datasql);
+            $datarow = $datares->fetch_assoc();
+
+            $activationStatus = $datarow["user_referalStatus"];
+
+            if ($activationStatus == "activated") {
+                $netamount = $personinput * $gettourdetails["tour_amount"];
+                $discount = 0.05 * $netamount;
+                $netamount = $netamount - $discount;
+                $gstamount = round(($netamount * 0.18), 2);
+                $discout = round(($discount), 2);
+
+                // $netamount = $personinput * $gettourdetails["tour_amount"];
+                // $gstamount = ($netamount) * 0.18;
+                // $netamount = $netamount - $gstamount;
+
+                $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+            } else {
+                $netamount = $personinput * $gettourdetails["tour_amount"];
+                $gstamount = round(($netamount * 0.18), 2);
+                $discout = "Not Applicable";
+                $refAmount = round((0.05 * $netamount), 2);
+
+                $level1 = $con->query("SELECT * FROM 'genealogy' WHERE user_id='{$datarow["user_id"]}'");
+                $getLevel1 = $level1->fetch_assoc();
+
+                $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+
+                $insertAvailableBalance = $con->query("INSERT INTO availablewithdrwabalance (user_id,awb_from,awb_to,awb_points,awb_action)
+                        VALUES ('{$getLevel1["lvl1"]}','Tour Booking From {$datarow["user_id"]}','Available Withdraw Balance','{$refAmount}','credit')");
+            }
+
+
+            //Topup Wallet
+            $travelcoupon = $con->query("SELECT * FROM topup_wallet WHERE user_id='{$datarow["user_id"]}'");
+            $tccredit = 0;
+            $tcdebit = 0;
+
+            if (mysqli_num_rows($travelcoupon) >= 1) {
+
+                foreach ($travelcoupon as $gettravelcoupon) {
+                    if (isset($gettravelcoupon["tu_action"]) && strlen($gettravelcoupon["tu_action"]) >= 1) {
+                        if ($gettravelcoupon["tu_action"] == "credit") {
+                            $tccredit += (float) $gettravelcoupon["tu_points"];
+                        } else if ($gettravelcoupon["tu_action"] == "debit") {
+                            $tcdebit += (float) $gettravelcoupon["tu_points"];
+                        }
+                    }
+                }
+            }
+
+            $balance = round(($tccredit - $tcdebit), 2);
+
+            if ($balance >= $netamount) {
+
+
+                $date = date('Y-m-d H:i:s');
+
+                $debit = $con->query("INSERT INTO topup_wallet (user_id,tu_points,tu_action,tu_bonusfrom,tu_remark)
+                VALUES ('{$values["userid"]}','{$netamount}','debit','Tour Booking at {$date}','Successfully Debited')");
+
+                $debitwallet = $con->query("INSERT INTO topupwallethistory (user_id, deposite_type, crypto_value, txnhash_id, topupwallet_value, action, remark)
+                VALUES ('{$values["userid"]}', 'Crypto', '-{$netamount}', '-', '-{$netamount}','paid','Successfully Debited for Tour Booking')");
+
+                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
+                VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$netamount}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Top-Up Wallet','{$gstamount}','{$netamount}','booked')");
+
+                if ($debit && $history) {
+
+                    $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+                    $getuserdetails = $userdetails->fetch_assoc();
+
+                    $name = $getuserdetails["user_name"];
+                    $email = $getuserdetails["user_email"];
+
+                    $content = '
+                    <p><b>Tour Booking Details:</b><br>
+                    Destination&nbsp;:&nbsp;' . $gettourdetails["tour_name"] . '<br>
+                    From Date&nbsp;:&nbsp;' . $gettourdetails["tour_fromdate"] . '<br>
+                    To Date&nbsp;:&nbsp;' . $gettourdetails["tour_todate"] . '<br>
+                    No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
+                    Wallet Type&nbsp;:&nbsp;Topup Wallet<br>
+                    Booked Point&nbsp;:&nbsp;' . round(($netamount), 2) . '<br>
+                    GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
+                    Net Point&nbsp;:&nbsp;' . $netamount . '<br>
+                    Discount&nbsp;:&nbsp;' . $discount . '<br>
+                    Booking Type&nbsp;:&nbsp;International Tour<br>
+                    </p>';
+
+                    successmail($name, $email, $content);
+                } else {
+                    echo "queryerror";
+                }
+            } else {
+
+                $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                $response["status"] = "error";
+                $response["message"] = "Insufficient Balance";
+                echo json_encode($response);
+            }
+        } else {
+
+            $response["status"] = "error";
+            $response["message"] = "Invalid OTP";
+            echo json_encode($response);
+        }
     } else if ($way == "tourallpoints") {
         $userotp = $_POST["otp"];
 
@@ -914,54 +1124,46 @@ if ($values["status"] == "success") {
                                 Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
                                 GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                                 Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
+                                Booking Type&nbsp;:&nbsp;International Tour<br>
                                 </p>';
 
                                 successmail($name, $email, $content);
-
                             }
-
                         } else {
                             $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                             $response["status"] = "error";
                             $response["message"] = $totalprice . " " . $totalpriceuser;
                             echo json_encode($response);
                         }
-
                     } else {
                         $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                         $response["status"] = "error";
                         $response["message"] = "Insufficient Balance at Travel Coupon";
                         echo json_encode($response);
                     }
-
                 } else {
                     $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                     $response["status"] = "error";
                     $response["message"] = "Insufficient Balance at Bonus Travel point";
                     echo json_encode($response);
                 }
-
             } else {
                 $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                 $response["status"] = "error";
                 $response["message"] = "Insufficient Balance at Savings Travel point";
                 echo json_encode($response);
             }
-
         } else {
             $response["status"] = "error";
             $response["message"] = "Invalid OTP";
             echo json_encode($response);
         }
     }
-
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
 
 
@@ -1035,7 +1237,7 @@ function successmail($name, $email, $content)
                     <td align="center" bgcolor="#ffffff">
                         <div style="width: 100%; max-width: 600px; background-color:white; display: table;">
                             <div align="center">
-                                <img src="https://i.ibb.co/VgZx2YC/Congratulations.jpg" width="25%"
+                                <img src="https://uccashtourism.com/img/congratulation.png" width="25%"
                                     style="display: block; margin: 0 auto;" alt="Logo">
                             </div>
                             <div align="start">
@@ -1155,14 +1357,8 @@ function successmail($name, $email, $content)
             $response["status"] = "success";
             echo json_encode($response);
         }
-
     } catch (Exception $e) {
         $response["status"] = "error";
         echo json_encode($response);
     }
-
 }
-
-
-
-?>

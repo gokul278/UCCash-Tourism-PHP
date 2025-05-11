@@ -72,7 +72,7 @@
                         <span>Admin</span>
                     </div>
                 </div>
-                <div  id="sidebar" class="navbar-nav w-100">
+                <div id="sidebar" class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
                     <div class="nav-item dropdown">
@@ -99,6 +99,15 @@
                             <a href="travel coupon activation.php" class="dropdown-item">ID Activation</a>
                             <a href="travel coupon approval.php" class="dropdown-item">ID Activation Approval</a>
                             <a href="travel coupon purchase history.php" class="dropdown-item">ID Activation History</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-wallet me-2"></i>Topup Wallet</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="topupapproval.php" class="dropdown-item ">Topup Wallet
+                                Approval</a>
+                            <a href="topuphistory.php" class="dropdown-item">Topup Wallet History</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -133,10 +142,23 @@
                     </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                    <a href="tour destination edit.php" class="nav-item nav-link "><i class="far fa-map me-2"></i>Tour<p
-                            style="text-align: center;">Destinations</p></a>
-                    <a href="tour booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Tour
-                        Booking<p style="text-align: center;"> History</p></a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i
+                                class="far fa-map me-2"></i>Tour<p
+                                style="text-align: center;">Destinations</p></a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="tour destination edit.php" class="dropdown-item ">International Destination</a>
+                            <a href="domestictourdestinationedit.php" class="dropdown-item">Domestic Destinantion</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Tour
+                            Booking<p style="text-align: center;"> History</p></a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="tour booking history.php" class="dropdown-item">International History</a>
+                            <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic History</a>
+                        </div>
+                    </div>
                     <!-- <a href="hotel booking edit.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Hotel
                         Booking<p style="text-align: center;"> Edit</p></a>
                     <a href="hotel booking history.php" class="nav-item nav-link"><i
@@ -326,7 +348,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <script src="./requiredFiles/js/withdrawhistory.js"></script>

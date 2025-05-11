@@ -14,17 +14,15 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
-    }else if($way == "getflashbanner"){
+    } else if ($way == "getflashbanner") {
 
         $getflashbanner = $con->query("SELECT * FROM flashbanner WHERE id=1");
-    
+
         $flashbanner = $getflashbanner->fetch_assoc();
-    
+
         $response["status"] = "success";
         $response["flashbanner"] = $flashbanner["bannerimage"];
         echo json_encode($response);
-    
     } else if ($way == "getData") {
 
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
@@ -105,7 +103,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["savingtravel"] = number_format(($stcredit - $stdebit), 2);
@@ -126,7 +123,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["bonustravel"] = number_format(($btcredit - $btdebit), 2);
@@ -147,7 +143,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["travelcoupon"] = number_format(($tccredit - $tcdebit), 2);
@@ -168,7 +163,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["savingsincome"] = number_format(($sicredit - $sidebit), 2);
@@ -228,7 +222,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["carandhousefund"] = number_format(($chfwcredit - $chfwdebit), 2);
@@ -249,7 +242,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["royaltyincome"] = number_format(($riwcredit - $riwdebit), 2);
@@ -271,7 +263,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["availablewithdrwabalance"] = number_format(($awbcredit - $awbdebit), 2);
@@ -293,7 +284,6 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["reactivationwallet"] = number_format(($rawcredit - $rawdebit), 2);
@@ -315,10 +305,29 @@ if ($values["status"] == "success") {
                         }
                     }
                 }
-
             }
 
             $response["uccwallet"] = number_format(($uccwcredit - $uccwdebit), 2);
+
+            //Topup Wallet
+            $topupwallet = $con->query("SELECT * FROM topup_wallet WHERE user_id='{$datarow["user_id"]}'");
+            $topupcreadit = 0;
+            $topupwdebit = 0;
+
+            if (mysqli_num_rows($topupwallet) >= 1) {
+
+                foreach ($topupwallet as $gettopupwallet) {
+                    if (isset($gettopupwallet["tu_action"]) && strlen($gettopupwallet["tu_action"]) >= 1) {
+                        if ($gettopupwallet["tu_action"] == "credit") {
+                            $topupcreadit += (float) $gettopupwallet["tu_points"];
+                        } else if ($gettopupwallet["tu_action"] == "debit") {
+                            $topupwdebit += (float) $gettopupwallet["tu_points"];
+                        }
+                    }
+                }
+            }
+
+            $response["tu_points"] = number_format(($topupcreadit - $topupwdebit), 2);
 
 
 
@@ -326,17 +335,11 @@ if ($values["status"] == "success") {
 
             $response["status"] = "success";
             echo json_encode($response);
-
         }
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

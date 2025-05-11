@@ -36,6 +36,7 @@ if ($way == "invoiceprint") {
     $savingstp = "****";
     $bonustp = "****";
     $travelcoupontp = "****";
+    $topupwallet = "****";
 
 
     if (strlen($bookingmethod) > 30) {
@@ -45,7 +46,7 @@ if ($way == "invoiceprint") {
             $savingstp = $matches[1];
             $bonustp = $matches[2];
             $travelcoupontp = $matches[3];
-        }else{
+        } else {
             if (preg_match('/\((\d+(\.\d+)?)\s*\+\s*(\d+(\.\d+)?)\s*\+\s*(\d+(\.\d+)?)\)/', $bookingmethod, $matches)) {
                 // Extract the values
                 $savingstp = $matches[1];
@@ -57,7 +58,6 @@ if ($way == "invoiceprint") {
                 $travelcoupontp = "error";
             }
         }
-        
     } else {
         if ($bookingmethod == "Savings Travel Point") {
             $savingstp = $bookingnetamount;
@@ -65,6 +65,8 @@ if ($way == "invoiceprint") {
             $bonustp = $bookingnetamount;
         } else if ($bookingmethod == "Travel Coupon") {
             $travelcoupontp = $bookingnetamount;
+        } else if ($bookingmethod == "Top-Up Wallet") {
+            $topupwallet = $bookingnetamount;
         }
     }
 
@@ -150,7 +152,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookingcode.'</b>
+                                <b>' . $bookingcode . '</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -161,7 +163,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookingdestination.'</b>
+                                <b>' . $bookingdestination . '</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -172,7 +174,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookingfromdate.'</b>
+                                <b>' . $bookingfromdate . '</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -183,7 +185,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookingtodate.'</b>
+                                <b>' . $bookingtodate . '</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -194,7 +196,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookingamount.' TP</b>
+                                <b>' . $bookingamount . ' TP</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -205,7 +207,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookingperson.'</b>
+                                <b>' . $bookingperson . '</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -216,7 +218,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.($getbookingdetails["booking_amount"]*$bookingperson)-$bookinggst.'</b>
+                                <b>' . ($getbookingdetails["booking_amount"] * $bookingperson) - $bookinggst . '</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -227,7 +229,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookinggst.'</b>
+                                <b>' . $bookinggst . '</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -238,7 +240,7 @@ if ($way == "invoiceprint") {
                                 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookingnetamount.'</b>
+                                <b>' . $bookingnetamount . '</b>
                             </td>
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
@@ -246,7 +248,7 @@ if ($way == "invoiceprint") {
                                 Savings Travel Point
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$savingstp.'</b>
+                                <b>' . $savingstp . '</b>
                             </td>
                             <td style="width:27.5%">
                                 
@@ -257,7 +259,7 @@ if ($way == "invoiceprint") {
                                Bonus Travel point 
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bonustp.'</b>
+                                <b>' . $bonustp . '</b>
                             </td>
                             <td style="width:27.5%">
                                 
@@ -268,7 +270,18 @@ if ($way == "invoiceprint") {
                                 Travel coupon
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$travelcoupontp.'</b>
+                                <b>' . $travelcoupontp . '</b>
+                            </td>
+                            <td style="width:27.5%">
+                                
+                            </td>
+                        </tr>
+                        <tr style="width:100%;color:#000;font-size:13px">
+                            <td style="width:45%">
+                                Top-up Wallet
+                            </td>
+                            <td style="width:27.5%">
+                                <b>' . $topupwallet . '</b>
                             </td>
                             <td style="width:27.5%">
                                 
@@ -279,7 +292,7 @@ if ($way == "invoiceprint") {
                                 Total Travel Point Used
                             </td>
                             <td style="width:27.5%">
-                                <b>'.$bookingnetamount.'</b>
+                                <b>' . $bookingnetamount . '</b>
                             </td>
                             <td style="width:27.5%">
                                 
@@ -295,7 +308,7 @@ if ($way == "invoiceprint") {
                     <table style="width:100%">
                         <tr style="width:100%">
                             <td style="width:2%"></td>
-                            <td style="width:96%;color:#000" align="start">
+                            <td style="width:96%;color:#000;font-size:10px" align="start">
                                 <b>IMPORTANT NOTICE:</b> All Travel Booking now require online web check-in for confirmation. Failure to complete in advance can result in denied booking. Please submit your all required documents below your booking receipt data. You must submit all required personal information no later than 48-72 hours prior from booking. Web check-in opens 45-60 days prior depending on the Tour Booking. kindly send mail to billings@uccashtourism.com to all required details.
                             </td>
                         </tr>
@@ -332,8 +345,8 @@ if ($way == "invoiceprint") {
                                             <td style="width:55%;background-color:#191919;color:#fff;font-size:14px">Country of residence</td>
                                         </tr>
                                         <tr>
-                                            <td style="width:45%;color:#000;font-size:13px"><b>'.$bookingperson.'</b></td>
-                                            <td style="width:55%;color:#000;font-size:13px"><b>'.$getuserdetails["user_country"].'</b></td>
+                                            <td style="width:45%;color:#000;font-size:13px"><b>' . $bookingperson . '</b></td>
+                                            <td style="width:55%;color:#000;font-size:13px"><b>' . $getuserdetails["user_country"] . '</b></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -383,4 +396,3 @@ if ($way == "invoiceprint") {
     $pdf->Output('Tour_Booking_' . $bookingcode . '.pdf');
     exit;
 }
-?>

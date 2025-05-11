@@ -1,0 +1,95 @@
+<?php
+
+require "../../../requiredFiles/ajax/DBConnection.php";
+
+require "./verify.php";
+
+$values = token::verify();
+
+if ($values["status"] == "success") {
+
+    $way = $_POST["way"];
+
+    if ($way == "login") {
+
+        $response["status"] = "success";
+        echo json_encode($response);
+    } else if ($way == "getData") {
+        $response["admin_name"] = $values["admin_name"];
+        $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
+        $getdetails = $details->fetch_assoc();
+        $response["profile_image"] = $getdetails["admin_profile"];
+
+        // Get the fromDate and toDate from the POST request
+        $fromDate = $_POST['fromDate'];
+        $toDate = $_POST['toDate'];
+
+        // Prepare the SQL query with date filtering
+        $query = "SELECT * FROM topupwallethistory WHERE action != 'admin'";
+
+        // Add date filtering if both dates are provided
+        if (!empty($fromDate) && !empty($toDate)) {
+            $query .= " AND paid_date BETWEEN '$fromDate' AND '$toDate'";
+        }
+
+        $history = $con->query($query);
+        $tabledata = "";
+        $index = 0;
+
+        foreach ($history as $gethistory) {
+            $dateString = $gethistory["paid_date"];
+
+            $name = $con->query("SELECT * FROM userdetails WHERE user_id='{$gethistory["user_id"]}'");
+            $getname = $name->fetch_assoc();
+
+            $parts = explode(" ", $dateString);
+
+            $date = $parts[0];
+            $time = $parts[1];
+            $index++;
+            $tabledata .= "
+            <tr>
+                <th>" . $index . "</th>
+                <th>" . $date . '<p class="time">' . $time . "</p></th>
+                <th>" . $gethistory["user_id"] . "</th>
+                <th>" . $getname["user_name"] . "</th>
+                <th>" . $gethistory["deposite_type"] . "</th>";
+
+            if ($gethistory["deposite_type"] == "Bank") {
+                $tabledata .= "
+                    <th>Rs. " . $gethistory["bank_value"] . "</th>
+                    <th>" . $gethistory["transaction_id"] . "</th>
+                    ";
+            } else {
+                $tabledata .= "
+                    <th>$ " . $gethistory["crypto_value"] . "</th>
+                    <th>" . $gethistory["txnhash_id"] . "</th>
+                    ";
+            }
+
+            $tabledata .= "
+                    <th>" . $gethistory["topupwallet_value"] . "</th>";
+
+            if ($gethistory["action"] == "reject") {
+                $tabledata .= "
+                        <th style='color:red;'>Rejected<br>Reason: " . $gethistory["remark"] . "</th>
+                    </tr>
+                    ";
+            } else if ($gethistory["action"] == "paid") {
+                $tabledata .= "
+                        <th style='color:green;'>" . $gethistory["remark"] . "</th>
+                    </tr>
+                    ";
+            }
+        }
+
+        $response["tabledata"] = $tabledata;
+        $response["status"] = "success";
+        echo json_encode($response);
+    }
+} else if ($values["status"] == "auth_failed") {
+
+    $response["status"] = $values["status"];
+    $response["message"] = $values["message"];
+    echo json_encode($response);
+}

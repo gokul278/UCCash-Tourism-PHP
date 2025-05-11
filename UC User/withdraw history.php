@@ -96,7 +96,7 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
-                            </a>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="id activation.php" class="dropdown-item">ID Activation</a>
                             <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
@@ -104,13 +104,21 @@
                     </div>
                     <a href="distributor activation status.php" class="nav-item nav-link"><i
                             class="fa fa-signal me-2"></i>ID Activation <p style="text-align: center;">History</p></a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-wallet me-2"></i>Topup Wallet</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="topupdeposite.php" class="dropdown-item">Topup Wallet Deposite</a>
+                            <a href="topuphistory.php" class="dropdown-item">Topup Wallet History</a>
+                        </div>
+                    </div>
                     <!-- <a href="coupon purchase history.php" class="nav-item nav-link"><i class="fa fa-gift me-2"></i>Coupon <p style="text-align: center;">Purchase History</p></a> -->
                     <a href="coupon usage history.php" class="nav-item nav-link"><i class="fa fa-gift me-2"></i>Travel
                         Coupon <p style="text-align: center;">Usage History</p></a>
                     <!-- <a href="monthly TP savings.php" class="nav-item nav-link"><i class="fa fa-comment-dollar me-2"></i>Monthly TP <p style="text-align: center;">Savings</p></a> -->
                     <a href="monthly TP savings status.php" class="nav-item nav-link"><i
                             class="fa fa-donate me-2"></i>Monthly TP <p style="text-align: center;">Saving History</p>
-                        </a>
+                    </a>
                     <a href="monthly savings pending invoice.php" class="nav-item nav-link"><i
                             class="fa fa-file-invoice-dollar me-2"></i>Monthly Savings <p style="text-align: center;">
                             Pending Invoice</p></a>
@@ -149,9 +157,22 @@
                             <a href="hotel booking.php" class="dropdown-item">Hotel Booking</a>
                         </div>
                     </div> -->
-
-                    <a href="booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Booking
-                        History</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-map me-2"></i>Tour
+                            Booking</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="tour booking.php" class="dropdown-item">International Booking</a>
+                            <a href="domestictourbooking.php" class="dropdown-item">Domestic Booking</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
+                        <p style="text-align: center;">History</p></a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="booking history.php" class="dropdown-item">International History</a>
+                            <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
+                        </div>
+                    </div>
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
@@ -299,7 +320,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="tabledata">
-                                            
+
                                         </tbody>
                                     </table>
                                 </strong>

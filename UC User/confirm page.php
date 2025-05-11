@@ -235,6 +235,14 @@
                     </div>
                     <a href="distributor activation status.php" class="nav-item nav-link"><i
                             class="fa fa-signal me-2"></i>ID Activation <p style="text-align: center;">History</p></a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                                class="fa fa-wallet me-2"></i>Topup Wallet</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="topupdeposite.php" class="dropdown-item">Topup Wallet Deposite</a>
+                            <a href="topuphistory.php" class="dropdown-item">Topup Wallet History</a>
+                        </div>
+                    </div>
                     <!-- <a href="coupon purchase history.php" class="nav-item nav-link"><i class="fa fa-gift me-2"></i>Coupon <p style="text-align: center;">Purchase History</p></a> -->
                     <a href="coupon usage history.php" class="nav-item nav-link"><i class="fa fa-gift me-2"></i>Travel
                         Coupon <p style="text-align: center;">Usage History</p></a>
@@ -272,10 +280,23 @@
                             <a href="withdraw history.php" class="dropdown-item">Withdraw History</a>
                         </div>
                     </div>
-                    <a href="tour booking.php" class="nav-item nav-link active"><i class="far fa-map me-2"></i>Tour
-                        Booking</a>
-                    <a href="booking history.php" class="nav-item nav-link"><i class="fa fa-bookmark me-2"></i>Booking
-                        History</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-map me-2"></i>Tour
+                            Booking</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="tour booking.php" class="dropdown-item active">International Booking</a>
+                            <a href="domestictourbooking.php" class="dropdown-item">Domestic Booking</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
+                            <p style="text-align: center;">History</p>
+                        </a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="booking history.php" class="dropdown-item">International History</a>
+                            <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
+                        </div>
+                    </div>
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
@@ -457,6 +478,17 @@
                     <div class="row g-4">
                         <div class="col-sm-6 col-xl-4">
                             <div class="card rounded bg-light text-center">
+                                <img style="margin: auto; width: 80px; height: 80px;" src="img/topupwallet.png"
+                                    class="card-img-top" alt="Coupon Image">
+
+                                <div class="card-body">
+                                    <h5 class="card-title mb-2">Topup Wallet</h5>
+                                    <h5 class="card-text mb-0 tu_points"></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xl-4">
+                            <div class="card rounded bg-light text-center">
                                 <img style="margin: auto; width: 80px; height: 80px;" src="img/coins.png"
                                     class="card-img-top" alt="Coupon Image">
 
@@ -547,9 +579,17 @@
                                         id="gstamount">0 $</td>
                                 </tr>
                                 <tr>
-                                    <td style="width:50%;padding-bottom:10px;" align="left">Net Amount</td>
+                                    <td style="width:50%;padding-bottom:10px;" align="left">Payable Amount</td>
                                     <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center"
                                         id="netamount">0 $</td>
+                                </tr>
+                                <tr>
+                                    <td style="width:50%;padding-bottom:10px;" align="left">Discount</td>
+                                    <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center"
+                                        id="discountamount">0 $</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="width:100%;padding:10px;font-size:15px;font-weight:500;background:#f7c128;color:#000;border-radius:10px" align="left">Note: Discount is applicable only for users with Distributor rank who select the Top-up Wallet.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -568,7 +608,8 @@
                                             <option value="savingstravelpoints">Savings Travel Points</option>
                                             <option value="bonustravelpoints">Bonus Travel Points</option>
                                             <option value="travelcoupon">Travel Coupon's</option>
-                                            <option value="allpoints">All Points</option>
+                                            <option value="allpoints">Savings Travel Points + Bonus Travel Points + Travel Coupon's</option>
+                                            <option value="topupwallet">Top-up Wallet</option>
                                         </select>
                                         <label for="floatingSelect"><b>Payment Type</b></label>
                                     </div>
