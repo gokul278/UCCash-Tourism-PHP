@@ -44,7 +44,7 @@ if ($values["status"] == "success") {
             $data = $con->query("SELECT * FROM domestictourdestination WHERE id='{$tourid}'");
             $getdata = $data->fetch_assoc();
 
-            $gst = $getdata["tour_amount"] * 0.18;
+            $gst = $getdata["tour_amount"] * 0.05;
 
             $response["gstamount"] = round($gst, 2);
             $response["tour_amount"] = round(($getdata["tour_amount"] - $gst), 2);
@@ -115,7 +115,7 @@ if ($values["status"] == "success") {
             $discount = 0.05 * $totalamount;
             $netamount = $totalamount - $discount;
 
-            $gst = $netamount * 0.18;
+            $gst = $netamount * 0.05;
 
             $response["gstamount"] = round($gst, 2);
             $response["tour_amount"] = round(($netamount - $gst), 2);
@@ -126,7 +126,7 @@ if ($values["status"] == "success") {
 
             $totalamount = $personvalue * $amount;
 
-            $gst = $totalamount * 0.18;
+            $gst = $totalamount * 0.05;
 
             $response["gstamount"] = round($gst, 2);
             $response["tour_amount"] = round(($totalamount - $gst), 2);
@@ -135,7 +135,7 @@ if ($values["status"] == "success") {
 
             $totalamount = $personvalue * $amount;
 
-            $gst = $totalamount * 0.18;
+            $gst = $totalamount * 0.05;
 
             $response["gstamount"] = round($gst, 2);
             $response["tour_amount"] = round(($totalamount - $gst), 2);
@@ -168,12 +168,12 @@ if ($values["status"] == "success") {
                 $amount = $personinput * $gettourdetails["tour_amount"];
                 $discount = 0.05 * $amount;
                 $amount = $amount - $discount;
-                $gst = round(($amount * 0.18), 2);
+                $gst = round(($amount * 0.05), 2);
                 $amount = round(($amount - $gst), 2);
                 $discout = round(($discount), 2);
             } else {
                 $amount = $personinput * $gettourdetails["tour_amount"];
-                $gst = round(($amount * 0.18), 2);
+                $gst = round(($amount * 0.05), 2);
                 $amount = round(($amount - $gst), 2);
                 $discout = "Not Applicable";
             }
@@ -183,7 +183,7 @@ if ($values["status"] == "success") {
             Type&nbsp;:&nbsp;Bonus Travel point<br>
             Person&nbsp;:&nbsp;' . $personinput . '<br>
             Booking Point&nbsp;:&nbsp;' . $amount . '<br>
-            GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
+            GST(5%)&nbsp;:&nbsp;' . $gst . '<br>
             Net Point:&nbsp;' . $fintravelcoupon . '<br>
             Discount:&nbsp;' . $discount . '<br>
             Booking Type&nbsp;:&nbsp;Domestic Tour<br>';
@@ -201,12 +201,12 @@ if ($values["status"] == "success") {
                 $amount = $personinput * $gettourdetails["tour_amount"];
                 $discount = 0.05 * $amount;
                 $amount = $amount - $discount;
-                $gst = round(($amount * 0.18), 2);
+                $gst = round(($amount * 0.05), 2);
                 $amount = round(($amount - $gst), 2);
                 $discout = round(($discount), 2);
             } else {
                 $amount = $personinput * $gettourdetails["tour_amount"];
-                $gst = round(($amount * 0.18), 2);
+                $gst = round(($amount * 0.05), 2);
                 $amount = round(($amount - $gst), 2);
                 $discout = "Not Applicable";
             }
@@ -215,7 +215,7 @@ if ($values["status"] == "success") {
             Type&nbsp;:&nbsp;Top-up Wallet<br>
             Person&nbsp;:&nbsp;' . $personinput . '<br>
             Booking Point&nbsp;:&nbsp;' . $amount . '<br>
-            GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
+            GST(5%)&nbsp;:&nbsp;' . $gst . '<br>
             Net Point:&nbsp;' . $fintravelcoupon . '<br>
             Discount:&nbsp;' . $discount . '<br>
             Booking Type&nbsp;:&nbsp;Domestic Tour<br>';
@@ -233,12 +233,12 @@ if ($values["status"] == "success") {
                 $amount = $personinput * $gettourdetails["tour_amount"];
                 $discount = 0.05 * $amount;
                 $amount = $amount - $discount;
-                $gst = round(($amount * 0.18), 2);
+                $gst = round(($amount * 0.05), 2);
                 $amount = round(($amount - $gst), 2);
                 $discout = round(($discount), 2);
             } else {
                 $amount = $personinput * $gettourdetails["tour_amount"];
-                $gst = round(($amount * 0.18), 2);
+                $gst = round(($amount * 0.05), 2);
                 $amount = round(($amount - $gst), 2);
                 $discout = "Not Applicable";
             }
@@ -249,7 +249,7 @@ if ($values["status"] == "success") {
             Top-up Wallet point&nbsp;:&nbsp;' . htmlspecialchars($fintopupwalletpoints) . '<br>
             Bonus Travel point&nbsp;:&nbsp;' . htmlspecialchars($finbonustravelpoints) . '<br>
             Booking Point&nbsp;:&nbsp;' . $amount . '<br>
-            GST(18%)&nbsp;:&nbsp;' . $gst . '<br>
+            GST(5%)&nbsp;:&nbsp;' . $gst . '<br>
             Net Point:&nbsp;' . $total . '<br>
             Discount:&nbsp;' . $discount . '<br>
             Booking Type&nbsp;:&nbsp;Domestic Tour<br>';
@@ -515,17 +515,17 @@ if ($values["status"] == "success") {
                 $netamount = $personinput * $gettourdetails["tour_amount"];
                 $discount = 0.05 * $netamount;
                 $netamount = $netamount - $discount;
-                $gstamount = round(($netamount * 0.18), 2);
+                $gstamount = round(($netamount * 0.05), 2);
                 $discout = round(($discount), 2);
 
                 // $netamount = $personinput * $gettourdetails["tour_amount"];
-                // $gstamount = ($netamount) * 0.18;
+                // $gstamount = ($netamount) * 0.05;
                 // $netamount = $netamount - $gstamount;
 
                 $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
             } else {
                 $netamount = $personinput * $gettourdetails["tour_amount"];
-                $gstamount = round(($netamount * 0.18), 2);
+                $gstamount = round(($netamount * 0.05), 2);
                 $discout = "Not Applicable";
                 $refAmount = round((0.05 * $netamount), 2);
 
@@ -584,7 +584,7 @@ if ($values["status"] == "success") {
                     No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
                     Wallet Type&nbsp;:&nbsp;Bonus Travel Point<br>
                     Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
-                    GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
+                    GST(5%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                     Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                     Booking Type&nbsp;:&nbsp;Domestic Tour<br>
                     </p>';
@@ -630,17 +630,17 @@ if ($values["status"] == "success") {
                 $netamount = $personinput * $gettourdetails["tour_amount"];
                 $discount = 0.05 * $netamount;
                 $netamount = $netamount - $discount;
-                $gstamount = round(($netamount * 0.18), 2);
+                $gstamount = round(($netamount * 0.05), 2);
                 $discout = round(($discount), 2);
 
                 // $netamount = $personinput * $gettourdetails["tour_amount"];
-                // $gstamount = ($netamount) * 0.18;
+                // $gstamount = ($netamount) * 0.05;
                 // $netamount = $netamount - $gstamount;
 
                 $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
             } else {
                 $netamount = $personinput * $gettourdetails["tour_amount"];
-                $gstamount = round(($netamount * 0.18), 2);
+                $gstamount = round(($netamount * 0.05), 2);
                 $discout = "Not Applicable";
                 $refAmount = round((0.05 * $netamount), 2);
 
@@ -704,7 +704,7 @@ if ($values["status"] == "success") {
                     No of Participate&nbsp;:&nbsp;' . $personinput . '<br>
                     Wallet Type&nbsp;:&nbsp;Topup Wallet<br>
                     Booked Point&nbsp;:&nbsp;' . round(($netamount), 2) . '<br>
-                    GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
+                    GST(5%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                     Net Point&nbsp;:&nbsp;' . $netamount . '<br>
                     Discount&nbsp;:&nbsp;' . $discount . '<br>
                     Booking Type&nbsp;:&nbsp;Domestic Tour<br>
@@ -788,7 +788,7 @@ if ($values["status"] == "success") {
 
                     $totalpriceuser = round(($savingstravelpoints + $bonustravelpoints), 2);
 
-                    $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                    $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.05;
                     $netamount = $personinput * $gettourdetails["tour_amount"];
 
                     $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
@@ -803,17 +803,17 @@ if ($values["status"] == "success") {
                         $netamount = $personinput * $gettourdetails["tour_amount"];
                         $discount = 0.05 * $netamount;
                         $netamount = $netamount - $discount;
-                        $gstamount = round(($netamount * 0.18), 2);
+                        $gstamount = round(($netamount * 0.05), 2);
                         $discout = round(($discount), 2);
 
                         // $netamount = $personinput * $gettourdetails["tour_amount"];
-                        // $gstamount = ($netamount) * 0.18;
+                        // $gstamount = ($netamount) * 0.05;
                         // $netamount = $netamount - $gstamount;
 
                         $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
                     } else {
                         $netamount = $personinput * $gettourdetails["tour_amount"];
-                        $gstamount = round(($netamount * 0.18), 2);
+                        $gstamount = round(($netamount * 0.05), 2);
                         $discout = "Not Applicable";
                         $refAmount = round((0.05 * $netamount), 2);
 
@@ -915,7 +915,7 @@ if ($values["status"] == "success") {
                                 Top-up Waller Point&nbsp;:&nbsp;' . $st_escaped . '<br>
                                 Bonus Travel Point&nbsp;:&nbsp;' . $bt_escaped . '<br>
                                 Booked Point&nbsp;:&nbsp;' . round(($totalprice - $gstamount), 2) . '<br>
-                                GST(18%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
+                                GST(5%)&nbsp;:&nbsp;' . round($gstamount, 2) . '<br>
                                 Net Point&nbsp;:&nbsp;' . $totalprice . '<br>
                                 Booking Type&nbsp;:&nbsp;Domestic Tour<br>
                                 </p>';

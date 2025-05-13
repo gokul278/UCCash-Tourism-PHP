@@ -553,7 +553,7 @@
                                         id="tour_amount">0 $</td>
                                 </tr>
                                 <tr>
-                                    <td style="width:50%;padding-bottom:10px;" align="left">GST(18%)</td>
+                                    <td style="width:50%;padding-bottom:10px;" align="left">GST(5%)</td>
                                     <td style="width:50%;padding-bottom:10px;color:#f7c128;" align="center"
                                         id="gstamount">0 $</td>
                                 </tr>

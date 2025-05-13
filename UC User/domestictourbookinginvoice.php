@@ -213,7 +213,7 @@ if ($way == "invoiceprint") {
                         </tr>
                         <tr style="width:100%;color:#000;font-size:13px">
                             <td style="width:45%">
-                                Tax Amount 18% (9%+9%)
+                                Tax Amount 5%
                             </td>
                             <td style="width:27.5%">
                                 
