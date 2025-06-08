@@ -16,7 +16,8 @@ $(document).ready(() => {
       } else if (response.status == "auth_failed") {
         location.replace("unauth_login.php");
       } else if (response.status == "success") {
-        $("#sidebar").html(`
+        if (localStorage.getItem("roleId") === "2") {
+          $("#sidebar").html(`
                     <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                         class="fa fa-id-card me-2"></i>ID Activation</a>
@@ -31,7 +32,7 @@ $(document).ready(() => {
                             </div>
                             <a href="logout.php" class="nav-item nav-link"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
                     `);
-
+        }
         return getData();
       }
     },

@@ -87,6 +87,8 @@
                 <div class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
+                             <a href="placesservice.php" class="nav-item nav-link"><i
+                            class="bi bi-geo-alt-fill me-2"></i><b>Service Places</b></a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-laptop me-2"></i><b>Edit Details</b></a>
@@ -154,7 +156,7 @@
                     </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                        <div class="nav-item dropdown">
+                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i
                                 class="far fa-map me-2"></i>Tour<p
                                 style="text-align: center;">Destinations</p></a>

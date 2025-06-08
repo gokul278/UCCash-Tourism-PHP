@@ -1,5 +1,69 @@
 <?php
 
+// require "../../../requiredFiles/ajax/DBConnection.php";
+
+// require "./verify.php";
+
+// $values = token::verify();
+
+// if ($values["status"] == "success") {
+
+//     $way = $_POST["way"];
+
+//     if ($way == "login") {
+
+//         $response["status"] = "success";
+//         echo json_encode($response);
+
+//     } else if ($way == "getData") {
+
+//         $response["admin_name"] = $values["admin_name"];
+
+//         $getlatestnews = $con->query("SELECT * FROM latestnews WHERE 1");
+
+//         $resnews = $getlatestnews->fetch_assoc();
+
+//         $response["news"] = $resnews["news"];
+
+//         $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
+
+//         $getdetails = $details->fetch_assoc();
+
+//         $response["profile_image"] = $getdetails["admin_profile"];
+
+//         $response["status"] = "success";
+//         echo json_encode($response);
+
+//     } else if ($way == "updatenews") {
+
+//         $news = $_POST["news"];
+
+//         $updatenews = $con->query("UPDATE latestnews SET news='{$news}' WHERE id=1");
+
+//         if ($updatenews) {
+
+//             $response["status"] = "success";
+//             echo json_encode($response);
+
+//         } else {
+
+//             $response["status"] = "error";
+//             echo json_encode($response);
+
+//         }
+
+//     }
+
+// } else if ($values["status"] == "auth_failed") {
+
+//     $response["status"] = $values["status"];
+//     $response["message"] = $values["message"];
+//     echo json_encode($response);
+
+// }
+
+
+
 require "../../../requiredFiles/ajax/DBConnection.php";
 
 require "./verify.php";
@@ -14,16 +78,18 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
 
-        $getlatestnews = $con->query("SELECT * FROM latestnews WHERE 1");
+        $getimage = $con->query("SELECT * FROM newsimages");
 
-        $resnews = $getlatestnews->fetch_assoc();
+        $images = array();
+        foreach ($getimage as $rowimage) {
+            $images[] = $rowimage["imagename"];
+        }
 
-        $response["news"] = $resnews["news"];
+        $response["galleryimages"] = $images;
 
         $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
 
@@ -33,33 +99,51 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
+    } else if ($way == "insertimage") {
 
-    } else if ($way == "updatenews") {
+        $insertimage = $_FILES["addimage"]["name"];
+        $extension = pathinfo($insertimage, PATHINFO_EXTENSION);
+        $timestamp = date("YmdHis");
+        $newImageName = $timestamp . '.' . $extension;
 
-        $news = $_POST["news"];
+        if (move_uploaded_file($_FILES["addimage"]["tmp_name"], "../../img/news/" . $newImageName)) {
 
-        $updatenews = $con->query("UPDATE latestnews SET news='{$news}' WHERE id=1");
+            $imagesql = $con->query("INSERT INTO newsimages (imagename) VALUES ('{$newImageName}')");
 
-        if ($updatenews) {
+            if ($imagesql) {
 
-            $response["status"] = "success";
-            echo json_encode($response);
-            
+                $response["status"] = "success";
+                echo json_encode($response);
+            } else {
+
+                echo "error";
+            }
         } else {
-
-            $response["status"] = "error";
-            echo json_encode($response);
-            
+            echo "error";
         }
+    } else if ($way = "deleteimage") {
 
+        $imagename = $_POST["imagename"];
+
+        if (unlink("../../img/news/" . $imagename)) {
+
+            $deleteimage = $con->query("DELETE FROM newsimages WHERE imagename='{$imagename}'");
+
+            if ($deleteimage) {
+
+                $response["status"] = "success";
+                echo json_encode($response);
+            } else {
+
+                echo "error";
+            }
+        } else {
+            echo "error";
+        }
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

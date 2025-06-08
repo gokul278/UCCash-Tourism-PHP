@@ -299,10 +299,16 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="./img/pdf1.pdf" target="_blank" class="dropdown-item">1 PDF </a>
-                            <a href="./img/pdf2.pdf" target="_blank" class="dropdown-item">2 PDF</a>
-                            <a href="./img/pdf3.pdf" target="_blank" class="dropdown-item">3 PDF</a>
-                            <a href="./img/pdf4.pdf" target="_blank" class="dropdown-item">4 PDF</a>
+                           <?php
+
+                            include("../requiredFiles/ajax/DBConnection.php");
+
+                            $getimage = $con->query("SELECT * FROM busniesstools");
+                            foreach ($getimage as $rowimage) {
+                                echo '<a href="../admin/img/businesstools/'.$rowimage["imagename"].'" target="_blank" class="dropdown-item">'.$rowimage["description"].'</a>';
+                            }
+
+                            ?>
                         </div>
                     </div>
                     <div class="nav-item dropdown">

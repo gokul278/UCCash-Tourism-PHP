@@ -290,7 +290,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
-                        <p style="text-align: center;">History</p></a>
+                            <p style="text-align: center;">History</p>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="booking history.php" class="dropdown-item">International History</a>
                             <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
@@ -301,10 +302,20 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="./img/pdf1.pdf" target="_blank" class="dropdown-item">1 PDF </a>
+                            <?php
+
+                            include("../requiredFiles/ajax/DBConnection.php");
+
+                            $getimage = $con->query("SELECT * FROM busniesstools");
+                            foreach ($getimage as $rowimage) {
+                                echo '<a href="../admin/img/businesstools/' . $rowimage["imagename"] . '" target="_blank" class="dropdown-item">' . $rowimage["description"] . '</a>';
+                            }
+
+                            ?>
+                            <!-- <a href="./img/pdf1.pdf" target="_blank" class="dropdown-item">1 PDF </a>
                             <a href="./img/pdf2.pdf" target="_blank" class="dropdown-item">2 PDF</a>
                             <a href="./img/pdf3.pdf" target="_blank" class="dropdown-item">3 PDF</a>
-                            <a href="./img/pdf4.pdf" target="_blank" class="dropdown-item">4 PDF</a>
+                            <a href="./img/pdf4.pdf" target="_blank" class="dropdown-item">4 PDF</a> -->
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -425,10 +436,58 @@
                 }
             </style>
 
+
             <div class="container">
                 <div class="main-body">
 
-                    <div class="row gutters-sm">
+                    <?php
+                    include("../requiredFiles/ajax/DBConnection.php");
+
+                    $getimage = $con->query("SELECT * FROM newsimages");
+
+                    $indicators = '';
+                    $slides = '';
+                    $activeClass = 'active';
+                    $counter = 0;
+
+                    foreach ($getimage as $rowimage) {
+                        // Indicators
+                        $indicators .= '<li data-target="#carouselExampleIndicators" data-slide-to="' . $counter . '" class="' . ($counter === 0 ? 'active' : '') . '"></li>';
+
+                        // Slides
+                        $slides .= '
+        <div class="carousel-item ' . $activeClass . '">
+            <img class="d-block w-100" src="../admin/img/news/' . $rowimage["imagename"] . '" alt="Slide ' . ($counter + 1) . '" style="height: 400px; object-fit: cover;">
+        </div>
+    ';
+
+                        $activeClass = ''; // Only first item should be active
+                        $counter++;
+                    }
+                    ?>
+
+
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <?= $indicators ?>
+                        </ol>
+                        <div class="carousel-inner">
+                            <?= $slides ?>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <div class="row gutters-sm" style="justify-content: center;align-items: center;">
                         <div class="col-md-4 mb-3">
                             <div class="card">
                                 <div class="card-body">
@@ -440,6 +499,17 @@
                                             <p class="text-secondary mb-1"><b>USER</b></p>
                                             <br>
                                         </div>
+                                        <!-- <a href="./rank%20board.php" class="mt-1" style="background-color: #2b4e6b;width:100%;display:flex;justify-content: center;padding:0px 20px; border-radius: 10px;gap:2rem">
+                                            <div>
+                                                <p class="mb-1 mt-1" style="color: #fff;"><b>New Car</b></p>
+                                                <p class="mb-1" style="color: #fff;">7d 11h 59m 51s
+                                                    +12h bonus</p>
+                                            </div>
+                                            <div class="text-secondary" style="display:flex;align-items: center;justify-content: center;">
+                                                <i style="color: #fff;font-size: 20px;" class="bi bi-arrow-right"></i>
+                                            </div>
+                                        </a> -->
+                                        <div id="rankboardContainer"></div>
                                     </div>
                                 </div>
                             </div>
@@ -654,8 +724,8 @@
 
 
             <!-- Packages stat-->
-            <div class="container-fluid packages py-5">
-                <div class="container py-5">
+            <div class="container-fluid packages">
+                <div class="container">
                     <div class="mx-auto text-center mb-5" style="max-width: 900px;">
 
                         <h1 class="mb-0">Explore Our <span style="color: #f7c128;">Gallery</span></h1>
@@ -680,11 +750,9 @@
                     </div>
                 </div>
             </div>
-
-            <br><br>
             <!--News Ticker Start-->
 
-            <h3 style="text-align: center;">Latest News</h3>
+            <!-- <h3 style="text-align: center;">Latest News</h3>
             <div class="box">
                 <marquee height="310" width="90%" behavior="scroll" direction="up" scrollamount="2"
                     onmouseover="this.stop();" onmouseout="this.start();">
@@ -693,7 +761,7 @@
                         <p style="text-align: center;" id="news"></p>
                     </ul>
                 </marquee>
-            </div>
+            </div> -->
 
             <style>
                 .box {

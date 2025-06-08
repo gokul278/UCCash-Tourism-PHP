@@ -168,7 +168,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
-                        <p style="text-align: center;">History</p></a>
+                            <p style="text-align: center;">History</p>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="booking history.php" class="dropdown-item">International History</a>
                             <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
@@ -178,10 +179,16 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="#" class="dropdown-item">1 PDF </a>
-                            <a href="#" class="dropdown-item">2 PDF</a>
-                            <a href="#" class="dropdown-item">3 PDF</a>
-                            <a href="#" class="dropdown-item">4 PDF</a>
+                            <?php
+
+                            include("../requiredFiles/ajax/DBConnection.php");
+
+                            $getimage = $con->query("SELECT * FROM busniesstools");
+                            foreach ($getimage as $rowimage) {
+                                echo '<a href="../admin/img/businesstools/' . $rowimage["imagename"] . '" target="_blank" class="dropdown-item">' . $rowimage["description"] . '</a>';
+                            }
+
+                            ?>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
@@ -309,6 +316,7 @@
                                                 <th scope="col">Level</th>
                                                 <th scope="col">Team Purchase</th>
                                                 <th scope="col">Achieved Purchase</th>
+                                                <th scope="col">Rewards Valid Timing</th>
                                                 <th scope="col">Rank</th>
                                                 <th scope="col">Rank Status</th>
                                                 <th scope="col">Eligible of Award</th>

@@ -17,8 +17,8 @@ $phone = $_POST["phone"];
 $phone_country = $_POST["phone_country"];
 $whatsappno = $_POST["whatsappno"];
 $whatsno_country = $_POST["whatsno_country"];
-$traveldestination = $_POST["traveldestination"];
-$dateoftravel = $_POST["dateoftravel"];
+$tourtype = $_POST["tourtype"];
+$bookingid = $_POST["bookingid"];
 $noofpeople = $_POST["noofpeople"];
 $package = $_POST["package"];
 
@@ -41,8 +41,9 @@ try {
     $mail->Username = 'support@uccashtourism.com';
     $mail->Password = 'Tourism@#$2023';
     $mail->setFrom('support@uccashtourism.com', 'UCCASH Tourism');
-    $mail->addAddress("info@uccashtourism.com");
-    $mail->Subject = 'Contact Us Mail From '.$name;
+    // uccashtourism@gmail.com
+    $mail->addAddress("uccashtourism@gmail.com");
+    $mail->Subject = 'Contact Us Mail From ' . $name;
     $mail->isHTML(true);
     $mail->Body = '<!DOCTYPE html>
     <html lang="en">
@@ -102,26 +103,26 @@ try {
                             </tr>
                             <tr>
                                 <td align="left" style="width: 60%; height: 100%;">
-                                    <p style="color: black; text-align: center;font-size:120%">Phone No : <b>+'.$phone_country.' '. $phone . '</b></p>
+                                    <p style="color: black; text-align: center;font-size:120%">Phone No : <b>+' . $phone_country . ' ' . $phone . '</b></p>
                                 </td>
                             </tr><tr>
                                 <td align="left" style="width: 60%; height: 100%;">
-                                    <p style="color: black; text-align: center;font-size:120%">Whatsapp No : <b>+'.$whatsno_country.' '. $whatsappno . '</b></p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="left" style="width: 60%; height: 100%;">
-                                    <p style="color: black; text-align: center;font-size:120%">Travel Destination : <b>' . $traveldestination . '</b></p>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td align="left" style="width: 60%; height: 100%;">
-                                    <p style="color: black; text-align: center;font-size:120%">Date of Travel : <b>' . $dateoftravel . '</b></p>
+                                    <p style="color: black; text-align: center;font-size:120%">Whatsapp No : <b>+' . $whatsno_country . ' ' . $whatsappno . '</b></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" style="width: 60%; height: 100%;">
                                     <p style="color: black; text-align: center;font-size:120%">Number of people : <b>' . $noofpeople . '</b></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="width: 60%; height: 100%;">
+                                    <p style="color: black; text-align: center;font-size:120%">Tour Type : <b>' . $tourtype . '</b></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="width: 60%; height: 100%;">
+                                    <p style="color: black; text-align: center;font-size:120%">Booking Code : <b>' . $bookingid . '</b></p>
                                 </td>
                             </tr>
                             <tr>
@@ -230,11 +231,8 @@ try {
         $response["status"] = "success";
         echo json_encode($response);
     }
-
 } catch (Exception $e) {
     //Error Message
     $response["status"] = "error";
     echo json_encode($response);
 }
-
-?>

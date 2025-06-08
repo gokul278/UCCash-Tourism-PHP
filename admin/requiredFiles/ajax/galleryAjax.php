@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
@@ -33,15 +32,15 @@ if ($values["status"] == "success") {
         $getdetails = $details->fetch_assoc();
 
         $response["profile_image"] = $getdetails["admin_profile"];
-        
+
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "insertimage") {
 
         $insertimage = $_FILES["addimage"]["name"];
+        $extension = pathinfo($insertimage, PATHINFO_EXTENSION);
         $timestamp = date("YmdHis");
-        $newImageName = $timestamp . '_' . $insertimage;
+        $newImageName = $timestamp . '.' . $extension;
 
         if (move_uploaded_file($_FILES["addimage"]["tmp_name"], "../../img/gallery/" . $newImageName)) {
 
@@ -51,13 +50,10 @@ if ($values["status"] == "success") {
 
                 $response["status"] = "success";
                 echo json_encode($response);
-
             } else {
 
                 echo "error";
-
             }
-
         } else {
             echo "error";
         }
@@ -73,25 +69,17 @@ if ($values["status"] == "success") {
 
                 $response["status"] = "success";
                 echo json_encode($response);
-
             } else {
 
                 echo "error";
-
             }
-
         } else {
             echo "error";
         }
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

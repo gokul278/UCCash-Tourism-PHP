@@ -1,50 +1,53 @@
-$("#emailsubmit").submit(function (e) {
-    e.preventDefault();
+$(document).on("submit", ".emailsubmit", function (e) {
+  e.preventDefault();
 
-    const phoneCountryData = phoneInput.getSelectedCountryData();
-    const whatsappCountryData = phoneInputWhatsapp.getSelectedCountryData();
+  const form = this;
+  const formId = form.dataset.formid;
 
-    // Set country data to hidden fields
-    document.querySelector('#phone_country').value = phoneCountryData.dialCode;
-    document.querySelector('#whatsno_country').value = whatsappCountryData.dialCode;
+  const phoneInput = window.intlTelInputGlobals.getInstance(
+    document.querySelector(`#phone_${formId}`)
+  );
+  const whatsappInput = window.intlTelInputGlobals.getInstance(
+    document.querySelector(`#whatsno_${formId}`)
+  );
 
+  form.querySelector(`#phone_country_${formId}`).value =
+    phoneInput.getSelectedCountryData().dialCode;
+  form.querySelector(`#whatsno_country_${formId}`).value =
+    whatsappInput.getSelectedCountryData().dialCode;
 
-    $("#submitbtn").html("Loading ...");
+  $(`#submitbtn_${formId}`).html("Loading...");
 
-    var frm = $("#emailsubmit")[0];
-    var frmdata = new FormData(frm);
-    $.ajax({
-        type: "POST",
-        url: "./requiredFiles/ajax/indexAjax.php",
-        data: frmdata,
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (res) {
-            var response = JSON.parse(res);
+  const frmdata = new FormData(form);
 
-            if (response.status == "auth_failed" && response.message == "Expired token") {
+  $.ajax({
+    type: "POST",
+    url: "./requiredFiles/ajax/indexAjax.php",
+    data: frmdata,
+    processData: false,
+    contentType: false,
+    cache: false,
+    success: function (res) {
+      const response = JSON.parse(res);
 
-                location.replace("time_expried.php");
-
-            } else if (response.status == "auth_failed") {
-
-                location.replace("unauth_login.php");
-
-            } else if (response.status == "success") {
-
-                frm.reset();
-                $("#submitbtn").html("Send Details to Contact Us");
-                $("#exampleModal").modal("hide")
-                swal({
-                    title: "Thank You!",
-                    text: "Your Details Were Submitted and We Contact as Soon !",
-                    icon: "success",
-                    button: "Close",
-                });
-
-            }
-        }
-    });
-
+      if (
+        response.status === "auth_failed" &&
+        response.message === "Expired token"
+      ) {
+        location.replace("time_expried.php");
+      } else if (response.status === "auth_failed") {
+        location.replace("unauth_login.php");
+      } else if (response.status === "success") {
+        form.reset();
+        $(`#submitbtn_${formId}`).html("Send Details to Contact Us");
+        $(`#exampleModal${formId}`).modal("hide");
+        swal({
+          title: "Thank You!",
+          text: "Your Details Were Submitted and We Will Contact You Soon!",
+          icon: "success",
+          button: "Close",
+        });
+      }
+    },
+  });
 });

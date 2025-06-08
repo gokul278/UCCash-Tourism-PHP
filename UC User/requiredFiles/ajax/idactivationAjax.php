@@ -131,7 +131,7 @@ if ($values["status"] == "success") {
         $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
         $mail->addAddress('uccashtourism@gmail.com');
         $mail->isHTML(true);
-        $mail->Subject = 'New Monthly Saving\'s Deposite';
+        $mail->Subject = 'New ID Activation Request';
         $mail->Body = '
                <!DOCTYPE html>
 <html lang="en">

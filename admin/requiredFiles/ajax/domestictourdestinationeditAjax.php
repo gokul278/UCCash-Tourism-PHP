@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
@@ -232,15 +231,12 @@ if ($values["status"] == "success") {
                             </td>
                         </tr>
                     ';
-
-
         }
 
         $response["tabledata"] = $tabledata;
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "newdestination") {
 
         $thumbnail = $_FILES["thumbnail"]["name"];
@@ -302,19 +298,12 @@ if ($values["status"] == "success") {
 
                                 $response["status"] = "success";
                                 echo json_encode($response);
-
                             }
-
                         }
                     }
                 }
             }
-
         }
-
-
-
-
     } else if ($way == "updatedestination") {
 
         $tourid = $_POST["tourid"];
@@ -364,11 +353,8 @@ if ($values["status"] == "success") {
                 if (move_uploaded_file($_FILES["thumbnail"]["tmp_name"], "../../../UC User/img/tourdestination/" . $thumbnail)) {
 
                     $update = $con->query("UPDATE domestictourdestination SET tour_thumbnail='{$thumbnail}' WHERE id='{$tourid}'");
-
                 }
-
             }
-
         }
 
         //image 1
@@ -381,11 +367,8 @@ if ($values["status"] == "success") {
                 if (move_uploaded_file($_FILES["image1"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image1)) {
 
                     $update = $con->query("UPDATE domestictourdestination SET tour_image1='{$image1}' WHERE id='{$tourid}'");
-
                 }
-
             }
-
         }
 
         //image 2
@@ -398,11 +381,8 @@ if ($values["status"] == "success") {
                 if (move_uploaded_file($_FILES["image2"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image2)) {
 
                     $update = $con->query("UPDATE domestictourdestination SET tour_image2='{$image2}' WHERE id='{$tourid}'");
-
                 }
-
             }
-
         }
 
         //image 3
@@ -415,11 +395,8 @@ if ($values["status"] == "success") {
                 if (move_uploaded_file($_FILES["image3"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image3)) {
 
                     $update = $con->query("UPDATE domestictourdestination SET tour_image3='{$image3}' WHERE id='{$tourid}'");
-
                 }
-
             }
-
         }
 
         //image 4
@@ -432,11 +409,8 @@ if ($values["status"] == "success") {
                 if (move_uploaded_file($_FILES["image4"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image4)) {
 
                     $update = $con->query("UPDATE domestictourdestination SET tour_image4='{$image4}' WHERE id='{$tourid}'");
-
                 }
-
             }
-
         }
 
         //image 5
@@ -449,11 +423,8 @@ if ($values["status"] == "success") {
                 if (move_uploaded_file($_FILES["image5"]["tmp_name"], "../../../UC User/img/tourdestination/" . $image5)) {
 
                     $update = $con->query("UPDATE domestictourdestination SET tour_image5='{$image5}' WHERE id='{$tourid}'");
-
                 }
-
             }
-
         }
 
 
@@ -465,8 +436,7 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-
-    }else if ($way == "deletedestination"){
+    } else if ($way == "deletedestination") {
 
         $tourid = $_POST["tourid"];
 
@@ -479,7 +449,7 @@ if ($values["status"] == "success") {
                     if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image3"])) {
                         if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image4"])) {
                             if (unlink("../../../UC User/img/tourdestination/" . $getimage["tour_image5"])) {
-                                $deletedestination = $con->query("DELETE FROM tourdestination WHERE id='{$tourid}'");
+                                $deletedestination = $con->query("DELETE FROM domestictourdestination WHERE id='{$tourid}'");
 
                                 if ($deletedestination) {
                                     $response["status"] = "success";
@@ -491,15 +461,10 @@ if ($values["status"] == "success") {
                 }
             }
         }
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

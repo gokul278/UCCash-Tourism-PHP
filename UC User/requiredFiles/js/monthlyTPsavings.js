@@ -51,9 +51,9 @@ const getData = () => {
         document.getElementById("deposit address").innerHTML =
           response.crypto_address;
         document.getElementById("deposit value").value =
-          response.ucc_value + " UCC";
+          response.ucc_value + " USD";
         document.getElementById("cryptovalue").value =
-          response.ucc_value + " UCC";
+          response.ucc_value + " USD";
         document.getElementById("imgaddress").src =
           "../admin/img/monthly/" + response.crypto_image;
         document.getElementById("bankaddress").src =

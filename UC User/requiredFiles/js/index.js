@@ -101,6 +101,17 @@ const getData = () => {
         }
 
         $("#news").html(response.news);
+
+        $(".newscarousel").html();
+
+        const rankboardData = {
+          rankboardStatus: response.rankboardStatus,
+          rankboardDate: response.rankboardDate,
+          rankboardLabel: response.rankboardLabel,
+          rankboardAchiveDays: response.rankboardAchiveDays,
+        };
+
+        renderRankboard(rankboardData);
       } else if (
         response.status == "auth_failed" &&
         response.message == "Expired token"
@@ -112,3 +123,56 @@ const getData = () => {
     },
   });
 };
+
+function renderRankboard(data) {
+  if (data.rankboardStatus) {
+    const container = $(`
+      <a href="./rank%20board.php" class="mt-1" style="background-color: #2b4e6b; width:100%; display:flex; justify-content: space-between; align-items:center; padding:10px 20px; border-radius: 10px;">
+        <div>
+          <p class="mb-1 mt-1" style="color: #fff;"><b>${data.rankboardLabel}</b></p>
+          <p class="mb-1" style="color: #fff;" id="rankTimer">Loading...</p>
+        </div>
+       
+      </a>
+    `);
+
+    $("#rankboardContainer").html(container);
+
+    // Step 1: Convert rankboardDate to Date object
+    const baseDate = new Date(data.rankboardDate + "T00:00:00");
+
+    // Step 2: Add days
+    baseDate.setDate(
+      baseDate.getDate() + parseInt(data.rankboardAchiveDays || 0)
+    );
+
+    // Step 3: Add 12 hours bonus
+    baseDate.setHours(baseDate.getHours() + 12);
+
+    const targetDate = baseDate; // Final target date with 12h bonus
+    const timerEl = document.getElementById("rankTimer");
+
+    function updateTimer() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        timerEl.innerHTML = "<span style='color:red;'>Expired</span>";
+        clearInterval(timerInterval);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      timerEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s<br><small style="color:limegreen;">(12h bonus)</small>`;
+    }
+
+    updateTimer();
+    const timerInterval = setInterval(updateTimer, 1000);
+  } else {
+    $("#rankboardContainer").empty();
+  }
+}

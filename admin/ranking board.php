@@ -30,6 +30,14 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
+
     <style>
         .green {
             color: #49f4a4;
@@ -37,6 +45,72 @@
 
         .red {
             color: red;
+        }
+
+        .open-modal-btn {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #ffca2c;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            /* margin: 40px; */
+            cursor: pointer;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .custmodal {
+            background: #191c24;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            height: 90vh;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        @media (max-width: 600px) {
+            .modal {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -75,6 +149,8 @@
                 <div class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
+                    <a href="placesservice.php" class="nav-item nav-link"><i
+                            class="bi bi-geo-alt-fill me-2"></i><b>Service Places</b></a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-laptop me-2"></i><b>Edit Details</b></a>
@@ -142,7 +218,7 @@
                     <a href="ranking board.php" class="nav-item nav-link active"><i
                             class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                        <div class="nav-item dropdown">
+                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i
                                 class="far fa-map me-2"></i>Tour<p
                                 style="text-align: center;">Destinations</p></a>
@@ -253,6 +329,56 @@
             <br><br>
             <!--Table Start-->
 
+            <div class="modal-overlay" id="modalOverlay">
+                <div class="custmodal">
+                    <form id="rewardForm">
+                        <button type="button" class="close-btn" id="closeModal">&times;</button>
+                        <h4 class="mb-4">Award Deatils</h4>
+                        <input type="hidden" name="way" value="updatereward">
+                        <div style="height:72vh;overflow:auto;">
+                            <div class="form-floating mb-3 mt-auto text-center">
+                                <input type="text" class="form-control" id="lvl1" name="lvl1"
+                                    placeholder="" required>
+                                <label for="lvl1">Level 1 Reward</label>
+                            </div>
+                            <div class="form-floating mb-3 mt-auto text-center">
+                                <input type="text" class="form-control" id="lvl2" name="lvl2"
+                                    placeholder="" required>
+                                <label for="lvl2">Level 2 Reward</label>
+                            </div>
+                            <div class="form-floating mb-3 mt-auto text-center">
+                                <input type="text" class="form-control" id="lvl3" name="lvl3"
+                                    placeholder="" required>
+                                <label for="lvl3">Level 3 Reward</label>
+                            </div>
+                            <div class="form-floating mb-3 mt-auto text-center">
+                                <input type="text" class="form-control" id="lvl4" name="lvl4"
+                                    placeholder="" required>
+                                <label for="lvl4">Level 4 Reward</label>
+                            </div>
+                            <div class="form-floating mb-3 mt-auto text-center">
+                                <input type="text" class="form-control" id="lvl5" name="lvl5"
+                                    placeholder="" required>
+                                <label for="lvl5">Level 5 Reward</label>
+                            </div>
+                            <div class="form-floating mb-3 mt-auto text-center">
+                                <input type="text" class="form-control" id="lvl6" name="lvl6"
+                                    placeholder="" required>
+                                <label for="lvl6">Level 6 Reward</label>
+                            </div>
+                            <div class="form-floating mb-3 mt-auto text-center">
+                                <input type="text" class="form-control" id="lvl7" name="lvl7"
+                                    placeholder="" required>
+                                <label for="lvl7">Level 7 Reward</label>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <button type="submit" class="open-modal-btn">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <!-- Button trigger modal -->
 
             <div class="container-fluid">
@@ -261,7 +387,8 @@
                         <div class="bg-secondary rounded h-100 p-4">
                             <h4 style="color: #f7c128;" class="mb-5">Ranking Board</h4>
 
-                            <div class="row">
+
+                            <div class="row mb-4">
                                 <!-- <div class="col-sm-6">
                                     <div class="input-group mb-3 mt-auto">
                                         <input type="text" class="form-control" id="useridsearch"
@@ -271,7 +398,7 @@
                                         <button class="btn btn-warning" type="button" id="clearusersearch" disabled>Clear</button>
                                     </div>
                                 </div> -->
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 col-12">
                                     <div class="input-group mb-3 mt-auto">
                                         <select class="form-select" id="typevalue" style="max-width: 200px;">
                                             <option value="none" selected>Select an Rank</option>
@@ -289,6 +416,10 @@
                                             disabled>Clear</button>
                                     </div>
 
+
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <button class="open-modal-btn" id="custopenmodal">Award Details</button>
                                 </div>
                             </div>
 
@@ -374,6 +505,27 @@
             },
         });
     </script>
+
+    <script>
+        $(document).ready(() => {
+
+            const openBtn = document.getElementById("custopenmodal");
+            const closeBtn = document.getElementById('closeModal');
+            const overlay = document.getElementById('modalOverlay');
+
+            openBtn.onclick = () => overlay.style.display = 'flex';
+            closeBtn.onclick = () => overlay.style.display = 'none';
+            console.log("Hrllo")
+            // Close modal on click outside
+            window.onclick = (e) => {
+                if (e.target === overlay) {
+                    overlay.style.display = 'none';
+                }
+            };
+
+        })
+    </script>
+
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>

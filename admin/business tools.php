@@ -30,31 +30,16 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-
-
-    <!-- Simple Notifier -->
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
-
-    <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
-
     <style>
-        #fileName1,
-        #fileName2,
-        #fileName3,
-        #fileName4 {
-            display: inline-block;
-            max-width: 200px;
-            /* Adjust the max-width as needed */
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            vertical-align: middle;
-            margin-left: 10px;
-            /* Space between the label and the file name */
+        .green {
+            color: #49f4a4;
+        }
+
+        .red {
+            color: red;
         }
     </style>
+
 </head>
 
 <body>
@@ -91,6 +76,8 @@
                 <div class="navbar-nav w-100">
                     <a href="dashboard.php" class="nav-item nav-link"><i
                             class="fa fa-tachometer-alt me-2"></i><b>Dashboard</b></a>
+                    <a href="placesservice.php" class="nav-item nav-link"><i
+                            class="bi bi-geo-alt-fill me-2"></i><b>Service Places</b></a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-laptop me-2"></i><b>Edit Details</b></a>
@@ -98,7 +85,8 @@
                             <a href="profile.php" class="dropdown-item"><b>Edit Profile</b></a>
                             <a href="news upload.php" class="dropdown-item"><b>News Upload</b></a>
                             <a href="flash banner.php" class="dropdown-item"><b>Flash Banner Upload</b></a>
-                            <a href="gallery.php" class="dropdown-item"><b>Gallery Update</b></a>
+                            <a href="gallery.php" class="dropdown-item "><b>Gallery
+                                    Update</b></a>
                             <a href="savings TP today value.php" class="dropdown-item"><b>Saving's TP Today<p> Value
                                         Edit</p></b></a>
                             <a href="uccvaluedepoist.php" class="dropdown-item"><b>UCC Value Deposit</b></a>
@@ -157,7 +145,7 @@
                     </a>
                     <a href="ranking board.php" class="nav-item nav-link"><i class="fa fa-signal me-2"></i>Ranking
                         Board</a>
-                        <div class="nav-item dropdown">
+                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i
                                 class="far fa-map me-2"></i>Tour<p
                                 style="text-align: center;">Destinations</p></a>
@@ -189,8 +177,8 @@
                     <a href="adminbalancewithdraw.php" class="nav-item nav-link"><i
                             class="fa fa-university me-2"></i>Admin
                         Balance<p style="text-align: center;"> Withdraw</p></a>
-                    <a href="business tools.php" class="nav-item nav-link active"><i
-                            class="fa fa-tools me-2"></i>Business Tools</a>
+                    <a href="business tools.php" class="nav-item nav-link active"><i class="fa fa-tools me-2"></i>Business
+                        Tools</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-info-circle me-2"></i>Information</a>
@@ -264,118 +252,70 @@
                 </div>
             </nav>
             <!-- Navbar End -->
-            <br><br>
 
-            <!-- Blank Start -->
-            <div style="text-align: center;">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="bg-secondary rounded h-auto p-4 m-5" style="display: inline-block;">
-                                <h4 style="color: #f7c128;" class="mb-5">Business Tools</h4>
-                                <form id="submitpdf1">
-                                    <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
-                                        <label for="formFileMultiple1" style="font-weight: bold; color: #fff;">Upload
-                                            PDF
-                                            1</label>
-                                        <br><br>
-                                        <div
-                                            style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 50px;">
-                                            <input class="form-control" type="file" id="formFileMultiple1" accept=".pdf"
-                                                onchange="displayFileName(1)" name="pdffile" style="display: none;">
-                                            <label for="formFileMultiple1"
-                                                style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
-                                                PDF File</label>
-                                            <span id="fileName1" style="margin-left: 10px;"></span>
+            <br><br>
+            <!--Table Start-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="bg-secondary rounded h-100 p-4">
+                            <h4 style="color: #f7c128;" class="mb-5">Manage Business Tools</h4>
+                            <form id="addimage" enctype="multipart/form-data">
+                                <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
+                                    <label for="formFileMultiple" style="font-weight: bold; color: #fff;">Upload
+                                        PDF</label>
+
+                                    <div
+                                        style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 10px;">
+                                        <input type="hidden" name="way" value="insertimage">
+                                        <label for="formFileMultiple"
+                                            style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
+                                            PDF</label>
+                                        <span id="fileName" style="margin-left: 10px;"></span>
+                                        <!-- Description Input -->
+                                        <div class="mt-3">
+                                            <label for="imageDescription" style="font-weight: bold; color: #fff;">PDF Name</label>
+                                            <textarea class="form-control bg-dark text-white" id="imageDescription" name="description" rows="3" placeholder="Enter PDF Name" style="border-color: #f7c128;"></textarea>
                                         </div>
+                                        <input class="form-control" type="file" id="formFileMultiple" accept="application/pdf"
+                                            onchange="displayFileName()" name="addimage" style="display: none;">
+                                        <!-- <label for="formFileMultiple"
+                                            style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
+                                            Image</label> -->
+                                        <span id="fileName" style="margin-left: 10px;"></span>
+                                        <button type="submit" id="uploadbtn" class="btn btn-primary mt-2" disabled>Upload</button>
                                     </div>
-                                    <br>
-                                    <input type="hidden" name="way" value="pdf1">
-                                    <button type="submit" id="submitbtn1" class="btn btn-primary"
-                                        disabled>Update</button>
-                                </form>
-                            </div>
-                            <div class="bg-secondary rounded h-auto p-4 m-5" style="display: inline-block;">
-                                <h4 style="color: #f7c128;" class="mb-5">Business Tools</h4>
-                                <form id="submitpdf2">
-                                    <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
-                                        <label for="formFileMultiple2" style="font-weight: bold; color: #fff;">Upload
-                                            PDF
-                                            2</label>
-                                        <br><br>
-                                        <div
-                                            style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 50px;">
-                                            <input class="form-control" type="file" id="formFileMultiple2" accept=".pdf"
-                                                onchange="displayFileName(2)" name="pdffile" style="display: none;">
-                                            <label for="formFileMultiple2"
-                                                style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
-                                                PDF File</label>
-                                            <span id="fileName2" style="margin-left: 10px;"></span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <input type="hidden" name="way" value="pdf2">
-                                    <button type="submit" class="btn btn-primary" id="submitbtn2"
-                                        disabled>Update</button>
-                                </form>
-                            </div>
-                            <div class="bg-secondary rounded h-auto p-4 m-5" style="display: inline-block;">
-                                <form id="submitpdf3">
-                                    <h4 style="color: #f7c128;" class="mb-5">Business Tools</h4>
-                                    <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
-                                        <label for="formFileMultiple3" style="font-weight: bold; color: #fff;">Upload
-                                            PDF
-                                            3</label>
-                                        <br><br>
-                                        <div
-                                            style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 50px;">
-                                            <input class="form-control" type="file" id="formFileMultiple3" accept=".pdf"
-                                                onchange="displayFileName(3)" name="pdffile" style="display: none;">
-                                            <label for="formFileMultiple3"
-                                                style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
-                                                PDF File</label>
-                                            <span id="fileName3" style="margin-left: 10px;"></span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <input type="hidden" name="way" value="pdf3">
-                                    <button type="submit" class="btn btn-primary" id="submitbtn3"
-                                        disabled>Update</button>
-                                </form>
-                            </div>
-                            <div class="bg-secondary rounded h-auto p-4 m-5" style="display: inline-block;">
-                                <form id="submitpdf4">
-                                    <h4 style="color: #f7c128;" class="mb-5">Business Tools</h4>
-                                    <div class="mb-3" style="margin-bottom: 15px; max-width: 300px;">
-                                        <label for="formFileMultiple4" style="font-weight: bold; color: #fff;">Upload
-                                            PDF
-                                            4</label>
-                                        <br><br>
-                                        <div
-                                            style="background-color: #000; border: 1px solid #ccc; border-radius: 5px; padding: 50px;">
-                                            <input class="form-control" type="file" id="formFileMultiple4" accept=".pdf"
-                                                onchange="displayFileName(4)" name="pdffile" style="display: none;">
-                                            <label for="formFileMultiple4"
-                                                style="cursor: pointer; background-color: #3498db; color: #fff; padding: 10px; border-radius: 5px;">Choose
-                                                PDF File</label>
-                                            <span id="fileName4" style="margin-left: 10px;"></span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <input type="hidden" name="way" value="pdf4">
-                                    <button type="submit" class="btn btn-primary" id="submitbtn4"
-                                        disabled>Update</button>
-                                </form>
+                                </div>
+                            </form>
+                            <div class="table-responsive">
+                                <strong>
+                                    <table id="table-to-print" style="text-align: center;" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">S.NO</th>
+                                                <th scope="col">PDF</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableimage">
+
+                                        </tbody>
+
+                                    </table>
+                                </strong>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
-
             <!-- Blank End -->
 
+            <style>
+                .table-bordered {
+                    border-color: #fff;
+                }
+            </style>
 
         </div>
         <!-- Content End -->
@@ -400,19 +340,24 @@
     <script src="js/main.js"></script>
 
     <script>
-        function displayFileName(fileNumber) {
-            var input = document.getElementById('formFileMultiple' + fileNumber);
-            var fileNameSpan = document.getElementById('fileName' + fileNumber);
-            fileNameSpan.textContent = input.files[0].name;
-            if (fileNameSpan.textContent.length >= 1) {
-                $("#submitbtn" + fileNumber).prop("disabled", false);
-            } else {
-                $("#submitbtn" + fileNumber).prop("disabled", true);
-            }
-        }
-
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 'auto',
+            spaceBetween: 20,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
     </script>
 
+    <script>
+        function displayFileName() {
+            $("#uploadbtn").prop("disabled", false);
+            var input = document.getElementById('formFileMultiple');
+            var fileNameSpan = document.getElementById('fileName');
+            fileNameSpan.textContent = input.files[0].name;
+        }
+    </script>
     <script src="./requiredFiles/js/businesstools.js"></script>
 </body>
 

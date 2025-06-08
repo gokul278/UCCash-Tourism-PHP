@@ -144,7 +144,7 @@
     <!-- About End -->
 
     <!-- Packages Start -->
-    <div class="container-fluid packages py-5">
+    <!-- <div class="container-fluid packages py-5">
         <div class="container py-5">
             <div class="mx-auto text-center mb-5" style="max-width: 900px;">
 
@@ -263,8 +263,287 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Packages End -->
+
+    <!-- International - Start -->
+    <?php
+    require_once('./requiredFiles/ajax/DBConnection.php');
+
+    $data = $con->query("SELECT * FROM tourdestination");
+
+    if ($data->num_rows > 0) {
+    ?>
+        <div class="container-fluid packages py-2">
+            <div class="container py-2">
+                <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+                    <h1 class="mb-0">Our <span style="color: #f7c128;">International Packages</span></h1>
+                </div>
+                <div class="packages-carousel owl-carousel">
+
+                    <?php
+
+                    $allData = [];
+                    while ($row = $data->fetch_assoc()) {
+                        $allData[] = $row;
+                    }
+
+                    // Step 2: Loop for content
+                    $content = '';
+                    foreach ($allData as $rowData) {
+                        $content .= '
+        <div class="packages-item">
+            <div class="packages-img">
+                <img src="./UC User/img/tourdestination/' . $rowData["tour_thumbnail"] . '" class="img-fluid w-100 rounded-top" alt="honeymoon package">
+                <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
+                    style="width: 100%; bottom: 0; left: 0; z-index: 5;">
+                    <small class="flex-fill text-center border-end py-2"><i
+                            class="fa fa-calendar-alt me-2"></i>' . $rowData["tour_amount"] . ' TP per person (Included GST 18%)</small>
+                </div>
+            </div>
+            <div class="packages-content bg-light">
+                <div style="text-align: center;" class="p-4 pb-0">
+                    <h5 class="mb-0">' . $rowData["tour_name"] . '</h5>
+                    <small class="text-uppercase">' . $rowData["tour_fromdate"] . ' to ' . $rowData["tour_todate"] . '</small>
+                    <p class="mb-1 mt-1"><span style="color:#e9c128">Inclusion</span> - ' . $rowData["tour_inclusion"] . '</p>
+                    <p class="mb-4"><span style="color:#e9c128">Exclusion</span> - ' . $rowData["tour_exclusion"] . '</p>
+                </div>
+                <div class="row bg-primary rounded-bottom mx-0">
+                    <div class="col-12 text-center px-0">
+                        <button class="btn btn-warning text-white py-2 px-4" style="width: 100%;"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal' . $rowData['tour_bookingcode'] . '">For Enquiry</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ';
+                    }
+
+                    // Step 3: Loop for modals
+                    $modal = '';
+                    foreach ($allData as $rowData) {
+                        $modal .= '
+                            <div class="modal fade" id="exampleModal' . $rowData['tour_bookingcode'] . '" tabindex="-1" aria-labelledby="exampleModalLabel' . $rowData['tour_bookingcode'] . '" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <form class="emailsubmit" id="emailsubmit_' . $rowData['tour_bookingcode'] . '" data-formid="' . $rowData['tour_bookingcode'] . '">
+                                            <div style="background-color:#f7c128" class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel' . $rowData['tour_bookingcode'] . '">Enquiry For ' . $rowData["tour_name"] . ' Booking</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                             <input type="hidden" name="tourtype" value="International">
+                                            <input type="hidden" name="bookingid" value="' . $rowData['tour_bookingcode'] . '">
+                                              <div class="modal-body">
+                                                <div class="form-floating mb-4">
+                                                    <input type="text" class="form-control" placeholder="Name" name="name" required>
+                                                    <label for="password">Name</label>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <input type="text" class="form-control" placeholder="Email" name="address" required>
+                                                    <label for="password">City of Residence</label>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <input type="text" class="form-control" placeholder="Email" name="email" required>
+                                                    <label for="password">Email</label>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <div class="col-12">
+                                                        <input id="phone_' . $rowData['tour_bookingcode'] . '" class="form-control phone-input" data-country-field="phone_country" placeholder="Mobile Number"
+                                                            name="phone" style="width:100%;height:63px" required />
+                                                        <input type="hidden" id="phone_country_' . $rowData['tour_bookingcode'] . '"  name="phone_country" class="phone-country" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <div class="col-12">
+                                                       <input id="whatsno_' . $rowData['tour_bookingcode'] . '" style="width:100%;height:63px" type="tel"  class="form-control whatsapp-input" data-country-field="whatsno_country"
+                                                            placeholder="Whatsapp Number" name="whatsappno" required />
+                                                        <input type="hidden" id="whatsno_country_' . $rowData['tour_bookingcode'] . '" name="whatsno_country" class="whatsapp-country">
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="form-floating mb-4">
+                                                    <input type="text" class="form-control" placeholder="Email" name="traveldestination"
+                                                        required>
+                                                    <label for="password">Travel Destination</label>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <input type="date" class="form-control" placeholder="Email" name="dateoftravel" required>
+                                                    <label for="password">Date of Travel</label>
+                                                </div> -->
+                                                <div class="form-floating mb-4">
+                                                    <input type="number" class="form-control" placeholder="Email" name="noofpeople" required>
+                                                    <label for="password">No.of People</label>
+                                                </div>
+                                                 <div class="form-floating mb-3">
+                                                    <select class="form-select" name="package" id="package" readonly value="' . $rowData["tour_name"] . '">
+                                                        <option value="' . $rowData["tour_name"] . '" selected>' . $rowData["tour_name"] . '</option>
+                                                    </select>
+                                                    <label for="password">Vacation Type</label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" id="submitbtn_' . $rowData['tour_bookingcode'] . '" class="btn btn-primary"
+                                                    style="color:black;width:100%;height:63px;font-weight:700" id="submitbtn">Send Details to Contact Us</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        ';
+                    }
+
+                    // Output content and modals
+                    echo $content;
+                    ?>
+
+                </div>
+            </div>
+        </div>
+    <?php
+    }
+    echo $modal;
+    ?>
+
+    <!-- International - End -->
+
+
+    <!-- Domestic - Start -->
+
+    <?php
+    $data = $con->query("SELECT * FROM domestictourdestination");
+
+    if ($data->num_rows > 0) {
+    ?>
+        <div class="container-fluid packages py-2 mt-5">
+            <div class="container py-2">
+                <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+                    <h1 class="mb-0">Our <span style="color: #f7c128;">Domestic Packages</span></h1>
+                </div>
+                <div class="packages-carousel owl-carousel">
+
+                    <?php
+
+                    $allData = [];
+                    while ($row = $data->fetch_assoc()) {
+                        $allData[] = $row;
+                    }
+
+                    // Step 2: Loop for content
+                    $content = '';
+                    foreach ($allData as $rowData) {
+                        $content .= '
+        <div class="packages-item">
+            <div class="packages-img">
+                <img src="./UC User/img/tourdestination/' . $rowData["tour_thumbnail"] . '" class="img-fluid w-100 rounded-top" alt="honeymoon package">
+                <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
+                    style="width: 100%; bottom: 0; left: 0; z-index: 5;">
+                    <small class="flex-fill text-center border-end py-2"><i
+                            class="fa fa-calendar-alt me-2"></i>' . $rowData["tour_amount"] . ' TP per person (Included GST 18%)</small>
+                </div>
+            </div>
+            <div class="packages-content bg-light">
+                <div style="text-align: center;" class="p-4 pb-0">
+                    <h5 class="mb-0">' . $rowData["tour_name"] . '</h5>
+                    <small class="text-uppercase">' . $rowData["tour_fromdate"] . ' to ' . $rowData["tour_todate"] . '</small>
+                    <p class="mb-1 mt-1"><span style="color:#e9c128">Inclusion</span> - ' . $rowData["tour_inclusion"] . '</p>
+                    <p class="mb-4"><span style="color:#e9c128">Exclusion</span> - ' . $rowData["tour_exclusion"] . '</p>
+                </div>
+                <div class="row bg-primary rounded-bottom mx-0">
+                    <div class="col-12 text-center px-0">
+                        <button class="btn btn-warning text-white py-2 px-4" style="width: 100%;"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal' . $rowData['tour_bookingcode'] . '">For Enquiry</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ';
+                    }
+
+                    // Step 3: Loop for modals
+                    $modal = '';
+                    foreach ($allData as $rowData) {
+                        $modal .= '
+                            <div class="modal fade" id="exampleModal' . $rowData['tour_bookingcode'] . '" tabindex="-1" aria-labelledby="exampleModalLabel' . $rowData['tour_bookingcode'] . '" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                    <form class="emailsubmit" id="emailsubmit_' . $rowData['tour_bookingcode'] . '" data-formid="' . $rowData['tour_bookingcode'] . '">
+                                            <div style="background-color:#f7c128" class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel' . $rowData['tour_bookingcode'] . '">Enquiry For ' . $rowData["tour_name"] . ' Booking</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <input type="hidden" name="tourtype" value="Domestic">
+                                            <input type="hidden" name="bookingid" value="' . $rowData['tour_bookingcode'] . '">
+                                              <div class="modal-body">
+                                                <div class="form-floating mb-4">
+                                                    <input type="text" class="form-control" placeholder="Name" name="name" required>
+                                                    <label for="password">Name</label>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <input type="text" class="form-control" placeholder="Email" name="address" required>
+                                                    <label for="password">City of Residence</label>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <input type="text" class="form-control" placeholder="Email" name="email" required>
+                                                    <label for="password">Email</label>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <div class="col-12">
+                                                        <input id="phone_' . $rowData['tour_bookingcode'] . '" class="form-control phone-input" data-country-field="phone_country" placeholder="Mobile Number"
+                                                            name="phone" style="width:100%;height:63px" required />
+                                                        <input type="hidden" id="phone_country_' . $rowData['tour_bookingcode'] . '"  name="phone_country" class="phone-country" >
+                                                    </div>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <div class="col-12">
+                                                       <input id="whatsno_' . $rowData['tour_bookingcode'] . '" style="width:100%;height:63px" type="tel"  class="form-control whatsapp-input" data-country-field="whatsno_country"
+                                                            placeholder="Whatsapp Number" name="whatsappno" required />
+                                                        <input type="hidden" id="whatsno_country_' . $rowData['tour_bookingcode'] . '" name="whatsno_country" class="whatsapp-country">
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="form-floating mb-4">
+                                                    <input type="text" class="form-control" placeholder="Email" name="traveldestination"
+                                                        required>
+                                                    <label for="password">Travel Destination</label>
+                                                </div>
+                                                <div class="form-floating mb-4">
+                                                    <input type="date" class="form-control" placeholder="Email" name="dateoftravel" required>
+                                                    <label for="password">Date of Travel</label>
+                                                </div> -->
+                                                <div class="form-floating mb-4">
+                                                    <input type="number" class="form-control" placeholder="Email" name="noofpeople" required>
+                                                    <label for="password">No.of People</label>
+                                                </div>
+                                                 <div class="form-floating mb-3">
+                                                    <select class="form-select" name="package" id="package" readonly value="' . $rowData["tour_name"] . '">
+                                                        <option value="' . $rowData["tour_name"] . '" selected>' . $rowData["tour_name"] . '</option>
+                                                    </select>
+                                                    <label for="password">Vacation Type</label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" id="submitbtn_' . $rowData['tour_bookingcode'] . '" class="btn btn-primary"
+                                                    style="color:black;width:100%;height:63px;font-weight:700" id="submitbtn">Send Details to Contact Us</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        ';
+                    }
+
+                    // Output content and modals
+                    echo $content;
+                    ?>
+
+                </div>
+            </div>
+        </div>
+    <?php
+    }
+    echo $modal;
+    ?>
+
+    <!-- Domestic - End -->
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -337,7 +616,7 @@
     </div>
 
     <!-- Services Start -->
-    <div class="container-fluid bg-light service py-5">
+    <!-- <div class="container-fluid bg-light service py-5">
         <div class="container py-5">
             <div class="row g-4">
                 <div class="col-lg-6">
@@ -419,7 +698,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Services End -->
 
     <!--Tips before travel strat-->
@@ -506,6 +785,7 @@
             justify-content: center;
             align-items: center;
         }
+
 
         .adv_box img {
             max-width: 100%;
@@ -894,34 +1174,43 @@
             class="fa fa-arrow-up"></i></a>
 
     <script type="application/ld+json">
-    {
-      "@context" : "https://schema.org",
-      "@type" : "WebSite",
-      "name" : "UCCash Tourism - Home",
-      "url" : "https://www.uccashtourism.com/"
-    }
-  </script>
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "UCCash Tourism - Home",
+            "url": "https://www.uccashtourism.com/"
+        }
+    </script>
 
     <script>
-        const phoneInputField = document.querySelector("#phone");
-        const phoneCountryField = document.querySelector('#phone_country');
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            preferredCountries: ["in"],
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
+        function initIntlTelInputs(selector, countryClass) {
+            const inputs = document.querySelectorAll(selector);
 
-        // Get the country data on initialization
-        phoneCountryField.value = phoneInput.getSelectedCountryData().dialCode;
+            inputs.forEach(input => {
+                const iti = window.intlTelInput(input, {
+                    preferredCountries: ["in"],
+                    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+                });
 
-        const phoneInputFieldWhatsapp = document.querySelector("#whatsno");
-        const whatsappCountryField = document.querySelector('#whatsno_country');
-        const phoneInputWhatsapp = window.intlTelInput(phoneInputFieldWhatsapp, {
-            preferredCountries: ["in"],
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
+                // Set hidden input value on init
+                const countryFieldSelector = input.dataset.countryField;
+                const countryField = input.parentElement.querySelector(`.${countryClass}`);
+                if (countryField) {
+                    countryField.value = iti.getSelectedCountryData().dialCode;
+                }
 
-        // Get the country data on initialization
-        whatsappCountryField.value = phoneInputWhatsapp.getSelectedCountryData().dialCode;
+                // Update on country change
+                input.addEventListener('countrychange', function() {
+                    if (countryField) {
+                        countryField.value = iti.getSelectedCountryData().dialCode;
+                    }
+                });
+            });
+        }
+
+        // Initialize both phone and WhatsApp fields
+        initIntlTelInputs('.phone-input', 'phone-country');
+        initIntlTelInputs('.whatsapp-input', 'whatsapp-country');
     </script>
 
 

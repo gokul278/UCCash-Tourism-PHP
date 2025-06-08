@@ -6,6 +6,17 @@ require "./verify.php";
 
 $values = token::verify();
 
+
+function getDaysDifference($givenDate)
+{
+    $today = new DateTime();
+    $inputDate = new DateTime($givenDate);
+    $diff = $today->diff($inputDate);
+    return $diff->days; // returns absolute days difference
+}
+
+
+
 if ($values["status"] == "success") {
 
     $way = $_POST["way"];
@@ -14,7 +25,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $response["admin_name"] = $values["admin_name"];
@@ -85,14 +95,14 @@ if ($values["status"] == "success") {
                 WHERE g.lvl1 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
 
-                if (mysqli_num_rows($lvl1) >= 5 ) {
+                if (mysqli_num_rows($lvl1) >= 5) {
 
                     $rank = "Director";
-  
+
                     foreach ($lvl1 as $index => $getlvl1) {
 
                         if ($index + 1 == 1) {
-                            
+
                             $lvl1rewardstatus = isset($getreward["level1reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl1reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
                             $lvl1status = "<p style='color:green'>Achieved</p>";
@@ -101,11 +111,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl1date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl2 = $con->query("SELECT *
@@ -128,11 +135,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl2date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl3 = $con->query("SELECT *
@@ -155,11 +159,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl3date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl4 = $con->query("SELECT *
@@ -182,9 +183,7 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl4date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
                 }
 
@@ -208,11 +207,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl5date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl6 = $con->query("SELECT *
@@ -235,11 +231,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl6date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl7 = $con->query("SELECT *
@@ -262,11 +255,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl7date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
             }
 
@@ -284,7 +274,7 @@ if ($values["status"] == "success") {
                     <div class="modal-dialog modal-xl modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header" style="background-color:#191C24">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel' . $no . '">Rank Board for ' . $getdata["user_id"] . '</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel' . $no . '">Rank Board for ' . $getdata["user_id"] . ' ( Account Created At: ' . date('Y-m-d', strtotime($getdata["created_at"])) . ' )</h1>
                                 <button type="button" class="btn-close btn btn-danger" style="background-color: red;color:white" data-bs-dismiss="modal" aria-label="Close"></button>
                                 <hr>
                             </div>
@@ -297,6 +287,7 @@ if ($values["status"] == "success") {
                                                 <th scope="col">Rank</th>
                                                 <th scope="col">Rank Status</th>
                                                 <th scope="col">Achieved Members</th>
+                                                <th scope="col">Days</th>
                                                 <th scope="col">Achieved Date</th>
                                                 <th scope="col">Award Given Date</th>
                                                 <th scope="col">Award Status</th>
@@ -308,6 +299,7 @@ if ($values["status"] == "success") {
                                                 <td>Director</td>
                                                 <td>' . $lvl1status . '</td>
                                                 <td>' . mysqli_num_rows($lvl1) . '</td>
+                                                <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 30</td>
                                                 <td>' . $lvl1date . '</td>
                                                 <td>' . $lvl1rewarddate . '</td>
                                                 <td>' . $lvl1rewardstatus . '</td>
@@ -317,6 +309,7 @@ if ($values["status"] == "success") {
                                                 <td>Senior Director</td>
                                                 <td>' . $lvl2status . '</td>
                                                 <td>' . mysqli_num_rows($lvl2) . '</td>
+                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 60</td>
                                                 <td>' . $lvl2date . '</td>
                                                 <td>' . $lvl2rewarddate . '</td>
                                                 <td>' . $lvl2rewardstatus . '</td>
@@ -326,6 +319,7 @@ if ($values["status"] == "success") {
                                                 <td>Bronze Director</td>
                                                 <td>' . $lvl3status . '</td>
                                                 <td>' . mysqli_num_rows($lvl3) . '</td>
+                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 90</td>
                                                 <td>' . $lvl3date . '</td>
                                                 <td>' . $lvl3rewarddate . '</td>
                                                 <td>' . $lvl3rewardstatus . '</td>
@@ -335,6 +329,7 @@ if ($values["status"] == "success") {
                                                 <td>Silver Director</td>
                                                 <td>' . $lvl4status . '</td>
                                                 <td>' . mysqli_num_rows($lvl4) . '</td>
+                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 120</td>
                                                 <td>' . $lvl4date . '</td>
                                                 <td>' . $lvl4rewarddate . '</td>
                                                 <td>' . $lvl4rewardstatus . '</td>
@@ -344,6 +339,7 @@ if ($values["status"] == "success") {
                                                 <td>Gold Director</td>
                                                 <td>' . $lvl5status . '</td>
                                                 <td>' . mysqli_num_rows($lvl5) . '</td>
+                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 150</td>
                                                 <td>' . $lvl5date . '</td>
                                                 <td>' . $lvl5rewarddate . '</td>
                                                 <td>' . $lvl5rewardstatus . '</td>
@@ -353,6 +349,7 @@ if ($values["status"] == "success") {
                                                 <td>Diamond Director</td>
                                                 <td>' . $lvl6status . '</td>
                                                 <td>' . mysqli_num_rows($lvl6) . '</td>
+                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 180</td>
                                                 <td>' . $lvl6date . '</td>
                                                 <td>' . $lvl6rewarddate . '</td>
                                                 <td>' . $lvl6rewardstatus . '</td>
@@ -362,6 +359,7 @@ if ($values["status"] == "success") {
                                                 <td>Crow Director</td>
                                                 <td>' . $lvl7status . '</td>
                                                 <td>' . mysqli_num_rows($lvl7) . '</td>
+                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 210</td>
                                                 <td>' . $lvl7date . '</td>
                                                 <td>' . $lvl7rewarddate . '</td>
                                                 <td>' . $lvl7rewardstatus . '</td>
@@ -382,7 +380,54 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
+    } else if ($way === "getAwards") {
 
+        $details = $con->query("SELECT * FROM `eligiblereward`");
+
+        $getdetails = $details->fetch_assoc();
+
+        $response["lvl1reward"] = $getdetails["lvl1reward"];
+        $response["lvl2reward"] = $getdetails["lvl2reward"];
+        $response["lvl3reward"] = $getdetails["lvl3reward"];
+        $response["lvl4reward"] = $getdetails["lvl4reward"];
+        $response["lvl5reward"] = $getdetails["lvl5reward"];
+        $response["lvl6reward"] = $getdetails["lvl6reward"];
+        $response["lvl7reward"] = $getdetails["lvl7reward"];
+
+        $response["status"] = "success";
+        echo json_encode($response);
+    } else if ($way === "updatereward") {
+        $lvl1reward = $_POST["lvl1"];
+        $lvl2reward = $_POST["lvl2"];
+        $lvl3reward = $_POST["lvl3"];
+        $lvl4reward = $_POST["lvl4"];
+        $lvl5reward = $_POST["lvl5"];
+        $lvl6reward = $_POST["lvl6"];
+        $lvl7reward = $_POST["lvl7"];
+
+        // Assuming $conn is your database connection
+        $query = "UPDATE eligiblereward SET 
+                lvl1reward = ?, 
+                lvl2reward = ?, 
+                lvl3reward = ?, 
+                lvl4reward = ?, 
+                lvl5reward = ?, 
+                lvl6reward = ?, 
+                lvl7reward = ?
+              WHERE 1";
+
+        $stmt = $con->prepare($query);
+        if ($stmt) {
+            $stmt->bind_param("sssssss", $lvl1reward, $lvl2reward, $lvl3reward, $lvl4reward, $lvl5reward, $lvl6reward, $lvl7reward);
+            if ($stmt->execute()) {
+                echo json_encode(["status" => "success", "message" => "Rewards updated successfully"]);
+            } else {
+                echo json_encode(["status" => "error", "message" => "Execution failed: " . $stmt->error]);
+            }
+            $stmt->close();
+        } else {
+            echo json_encode(["status" => "error", "message" => "Preparation failed: " . $con->error]);
+        }
     } else if ($way == "typesearch") {
         $type = $_POST["type"];
 
@@ -462,11 +507,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl1date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl2 = $con->query("SELECT *
@@ -489,11 +531,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl2date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl3 = $con->query("SELECT *
@@ -516,11 +555,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl3date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl4 = $con->query("SELECT *
@@ -543,9 +579,7 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl4date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
                 }
 
@@ -569,11 +603,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl5date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl6 = $con->query("SELECT *
@@ -596,11 +627,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl6date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
 
                 $lvl7 = $con->query("SELECT *
@@ -623,11 +651,8 @@ if ($values["status"] == "success") {
                             $getcheckdate = $checkdate->fetch_assoc();
 
                             $lvl7date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-
                         }
-
                     }
-
                 }
             }
 
@@ -736,28 +761,25 @@ if ($values["status"] == "success") {
             </tr>
             ';
             }
-
         }
 
         $response["tabledata"] = $tabledata;
 
         $response["status"] = "success";
         echo json_encode($response);
-
-    }else if($way == "awardlvl1"){
-        $userid= $_POST["userid"];
+    } else if ($way == "awardlvl1") {
+        $userid = $_POST["userid"];
         $date = date('Y-m-d H:i:s');
 
         $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$userid}'");
 
-        if (mysqli_num_rows($check) >= 1 ) {
+        if (mysqli_num_rows($check) >= 1) {
 
             $update = $con->query("UPDATE rankboardaward SET level1reward_date='{$date}',  level1reward_status='granted' WHERE user_id='{$userid}'");
 
             $response["status"] = "success";
             echo json_encode($response);
-
-        }else{
+        } else {
 
             $insert = $con->query("INSERT INTO rankboardaward (user_id,level1reward_date,level1reward_status)
             VALUES ('{$userid}','{$date}','granted')");
@@ -765,20 +787,19 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-    }else if($way == "awardlvl2"){
-        $userid= $_POST["userid"];
+    } else if ($way == "awardlvl2") {
+        $userid = $_POST["userid"];
         $date = date('Y-m-d H:i:s');
 
         $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$userid}'");
 
-        if (mysqli_num_rows($check) >= 1 ) {
+        if (mysqli_num_rows($check) >= 1) {
 
             $update = $con->query("UPDATE rankboardaward SET level2reward_date='{$date}',  level2reward_status='granted' WHERE user_id='{$userid}'");
 
             $response["status"] = "success";
             echo json_encode($response);
-
-        }else{
+        } else {
 
             $insert = $con->query("INSERT INTO rankboardaward (user_id,level2reward_date,level2reward_status)
             VALUES ('{$userid}','{$date}','granted')");
@@ -786,20 +807,19 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-    }else if($way == "awardlvl3"){
-        $userid= $_POST["userid"];
+    } else if ($way == "awardlvl3") {
+        $userid = $_POST["userid"];
         $date = date('Y-m-d H:i:s');
 
         $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$userid}'");
 
-        if (mysqli_num_rows($check) >= 1 ) {
+        if (mysqli_num_rows($check) >= 1) {
 
             $update = $con->query("UPDATE rankboardaward SET level3reward_date='{$date}',  level3reward_status='granted' WHERE user_id='{$userid}'");
 
             $response["status"] = "success";
             echo json_encode($response);
-
-        }else{
+        } else {
 
             $insert = $con->query("INSERT INTO rankboardaward (user_id,level3reward_date,level3reward_status)
             VALUES ('{$userid}','{$date}','granted')");
@@ -807,20 +827,19 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-    }else if($way == "awardlvl4"){
-        $userid= $_POST["userid"];
+    } else if ($way == "awardlvl4") {
+        $userid = $_POST["userid"];
         $date = date('Y-m-d H:i:s');
 
         $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$userid}'");
 
-        if (mysqli_num_rows($check) >= 1 ) {
+        if (mysqli_num_rows($check) >= 1) {
 
             $update = $con->query("UPDATE rankboardaward SET level4reward_date='{$date}',  level4reward_status='granted' WHERE user_id='{$userid}'");
 
             $response["status"] = "success";
             echo json_encode($response);
-
-        }else{
+        } else {
 
             $insert = $con->query("INSERT INTO rankboardaward (user_id,level4reward_date,level4reward_status)
             VALUES ('{$userid}','{$date}','granted')");
@@ -828,20 +847,19 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-    }else if($way == "awardlvl5"){
-        $userid= $_POST["userid"];
+    } else if ($way == "awardlvl5") {
+        $userid = $_POST["userid"];
         $date = date('Y-m-d H:i:s');
 
         $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$userid}'");
 
-        if (mysqli_num_rows($check) >= 1 ) {
+        if (mysqli_num_rows($check) >= 1) {
 
             $update = $con->query("UPDATE rankboardaward SET level5reward_date='{$date}',  level5reward_status='granted' WHERE user_id='{$userid}'");
 
             $response["status"] = "success";
             echo json_encode($response);
-
-        }else{
+        } else {
 
             $insert = $con->query("INSERT INTO rankboardaward (user_id,level5reward_date,level5reward_status)
             VALUES ('{$userid}','{$date}','granted')");
@@ -849,20 +867,19 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-    }else if($way == "awardlvl6"){
-        $userid= $_POST["userid"];
+    } else if ($way == "awardlvl6") {
+        $userid = $_POST["userid"];
         $date = date('Y-m-d H:i:s');
 
         $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$userid}'");
 
-        if (mysqli_num_rows($check) >= 1 ) {
+        if (mysqli_num_rows($check) >= 1) {
 
             $update = $con->query("UPDATE rankboardaward SET level6reward_date='{$date}',  level6reward_status='granted' WHERE user_id='{$userid}'");
 
             $response["status"] = "success";
             echo json_encode($response);
-
-        }else{
+        } else {
 
             $insert = $con->query("INSERT INTO rankboardaward (user_id,level6reward_date,level6reward_status)
             VALUES ('{$userid}','{$date}','granted')");
@@ -870,20 +887,19 @@ if ($values["status"] == "success") {
             $response["status"] = "success";
             echo json_encode($response);
         }
-    }else if($way == "awardlvl7"){
-        $userid= $_POST["userid"];
+    } else if ($way == "awardlvl7") {
+        $userid = $_POST["userid"];
         $date = date('Y-m-d H:i:s');
 
         $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$userid}'");
 
-        if (mysqli_num_rows($check) >= 1 ) {
+        if (mysqli_num_rows($check) >= 1) {
 
             $update = $con->query("UPDATE rankboardaward SET level7reward_date='{$date}',  level7reward_status='granted' WHERE user_id='{$userid}'");
 
             $response["status"] = "success";
             echo json_encode($response);
-
-        }else{
+        } else {
 
             $insert = $con->query("INSERT INTO rankboardaward (user_id,level7reward_date,level7reward_status)
             VALUES ('{$userid}','{$date}','granted')");
@@ -892,13 +908,9 @@ if ($values["status"] == "success") {
             echo json_encode($response);
         }
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

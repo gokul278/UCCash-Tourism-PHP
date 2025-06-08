@@ -6,6 +6,21 @@ require "./verify.php";
 
 $values = token::verify();
 
+function getTargetDate(string $startDate, int $days): string
+{
+    $date = DateTime::createFromFormat('Y-m-d', $startDate);
+
+    if (!$date) {
+        throw new Exception("Invalid date format. Expected 'Y-m-d'");
+    }
+
+    $date->modify("+{$days} days");
+
+    return $date->format('Y-m-d');
+}
+
+
+
 if ($values["status"] == "success") {
 
     $way = $_POST["way"];
@@ -19,6 +34,10 @@ if ($values["status"] == "success") {
         $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
         $datares = $con->query($datasql);
 
+        $details = $con->query("SELECT * FROM `eligiblereward`");
+
+        $getdetails = $details->fetch_assoc();
+
         if (mysqli_num_rows($datares) == 1) {
 
             $datarow = $datares->fetch_assoc();
@@ -28,13 +47,13 @@ if ($values["status"] == "success") {
             $tabledata = "";
 
             $levels = [
-                ['level' => 'lvl1', 'threshold' => 5, 'rank' => 'Director', 'reward' => 'Bonus Travel Point Redeem'],
-                ['level' => 'lvl2', 'threshold' => 25, 'rank' => 'Senior Director', 'reward' => 'Training in Star Hotel'],
-                ['level' => 'lvl3', 'threshold' => 125, 'rank' => 'Bronze Director', 'reward' => 'Local Tour with Flight'],
-                ['level' => 'lvl4', 'threshold' => 375, 'rank' => 'Silver Director', 'reward' => 'Recognitions'],
-                ['level' => 'lvl5', 'threshold' => 1500, 'rank' => 'Gold Director', 'reward' => '2 Lakh Car Fund**'],
-                ['level' => 'lvl6', 'threshold' => 5000, 'rank' => 'Diamond Director', 'reward' => '5 Lakh Diamond Reward'],
-                ['level' => 'lvl7', 'threshold' => 15000, 'rank' => 'Crow Director', 'reward' => '15 Lakh worth Fully Paid Car']
+                ['level' => 'lvl1', 'threshold' => 5, 'rank' => 'Director', 'reward' => $getdetails["lvl1reward"], 'days' => 30],
+                ['level' => 'lvl2', 'threshold' => 25, 'rank' => 'Senior Director', 'reward' => $getdetails["lvl2reward"], 'days' => 60],
+                ['level' => 'lvl3', 'threshold' => 125, 'rank' => 'Bronze Director', 'reward' => $getdetails["lvl3reward"], 'days' => 90],
+                ['level' => 'lvl4', 'threshold' => 375, 'rank' => 'Silver Director', 'reward' => $getdetails["lvl4reward"], 'days' => 120],
+                ['level' => 'lvl5', 'threshold' => 1500, 'rank' => 'Gold Director', 'reward' => $getdetails["lvl5reward"], 'days' => 150],
+                ['level' => 'lvl6', 'threshold' => 5000, 'rank' => 'Diamond Director', 'reward' => $getdetails["lvl6reward"], 'days' => 180],
+                ['level' => 'lvl7', 'threshold' => 15000, 'rank' => 'Crow Director', 'reward' => $getdetails["lvl7reward"], 'days' => 210]
             ];
 
             foreach ($levels as $index => $level) {
@@ -50,14 +69,18 @@ if ($values["status"] == "success") {
                 $count = $row['count'];
                 $lvlvalue =  $index + 1;
 
+                date_default_timezone_set('Asia/Kolkata');
+
                 $check = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$values["userid"]}' AND level{$lvlvalue}reward_status='granted'");
 
                 $award = mysqli_num_rows($check) >= 1 ? "<p style='color:green'>Awared</p>" : "<p style='color:red'>Not Received</p>";
 
+                $response["lvl" . ($index + 1) . "count"] = getTargetDate(date('Y-m-d', strtotime($datarow["created_at"])), $level["days"]);
                 $tabledata .= "<tr>
                     <th scope='row'>" . ($index + 1) . "</th>
                     <th>{$level['threshold']}</th>
                     <td class='" . ($count >= $level['threshold'] ? "green" : "red") . "'>" . $count . "</td>
+                     <td class='lvl" . ($index + 1) . "count'></td>
                     <td>{$level['rank']}</td>
                     <td class='" . ($count >= $level['threshold'] ? "green" : "red") . "'>" . ($count >= $level['threshold'] ? "Achieved" : "Not Achieved") . "</td>
                     <td>{$level['reward']}</td>
