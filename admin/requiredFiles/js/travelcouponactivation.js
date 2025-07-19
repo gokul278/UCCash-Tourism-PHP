@@ -172,6 +172,7 @@ $("#idactivationsubmit").submit(function (e) {
   e.preventDefault();
 
   $("#activatebtn").html("Loading ...");
+  $("#activatebtn").prop("disabled", true);
 
   var frm = $("#idactivationsubmit")[0];
   var frmdata = new FormData(frm);
@@ -186,6 +187,7 @@ $("#idactivationsubmit").submit(function (e) {
     success: function (res) {
       var response = JSON.parse(res);
       if (response.status == "success") {
+        $("#activatebtn").prop("disabled", false);
         location.replace("travel coupon purchase history.php");
       } else if (
         response.status == "auth_failed" &&

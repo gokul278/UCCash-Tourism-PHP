@@ -557,58 +557,79 @@ if ($values["status"] == "success") {
         $getotp = $otp->fetch_assoc();
 
         if ($userotp == $getotp["otp"]) {
-            $personinput = $_POST["personinput"];
-            $tourid = $_POST["bookingid"];
 
-            $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
-            $gettourdetails = $tourdetails->fetch_assoc();
+            $teamMemberCount = 0;
+            $directTeamIds = [];
 
-            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
-            $netamount = $personinput * $gettourdetails["tour_amount"];
-            $netamount = $netamount - $gstamount;
+            // Loop through levels 1 to 9 to count total team members
+            for ($lvls = 1; $lvls <= 9; $lvls++) {
+                $levelColumn = "lvl{$lvls}";
+                $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
 
-            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+                while ($row = $result->fetch_assoc()) {
+                    $teamMemberCount++;
 
-
-            $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
-            $stcredit = 0;
-            $stdebit = 0;
-
-            if (mysqli_num_rows($savingtravel) >= 1) {
-
-                foreach ($savingtravel as $getsavingtravel) {
-                    if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
-                        if ($getsavingtravel["st_action"] == "credit") {
-                            $stcredit += (float) $getsavingtravel["st_points"];
-                        } else if ($getsavingtravel["st_action"] == "debit") {
-                            $stdebit += (float) $getsavingtravel["st_points"];
-                        }
+                    // If it's level 1, collect direct team member IDs
+                    if ($lvls === 1) {
+                        $directTeamIds[] = $row["user_id"];
                     }
                 }
             }
 
-            $balance = round(($stcredit - $stdebit), 2);
+            if ($teamMemberCount >= 625 && $directTeamIds >= 5) {
 
-            if ($balance >= $totalprice) {
+                $personinput = $_POST["personinput"];
+                $tourid = $_POST["bookingid"];
+
+                $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
+                $gettourdetails = $tourdetails->fetch_assoc();
+
+                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                $netamount = $personinput * $gettourdetails["tour_amount"];
+                $netamount = $netamount - $gstamount;
+
+                $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
 
 
-                $date = date('Y-m-d H:i:s');
+                $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
+                $stcredit = 0;
+                $stdebit = 0;
 
-                $debit = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark)
+                if (mysqli_num_rows($savingtravel) >= 1) {
+
+                    foreach ($savingtravel as $getsavingtravel) {
+                        if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
+                            if ($getsavingtravel["st_action"] == "credit") {
+                                $stcredit += (float) $getsavingtravel["st_points"];
+                            } else if ($getsavingtravel["st_action"] == "debit") {
+                                $stdebit += (float) $getsavingtravel["st_points"];
+                            }
+                        }
+                    }
+                }
+
+                $balance = round(($stcredit - $stdebit), 2);
+
+                if ($balance >= $totalprice) {
+
+
+                    $date = date('Y-m-d H:i:s');
+
+                    $debit = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark)
                 VALUES ('{$values["userid"]}','{$totalprice}','debit','Tour Booking at {$date}','Tour Booking')");
 
-                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
+                    $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
                 VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Savings Travel Point','{$gstamount}','{$totalprice}','booked')");
 
-                if ($debit && $history) {
+                    if ($debit && $history) {
 
-                    $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
-                    $getuserdetails = $userdetails->fetch_assoc();
+                        $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+                        $getuserdetails = $userdetails->fetch_assoc();
 
-                    $name = $getuserdetails["user_name"];
-                    $email = $getuserdetails["user_email"];
+                        $name = $getuserdetails["user_name"];
+                        $email = $getuserdetails["user_email"];
 
-                    $content = '
+                        $content = '
                     <p><b>Tour Booking Details:</b><br>
                     Destination&nbsp;:&nbsp;' . $gettourdetails["tour_name"] . '<br>
                     From Date&nbsp;:&nbsp;' . $gettourdetails["tour_fromdate"] . '<br>
@@ -621,15 +642,21 @@ if ($values["status"] == "success") {
                     Booking Type&nbsp;:&nbsp;International Tour<br>
                     </p>';
 
-                    successmail($name, $email, $content);
+                        successmail($name, $email, $content);
+                    } else {
+                        echo $con->error;
+                    }
                 } else {
-                    echo $con->error;
+
+                    $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                    $response["status"] = "error";
+                    $response["message"] = "Insufficient Balance";
+                    echo json_encode($response);
                 }
             } else {
-
-                $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                // $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                 $response["status"] = "error";
-                $response["message"] = "Insufficient Balance";
+                $response["message"] = "A minimum of 5 direct sponsors and 625 total team members is required.";
                 echo json_encode($response);
             }
         } else {
@@ -646,58 +673,79 @@ if ($values["status"] == "success") {
         $getotp = $otp->fetch_assoc();
 
         if ($userotp == $getotp["otp"]) {
-            $personinput = $_POST["personinput"];
-            $tourid = $_POST["bookingid"];
 
-            $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
-            $gettourdetails = $tourdetails->fetch_assoc();
+            $teamMemberCount = 0;
+            $directTeamIds = [];
 
-            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
-            $netamount = $personinput * $gettourdetails["tour_amount"];
-            $netamount = $netamount - $gstamount;
+            // Loop through levels 1 to 9 to count total team members
+            for ($lvls = 1; $lvls <= 9; $lvls++) {
+                $levelColumn = "lvl{$lvls}";
+                $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
 
-            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+                while ($row = $result->fetch_assoc()) {
+                    $teamMemberCount++;
 
-
-            $bonustravel = $con->query("SELECT * FROM bonustravelpoints WHERE user_id='{$values["userid"]}'");
-            $btcredit = 0;
-            $btdebit = 0;
-
-            if (mysqli_num_rows($bonustravel) >= 1) {
-
-                foreach ($bonustravel as $getbonustravel) {
-                    if (isset($getbonustravel["bt_action"]) && strlen($getbonustravel["bt_action"]) >= 1) {
-                        if ($getbonustravel["bt_action"] == "credit") {
-                            $btcredit += (float) $getbonustravel["bt_points"];
-                        } else if ($getbonustravel["bt_action"] == "debit") {
-                            $btdebit += (float) $getbonustravel["bt_points"];
-                        }
+                    // If it's level 1, collect direct team member IDs
+                    if ($lvls === 1) {
+                        $directTeamIds[] = $row["user_id"];
                     }
                 }
             }
 
-            $balance = round(($btcredit - $btdebit), 2);
+            if ($teamMemberCount >= 625 && $directTeamIds >= 5) {
 
-            if ($balance >= $totalprice) {
+                $personinput = $_POST["personinput"];
+                $tourid = $_POST["bookingid"];
+
+                $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
+                $gettourdetails = $tourdetails->fetch_assoc();
+
+                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                $netamount = $personinput * $gettourdetails["tour_amount"];
+                $netamount = $netamount - $gstamount;
+
+                $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
 
 
-                $date = date('Y-m-d H:i:s');
+                $bonustravel = $con->query("SELECT * FROM bonustravelpoints WHERE user_id='{$values["userid"]}'");
+                $btcredit = 0;
+                $btdebit = 0;
 
-                $debit = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_action,bt_bonusfrom,bt_lvl,bt_remark)
+                if (mysqli_num_rows($bonustravel) >= 1) {
+
+                    foreach ($bonustravel as $getbonustravel) {
+                        if (isset($getbonustravel["bt_action"]) && strlen($getbonustravel["bt_action"]) >= 1) {
+                            if ($getbonustravel["bt_action"] == "credit") {
+                                $btcredit += (float) $getbonustravel["bt_points"];
+                            } else if ($getbonustravel["bt_action"] == "debit") {
+                                $btdebit += (float) $getbonustravel["bt_points"];
+                            }
+                        }
+                    }
+                }
+
+                $balance = round(($btcredit - $btdebit), 2);
+
+                if ($balance >= $totalprice) {
+
+
+                    $date = date('Y-m-d H:i:s');
+
+                    $debit = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_action,bt_bonusfrom,bt_lvl,bt_remark)
                 VALUES ('{$values["userid"]}','{$totalprice}','debit','Tour Booking at {$date}','','Tour Booking')");
 
-                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
+                    $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
                 VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Bonus Travel Point','{$gstamount}','{$totalprice}','booked')");
 
-                if ($debit && $history) {
+                    if ($debit && $history) {
 
-                    $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
-                    $getuserdetails = $userdetails->fetch_assoc();
+                        $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+                        $getuserdetails = $userdetails->fetch_assoc();
 
-                    $name = $getuserdetails["user_name"];
-                    $email = $getuserdetails["user_email"];
+                        $name = $getuserdetails["user_name"];
+                        $email = $getuserdetails["user_email"];
 
-                    $content = '
+                        $content = '
                     <p><b>Tour Booking Details:</b><br>
                     Destination&nbsp;:&nbsp;' . $gettourdetails["tour_name"] . '<br>
                     From Date&nbsp;:&nbsp;' . $gettourdetails["tour_fromdate"] . '<br>
@@ -710,15 +758,21 @@ if ($values["status"] == "success") {
                     Booking Type&nbsp;:&nbsp;International Tour<br>
                     </p>';
 
-                    successmail($name, $email, $content);
+                        successmail($name, $email, $content);
+                    } else {
+                        echo "queryerror";
+                    }
                 } else {
-                    echo "queryerror";
+
+                    $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                    $response["status"] = "error";
+                    $response["message"] = "Insufficient Balance";
+                    echo json_encode($response);
                 }
             } else {
-
-                $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                // $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                 $response["status"] = "error";
-                $response["message"] = "Insufficient Balance";
+                $response["message"] = "A minimum of 5 direct sponsors and 625 total team members is required.";
                 echo json_encode($response);
             }
         } else {
@@ -735,58 +789,79 @@ if ($values["status"] == "success") {
         $getotp = $otp->fetch_assoc();
 
         if ($userotp == $getotp["otp"]) {
-            $personinput = $_POST["personinput"];
-            $tourid = $_POST["bookingid"];
 
-            $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
-            $gettourdetails = $tourdetails->fetch_assoc();
+            $teamMemberCount = 0;
+            $directTeamIds = [];
 
-            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
-            $netamount = $personinput * $gettourdetails["tour_amount"];
-            $netamount = $netamount - $gstamount;
+            // Loop through levels 1 to 9 to count total team members
+            for ($lvls = 1; $lvls <= 9; $lvls++) {
+                $levelColumn = "lvl{$lvls}";
+                $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
 
-            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+                while ($row = $result->fetch_assoc()) {
+                    $teamMemberCount++;
 
-            //Travel Coupon's
-            $travelcoupon = $con->query("SELECT * FROM travelcouponpoints WHERE user_id='{$values["userid"]}'");
-            $tccredit = 0;
-            $tcdebit = 0;
-
-            if (mysqli_num_rows($travelcoupon) >= 1) {
-
-                foreach ($travelcoupon as $gettravelcoupon) {
-                    if (isset($gettravelcoupon["tc_action"]) && strlen($gettravelcoupon["tc_action"]) >= 1) {
-                        if ($gettravelcoupon["tc_action"] == "credit") {
-                            $tccredit += (float) $gettravelcoupon["tc_points"];
-                        } else if ($gettravelcoupon["tc_action"] == "debit") {
-                            $tcdebit += (float) $gettravelcoupon["tc_points"];
-                        }
+                    // If it's level 1, collect direct team member IDs
+                    if ($lvls === 1) {
+                        $directTeamIds[] = $row["user_id"];
                     }
                 }
             }
 
-            $balance = round(($tccredit - $tcdebit), 2);
+            if ($teamMemberCount >= 625 && $directTeamIds >= 5) {
 
-            if ($balance >= $totalprice) {
+                $personinput = $_POST["personinput"];
+                $tourid = $_POST["bookingid"];
+
+                $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
+                $gettourdetails = $tourdetails->fetch_assoc();
+
+                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                $netamount = $personinput * $gettourdetails["tour_amount"];
+                $netamount = $netamount - $gstamount;
+
+                $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+
+                //Travel Coupon's
+                $travelcoupon = $con->query("SELECT * FROM travelcouponpoints WHERE user_id='{$values["userid"]}'");
+                $tccredit = 0;
+                $tcdebit = 0;
+
+                if (mysqli_num_rows($travelcoupon) >= 1) {
+
+                    foreach ($travelcoupon as $gettravelcoupon) {
+                        if (isset($gettravelcoupon["tc_action"]) && strlen($gettravelcoupon["tc_action"]) >= 1) {
+                            if ($gettravelcoupon["tc_action"] == "credit") {
+                                $tccredit += (float) $gettravelcoupon["tc_points"];
+                            } else if ($gettravelcoupon["tc_action"] == "debit") {
+                                $tcdebit += (float) $gettravelcoupon["tc_points"];
+                            }
+                        }
+                    }
+                }
+
+                $balance = round(($tccredit - $tcdebit), 2);
+
+                if ($balance >= $totalprice) {
 
 
-                $date = date('Y-m-d H:i:s');
+                    $date = date('Y-m-d H:i:s');
 
-                $debit = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
+                    $debit = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
                 VALUES ('{$values["userid"]}','{$totalprice}','debit','Tour Booking at {$date}')");
 
-                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
+                    $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
                 VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$gettourdetails["tour_amount"]}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Travel Coupon','{$gstamount}','$totalprice','booked')");
 
-                if ($debit && $history) {
+                    if ($debit && $history) {
 
-                    $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
-                    $getuserdetails = $userdetails->fetch_assoc();
+                        $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+                        $getuserdetails = $userdetails->fetch_assoc();
 
-                    $name = $getuserdetails["user_name"];
-                    $email = $getuserdetails["user_email"];
+                        $name = $getuserdetails["user_name"];
+                        $email = $getuserdetails["user_email"];
 
-                    $content = '
+                        $content = '
                     <p><b>Tour Booking Details:</b><br>
                     Destination&nbsp;:&nbsp;' . $gettourdetails["tour_name"] . '<br>
                     From Date&nbsp;:&nbsp;' . $gettourdetails["tour_fromdate"] . '<br>
@@ -799,15 +874,21 @@ if ($values["status"] == "success") {
                     Booking Type&nbsp;:&nbsp;International Tour<br>
                     </p>';
 
-                    successmail($name, $email, $content);
+                        successmail($name, $email, $content);
+                    } else {
+                        echo "queryerror";
+                    }
                 } else {
-                    echo "queryerror";
+
+                    $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                    $response["status"] = "error";
+                    $response["message"] = "Insufficient Balance";
+                    echo json_encode($response);
                 }
             } else {
-
-                $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                // $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                 $response["status"] = "error";
-                $response["message"] = "Insufficient Balance";
+                $response["message"] = "A minimum of 5 direct sponsors and 625 total team members is required.";
                 echo json_encode($response);
             }
         } else {
@@ -824,89 +905,110 @@ if ($values["status"] == "success") {
         $getotp = $otp->fetch_assoc();
 
         if ($userotp == $getotp["otp"]) {
-            $personinput = $_POST["personinput"];
-            $tourid = $_POST["bookingid"];
 
-            $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
-            $gettourdetails = $tourdetails->fetch_assoc();
+            $teamMemberCount = 0;
+            $directTeamIds = [];
 
-            $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
-            $datares = $con->query($datasql);
-            $datarow = $datares->fetch_assoc();
+            // Loop through levels 1 to 9 to count total team members
+            for ($lvls = 1; $lvls <= 9; $lvls++) {
+                $levelColumn = "lvl{$lvls}";
+                $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
 
-            $activationStatus = $datarow["user_referalStatus"];
+                while ($row = $result->fetch_assoc()) {
+                    $teamMemberCount++;
 
-            if ($activationStatus == "activated") {
-                $netamount = $personinput * $gettourdetails["tour_amount"];
-                $discount = 0.05 * $netamount;
-                $netamount = $netamount - $discount;
-                $gstamount = round(($netamount * 0.18), 2);
-                $discout = round(($discount), 2);
-
-                // $netamount = $personinput * $gettourdetails["tour_amount"];
-                // $gstamount = ($netamount) * 0.18;
-                // $netamount = $netamount - $gstamount;
-
-                $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
-            } else {
-                $netamount = $personinput * $gettourdetails["tour_amount"];
-                $gstamount = round(($netamount * 0.18), 2);
-                $discout = "Not Applicable";
-                $refAmount = round((0.05 * $netamount), 2);
-
-                $level1 = $con->query("SELECT * FROM 'genealogy' WHERE user_id='{$datarow["user_id"]}'");
-                $getLevel1 = $level1->fetch_assoc();
-
-                $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
-
-                $insertAvailableBalance = $con->query("INSERT INTO availablewithdrwabalance (user_id,awb_from,awb_to,awb_points,awb_action)
-                        VALUES ('{$getLevel1["lvl1"]}','Tour Booking From {$datarow["user_id"]}','Available Withdraw Balance','{$refAmount}','credit')");
-            }
-
-
-            //Topup Wallet
-            $travelcoupon = $con->query("SELECT * FROM topup_wallet WHERE user_id='{$datarow["user_id"]}'");
-            $tccredit = 0;
-            $tcdebit = 0;
-
-            if (mysqli_num_rows($travelcoupon) >= 1) {
-
-                foreach ($travelcoupon as $gettravelcoupon) {
-                    if (isset($gettravelcoupon["tu_action"]) && strlen($gettravelcoupon["tu_action"]) >= 1) {
-                        if ($gettravelcoupon["tu_action"] == "credit") {
-                            $tccredit += (float) $gettravelcoupon["tu_points"];
-                        } else if ($gettravelcoupon["tu_action"] == "debit") {
-                            $tcdebit += (float) $gettravelcoupon["tu_points"];
-                        }
+                    // If it's level 1, collect direct team member IDs
+                    if ($lvls === 1) {
+                        $directTeamIds[] = $row["user_id"];
                     }
                 }
             }
 
-            $balance = round(($tccredit - $tcdebit), 2);
+            if ($teamMemberCount >= 625 && $directTeamIds >= 5) {
 
-            if ($balance >= $netamount) {
+                $personinput = $_POST["personinput"];
+                $tourid = $_POST["bookingid"];
+
+                $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
+                $gettourdetails = $tourdetails->fetch_assoc();
+
+                $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
+                $datares = $con->query($datasql);
+                $datarow = $datares->fetch_assoc();
+
+                $activationStatus = $datarow["user_referalStatus"];
+
+                if ($activationStatus == "activated") {
+                    $netamount = $personinput * $gettourdetails["tour_amount"];
+                    $discount = 0.05 * $netamount;
+                    $netamount = $netamount - $discount;
+                    $gstamount = round(($netamount * 0.18), 2);
+                    $discout = round(($discount), 2);
+
+                    // $netamount = $personinput * $gettourdetails["tour_amount"];
+                    // $gstamount = ($netamount) * 0.18;
+                    // $netamount = $netamount - $gstamount;
+
+                    $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+                } else {
+                    $netamount = $personinput * $gettourdetails["tour_amount"];
+                    $gstamount = round(($netamount * 0.18), 2);
+                    $discout = "Not Applicable";
+                    $refAmount = round((0.05 * $netamount), 2);
+
+                    $level1 = $con->query("SELECT * FROM 'genealogy' WHERE user_id='{$datarow["user_id"]}'");
+                    $getLevel1 = $level1->fetch_assoc();
+
+                    $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+
+                    $insertAvailableBalance = $con->query("INSERT INTO availablewithdrwabalance (user_id,awb_from,awb_to,awb_points,awb_action)
+                        VALUES ('{$getLevel1["lvl1"]}','Tour Booking From {$datarow["user_id"]}','Available Withdraw Balance','{$refAmount}','credit')");
+                }
 
 
-                $date = date('Y-m-d H:i:s');
+                //Topup Wallet
+                $travelcoupon = $con->query("SELECT * FROM topup_wallet WHERE user_id='{$datarow["user_id"]}'");
+                $tccredit = 0;
+                $tcdebit = 0;
 
-                $debit = $con->query("INSERT INTO topup_wallet (user_id,tu_points,tu_action,tu_bonusfrom,tu_remark)
+                if (mysqli_num_rows($travelcoupon) >= 1) {
+
+                    foreach ($travelcoupon as $gettravelcoupon) {
+                        if (isset($gettravelcoupon["tu_action"]) && strlen($gettravelcoupon["tu_action"]) >= 1) {
+                            if ($gettravelcoupon["tu_action"] == "credit") {
+                                $tccredit += (float) $gettravelcoupon["tu_points"];
+                            } else if ($gettravelcoupon["tu_action"] == "debit") {
+                                $tcdebit += (float) $gettravelcoupon["tu_points"];
+                            }
+                        }
+                    }
+                }
+
+                $balance = round(($tccredit - $tcdebit), 2);
+
+                if ($balance >= $netamount) {
+
+
+                    $date = date('Y-m-d H:i:s');
+
+                    $debit = $con->query("INSERT INTO topup_wallet (user_id,tu_points,tu_action,tu_bonusfrom,tu_remark)
                 VALUES ('{$values["userid"]}','{$netamount}','debit','Tour Booking at {$date}','Successfully Debited')");
 
-                $debitwallet = $con->query("INSERT INTO topupwallethistory (user_id, deposite_type, crypto_value, txnhash_id, topupwallet_value, action, remark)
+                    $debitwallet = $con->query("INSERT INTO topupwallethistory (user_id, deposite_type, crypto_value, txnhash_id, topupwallet_value, action, remark)
                 VALUES ('{$values["userid"]}', 'Crypto', '-{$netamount}', '-', '-{$netamount}','paid','Successfully Debited for Tour Booking')");
 
-                $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
+                    $history = $con->query("INSERT INTO tourbookinghistory (user_id,booking_id,booking_destination,booking_code,booking_person,booking_amount,booking_fromdate,booking_todate,paymentmethod_description,gst_amount,net_amount,status)
                 VALUES ('{$values["userid"]}','{$gettourdetails["id"]}','{$gettourdetails["tour_name"]}','{$gettourdetails["tour_bookingcode"]}','{$personinput}','{$netamount}','{$gettourdetails["tour_fromdate"]}','{$gettourdetails["tour_todate"]}','Top-Up Wallet','{$gstamount}','{$netamount}','booked')");
 
-                if ($debit && $history) {
+                    if ($debit && $history) {
 
-                    $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
-                    $getuserdetails = $userdetails->fetch_assoc();
+                        $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+                        $getuserdetails = $userdetails->fetch_assoc();
 
-                    $name = $getuserdetails["user_name"];
-                    $email = $getuserdetails["user_email"];
+                        $name = $getuserdetails["user_name"];
+                        $email = $getuserdetails["user_email"];
 
-                    $content = '
+                        $content = '
                     <p><b>Tour Booking Details:</b><br>
                     Destination&nbsp;:&nbsp;' . $gettourdetails["tour_name"] . '<br>
                     From Date&nbsp;:&nbsp;' . $gettourdetails["tour_fromdate"] . '<br>
@@ -920,15 +1022,21 @@ if ($values["status"] == "success") {
                     Booking Type&nbsp;:&nbsp;International Tour<br>
                     </p>';
 
-                    successmail($name, $email, $content);
+                        successmail($name, $email, $content);
+                    } else {
+                        echo "queryerror";
+                    }
                 } else {
-                    echo "queryerror";
+
+                    $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                    $response["status"] = "error";
+                    $response["message"] = "Insufficient Balance";
+                    echo json_encode($response);
                 }
             } else {
-
-                $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                // $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                 $response["status"] = "error";
-                $response["message"] = "Insufficient Balance";
+                $response["message"] = "A minimum of 5 direct sponsors and 625 total team members is required.";
                 echo json_encode($response);
             }
         } else {
@@ -945,134 +1053,154 @@ if ($values["status"] == "success") {
 
         if ($userotp == $getotp["otp"]) {
 
-            $personinput = $_POST["personinput"];
-            $tourid = $_POST["bookingid"];
+            $teamMemberCount = 0;
+            $directTeamIds = [];
 
-            $savingstravelpoints = isset($_POST["savingstravelpoints"]) ? (float) round((float) ($_POST["savingstravelpoints"] ?: 0), 2) : 0;
-            $bonustravelpoints = isset($_POST["bonustravelpoints"]) ? (float) round((float) ($_POST["bonustravelpoints"] ?: 0), 2) : 0;
-            $travelcouponpoints = isset($_POST["travelcoupon"]) ? (float) round((float) ($_POST["travelcoupon"] ?: 0), 2) : 0;
+            // Loop through levels 1 to 9 to count total team members
+            for ($lvls = 1; $lvls <= 9; $lvls++) {
+                $levelColumn = "lvl{$lvls}";
+                $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
 
-            // Savings Travel Points
-            $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
-            $stcredit = 0;
-            $stdebit = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $teamMemberCount++;
 
-            if ($savingtravel->num_rows >= 1) {
-                while ($getsavingtravel = $savingtravel->fetch_assoc()) {
-                    if (isset($getsavingtravel["st_action"])) {
-                        if ($getsavingtravel["st_action"] == "credit") {
-                            $stcredit += (float) $getsavingtravel["st_points"];
-                        } else if ($getsavingtravel["st_action"] == "debit") {
-                            $stdebit += (float) $getsavingtravel["st_points"];
-                        }
+                    // If it's level 1, collect direct team member IDs
+                    if ($lvls === 1) {
+                        $directTeamIds[] = $row["user_id"];
                     }
                 }
             }
 
-            $savingstpbalance = round(($stcredit - $stdebit), 2);
+            if ($teamMemberCount >= 625 && $directTeamIds >= 5) {
 
-            if ($savingstpbalance >= $savingstravelpoints) {
+                $personinput = $_POST["personinput"];
+                $tourid = $_POST["bookingid"];
 
-                // Bonus Travel Points
-                $bonustravel = $con->query("SELECT * FROM bonustravelpoints WHERE user_id='{$values["userid"]}'");
-                $btcredit = 0;
-                $btdebit = 0;
+                $savingstravelpoints = isset($_POST["savingstravelpoints"]) ? (float) round((float) ($_POST["savingstravelpoints"] ?: 0), 2) : 0;
+                $bonustravelpoints = isset($_POST["bonustravelpoints"]) ? (float) round((float) ($_POST["bonustravelpoints"] ?: 0), 2) : 0;
+                $travelcouponpoints = isset($_POST["travelcoupon"]) ? (float) round((float) ($_POST["travelcoupon"] ?: 0), 2) : 0;
 
-                if ($bonustravel->num_rows >= 1) {
-                    while ($getbonustravel = $bonustravel->fetch_assoc()) {
-                        if (isset($getbonustravel["bt_action"])) {
-                            if ($getbonustravel["bt_action"] == "credit") {
-                                $btcredit += (float) $getbonustravel["bt_points"];
-                            } else if ($getbonustravel["bt_action"] == "debit") {
-                                $btdebit += (float) $getbonustravel["bt_points"];
+                // Savings Travel Points
+                $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$values["userid"]}'");
+                $stcredit = 0;
+                $stdebit = 0;
+
+                if ($savingtravel->num_rows >= 1) {
+                    while ($getsavingtravel = $savingtravel->fetch_assoc()) {
+                        if (isset($getsavingtravel["st_action"])) {
+                            if ($getsavingtravel["st_action"] == "credit") {
+                                $stcredit += (float) $getsavingtravel["st_points"];
+                            } else if ($getsavingtravel["st_action"] == "debit") {
+                                $stdebit += (float) $getsavingtravel["st_points"];
                             }
                         }
                     }
                 }
 
-                $bonustpbalance = round(($btcredit - $btdebit), 2);
+                $savingstpbalance = round(($stcredit - $stdebit), 2);
 
-                if ($bonustpbalance >= $bonustravelpoints) {
+                if ($savingstpbalance >= $savingstravelpoints) {
 
-                    // Travel Coupon Points
-                    $travelcoupon = $con->query("SELECT * FROM travelcouponpoints WHERE user_id='{$values["userid"]}'");
-                    $tccredit = 0;
-                    $tcdebit = 0;
+                    // Bonus Travel Points
+                    $bonustravel = $con->query("SELECT * FROM bonustravelpoints WHERE user_id='{$values["userid"]}'");
+                    $btcredit = 0;
+                    $btdebit = 0;
 
-                    if ($travelcoupon->num_rows >= 1) {
-                        while ($gettravelcoupon = $travelcoupon->fetch_assoc()) {
-                            if (isset($gettravelcoupon["tc_action"])) {
-                                if ($gettravelcoupon["tc_action"] == "credit") {
-                                    $tccredit += (float) $gettravelcoupon["tc_points"];
-                                } else if ($gettravelcoupon["tc_action"] == "debit") {
-                                    $tcdebit += (float) $gettravelcoupon["tc_points"];
+                    if ($bonustravel->num_rows >= 1) {
+                        while ($getbonustravel = $bonustravel->fetch_assoc()) {
+                            if (isset($getbonustravel["bt_action"])) {
+                                if ($getbonustravel["bt_action"] == "credit") {
+                                    $btcredit += (float) $getbonustravel["bt_points"];
+                                } else if ($getbonustravel["bt_action"] == "debit") {
+                                    $btdebit += (float) $getbonustravel["bt_points"];
                                 }
                             }
                         }
                     }
 
-                    $travelcouponbalance = round(($tccredit - $tcdebit), 2);
+                    $bonustpbalance = round(($btcredit - $btdebit), 2);
 
-                    if ($travelcouponbalance >= $travelcouponpoints) {
+                    if ($bonustpbalance >= $bonustravelpoints) {
 
-                        $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
-                        $gettourdetails = $tourdetails->fetch_assoc();
+                        // Travel Coupon Points
+                        $travelcoupon = $con->query("SELECT * FROM travelcouponpoints WHERE user_id='{$values["userid"]}'");
+                        $tccredit = 0;
+                        $tcdebit = 0;
 
-                        $totalpriceuser = round(($savingstravelpoints + $bonustravelpoints + $travelcouponpoints), 2);
+                        if ($travelcoupon->num_rows >= 1) {
+                            while ($gettravelcoupon = $travelcoupon->fetch_assoc()) {
+                                if (isset($gettravelcoupon["tc_action"])) {
+                                    if ($gettravelcoupon["tc_action"] == "credit") {
+                                        $tccredit += (float) $gettravelcoupon["tc_points"];
+                                    } else if ($gettravelcoupon["tc_action"] == "debit") {
+                                        $tcdebit += (float) $gettravelcoupon["tc_points"];
+                                    }
+                                }
+                            }
+                        }
 
-                        $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
-                        $netamount = $personinput * $gettourdetails["tour_amount"];
+                        $travelcouponbalance = round(($tccredit - $tcdebit), 2);
 
-                        $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+                        if ($travelcouponbalance >= $travelcouponpoints) {
 
-                        if ($totalprice == $totalpriceuser) {
+                            $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
+                            $gettourdetails = $tourdetails->fetch_assoc();
 
-                            $st = 0;
-                            $bt = 0;
-                            $tc = 0;
+                            $totalpriceuser = round(($savingstravelpoints + $bonustravelpoints + $travelcouponpoints), 2);
 
-                            $date = date('Y-m-d H:i:s');
+                            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                            $netamount = $personinput * $gettourdetails["tour_amount"];
 
-                            if ($savingstravelpoints != 0) {
-                                $stdebit = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark)
+                            $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
+
+                            if ($totalprice == $totalpriceuser) {
+
+                                $st = 0;
+                                $bt = 0;
+                                $tc = 0;
+
+                                $date = date('Y-m-d H:i:s');
+
+                                if ($savingstravelpoints != 0) {
+                                    $stdebit = $con->query("INSERT INTO savingstravelpoints (user_id,st_points,st_action,st_bonusfrom,st_remark)
                                 VALUES ('{$values["userid"]}','{$savingstravelpoints}','debit','Tour Booking at {$date}','Tour Booking')");
-                                $st = $savingstravelpoints;
-                            }
+                                    $st = $savingstravelpoints;
+                                }
 
-                            if ($bonustravelpoints != 0) {
-                                $btdebit = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_action,bt_bonusfrom,bt_lvl,bt_remark)
+                                if ($bonustravelpoints != 0) {
+                                    $btdebit = $con->query("INSERT INTO bonustravelpoints (user_id,bt_points,bt_action,bt_bonusfrom,bt_lvl,bt_remark)
                                 VALUES ('{$values["userid"]}','{$bonustravelpoints}','debit','Tour Booking at {$date}','','Tour Booking')");
-                                $bt = $bonustravelpoints;
-                            }
+                                    $bt = $bonustravelpoints;
+                                }
 
-                            if ($travelcouponpoints != 0) {
-                                $tcdebit = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
+                                if ($travelcouponpoints != 0) {
+                                    $tcdebit = $con->query("INSERT INTO travelcouponpoints (user_id,tc_points,tc_action,tc_remark)
                                 VALUES ('{$values["userid"]}','{$travelcouponpoints}','debit','Tour Booking at {$date}')");
+                                    $tc = $travelcouponpoints;
+                                }
+
+                                // Ensure that $st, $bt, and $tc are defined
+                                $st = $savingstravelpoints;
+                                $bt = $bonustravelpoints;
                                 $tc = $travelcouponpoints;
-                            }
 
-                            // Ensure that $st, $bt, and $tc are defined
-                            $st = $savingstravelpoints;
-                            $bt = $bonustravelpoints;
-                            $tc = $travelcouponpoints;
+                                // Escape the values to prevent SQL injection
+                                $user_id = $con->real_escape_string($values["userid"]);
+                                $tour_id = $con->real_escape_string($gettourdetails["id"]);
+                                $tour_name = $con->real_escape_string($gettourdetails["tour_name"]);
+                                $tour_bookingcode = $con->real_escape_string($gettourdetails["tour_bookingcode"]);
+                                $personinput_escaped = $con->real_escape_string($personinput);
+                                $tour_amount = $con->real_escape_string($gettourdetails["tour_amount"]);
+                                $tour_fromdate = $con->real_escape_string($gettourdetails["tour_fromdate"]);
+                                $tour_todate = $con->real_escape_string($gettourdetails["tour_todate"]);
+                                $st_escaped = $con->real_escape_string($st);
+                                $bt_escaped = $con->real_escape_string($bt);
+                                $tc_escaped = $con->real_escape_string($tc);
+                                $gstamount_escaped = $con->real_escape_string($gstamount);
+                                $totalprice_escaped = $con->real_escape_string($totalprice);
 
-                            // Escape the values to prevent SQL injection
-                            $user_id = $con->real_escape_string($values["userid"]);
-                            $tour_id = $con->real_escape_string($gettourdetails["id"]);
-                            $tour_name = $con->real_escape_string($gettourdetails["tour_name"]);
-                            $tour_bookingcode = $con->real_escape_string($gettourdetails["tour_bookingcode"]);
-                            $personinput_escaped = $con->real_escape_string($personinput);
-                            $tour_amount = $con->real_escape_string($gettourdetails["tour_amount"]);
-                            $tour_fromdate = $con->real_escape_string($gettourdetails["tour_fromdate"]);
-                            $tour_todate = $con->real_escape_string($gettourdetails["tour_todate"]);
-                            $st_escaped = $con->real_escape_string($st);
-                            $bt_escaped = $con->real_escape_string($bt);
-                            $tc_escaped = $con->real_escape_string($tc);
-                            $gstamount_escaped = $con->real_escape_string($gstamount);
-                            $totalprice_escaped = $con->real_escape_string($totalprice);
-
-                            // Construct the query
-                            $query = "INSERT INTO tourbookinghistory (
+                                // Construct the query
+                                $query = "INSERT INTO tourbookinghistory (
                                 user_id,
                                 booking_id,
                                 booking_destination,
@@ -1100,18 +1228,18 @@ if ($values["status"] == "success") {
                                 'booked'
                             )";
 
-                            // Execute the query
-                            $history = $con->query($query);
+                                // Execute the query
+                                $history = $con->query($query);
 
-                            if ($stdebit && $btdebit && $tcdebit && $history) {
+                                if ($stdebit && $btdebit && $tcdebit && $history) {
 
-                                $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
-                                $getuserdetails = $userdetails->fetch_assoc();
+                                    $userdetails = $con->query("SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'");
+                                    $getuserdetails = $userdetails->fetch_assoc();
 
-                                $name = $getuserdetails["user_name"];
-                                $email = $getuserdetails["user_email"];
+                                    $name = $getuserdetails["user_name"];
+                                    $email = $getuserdetails["user_email"];
 
-                                $content = '
+                                    $content = '
                                 <p><b>Tour Booking Details:</b><br>
                                 Destination&nbsp;:&nbsp;' . $gettourdetails["tour_name"] . '<br>
                                 From Date&nbsp;:&nbsp;' . $gettourdetails["tour_fromdate"] . '<br>
@@ -1127,30 +1255,36 @@ if ($values["status"] == "success") {
                                 Booking Type&nbsp;:&nbsp;International Tour<br>
                                 </p>';
 
-                                successmail($name, $email, $content);
+                                    successmail($name, $email, $content);
+                                }
+                            } else {
+                                $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                                $response["status"] = "error";
+                                $response["message"] = $totalprice . " " . $totalpriceuser;
+                                echo json_encode($response);
                             }
                         } else {
                             $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                             $response["status"] = "error";
-                            $response["message"] = $totalprice . " " . $totalpriceuser;
+                            $response["message"] = "Insufficient Balance at Travel Coupon";
                             echo json_encode($response);
                         }
                     } else {
                         $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                         $response["status"] = "error";
-                        $response["message"] = "Insufficient Balance at Travel Coupon";
+                        $response["message"] = "Insufficient Balance at Bonus Travel point";
                         echo json_encode($response);
                     }
                 } else {
                     $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                     $response["status"] = "error";
-                    $response["message"] = "Insufficient Balance at Bonus Travel point";
+                    $response["message"] = "Insufficient Balance at Savings Travel point";
                     echo json_encode($response);
                 }
             } else {
-                $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
+                // $updateotp = $con->query("UPDATE userbankdetails SET otp='' WHERE user_id='{$values["userid"]}'");
                 $response["status"] = "error";
-                $response["message"] = "Insufficient Balance at Savings Travel point";
+                $response["message"] = "A minimum of 5 direct sponsors and 625 total team members is required.";
                 echo json_encode($response);
             }
         } else {

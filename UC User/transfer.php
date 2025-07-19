@@ -168,7 +168,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
-                        <p style="text-align: center;">History</p></a>
+                            <p style="text-align: center;">History</p>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="booking history.php" class="dropdown-item">International History</a>
                             <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
@@ -178,13 +179,13 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                             <?php
+                            <?php
 
                             include("../requiredFiles/ajax/DBConnection.php");
 
                             $getimage = $con->query("SELECT * FROM busniesstools");
                             foreach ($getimage as $rowimage) {
-                                echo '<a href="../admin/img/businesstools/'.$rowimage["imagename"].'" target="_blank" class="dropdown-item">'.$rowimage["description"].'</a>';
+                                echo '<a href="../admin/img/businesstools/' . $rowimage["imagename"] . '" target="_blank" class="dropdown-item">' . $rowimage["description"] . '</a>';
                             }
 
                             ?>

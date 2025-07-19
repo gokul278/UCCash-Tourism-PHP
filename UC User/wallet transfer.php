@@ -175,7 +175,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
-                        <p style="text-align: center;">History</p></a>
+                            <p style="text-align: center;">History</p>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="booking history.php" class="dropdown-item">International History</a>
                             <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
@@ -185,13 +186,13 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-tools me-2"></i>Business Tools</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                             <?php
+                            <?php
 
                             include("../requiredFiles/ajax/DBConnection.php");
 
                             $getimage = $con->query("SELECT * FROM busniesstools");
                             foreach ($getimage as $rowimage) {
-                                echo '<a href="../admin/img/businesstools/'.$rowimage["imagename"].'" target="_blank" class="dropdown-item">'.$rowimage["description"].'</a>';
+                                echo '<a href="../admin/img/businesstools/' . $rowimage["imagename"] . '" target="_blank" class="dropdown-item">' . $rowimage["description"] . '</a>';
                             }
 
                             ?>
@@ -269,6 +270,20 @@
                                 <h5 class="card-text mb-0 savingstravelpoints"></h5>
                             </div>
                         </div>
+
+                    </div>
+
+                    <div class="col-sm-6 col-xl-4">
+                        <div class="card rounded bg-light text-center">
+                            <img style="margin: auto; width: 80px; height: 80px;" src="img/gift.png"
+                                class="card-img-top" alt="Coupon Image">
+
+                            <div class="card-body">
+                                <h5 class="card-title mb-2">Bonus Travel Points</h5>
+                                <h5 class="card-text mb-0 bonustravelpoints"></h5>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -282,17 +297,20 @@
                                 <select class="form-select" id="floatingSelect" name="wallettype"
                                     aria-label="Floating label select example" oninput="balancecheck()"
                                     onclick="clearerr()" required>
-                                    <option selected value="none">Select Wallet</option>
+                                    <option selected value="">Select Wallet</option>
                                     <option value="savingstravelpoints">Savings Travel Points</option>
+                                    <option value="bonustravelpoints">Bonus Travel Points</option>
                                 </select>
                                 <label for="floatingSelect"><b>From Wallet Type</b></label>
                             </div>
                             <input type="hidden" name="way" value="transferwallet">
+                            <input type="hidden" id="availablepoint">
                             <div class="alert alert-warning" role="alert">
                                 Available Balance <b id="balanacevalue">None</b>
                             </div>
 
-                            <div class="form-floating mb-1">
+                            <div class="form-floating mb-3">
+                                <input type="hidden" id="verifyUser" value="false">
                                 <input type="text" class="form-control" name="userid" id="userid"
                                     oninput="checkuserid()" onclick="clearerr()" placeholder="Dollar Value" required>
                                 <label for="dollarvalue">To User ID</label>
@@ -301,16 +319,27 @@
                                 <p>Enter the User Id</p>
                             </div>
 
-                            <div class="alert alert-primary" role="alert">
-                                To <b>Savings Travel Points</b>
+                            <!-- <div class="alert alert-primary" role="alert">
+                                To <span class="towallet"><b>Savings Travel Points</b></span>
+                            </div> -->
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="tofloatingSelect" name="towallettype"
+                                    aria-label="Floating label select example" oninput="balancecheck()"
+                                    onclick="clearerr()" required>
+                                    <option selected value="">Select Wallet</option>
+                                    <option value="savingstravelpoints">Savings Travel Points</option>
+                                    <option value="bonustravelpoints">Bonus Travel Points</option>
+                                </select>
+                                <label for="tofloatingSelect"><b>To Wallet Type</b></label>
                             </div>
+
 
                             <div class="form-floating mb-3">
                                 <input type="number" class="form-control" name="transferpoints" id="dollarvalue"
-                                    onclick="clearerr()" placeholder="Dollar Value" required>
+                                    onclick="clearerr()" oninput="verifyAmount()" placeholder="Dollar Value" required>
                                 <label for="dollarvalue">Transfer Points</label>
                             </div>
-                            <input type="hidden" name="wallettype" value="savingstravelpoints">
+                            <!-- <input type="hidden" name="wallettype" value="savingstravelpoints"> -->
                             <div class="form-floating mb-3">
                                 <button class="btn btn-warning" id="otpbtn" type="button" style="width:100%" onclick="getotp()" disabled>Get OTP</button>
                             </div>
@@ -339,6 +368,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">S.NO</th>
+                                <th scope="col">Wallet Type</th>
                                 <th scope="col">Date & Time</th>
                                 <th scope="col">Transfer Details</th>
                                 <th scope="col">Description</th>

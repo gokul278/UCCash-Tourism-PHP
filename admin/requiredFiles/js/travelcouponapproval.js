@@ -123,6 +123,7 @@ const approveactivation = (id) => {
   var activationid = $("#activationid" + id).val();
 
   $("#approvebtn" + id).html("Loading...");
+  $("#approvebtn" + id).prop("disabled", true);
 
   $.ajax({
     type: "POST",

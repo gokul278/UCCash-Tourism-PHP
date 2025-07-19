@@ -395,13 +395,86 @@ if ($values["status"] == "success") {
                 echo json_encode($response);
             } else if ($wallettype == "leadershipincome") {
 
-                $debitwallet = $con->query("INSERT INTO leadershipincomewallet (user_id, liw_points, liw_bonusfrom, liw_lvl, liw_action, liw_remark)
+                $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
+                $datares = $con->query($datasql);
+
+                $datarow = $datares->fetch_assoc();
+
+                $response["user_name"] = $datarow["user_name"];
+                $response["user_profileimg"] = $datarow["user_profileimg"];
+
+                $teamMemberCount = 0;
+                $directTeamIds = [];
+
+                // Loop through levels 1 to 9 to count total team members
+                for ($lvls = 1; $lvls <= 9; $lvls++) {
+                    $levelColumn = "lvl{$lvls}";
+                    $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
+
+                    while ($row = $result->fetch_assoc()) {
+                        $teamMemberCount++;
+
+                        // If it's level 1, collect direct team member IDs
+                        if ($lvls === 1) {
+                            $directTeamIds[] = $row["user_id"];
+                        }
+                    }
+                }
+
+
+                if ($teamMemberCount >= 25 && $directTeamIds >= 5) {
+
+                    $debitwallet = $con->query("INSERT INTO leadershipincomewallet (user_id, liw_points, liw_bonusfrom, liw_lvl, liw_action, liw_remark)
                 VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
-                $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
+                    $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
                 VALUES ('{$values["userid"]}', 'Leadership Income', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
-                $response["status"] = "success";
-                echo json_encode($response);
+                    $response["status"] = "success";
+                    echo json_encode($response);
+                } else {
+                    $response["status"] = "error";
+                    $response["message"] = "A minimum of 5 direct sponsors and 25 total team members is required.";
+                    echo json_encode($response);
+                }
             } else if ($wallettype == "carandhousefundincome") {
+
+                $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
+                $datares = $con->query($datasql);
+
+                $datarow = $datares->fetch_assoc();
+
+                $response["user_name"] = $datarow["user_name"];
+                $response["user_profileimg"] = $datarow["user_profileimg"];
+
+                $teamMemberCount = 0;
+                $directTeamIds = [];
+
+                // Loop through levels 1 to 9 to count total team members
+                for ($lvls = 1; $lvls <= 9; $lvls++) {
+                    $levelColumn = "lvl{$lvls}";
+                    $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
+
+                    while ($row = $result->fetch_assoc()) {
+                        $teamMemberCount++;
+
+                        // If it's level 1, collect direct team member IDs
+                        if ($lvls === 1) {
+                            $directTeamIds[] = $row["user_id"];
+                        }
+                    }
+                }
+
+                if ($teamMemberCount >= 125 && $directTeamIds >= 5) {
+                    $debitwallet = $con->query("INSERT INTO carandhousefundwallet (user_id, chfw_points, chfw_bonusfrom, chfw_lvl, chfw_action, chfw_remark)
+                    VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
+                    $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
+                    VALUES ('{$values["userid"]}', 'Car & House Fund', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
+                    $response["status"] = "success";
+                    echo json_encode($response);
+                } else {
+                    $response["status"] = "error";
+                    $response["message"] = "A minimum of 5 direct sponsors and 125 total team members is required.";
+                    echo json_encode($response);
+                }
 
                 // $checkrank = $con->query("SELECT * FROM genealogy WHERE lvl3='{$values["userid"]}'");
 
@@ -409,13 +482,13 @@ if ($values["status"] == "success") {
 
                 // if ($number >= 125) {
 
-                $debitwallet = $con->query("INSERT INTO carandhousefundwallet (user_id, chfw_points, chfw_bonusfrom, chfw_lvl, chfw_action, chfw_remark)
-                    VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
-                $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
-                    VALUES ('{$values["userid"]}', 'Car & House Fund', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
-                $response["status"] = "success";
-                echo json_encode($response);
 
+                //  $debitwallet = $con->query("INSERT INTO carandhousefundwallet (user_id, chfw_points, chfw_bonusfrom, chfw_lvl, chfw_action, chfw_remark)
+                //                     VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
+                //                 $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
+                //                     VALUES ('{$values["userid"]}', 'Car & House Fund', 'Available Withdraw Balance', '{$transfervalue}', 'credit')");
+                //                 $response["status"] = "success";
+                //                 echo json_encode($response);
                 // } else {
 
                 //     $response["status"] = "error";
