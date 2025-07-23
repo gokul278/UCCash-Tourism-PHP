@@ -44,7 +44,7 @@ if ($values["status"] == "success") {
             $data = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
             $getdata = $data->fetch_assoc();
 
-            $gst = $getdata["tour_amount"] * 0.18;
+            $gst = $getdata["tour_amount"] * 0.05;
 
             $response["gstamount"] = round($gst, 2);
             $response["tour_amount"] = round(($getdata["tour_amount"] - $gst), 2);
@@ -157,7 +157,7 @@ if ($values["status"] == "success") {
                 $discount = 0.05 * $totalamount;
                 $netamount = $totalamount - $discount;
 
-                $gst = $netamount * 0.18;
+                $gst = $netamount * 0.05;
 
                 $response["gstamount"] = round($gst, 2);
                 $response["tour_amount"] = round(($netamount - $gst), 2);
@@ -168,7 +168,7 @@ if ($values["status"] == "success") {
 
                 $totalamount = $personvalue * $amount;
 
-                $gst = $totalamount * 0.18;
+                $gst = $totalamount * 0.05;
 
                 $response["gstamount"] = round($gst, 2);
                 $response["tour_amount"] = round(($totalamount - $gst), 2);
@@ -177,7 +177,7 @@ if ($values["status"] == "success") {
 
                 $totalamount = $personvalue * $amount;
 
-                $gst = $totalamount * 0.18;
+                $gst = $totalamount * 0.05;
 
                 $response["gstamount"] = round($gst, 2);
                 $response["tour_amount"] = round(($totalamount - $gst), 2);
@@ -189,7 +189,7 @@ if ($values["status"] == "success") {
 
             $totalamount = $personvalue * $amount;
 
-            $gst = $totalamount * 0.18;
+            $gst = $totalamount * 0.05;
 
             $response["gstamount"] = round($gst, 2);
             $response["tour_amount"] = round(($totalamount - $gst), 2);
@@ -215,7 +215,7 @@ if ($values["status"] == "success") {
             $fintype = $type;
 
             $amount = $personinput * $gettourdetails["tour_amount"];
-            $gst = round(($amount * 0.18), 2);
+            $gst = round(($amount * 0.05), 2);
             $amount = round(($amount - $gst), 2);
 
             $content .= '
@@ -230,7 +230,7 @@ if ($values["status"] == "success") {
             $fintype = $type;
 
             $amount = $personinput * $gettourdetails["tour_amount"];
-            $gst = round(($amount * 0.18), 2);
+            $gst = round(($amount * 0.05), 2);
             $amount = round(($amount - $gst), 2);
 
 
@@ -246,7 +246,7 @@ if ($values["status"] == "success") {
             $fintype = $type;
 
             $amount = $personinput * $gettourdetails["tour_amount"];
-            $gst = round(($amount * 0.18), 2);
+            $gst = round(($amount * 0.05), 2);
             $amount = round(($amount - $gst), 2);
 
 
@@ -271,12 +271,12 @@ if ($values["status"] == "success") {
                 $amount = $personinput * $gettourdetails["tour_amount"];
                 $discount = 0.05 * $amount;
                 $amount = $amount - $discount;
-                $gst = round(($amount * 0.18), 2);
+                $gst = round(($amount * 0.05), 2);
                 $amount = round(($amount - $gst), 2);
                 $discout = round(($discount), 2);
             } else {
                 $amount = $personinput * $gettourdetails["tour_amount"];
-                $gst = round(($amount * 0.18), 2);
+                $gst = round(($amount * 0.05), 2);
                 $amount = round(($amount - $gst), 2);
                 $discout = "Not Applicable";
             }
@@ -296,7 +296,7 @@ if ($values["status"] == "success") {
             $total = $finsavingstravelpoints + $finbonustravelpoints + $fintravelcoupon;
 
             $amount = $personinput * $gettourdetails["tour_amount"];
-            $gst = round(($amount * 0.18), 2);
+            $gst = round(($amount * 0.05), 2);
             $amount = round(($amount - $gst), 2);
 
             $content .= '
@@ -584,7 +584,7 @@ if ($values["status"] == "success") {
                 $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
                 $gettourdetails = $tourdetails->fetch_assoc();
 
-                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.05;
                 $netamount = $personinput * $gettourdetails["tour_amount"];
                 $netamount = $netamount - $gstamount;
 
@@ -700,7 +700,7 @@ if ($values["status"] == "success") {
                 $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
                 $gettourdetails = $tourdetails->fetch_assoc();
 
-                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.05;
                 $netamount = $personinput * $gettourdetails["tour_amount"];
                 $netamount = $netamount - $gstamount;
 
@@ -816,7 +816,7 @@ if ($values["status"] == "success") {
                 $tourdetails = $con->query("SELECT * FROM tourdestination WHERE id='{$tourid}'");
                 $gettourdetails = $tourdetails->fetch_assoc();
 
-                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.05;
                 $netamount = $personinput * $gettourdetails["tour_amount"];
                 $netamount = $netamount - $gstamount;
 
@@ -942,17 +942,17 @@ if ($values["status"] == "success") {
                     $netamount = $personinput * $gettourdetails["tour_amount"];
                     $discount = 0.05 * $netamount;
                     $netamount = $netamount - $discount;
-                    $gstamount = round(($netamount * 0.18), 2);
+                    $gstamount = round(($netamount * 0.05), 2);
                     $discout = round(($discount), 2);
 
                     // $netamount = $personinput * $gettourdetails["tour_amount"];
-                    // $gstamount = ($netamount) * 0.18;
+                    // $gstamount = ($netamount) * 0.05;
                     // $netamount = $netamount - $gstamount;
 
                     $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);
                 } else {
                     $netamount = $personinput * $gettourdetails["tour_amount"];
-                    $gstamount = round(($netamount * 0.18), 2);
+                    $gstamount = round(($netamount * 0.05), 2);
                     $discout = "Not Applicable";
                     $refAmount = round((0.05 * $netamount), 2);
 
@@ -1148,7 +1148,7 @@ if ($values["status"] == "success") {
 
                             $totalpriceuser = round(($savingstravelpoints + $bonustravelpoints + $travelcouponpoints), 2);
 
-                            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.18;
+                            $gstamount = ($personinput * $gettourdetails["tour_amount"]) * 0.05;
                             $netamount = $personinput * $gettourdetails["tour_amount"];
 
                             $totalprice = round(($personinput * $gettourdetails["tour_amount"]), 2);

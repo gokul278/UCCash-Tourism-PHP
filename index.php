@@ -298,7 +298,7 @@
                 <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
                     style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                     <small class="flex-fill text-center border-end py-2"><i
-                            class="fa fa-calendar-alt me-2"></i>' . $rowData["tour_amount"] . ' TP per person (Included GST 18%)</small>
+                            class="fa fa-calendar-alt me-2"></i>' . $rowData["tour_amount"] . ' TP per person (Included GST 5%)</small>
                 </div>
             </div>
             <div class="packages-content bg-light">
@@ -437,7 +437,7 @@
                 <div class="packages-info d-flex border border-start-0 border-end-0 position-absolute"
                     style="width: 100%; bottom: 0; left: 0; z-index: 5;">
                     <small class="flex-fill text-center border-end py-2"><i
-                            class="fa fa-calendar-alt me-2"></i>' . $rowData["tour_amount"] . ' TP per person (Included GST 18%)</small>
+                            class="fa fa-calendar-alt me-2"></i>' . $rowData["tour_amount"] . ' TP per person (Included GST 5%)</small>
                 </div>
             </div>
             <div class="packages-content bg-light">
