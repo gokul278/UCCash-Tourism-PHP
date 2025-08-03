@@ -133,6 +133,7 @@
                             <a href="leadership income.php" class="dropdown-item">Leadership Income</a>
                             <a href="car & house fund.php" class="dropdown-item active">Car & House Fund</a>
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
+<a href="rewardbonus.php" class="dropdown-item">Reward Bonus</a>
                         </div>
                     </div>
                     <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>

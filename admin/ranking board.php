@@ -403,8 +403,8 @@
                                         <select class="form-select" id="typevalue" style="max-width: 200px;">
                                             <option value="none" selected>Select an Rank</option>
                                             <option value="Director">Director</option>
-                                            <option value="Senior Director">Senior Director</option>
-                                            <option value="Bronze Director">Bronze Director</option>
+                                            <!-- <option value="Senior Director">Senior Director</option>
+                                            <option value="Bronze Director">Bronze Director</option> -->
                                             <option value="Silver Director">Silver Director </option>
                                             <option value="Gold Director">Gold Director</option>
                                             <option value="Diamond Director">Diamond Director</option>

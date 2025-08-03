@@ -133,6 +133,7 @@
                             <a href="leadership income.php" class="dropdown-item">Leadership Income</a>
                             <a href="car & house fund.php" class="dropdown-item">Car & House Fund</a>
                             <a href="royalty income.php" class="dropdown-item active">Royalty Income</a>
+                            <a href="rewardbonus.php" class="dropdown-item">Reward Bonus</a>
                         </div>
                     </div>
                     <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
@@ -167,7 +168,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
-                        <p style="text-align: center;">History</p></a>
+                            <p style="text-align: center;">History</p>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="booking history.php" class="dropdown-item">International History</a>
                             <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
@@ -184,7 +186,7 @@
 
                             $getimage = $con->query("SELECT * FROM busniesstools");
                             foreach ($getimage as $rowimage) {
-                                echo '<a href="../admin/img/businesstools/'.$rowimage["imagename"].'" target="_blank" class="dropdown-item">'.$rowimage["description"].'</a>';
+                                echo '<a href="../admin/img/businesstools/' . $rowimage["imagename"] . '" target="_blank" class="dropdown-item">' . $rowimage["description"] . '</a>';
                             }
 
                             ?>

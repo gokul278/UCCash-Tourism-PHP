@@ -264,6 +264,7 @@
                             <a href="leadership income.php" class="dropdown-item">Leadership Income</a>
                             <a href="car & house fund.php" class="dropdown-item">Car & House Fund</a>
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
+                            <a href="rewardbonus.php" class="dropdown-item">Reward Bonus</a>
                         </div>
                     </div>
                     <a href="wallet transfer.php" class="nav-item nav-link"><i
@@ -461,7 +462,7 @@
         </div>
     ';
 
-                        $activeClass = ''; // Only first item should be active
+                        $activeClass = '';
                         $counter++;
                     }
                     ?>
@@ -483,6 +484,219 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
+
+                    <br>
+
+                    <style>
+                        :root {
+                            --success-bg: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+                            --progress-bg: linear-gradient(90deg, #ffb347 0%, #ffcc33 100%);
+                            --progress-fill: linear-gradient(to right, #ff8008, #ffc837);
+                            --locked-bg: linear-gradient(90deg, #d3d3d3 0%, #e0e0e0 100%);
+                            --font: 'Inter', Arial, sans-serif;
+                        }
+
+                        .reward-banner,
+                        .reward-banner.in-progress {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            padding: 12px 16px;
+                            border-radius: 14px;
+                            font-family: var(--font);
+                            margin: 16px 0;
+                            animation: fadein 0.6s ease-out;
+                            overflow: hidden;
+                            gap: 16px;
+                        }
+
+                        .reward-banner {
+                            background: var(--success-bg);
+                            color: #222;
+                            box-shadow: 0 4px 20px rgba(67, 233, 123, 0.1);
+                        }
+
+                        .reward-banner.in-progress {
+                            background: var(--progress-bg);
+                            color: #333;
+                            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+                        }
+
+                        .reward-banner.locked {
+                            background: var(--locked-bg);
+                            color: #333;
+                            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+                        }
+
+                        .reward-banner .content {
+                            margin-left: 0px;
+                            min-height: auto;
+                            display: flex;
+                            align-items: center;
+                            background-color: transparent;
+                            gap: 12px;
+                            flex: 1;
+                            min-width: 0;
+                        }
+
+                        .reward-icon {
+                            font-size: 1.8rem;
+                            animation: pop 1.2s infinite alternate;
+                            filter: drop-shadow(0 0 6px #fff5);
+                            margin-left: 0;
+                            /* ensure no gap */
+                            flex-shrink: 0;
+                        }
+
+                        .reward-banner.in-progress .reward-icon {
+                            filter: drop-shadow(0 0 6px #0002);
+                        }
+
+                        .desc-group {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            min-width: 0;
+                        }
+
+                        .desc {
+                            font-size: 0.95rem;
+                            line-height: 1.3;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+
+                        .desc.bold {
+                            font-weight: 600;
+                        }
+
+                        .progress-bar {
+                            width: 100%;
+                            height: 6px;
+                            background-color: #ffe5b4;
+                            border-radius: 6px;
+                            overflow: hidden;
+                            margin-top: 6px;
+                        }
+
+                        .progress-fill {
+                            height: 100%;
+                            background: var(--progress-fill);
+                            transition: width 0.3s ease-in-out;
+                        }
+
+                        .reward-banner .button-link {
+                            background: #fff;
+                            border: none;
+                            color: #000;
+                            border-radius: 8px;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            padding: 6px 10px;
+                            cursor: pointer;
+                            transition: transform 0.15s ease, box-shadow 0.15s ease;
+                            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                            display: flex;
+                            align-items: center;
+                            flex-shrink: 0;
+                        }
+
+                        .reward-banner button:hover {
+                            transform: translateY(-2px);
+                            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+                        }
+
+                        @keyframes pop {
+                            to {
+                                transform: scale(1.15) rotate(-5deg);
+                            }
+                        }
+
+                        @keyframes fadein {
+                            from {
+                                opacity: 0;
+                                transform: translateY(20px);
+                            }
+
+                            to {
+                                opacity: 1;
+                                transform: translateY(0);
+                            }
+                        }
+
+                        /* Mobile */
+                        @media (max-width: 600px) {
+
+                            .reward-banner,
+                            .reward-banner.in-progress {
+                                flex-direction: column;
+                                align-items: flex-start;
+                                padding: 16px;
+                                gap: 10px;
+                            }
+
+                            .reward-banner .content {
+                                width: 100%;
+                            }
+
+                            .desc {
+                                white-space: normal;
+                            }
+
+                            .reward-banner button {
+                                align-self: flex-end;
+                            }
+                        }
+                    </style>
+
+                    <div id="rewardsBannerPlace">
+
+
+                    </div>
+
+                    <!-- ✅ Completed Reward -->
+                    <!-- <div class="reward-banner">
+                        <div class="content">
+                            <span class="reward-icon">🎉</span>
+                            <div class="desc-group">
+                                <span class="desc bold">You’ve reached the 5/5 Referral Reward! You Got $25</span>
+                                <span class="desc">Next Reward Starts on 2025-07-28</span>
+                            </div>
+                        </div>
+                        <a href="https://uccashtourism.com/UC%20User/rewardbonus.php" class="button-link">
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div> -->
+
+                    <!-- ✅ In Progress Reward -->
+                    <!-- <div class="reward-banner in-progress">
+                        <div class="content">
+                            <span class="reward-icon">⏳</span>
+                            <div class="desc-group">
+                                <span class="desc bold">You’ve referred 3 out of 5 friends</span>
+                                <span class="desc">Refer 2 more to earn your $25 reward, before (timing come here)</span>
+                            </div>
+                        </div>
+                        <a href="https://uccashtourism.com/UC%20User/referral.php" class="button-link">
+                            <i class="bi bi-share-fill"></i>
+                        </a>
+                    </div> -->
+
+                    <!-- ✅ Locked Reward -->
+                    <!-- <div class="reward-banner locked">
+                        <div class="content">
+                            <span class="reward-icon">🔒</span>
+                            <div class="desc-group">
+                                <span class="desc bold">You need to Activate your Account</span>
+                                <span class="desc">To unlock the $25 reward</span>
+                            </div>
+                        </div>
+                        <a href="https://uccashtourism.com/UC%20User/id%20activation.php" class="button-link">
+                            <i class="bi bi-lightning-charge"></i>
+                        </a>
+                    </div> -->
+
 
                     <br>
                     <br>

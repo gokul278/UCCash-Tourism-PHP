@@ -117,6 +117,38 @@
                         $insertactivationidhistory = $con->query("INSERT INTO idactivationhistory (idactivation_id,user_id,deposite_type,crypto_value,txnhash_id,travel_coupon,action,remark) VALUES
                         ('{$idactivationid}',  '{$userid}', 'Crypto', '{$crypto_value}', '{$txnhashid}', '{$gettcvalue["value"]}','admin', 'Waiting for Approval')");
 
+                        //Reward bonus Checking
+                        $getSponserId = $con->query("SELECT user_sponserid FROM userdetails WHERE user_id='{$userid}'");
+                        $getSponserId = $getSponserId->fetch_assoc();
+
+                        $sponserid = $getSponserId["user_sponserid"];
+
+                        $sponser = $con->query("SELECT * FROM userdetails WHERE user_id='{$sponserid}'");
+                        $getsponser = $sponser->fetch_assoc();
+
+                        if ($getsponser["user_referalStatus"] == "activated") {
+                            $checkrewardbonus = $con->query("SELECT * FROM rewardbonus WHERE user_id='{$sponserid}' ORDER BY rb_id DESC LIMIT 1");
+
+                            if ($checkrewardbonus && $checkrewardbonus->num_rows >= 1) {
+                                $rewardRow = $checkrewardbonus->fetch_assoc();
+
+                                $userCount = 0;
+
+                                if ($rewardRow["rb_usercount"]) {
+                                    $userCount = $rewardRow["rb_usercount"];
+                                }
+
+                                $userCount += 1;
+
+                                if ($rewardRow["rb_usercount"] == 4) {
+                                    $UpdateRewardBonus = $con->query("UPDATE rewardbonus SET rb_point=25, rb_description='Reached Reward Bonus', rb_usercount='{$userCount}' WHERE rb_id='{$rewardRow["rb_id"]}'");
+                                    $RewardAddAWB = $con->query("INSERT INTO availablewithdrwabalance (user_id,awb_from,awb_to,awb_points,awb_action) VALUES ('{$sponserid}','Reward Bonus','Available Withdraw Balance','25','credit')");
+                                } else {
+                                    $UpdateRewardBonus = $con->query("UPDATE rewardbonus SET rb_usercount='{$userCount}' WHERE rb_id='{$rewardRow["rb_id"]}'");
+                                }
+                            }
+                        }
+
                         $lvl1 = "";
                         $lvl2 = "";
                         $lvl3 = "";

@@ -16,98 +16,39 @@ if ($values["status"] == "success") {
         echo json_encode($response);
     } else if ($way == "getData") {
 
+        $response = [];
+
         $response["admin_name"] = $values["admin_name"];
 
         $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
-
         $getdetails = $details->fetch_assoc();
-
         $response["profile_image"] = $getdetails["admin_profile"];
 
-        $historydata = $con->query("SELECT iah.*, ud.user_name
-        FROM idactivationhistory AS iah
-        JOIN userdetails AS ud ON iah.user_id = ud.user_id
-        WHERE iah.action = 'admin'");
+        // Get data as array
+        $historydata = $con->query("
+    SELECT iah.*, ud.user_name
+    FROM idactivationhistory AS iah
+    JOIN userdetails AS ud ON iah.user_id = ud.user_id
+    WHERE iah.action = 'admin'
+");
 
-        $tabledata = "";
-        $index = 0;
-
-        foreach ($historydata as $index => $rowhistorydata) {
-            $index++;
-            $tabledata .= '
-            <tr align="center">
-                <th scope="row">' . $index . '</th>
-                <td>' . $rowhistorydata["idactivation_id"] . '</td>
-                <td>' . $rowhistorydata["paid_date"] . '</td>
-                <td>' . $rowhistorydata["user_id"] . '</td>
-                <td>' . $rowhistorydata["user_name"] . '</td>
-                <td>' . $rowhistorydata["deposite_type"] . '</td>
-            ';
-
-
-            if ($rowhistorydata["deposite_type"] == "Crypto") {
-
-                $tabledata .= '
-                    <td>' . $rowhistorydata["crypto_value"] . '</td>
-                    <td>' . $rowhistorydata["txnhash_id"] . '</td>                    
-                ';
-            } else if ($rowhistorydata["deposite_type"] == "Bank") {
-
-                $tabledata .= '
-                    <td>' . $rowhistorydata["bank_value"] . '</td> 
-                    <td>' . $rowhistorydata["transaction_id"] . '<br><button class="btn btn-success view-proof-image" data-src=".././UC User/img/proofImage/' . $rowhistorydata["proof_image"] . '"><i class="bi bi-eye-fill"></i></button></td>
-                ';
-            }
-
-            $tabledata .= '
-                <td>
-                    <button type="button" class="btn btn-success" onclick="approveactivation(' . $index . ')" id="approvebtn' . $index . '"><b>Approve</b></button>
-                </td>
-                <td>
-                <div>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal' . $index . '">
-                    <b>Reject</b>
-                </button>
-            </div>
-            <div class="modal fade" id="exampleModal' . $index . '" tabdashboard="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 style="color: #000;" class="modal-title" id="exampleModalLabel">Reject Activation ID : ' . $rowhistorydata["idactivation_id"] . '</h5>
-                            <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <strong>
-                                    <div class="form-group">
-                                        <label for="imgdescribe">Reason</label>
-                                        <br>
-                                        <input type="hidden" id="userid' . $index . '" value="' . $rowhistorydata["user_id"] . '">
-                                        <input type="hidden" id="activationid' . $index . '" value="' . $rowhistorydata["idactivation_id"] . '">
-                                        <input type="text" class="form-control" id="reason' . $index . '"
-                                            placeholder="Enter Reason">
-                                    </div>
-                            </strong>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"
-                                data-dismiss="modal"><strong>Close</strong></button>
-                            <button type="button" class="btn btn-primary"><strong
-                            data-dismiss="modal" style="color: #000;" onclick="rejectinvoice(' . $index . ')">Submit</strong></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                </td>
-            </tr>
-            ';
+        $data = [];
+        foreach ($historydata as $row) {
+            $data[] = [
+                "idactivation_id" => $row["idactivation_id"],
+                "paid_date"       => $row["paid_date"],
+                "user_id"         => $row["user_id"],
+                "user_name"       => $row["user_name"],
+                "deposite_type"   => $row["deposite_type"],
+                "crypto_value"    => $row["crypto_value"],
+                "txnhash_id"      => $row["txnhash_id"],
+                "bank_value"      => $row["bank_value"],
+                "transaction_id"  => $row["transaction_id"],
+                "proof_image"     => $row["proof_image"]
+            ];
         }
 
-        $response["tabledata"] = $tabledata;
-
+        $response["table_rows"] = $data;
         $response["status"] = "success";
         echo json_encode($response);
     } else if ($way == "rejectactivation") {
@@ -126,6 +67,38 @@ if ($values["status"] == "success") {
 
         $userid = $_POST["userid"];
         $activationid = $_POST["activationid"];
+
+        //Reward bonus Checking
+        $getSponserId = $con->query("SELECT user_sponserid FROM userdetails WHERE user_id='{$userid}'");
+        $getSponserId = $getSponserId->fetch_assoc();
+
+        $sponserid = $getSponserId["user_sponserid"];
+
+        $sponser = $con->query("SELECT * FROM userdetails WHERE user_id='{$sponserid}'");
+        $getsponser = $sponser->fetch_assoc();
+
+        if ($getsponser["user_referalStatus"] == "activated") {
+            $checkrewardbonus = $con->query("SELECT * FROM rewardbonus WHERE user_id='{$sponserid}' ORDER BY rb_id DESC LIMIT 1");
+
+            if ($checkrewardbonus && $checkrewardbonus->num_rows >= 1) {
+                $rewardRow = $checkrewardbonus->fetch_assoc();
+
+                $userCount = 0;
+
+                if ($rewardRow["rb_usercount"]) {
+                    $userCount = $rewardRow["rb_usercount"];
+                }
+
+                $userCount += 1;
+
+                if ($rewardRow["rb_usercount"] == 4) {
+                    $UpdateRewardBonus = $con->query("UPDATE rewardbonus SET rb_point=25, rb_description='Reached Reward Bonus', rb_usercount='{$userCount}' WHERE rb_id='{$rewardRow["rb_id"]}'");
+                    $RewardAddAWB = $con->query("INSERT INTO availablewithdrwabalance (user_id,awb_from,awb_to,awb_points,awb_action) VALUES ('{$sponserid}','Reward Bonus','Available Withdraw Balance','25','credit')");
+                } else {
+                    $UpdateRewardBonus = $con->query("UPDATE rewardbonus SET rb_usercount='{$userCount}' WHERE rb_id='{$rewardRow["rb_id"]}'");
+                }
+            }
+        }
 
         $lvl1 = "";
         $lvl2 = "";

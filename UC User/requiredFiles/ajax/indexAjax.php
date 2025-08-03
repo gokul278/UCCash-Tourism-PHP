@@ -1,9 +1,6 @@
 <?php
-
 require "../../../requiredFiles/ajax/DBConnection.php";
-
 require "./verify.php";
-
 $values = token::verify();
 
 function getDaysDifference($givenDate)
@@ -11,588 +8,190 @@ function getDaysDifference($givenDate)
     $today = new DateTime();
     $inputDate = new DateTime($givenDate);
     $diff = $today->diff($inputDate);
-    return $diff->days; // returns absolute days difference
+    return $diff->days;
+}
+
+// Helper: fetch SUM credit/debit per wallet in one query
+function fetchWallet($con, $table, $user_id, $credit_col, $action_col)
+{
+    $data = ["credit" => 0, "debit" => 0];
+    $q = $con->query("SELECT $action_col, SUM($credit_col) AS points FROM $table WHERE user_id='$user_id' GROUP BY $action_col");
+    while ($row = $q->fetch_assoc()) {
+        if ($row[$action_col] == 'credit') $data['credit'] = (float)$row['points'];
+        if ($row[$action_col] == 'debit') $data['debit'] = (float)$row['points'];
+    }
+    return number_format($data['credit'] - $data['debit'], 2);
 }
 
 if ($values["status"] == "success") {
-
     $way = $_POST["way"];
 
     if ($way == "login") {
-
         $response["status"] = "success";
         echo json_encode($response);
     } else if ($way == "getflashbanner") {
-
-        $getflashbanner = $con->query("SELECT * FROM flashbanner WHERE id=1");
-
-        $flashbanner = $getflashbanner->fetch_assoc();
-
+        $flashbanner = $con->query("SELECT bannerimage FROM flashbanner WHERE id=1")->fetch_assoc();
         $response["status"] = "success";
-        $response["flashbanner"] = $flashbanner["bannerimage"];
+        $response["flashbanner"] = $flashbanner["bannerimage"] ?? "";
         echo json_encode($response);
     } else if ($way == "getData") {
-
-        $datasql = "SELECT * FROM userdetails WHERE user_id='{$values["userid"]}'";
-        $datares = $con->query($datasql);
-
-        if (mysqli_num_rows($datares) == 1) {
-
-            $datarow = $datares->fetch_assoc();
-            $response["user_id"] = $datarow["user_id"];
-            $response["user_name"] = $datarow["user_name"];
-            $response["user_profileimg"] = $datarow["user_profileimg"];
-            $response["user_sponserid"] = $datarow["user_sponserid"];
-            $response["user_referalStatus"] = $datarow["user_referalStatus"];
-            $response["created_at"] = $datarow["created_at"];
-            $response["status"] = "success";
-
-            $getlatestnews = $con->query("SELECT * FROM latestnews WHERE 1");
-            $resnews = $getlatestnews->fetch_assoc();
-            $response["news"] = $resnews["news"];
-
-            $getimage = $con->query("SELECT * FROM galleryimages");
-
-            $images = array();
-            foreach ($getimage as $rowimage) {
-                $images[] = $rowimage["imagename"];
-            }
-
-            $response["galleryimages"] = $images;
-
-            $rank = "Member";
-
-            // Check if the sponsor's referral status is activated
-            if ($datarow["user_referalStatus"] == "activated") {
-                $rank = "Distributor";
-            }
-
-            // Initialize arrays to hold level queries and thresholds
-            $levels = ["lvl1" => 5, "lvl2" => 25, "lvl3" => 125, "lvl4" => 375, "lvl5" => 1500, "lvl6" => 5000, "lvl7" => 5000];
-            $ranks = ["lvl1" => "Director", "lvl2" => "Senior Director", "lvl3" => "Bronze Director", "lvl4" => "Silver Director", "lvl5" => "Gold Director", "lvl6" => "Diamond Director", "lvl7" => "Crow Director"];
-
-            // Loop through each level and determine the rank based on activated members
-            foreach ($levels as $level => $threshold) {
-                // Query to get activated members at the current level
-                $levelQuery = $con->query("SELECT user_id FROM genealogy WHERE $level='{$values["userid"]}'");
-
-                // Count the number of activated members
-                $activatedCount = 0;
-                while ($row = $levelQuery->fetch_assoc()) {
-                    $account = $con->query("SELECT user_referalStatus FROM userdetails WHERE user_id='{$row["user_id"]}'");
-                    $getaccount = $account->fetch_assoc();
-                    if ($getaccount["user_referalStatus"] == "activated") {
-                        $activatedCount++;
-                    }
-                }
-
-                // Check if the count meets or exceeds the threshold for this level
-                if ($activatedCount >= $threshold) {
-                    $rank = $ranks[$level];
-                }
-            }
-
-            $response["rank"] = $rank;
-
-
-            //Savings Travel Points
-            $savingtravel = $con->query("SELECT * FROM savingstravelpoints WHERE user_id='{$datarow["user_id"]}'");
-            $stcredit = 0;
-            $stdebit = 0;
-
-            if (mysqli_num_rows($savingtravel) >= 1) {
-
-                foreach ($savingtravel as $getsavingtravel) {
-                    if (isset($getsavingtravel["st_action"]) && strlen($getsavingtravel["st_action"]) >= 1) {
-                        if ($getsavingtravel["st_action"] == "credit") {
-                            $stcredit += (float) $getsavingtravel["st_points"];
-                        } else if ($getsavingtravel["st_action"] == "debit") {
-                            $stdebit += (float) $getsavingtravel["st_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["savingtravel"] = number_format(($stcredit - $stdebit), 2);
-
-            //Bonus Travel Points
-            $bonustravel = $con->query("SELECT * FROM bonustravelpoints WHERE user_id='{$datarow["user_id"]}'");
-            $btcredit = 0;
-            $btdebit = 0;
-
-            if (mysqli_num_rows($bonustravel) >= 1) {
-
-                foreach ($bonustravel as $getbonustravel) {
-                    if (isset($getbonustravel["bt_action"]) && strlen($getbonustravel["bt_action"]) >= 1) {
-                        if ($getbonustravel["bt_action"] == "credit") {
-                            $btcredit += (float) $getbonustravel["bt_points"];
-                        } else if ($getbonustravel["bt_action"] == "debit") {
-                            $btdebit += (float) $getbonustravel["bt_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["bonustravel"] = number_format(($btcredit - $btdebit), 2);
-
-            //Travel Coupon's
-            $travelcoupon = $con->query("SELECT * FROM travelcouponpoints WHERE user_id='{$datarow["user_id"]}'");
-            $tccredit = 0;
-            $tcdebit = 0;
-
-            if (mysqli_num_rows($travelcoupon) >= 1) {
-
-                foreach ($travelcoupon as $gettravelcoupon) {
-                    if (isset($gettravelcoupon["tc_action"]) && strlen($gettravelcoupon["tc_action"]) >= 1) {
-                        if ($gettravelcoupon["tc_action"] == "credit") {
-                            $tccredit += (float) $gettravelcoupon["tc_points"];
-                        } else if ($gettravelcoupon["tc_action"] == "debit") {
-                            $tcdebit += (float) $gettravelcoupon["tc_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["travelcoupon"] = number_format(($tccredit - $tcdebit), 2);
-
-            //Savings Income
-            $savingsincome = $con->query("SELECT * FROM savingsincome WHERE user_id='{$datarow["user_id"]}'");
-            $sicredit = 0;
-            $sidebit = 0;
-
-            if (mysqli_num_rows($savingsincome) >= 1) {
-
-                foreach ($savingsincome as $getsavingsincome) {
-                    if (isset($getsavingsincome["si_action"]) && strlen($getsavingsincome["si_action"]) >= 1) {
-                        if ($getsavingsincome["si_action"] == "credit") {
-                            $sicredit += (float) $getsavingsincome["si_points"];
-                        } else if ($getsavingsincome["si_action"] == "debit") {
-                            $sidebit += (float) $getsavingsincome["si_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["savingsincome"] = number_format(($sicredit - $sidebit), 2);
-
-            // Networking Income
-            $networkingincome = $con->query("SELECT * FROM networkingincomewallet WHERE user_id='{$datarow["user_id"]}'");
-            $niwcredit = 0;
-            $niwdebit = 0;
-
-            if (mysqli_num_rows($networkingincome) >= 1) {
-                foreach ($networkingincome as $getnetworkingincome) {
-                    if (isset($getnetworkingincome["niw_action"]) && strlen($getnetworkingincome["niw_action"]) >= 1) {
-                        if ($getnetworkingincome["niw_action"] == "credit") {
-                            $niwcredit += (float) $getnetworkingincome["niw_points"];
-                        } else if ($getnetworkingincome["niw_action"] == "debit") {
-                            $niwdebit += (float) $getnetworkingincome["niw_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["networkingincome"] = number_format(($niwcredit - $niwdebit), 2);
-
-            // Leadership Income
-            $leadershipincome = $con->query("SELECT * FROM leadershipincomewallet WHERE user_id='{$datarow["user_id"]}'");
-            $liwcredit = 0;
-            $liwdebit = 0;
-
-            if (mysqli_num_rows($leadershipincome) >= 1) {
-                foreach ($leadershipincome as $getleadershipincome) {
-                    if (isset($getleadershipincome["liw_action"]) && strlen($getleadershipincome["liw_action"]) >= 1) {
-                        if ($getleadershipincome["liw_action"] == "credit") {
-                            $liwcredit += (float) $getleadershipincome["liw_points"];
-                        } else if ($getleadershipincome["liw_action"] == "debit") {
-                            $liwdebit += (float) $getleadershipincome["liw_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["leadershipincome"] = number_format(($liwcredit - $liwdebit), 2);
-
-
-            //Car & House Fund
-            $carandhousefund = $con->query("SELECT * FROM carandhousefundwallet WHERE user_id='{$datarow["user_id"]}'");
-            $chfwcredit = 0;
-            $chfwdebit = 0;
-
-            if (mysqli_num_rows($carandhousefund) >= 1) {
-
-                foreach ($carandhousefund as $getcarandhousefund) {
-                    if (isset($getcarandhousefund["chfw_action"]) && strlen($getcarandhousefund["chfw_action"]) >= 1) {
-                        if ($getcarandhousefund["chfw_action"] == "credit") {
-                            $chfwcredit += (float) $getcarandhousefund["chfw_points"];
-                        } else if ($getcarandhousefund["chfw_action"] == "debit") {
-                            $chfwdebit += (float) $getcarandhousefund["chfw_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["carandhousefund"] = number_format(($chfwcredit - $chfwdebit), 2);
-
-            //Royalty Income
-            $royaltyincome = $con->query("SELECT * FROM royaltyincomewallet WHERE user_id='{$datarow["user_id"]}'");
-            $riwcredit = 0;
-            $riwdebit = 0;
-
-            if (mysqli_num_rows($royaltyincome) >= 1) {
-
-                foreach ($royaltyincome as $getroyaltyincome) {
-                    if (isset($getroyaltyincome["riw_action"]) && strlen($getroyaltyincome["riw_action"]) >= 1) {
-                        if ($getroyaltyincome["riw_action"] == "credit") {
-                            $riwcredit += (float) $getroyaltyincome["riw_points"];
-                        } else if ($getroyaltyincome["riw_action"] == "debit") {
-                            $riwdebit += (float) $getroyaltyincome["riw_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["royaltyincome"] = number_format(($riwcredit - $riwdebit), 2);
-
-
-            //Available Withdraw Balance
-            $availablewithdrwabalance = $con->query("SELECT * FROM availablewithdrwabalance WHERE user_id='{$datarow["user_id"]}'");
-            $awbcredit = 0;
-            $awbdebit = 0;
-
-            if (mysqli_num_rows($availablewithdrwabalance) >= 1) {
-
-                foreach ($availablewithdrwabalance as $getavailablewithdrwabalance) {
-                    if (isset($getavailablewithdrwabalance["awb_action"]) && strlen($getavailablewithdrwabalance["awb_action"]) >= 1) {
-                        if ($getavailablewithdrwabalance["awb_action"] == "credit") {
-                            $awbcredit += (float) $getavailablewithdrwabalance["awb_points"];
-                        } else if ($getavailablewithdrwabalance["awb_action"] == "debit") {
-                            $awbdebit += (float) $getavailablewithdrwabalance["awb_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["availablewithdrwabalance"] = number_format(($awbcredit - $awbdebit), 2);
-
-
-            //ID Reactivation Wallet
-            $reactivationwallet = $con->query("SELECT * FROM reactivationwallet WHERE user_id='{$datarow["user_id"]}'");
-            $rawcredit = 0;
-            $rawdebit = 0;
-
-            if (mysqli_num_rows($reactivationwallet) >= 1) {
-
-                foreach ($reactivationwallet as $getreactivationwallet) {
-                    if (isset($getreactivationwallet["raw_action"]) && strlen($getreactivationwallet["raw_action"]) >= 1) {
-                        if ($getreactivationwallet["raw_action"] == "credit") {
-                            $rawcredit += (float) $getreactivationwallet["raw_points"];
-                        } else if ($getreactivationwallet["raw_action"] == "debit") {
-                            $rawdebit += (float) $getreactivationwallet["raw_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["reactivationwallet"] = number_format(($rawcredit - $rawdebit), 2);
-
-
-            //UCC Wallet
-            $uccwallet = $con->query("SELECT * FROM uccwalletpoints WHERE user_id='{$datarow["user_id"]}'");
-            $uccwcredit = 0;
-            $uccwdebit = 0;
-
-            if (mysqli_num_rows($uccwallet) >= 1) {
-
-                foreach ($uccwallet as $getuccwallet) {
-                    if (isset($getuccwallet["uccw_action"]) && strlen($getuccwallet["uccw_action"]) >= 1) {
-                        if ($getuccwallet["uccw_action"] == "credit") {
-                            $uccwcredit += (float) $getuccwallet["uccw_points"];
-                        } else if ($getuccwallet["uccw_action"] == "debit") {
-                            $uccwdebit += (float) $getuccwallet["uccw_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["uccwallet"] = number_format(($uccwcredit - $uccwdebit), 2);
-
-            //Topup Wallet
-            $topupwallet = $con->query("SELECT * FROM topup_wallet WHERE user_id='{$datarow["user_id"]}'");
-            $topupcreadit = 0;
-            $topupwdebit = 0;
-
-            if (mysqli_num_rows($topupwallet) >= 1) {
-
-                foreach ($topupwallet as $gettopupwallet) {
-                    if (isset($gettopupwallet["tu_action"]) && strlen($gettopupwallet["tu_action"]) >= 1) {
-                        if ($gettopupwallet["tu_action"] == "credit") {
-                            $topupcreadit += (float) $gettopupwallet["tu_points"];
-                        } else if ($gettopupwallet["tu_action"] == "debit") {
-                            $topupwdebit += (float) $gettopupwallet["tu_points"];
-                        }
-                    }
-                }
-            }
-
-            $response["tu_points"] = number_format(($topupcreadit - $topupwdebit), 2);
-
-
-
-            $newsimages = $con->query("SELECT * FROM newsimages");
-
-            date_default_timezone_set('Asia/Kolkata');
-
-            $daydifference = getDaysDifference(date('Y-m-d', strtotime($datarow["created_at"])));
-
-            $response["rankboardStatus"] = false;
-
-
-
-            $lvl1date = "-";
-            $lvl2date = "-";
-            $lvl3date = "-";
-            $lvl4date = "-";
-            $lvl5date = "-";
-            $lvl6date = "-";
-            $lvl7date = "-";
-
-
-            if ($datarow["user_referalStatus"] == "activated") {
-
-                //start
-
-
-                $lvl1 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl1 = '{$datarow["user_id"]}' AND u.user_referalStatus = 'activated'");
-
-
-                if (mysqli_num_rows($lvl1) >= 5) {
-
-                    $rank = "Director";
-
-                    foreach ($lvl1 as $index => $getlvl1) {
-
-                        if ($index + 1 == 1) {
-
-                            $lvl1rewardstatus = isset($getreward["level1reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl1reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl1status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl1["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl1date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
-
-                $lvl2 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl2 = '{$datarow["user_id"]}' AND u.user_referalStatus = 'activated'");
-
-                if (mysqli_num_rows($lvl2) >= 25) {
-                    $rank = "Senior Director";
-
-                    foreach ($lvl2 as $index => $getlvl2) {
-
-                        if ($index + 1 == 2) {
-
-                            $lvl2rewardstatus = isset($getreward["level2reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl2status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl2["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl2date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
-
-                $lvl3 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl3 = '{$datarow["user_id"]}' AND u.user_referalStatus = 'activated'");
-
-                if (mysqli_num_rows($lvl3) >= 125) {
-                    $rank = "Bronze Director";
-
-                    foreach ($lvl3 as $index => $getlvl3) {
-
-                        if ($index + 1 == 125) {
-
-                            $lvl3rewardstatus = isset($getreward["level3reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl3reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl3status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl3["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl3date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
-
-                $lvl4 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl4 = '{$datarow["user_id"]}' AND u.user_referalStatus = 'activated'");
-
-                if (mysqli_num_rows($lvl4) >= 375) {
-                    $rank = "Silver Director";
-
-                    foreach ($lvl4 as $index => $getlvl4) {
-
-                        if ($index + 1 == 375) {
-
-                            $lvl4rewardstatus = isset($getreward["level4reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl4reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl4status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl4["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl4date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
-
-                $lvl5 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl5 = '{$datarow["user_id"]}' AND u.user_referalStatus = 'activated'");
-
-                if (mysqli_num_rows($lvl5) >= 1500) {
-                    $rank = "Gold Director";
-
-                    foreach ($lvl5 as $index => $getlvl5) {
-
-                        if ($index + 1 == 1500) {
-
-                            $lvl5rewardstatus = isset($getreward["level5reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl5reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl5status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl5["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl5date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
-
-                $lvl6 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl6 = '{$datarow["user_id"]}' AND u.user_referalStatus = 'activated'");
-
-                if (mysqli_num_rows($lvl6) >= 5000) {
-                    $rank = "Diamond Director";
-
-                    foreach ($lvl6 as $index => $getlvl6) {
-
-                        if ($index + 1 == 5000) {
-
-                            $lvl6rewardstatus = isset($getreward["level6reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl6reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl6status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl6["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl6date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
-
-                $lvl7 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl7 = '{$datarow["user_id"]}' AND u.user_referalStatus = 'activated'");
-
-                if (mysqli_num_rows($lvl7) >= 15000) {
-                    $rank = "Crow Director";
-
-                    foreach ($lvl7 as $index => $getlvl7) {
-
-                        if ($index + 1 == 15000) {
-
-                            $lvl7rewardstatus = isset($getreward["level7reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl7reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl6status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl7["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl7date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
-
-
-                //end
-            }
-
-
-            $ranksql = "SELECT * FROM rankboardaward WHERE user_id='{$values["userid"]}'";
-            $rankres = $con->query($ranksql);
-            $rankrow = $rankres->fetch_assoc();
-
-
-            $details = $con->query("SELECT * FROM `eligiblereward`");
-
-            $getdetails = $details->fetch_assoc();
-
-            if ($daydifference <= 31 && (int)date('H') < 12 && $lvl1date == "-") {
-
-                $response["rankboardStatus"] = true;
-                $response["rankboardDate"] = date('Y-m-d', strtotime($datarow["created_at"]));
-                $response["rankboardLabel"] = $getdetails["lvl1reward"];
-                $response["rankboardAchiveDays"] = 30;
-            } else if ($daydifference <= 61 && (int)date('H') < 12 && $lvl2date == "-") {
-                $response["rankboardStatus"] = true;
-                $response["rankboardDate"] = date('Y-m-d', strtotime($datarow["created_at"]));
-                $response["rankboardLabel"] = $getdetails["lvl2reward"];
-                $response["rankboardAchiveDays"] = 60;
-            } else if ($daydifference <= 91 && (int)date('H') < 12 && $lvl3date == "-") {
-                $response["rankboardStatus"] = true;
-                $response["rankboardDate"] = date('Y-m-d', strtotime($datarow["created_at"]));
-                $response["rankboardLabel"] = $getdetails["lvl3reward"];
-                $response["rankboardAchiveDays"] = 90;
-            } else if ($daydifference <= 121 && (int)date('H') < 12 && $lvl4date == "-") {
-                $response["rankboardStatus"] = true;
-                $response["rankboardDate"] = date('Y-m-d', strtotime($datarow["created_at"]));
-                $response["rankboardLabel"] = $getdetails["lvl4reward"];
-                $response["rankboardAchiveDays"] = 120;
-            } else if ($daydifference <= 151 && (int)date('H') < 12 && $lvl5date == "-") {
-                $response["rankboardStatus"] = true;
-                $response["rankboardDate"] = date('Y-m-d', strtotime($datarow["created_at"]));
-                $response["rankboardLabel"] = $getdetails["lvl5reward"];
-                $response["rankboardAchiveDays"] = 150;
-            } else if ($daydifference <= 181 && (int)date('H') < 12 && $lvl6date == "-") {
-                $response["rankboardStatus"] = true;
-                $response["rankboardDate"] = date('Y-m-d', strtotime($datarow["created_at"]));
-                $response["rankboardLabel"] = $getdetails["lvl6reward"];
-                $response["rankboardAchiveDays"] = 180;
-            } else if ($daydifference <= 211 && (int)date('H') < 12 && $lvl7date == "-") {
-                $response["rankboardStatus"] = true;
-                $response["rankboardDate"] = date('Y-m-d', strtotime($datarow["created_at"]));
-                $response["rankboardLabel"] = $getdetails["lvl7reward"];
-                $response["rankboardAchiveDays"] = 210;
-            }
-
-
-            $response["status"] = "success";
-            echo json_encode($response);
+        $user_id = $values["userid"];
+
+        // 1. Fetch all user + genealogy info at once
+        $sql = "SELECT u.*, g.lvl1, g.lvl2, g.lvl3, g.lvl4, g.lvl5, g.lvl6, g.lvl7 
+                FROM userdetails u 
+                LEFT JOIN genealogy g ON u.user_id = g.user_id 
+                WHERE u.user_id = '$user_id' LIMIT 1";
+        $user = $con->query($sql)->fetch_assoc();
+
+        if (!$user) {
+            echo json_encode(['status' => 'fail', 'message' => 'User not found']);
+            exit;
         }
+
+        // 2. Fetch static data with single queries
+        $news = $con->query("SELECT news FROM latestnews LIMIT 1")->fetch_assoc()['news'] ?? "";
+        $galleryimages = [];
+        $imgs = $con->query("SELECT imagename FROM galleryimages");
+        while ($r = $imgs->fetch_assoc()) $galleryimages[] = $r["imagename"];
+
+        // 3. Wallets: fetch each in 1 query with helper
+        $response = [
+            "user_id" => $user["user_id"],
+            "user_name" => $user["user_name"],
+            "user_profileimg" => $user["user_profileimg"],
+            "user_sponserid" => $user["user_sponserid"],
+            "user_referalStatus" => $user["user_referalStatus"],
+            "created_at" => $user["created_at"],
+            "galleryimages" => $galleryimages,
+            "news" => $news,
+            "savingtravel"      => fetchWallet($con, "savingstravelpoints", $user_id, "st_points", "st_action"),
+            "bonustravel"       => fetchWallet($con, "bonustravelpoints", $user_id, "bt_points", "bt_action"),
+            "travelcoupon"      => fetchWallet($con, "travelcouponpoints", $user_id, "tc_points", "tc_action"),
+            "savingsincome"     => fetchWallet($con, "savingsincome", $user_id, "si_points", "si_action"),
+            "networkingincome"  => fetchWallet($con, "networkingincomewallet", $user_id, "niw_points", "niw_action"),
+            "leadershipincome"  => fetchWallet($con, "leadershipincomewallet", $user_id, "liw_points", "liw_action"),
+            "carandhousefund"   => fetchWallet($con, "carandhousefundwallet", $user_id, "chfw_points", "chfw_action"),
+            "royaltyincome"     => fetchWallet($con, "royaltyincomewallet", $user_id, "riw_points", "riw_action"),
+            "availablewithdrwabalance" => fetchWallet($con, "availablewithdrwabalance", $user_id, "awb_points", "awb_action"),
+            "reactivationwallet" => fetchWallet($con, "reactivationwallet", $user_id, "raw_points", "raw_action"),
+            "uccwallet"         => fetchWallet($con, "uccwalletpoints", $user_id, "uccw_points", "uccw_action"),
+            "tu_points"         => fetchWallet($con, "topup_wallet", $user_id, "tu_points", "tu_action"),
+        ];
+
+        // 4. Compute rank using a single query for each level (JOIN + COUNT)
+        $ranks = [
+            1 => ["name" => "Director",         "min" => 5],
+            2 => ["name" => "Senior Director",  "min" => 25],
+            3 => ["name" => "Bronze Director",  "min" => 125],
+            4 => ["name" => "Silver Director",  "min" => 375],
+            5 => ["name" => "Gold Director",    "min" => 1500],
+            6 => ["name" => "Diamond Director", "min" => 5000],
+            7 => ["name" => "Crow Director",    "min" => 15000],
+        ];
+
+        $default_rank = $user["user_referalStatus"] == "activated" ? "Distributor" : "Member";
+        $final_rank = $default_rank;
+
+        // Level counts (all at once)
+        $levels = [];
+        foreach ($ranks as $i => $rk) {
+            $lvl_col = "lvl$i";
+            $q = $con->query("
+                SELECT COUNT(*) AS cnt
+                FROM genealogy g
+                JOIN userdetails u ON g.user_id = u.user_id
+                WHERE g.$lvl_col = '$user_id' AND u.user_referalStatus = 'activated'
+            ");
+            $row = $q->fetch_assoc();
+            $levels[$i] = (int)$row['cnt'];
+            if ($levels[$i] >= $rk['min']) $final_rank = $rk['name'];
+        }
+        $response["rank"] = $final_rank;
+
+        // -- Rankboard Status logic --
+        // Helper: get lvlX achieved date
+        function getLevelAchievedDate($con, $user_id, $level, $required)
+        {
+            $col = "lvl$level";
+            $q = $con->query("
+                SELECT g.user_id
+                FROM genealogy g
+                JOIN userdetails u ON g.user_id = u.user_id
+                WHERE g.$col = '$user_id' AND u.user_referalStatus = 'activated'
+                LIMIT $required
+            ");
+            if ($q->num_rows < $required) return '-';
+            // Get activation date of the first user to reach required
+            $index = 1;
+            while ($row = $q->fetch_assoc()) {
+                if ($index == $required) {
+                    $h = $con->query("SELECT paid_date FROM idactivationhistory WHERE user_id='{$row['user_id']}' AND remark='Activation Successful' LIMIT 1");
+                    return $h->num_rows ? $h->fetch_assoc()["paid_date"] : '';
+                }
+                $index++;
+            }
+            return '-';
+        }
+
+        $lvl_dates = [];
+        foreach ($ranks as $i => $rk) {
+            $lvl_dates[$i] = getLevelAchievedDate($con, $user_id, $i, $rk['min']);
+        }
+        date_default_timezone_set('Asia/Kolkata');
+        $daydifference = getDaysDifference(date('Y-m-d', strtotime($user["created_at"])));
+        $response["rankboardStatus"] = false;
+        // Get eligible reward texts
+        $rewardrow = $con->query("SELECT * FROM eligiblereward LIMIT 1")->fetch_assoc();
+        $rankboard_map = [
+            1 => ["days" => 31, "hour" => 12, "label" => $rewardrow["lvl1reward"] ?? ""],
+            2 => ["days" => 61, "hour" => 12, "label" => $rewardrow["lvl2reward"] ?? ""],
+            3 => ["days" => 91, "hour" => 12, "label" => $rewardrow["lvl3reward"] ?? ""],
+            4 => ["days" => 121, "hour" => 12, "label" => $rewardrow["lvl4reward"] ?? ""],
+            5 => ["days" => 151, "hour" => 12, "label" => $rewardrow["lvl5reward"] ?? ""],
+            6 => ["days" => 181, "hour" => 12, "label" => $rewardrow["lvl6reward"] ?? ""],
+            7 => ["days" => 211, "hour" => 12, "label" => $rewardrow["lvl7reward"] ?? ""],
+        ];
+        foreach ($rankboard_map as $i => $rb) {
+            if ($daydifference <= $rb["days"] && (int)date('H') < $rb["hour"] && $lvl_dates[$i] == "-") {
+                $response["rankboardStatus"] = true;
+                $response["rankboardDate"] = date('Y-m-d', strtotime($user["created_at"]));
+                $response["rankboardLabel"] = $rb["label"];
+                $response["rankboardAchiveDays"] = $rb["days"] - 1;
+                break;
+            }
+        }
+
+        //Reward Status
+        $rewardstatus = $user["user_referalStatus"];
+        $userCount = 0;
+        $startdate = "";
+        $enddate = "";
+
+        if ($rewardstatus === "activated") {
+            $getRewardBonus = $con->query("SELECT * FROM rewardbonus WHERE user_id = '{$user_id}' ORDER BY rb_id DESC LIMIT 1")->fetch_assoc();
+            if ((int)$getRewardBonus["rb_usercount"] >= 5) {
+                $rewardstatus = "finished";
+            } else if ((int)$getRewardBonus["rb_usercount"] < 5 ||  $getRewardBonus["rb_usercount"]  === null) {
+                $rewardstatus = "pending";
+            }
+
+            $userCount = $getRewardBonus["rb_usercount"] ?  $getRewardBonus["rb_usercount"] : 0;
+            $startdate = $getRewardBonus["rb_start"];
+            $enddate = $getRewardBonus["rb_end"];
+        }
+
+        $response["rewardstatus"] = $rewardstatus;
+        $response["rewardUsercount"] = $userCount;
+        $response["rewardStartdate"] = $startdate;
+        $response["rewardEnddate"] = $enddate;
+
+        $response["status"] = "success";
+        echo json_encode($response);
     }
 } else if ($values["status"] == "auth_failed") {
-
-    $response["status"] = $values["status"];
-    $response["message"] = $values["message"];
-    echo json_encode($response);
+    echo json_encode([
+        "status" => $values["status"],
+        "message" => $values["message"]
+    ]);
 }

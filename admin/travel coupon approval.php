@@ -383,7 +383,7 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 
-    <script>
+    <!-- <script>
         var swiper = new Swiper('.swiper-container', {
             slidesPerView: 'auto',
             spaceBetween: 20,
@@ -392,7 +392,7 @@
                 clickable: true,
             },
         });
-    </script>
+    </script> -->
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>

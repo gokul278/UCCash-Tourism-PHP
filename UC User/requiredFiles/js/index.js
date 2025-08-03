@@ -111,6 +111,77 @@ const getData = () => {
           rankboardAchiveDays: response.rankboardAchiveDays,
         };
 
+        let bannerContent = "";
+
+        if (response.rewardstatus === "notactivated") {
+          bannerContent = `
+           <div class="reward-banner locked">
+                        <div class="content">
+                            <span class="reward-icon">🔒</span>
+                            <div class="desc-group">
+                                <span class="desc bold">You need to Activate your Account</span>
+                                <span class="desc">To unlock the $25 reward</span>
+                            </div>
+                        </div>
+                        <a href="https://uccashtourism.com/UC%20User/id%20activation.php" class="button-link">
+                            <i class="bi bi-lightning-charge"></i>
+                        </a>
+                    </div>
+          `;
+        } else if (response.rewardstatus === "pending") {
+          bannerContent = `
+          <div class="reward-banner in-progress">
+                        <div class="content">
+                            <span class="reward-icon">⏳</span>
+                            <div class="desc-group">
+                                <span class="desc bold">You’ve referred ${parseInt(
+                                  response.rewardUsercount
+                                )} out of 5 friends</span>
+                                <span class="desc">Refer ${
+                                  5 - parseInt(response.rewardUsercount)
+                                } more to earn your $25 reward,</span>
+          <span class="desc">before <strong>${
+            response.rewardEnddate
+          }</strong></span>
+                                <!-- <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%;"></div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <a href="https://uccashtourism.com/UC%20User/referral.php" class="button-link">
+                            <i class="bi bi-share-fill"></i>
+                        </a>
+                    </div>
+          `;
+        } else if (response.rewardstatus === "finished") {
+          bannerContent = `
+           <div class="reward-banner">
+                        <div class="content">
+                            <span class="reward-icon">🎉</span>
+                            <div class="desc-group">
+                                <span class="desc bold">You’ve reached the 5/5 Referral Reward! You Got $25</span>
+                                <span class="desc">Next Reward Starts on ${
+                                  new Date(
+                                    new Date(response.rewardEnddate).setDate(
+                                      new Date(
+                                        response.rewardEnddate
+                                      ).getDate() + 1
+                                    )
+                                  )
+                                    .toISOString()
+                                    .split("T")[0]
+                                }</span>
+                            </div>
+                        </div>
+                        <a href="https://uccashtourism.com/UC%20User/rewardbonus.php" class="button-link">
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+          `;
+        }
+
+        $("#rewardsBannerPlace").html(bannerContent);
+
         renderRankboard(rankboardData);
       } else if (
         response.status == "auth_failed" &&

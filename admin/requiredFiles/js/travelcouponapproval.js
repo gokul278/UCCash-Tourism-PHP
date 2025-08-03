@@ -49,44 +49,103 @@ const getData = () => {
     },
     success: function (res) {
       var response = JSON.parse(res);
-      if (response.status == "success") {
+
+      if (response.status === "success") {
         $(".adminname").html(response.admin_name);
 
-        if (response.profile_image !== null) {
-          $(".profile_image").attr(
-            "src",
-            "./img/user/" + response.profile_image
-          );
+        if (response.profile_image) {
+          $(".profile_image").attr("src", "./img/user/" + response.profile_image);
         }
 
-        if (response.tabledata.length > 0) {
-          $("#tabledata").html(response.tabledata);
-          let table = new DataTable("#myTable", {
-            ordering: false,
+        const rows = response.table_rows;
+        if (rows.length > 0) {
+          let tableHTML = "";
+
+          rows.forEach((row, index) => {
+            let idx = index + 1;
+            tableHTML += `
+              <tr align="center">
+                <th scope="row">${idx}</th>
+                <td>${row.idactivation_id}</td>
+                <td>${row.paid_date}</td>
+                <td>${row.user_id}</td>
+                <td>${row.user_name}</td>
+                <td>${row.deposite_type}</td>
+            `;
+
+            if (row.deposite_type === "Crypto") {
+              tableHTML += `
+                <td>${row.crypto_value}</td>
+                <td>${row.txnhash_id}</td>
+              `;
+            } else if (row.deposite_type === "Bank") {
+              tableHTML += `
+                <td>${row.bank_value}</td>
+                <td>
+                  ${row.transaction_id}<br>
+                  <button class="btn btn-success view-proof-image" data-src=".././UC User/img/proofImage/${row.proof_image}">
+                    <i class="bi bi-eye-fill"></i>
+                  </button>
+                </td>
+              `;
+            }
+
+            tableHTML += `
+              <td>
+                <button type="button" class="btn btn-success" onclick="approveactivation(${idx})" id="approvebtn${idx}"><b>Approve</b></button>
+              </td>
+              <td>
+                <div>
+                  <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal${idx}">
+                    <b>Reject</b>
+                  </button>
+                </div>
+                <div class="modal fade" id="exampleModal${idx}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel${idx}" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" style="color: #000;" id="exampleModalLabel${idx}">Reject Activation ID: ${row.idactivation_id}</h5>
+                        <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="reason${idx}">Reason</label>
+                          <input type="hidden" id="userid${idx}" value="${row.user_id}">
+                          <input type="hidden" id="activationid${idx}" value="${row.idactivation_id}">
+                          <input type="text" class="form-control" id="reason${idx}" placeholder="Enter Reason">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><strong>Close</strong></button>
+                        <button type="button" class="btn btn-primary" onclick="rejectinvoice(${idx})" data-dismiss="modal"><strong style="color: #000;">Submit</strong></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            `;
+          });
+
+          $("#tabledata").html(tableHTML);
+
+          let table = new DataTable("#myTable", { ordering: false });
+
+          $(".view-proof-image").off("click").on("click", function () {
+            var proofImageSrc = $(this).data("src");
+            $("#proofImage").attr("src", proofImageSrc);
+            $("#proofImageModal").modal("show");
           });
         } else {
-          $("#tabledata").html("<tr><td colspan='10'>No Data Found</td></tr>");
+          $("#tabledata").html("<tr><td colspan='12'>No Data Found</td></tr>");
         }
-
-        $(".view-proof-image").click(function () {
-          // Get the image source from the data-src attribute
-          var proofImageSrc = $(this).data("src");
-          // Set the src attribute of the proof image in the modal
-          $("#proofImage").attr("src", proofImageSrc);
-          // Open the modal
-          $("#proofImageModal").modal("show");
-        });
-      } else if (
-        response.status == "auth_failed" &&
-        response.message == "Expired token"
-      ) {
-        location.replace("time_expried.php");
-      } else if (response.status == "auth_failed") {
-        location.replace("unauth_login.php");
       }
-    },
+    }
   });
 };
+
 
 const rejectinvoice = (id) => {
   var reason = $("#reason" + id).val();

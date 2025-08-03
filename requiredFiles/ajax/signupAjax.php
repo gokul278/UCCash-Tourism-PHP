@@ -317,6 +317,18 @@ if ($way == "checksponser") {
 
                         $user_id = "UCT" . $id;
 
+                        //Inserting Reward Bonus
+                        $rangeStart = new DateTime(); // Today
+                        $rangeEnd = clone $rangeStart;
+                        $rangeEnd->modify('+29 days'); // 30-day range including today
+
+                        $rb_start = $rangeStart->format('Y-m-d');
+                        $rb_end = $rangeEnd->format('Y-m-d');
+
+                        $rewardsql = "INSERT INTO rewardbonus (user_id, rb_start, rb_end) VALUES ('{$user_id}', '{$rb_start}', '{$rb_end}')";
+                        $rewardsqlres = $con->query($rewardsql);
+
+
                         //Creating the User ID
 
                         $signupsql = "INSERT INTO userdetails (user_id,user_password, user_name, user_email, user_phoneno, user_address, user_city, user_zipcode, user_state, user_country, user_sponserid, user_referalStatus) VALUES

@@ -27,6 +27,37 @@ try {
     $updateStatus = "UPDATE invoiceprocess SET invoiceprocessing_status = 'processing' WHERE id=1";
     $con->query($updateStatus);
 
+    //Insert Reward Bonus Date
+    $updateStatusres = $con->query("
+        SELECT rb.*
+        FROM rewardbonus rb
+        JOIN (
+            SELECT user_id, MAX(rb_id) AS latest_rb_id
+            FROM rewardbonus
+            GROUP BY user_id
+        ) latest_rb
+        ON rb.user_id = latest_rb.user_id AND rb.rb_id = latest_rb.latest_rb_id
+        WHERE rb.rb_end <= CURDATE();
+    ");
+
+    foreach ($updateStatusres as $checkrow) {
+        $createdAt = new DateTime($checkrow["rb_end"]);
+        $userId = $checkrow["user_id"];
+
+        $rangeStart = clone $createdAt;
+        $rangeStart->modify('+1 days');
+        $rangeEnd = clone $rangeStart;
+        $rangeEnd->modify('+29 days'); // 30-day range
+
+
+        // Insert last full 30-day range
+        $sql = "INSERT INTO rewardbonus (user_id, rb_start, rb_end) VALUES (?, ?, ?)";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param("sss", $userId, $rangeStart->format('Y-m-d'), $rangeEnd->format('Y-m-d'));
+        $stmt->execute();
+    }
+
+
     $checkdate = "SELECT id, user_id, MAX(created_at) AS latest_date
                   FROM monthlysavingpendinginvoice
                   GROUP BY user_id;";

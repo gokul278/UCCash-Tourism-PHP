@@ -90,7 +90,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-id-card me-2"></i>Coupon<p style="text-align: center;" > Activation Deposit</p></a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="crypto deposit.php" class="dropdown-item">Crypto Deposit</a>
-                            <a href="bank deposit.php" class="dropdown-item">Bank & Wallet Deposit</a>
+                            <a href="bank deposit.php" class="dropdown-item">Bank Deposit</a>
                         </div>
                     </div> -->
                     <div class="nav-item dropdown">
@@ -124,7 +124,7 @@
                             Pending Invoice</p></a>
                     <a href="rank board.php" class="nav-item nav-link"><i class="fa fa-star me-2"></i>Rank Board</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i
                                 class="fa fa-wallet me-2"></i>Income History</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="savings income.php" class="dropdown-item">Savings Income</a>
@@ -133,11 +133,10 @@
                             <a href="leadership income.php" class="dropdown-item">Leadership Income</a>
                             <a href="car & house fund.php" class="dropdown-item">Car & House Fund</a>
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
-<a href="rewardbonus.php" class="dropdown-item">Reward Bonus</a>
+                            <a href="rewardbonus.php" class="dropdown-item active">Reward Bonus</a>
                         </div>
                     </div>
-                    <a href="wallet transfer.php" class="nav-item nav-link"><i
-                            class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
+                    <a href="wallet transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Wallet Transfer</a>
                     <a href="transfer.php" class="nav-item nav-link"><i class="fa fa-exchange-alt me-2"></i>Transfer</a>
                     <a href="transfer history.php" class="nav-item nav-link"><i
                             class="fa fa-exchange-alt me-2"></i>Transfer History</a>
@@ -167,13 +166,13 @@
                             <a href="domestictourbooking.php" class="dropdown-item">Domestic Booking</a>
                         </div>
                     </div>
-                    <div class="nav-item dropdown ">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
                             <p style="text-align: center;">History</p>
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="booking history.php" class="dropdown-item ">International History</a>
-                            <a href="domestictourbookinghistory.php" class="dropdown-item active">Domestic history</a>
+                            <a href="booking history.php" class="dropdown-item">International History</a>
+                            <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
                         </div>
                     </div>
 
@@ -187,7 +186,7 @@
 
                             $getimage = $con->query("SELECT * FROM busniesstools");
                             foreach ($getimage as $rowimage) {
-                                echo '<a href="../admin/img/businesstools/'.$rowimage["imagename"].'" target="_blank" class="dropdown-item">'.$rowimage["description"].'</a>';
+                                echo '<a href="../admin/img/businesstools/' . $rowimage["imagename"] . '" target="_blank" class="dropdown-item">' . $rowimage["description"] . '</a>';
                             }
 
                             ?>
@@ -247,9 +246,7 @@
             </nav>
             <!-- Navbar End -->
             <br><br>
-            <!--Direct Member List start-->
-
-
+            <!--Team List start-->
             <style>
                 /* Style for the container */
                 .container-fluid {
@@ -305,30 +302,26 @@
                     margin-right: 0.5rem !important;
                 }
             </style>
-
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Domestic Tour Booking History</h6>
+                            <h6 class="mb-5">Bonus Reward</h6>
                             <div class="table-responsive">
                                 <strong>
-                                    <table style="color: black; text-align: center;" class="table table-bordered">
+                                    <table id="myTable" style="color: black; text-align: center;"
+                                        class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                <th scope="col">S.No</th>
-                                                <th scope="col">Booking Date</th>
-                                                <th scope="col">Booking Amount</th>
-                                                <th scope="col">Booking Destination</th>
-                                                <th scope="col">Booking Code</th>
-                                                <th scope="col">Visitor</th>
-                                                <th scope="col">Payment Description</th>
-                                                <th scope="col">Payment Amount</th>
-                                                <th scope="col">Status</th>
-                                                <th scope="col">Details</th>
+                                                <th scope="col">S.NO</th>
+                                                <th scope="col">Start Date</th>
+                                                <th scope="col">End Date</th>
+                                                <th scope="col">Users</th>
+                                                <th scope="col">Reward Point</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="tabledata">
+                                        <tbody id="pointstable">
+
                                         </tbody>
                                     </table>
                                 </strong>
@@ -338,7 +331,8 @@
                 </div>
             </div>
 
-            <!--Direct Member List End-->
+
+            <!--Team List End-->
 
 
 
@@ -352,7 +346,7 @@
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/chart/chart.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
@@ -365,7 +359,10 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 
-    <script src="./requiredFiles/js/domestictourbookinghistory.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+
+    <script src="./requiredFiles/js/rewardbonus.js"></script>
 </body>
 
 </html>
