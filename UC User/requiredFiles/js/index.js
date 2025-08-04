@@ -106,7 +106,7 @@ const getData = () => {
 
         const rankboardData = {
           rankboardStatus: response.rankboardStatus,
-          rankboardDate: response.rankboardDate,
+          rankboardDate: response.rewardEnddate,
           rankboardLabel: response.rankboardLabel,
           rankboardAchiveDays: response.rankboardAchiveDays,
         };
@@ -140,9 +140,7 @@ const getData = () => {
                                 <span class="desc">Refer ${
                                   5 - parseInt(response.rewardUsercount)
                                 } more to earn your $25 reward,</span>
-          <span class="desc">before <strong>${
-            response.rewardEnddate
-          }</strong></span>
+          <span class="desc">before <strong><span class="desc" id="rewardCountdownTimer">⏱️ Calculating time...</span></span>
                                 <!-- <div class="progress-bar">
                                     <div class="progress-fill" style="width: 60%;"></div>
                                 </div> -->
@@ -160,17 +158,7 @@ const getData = () => {
                             <span class="reward-icon">🎉</span>
                             <div class="desc-group">
                                 <span class="desc bold">You’ve reached the 5/5 Referral Reward! You Got $25</span>
-                                <span class="desc">Next Reward Starts on ${
-                                  new Date(
-                                    new Date(response.rewardEnddate).setDate(
-                                      new Date(
-                                        response.rewardEnddate
-                                      ).getDate() + 1
-                                    )
-                                  )
-                                    .toISOString()
-                                    .split("T")[0]
-                                }</span>
+                                <span class="desc">Next Reward Starts on <span class="desc" id="rewardCountdownTimer">⏱️ Calculating time...</span></span>
                             </div>
                         </div>
                         <a href="https://uccashtourism.com/UC%20User/rewardbonus.php" class="button-link">
@@ -181,6 +169,8 @@ const getData = () => {
         }
 
         $("#rewardsBannerPlace").html(bannerContent);
+
+        startLiveCountdown(rankboardData.rankboardDate);
 
         renderRankboard(rankboardData);
       } else if (
@@ -195,55 +185,83 @@ const getData = () => {
   });
 };
 
-function renderRankboard(data) {
-  if (data.rankboardStatus) {
-    const container = $(`
-      <a href="./rank%20board.php" class="mt-1" style="background-color: #2b4e6b; width:100%; display:flex; justify-content: space-between; align-items:center; padding:10px 20px; border-radius: 10px;">
-        <div>
-          <p class="mb-1 mt-1" style="color: #fff;"><b>${data.rankboardLabel}</b></p>
-          <p class="mb-1" style="color: #fff;" id="rankTimer">Loading...</p>
-        </div>
-       
-      </a>
-    `);
+// function renderRankboard(data) {
+//   if (data.rankboardStatus) {
+//     const container = $(`
+//       <a href="./rank%20board.php" class="mt-1" style="background-color: #2b4e6b; width:100%; display:flex; justify-content: space-between; align-items:center; padding:10px 20px; border-radius: 10px;">
+//         <div>
+//           <p class="mb-1 mt-1" style="color: #fff;"><b>${data.rankboardLabel}</b></p>
+//           <p class="mb-1" style="color: #fff;" id="rankTimer">Loading...</p>
+//         </div>
 
-    $("#rankboardContainer").html(container);
+//       </a>
+//     `);
 
-    // Step 1: Convert rankboardDate to Date object
-    const baseDate = new Date(data.rankboardDate + "T00:00:00");
+//     $("#rankboardContainer").html(container);
 
-    // Step 2: Add days
-    baseDate.setDate(
-      baseDate.getDate() + parseInt(data.rankboardAchiveDays || 0)
-    );
+//     // Step 1: Convert rankboardDate to Date object
+//     const baseDate = new Date(data.rankboardDate + "T00:00:00");
 
-    // Step 3: Add 12 hours bonus
-    baseDate.setHours(baseDate.getHours() + 12);
+//     // Step 2: Add days
+//     baseDate.setDate(
+//       baseDate.getDate() + parseInt(data.rankboardAchiveDays || 0)
+//     );
 
-    const targetDate = baseDate; // Final target date with 12h bonus
-    const timerEl = document.getElementById("rankTimer");
+//     // Step 3: Add 12 hours bonus
+//     baseDate.setHours(baseDate.getHours() + 12);
 
-    function updateTimer() {
-      const now = new Date();
-      const diff = targetDate - now;
+//     const targetDate = baseDate; // Final target date with 12h bonus
+//     const timerEl = document.getElementById("rankTimer");
 
-      if (diff <= 0) {
-        timerEl.innerHTML = "<span style='color:red;'>Expired</span>";
-        clearInterval(timerInterval);
-        return;
-      }
+//     function updateTimer() {
+//       const now = new Date();
+//       const diff = targetDate - now;
 
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
+//       if (diff <= 0) {
+//         timerEl.innerHTML = "<span style='color:red;'>Expired</span>";
+//         clearInterval(timerInterval);
+//         return;
+//       }
 
-      timerEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s<br><small style="color:limegreen;">(12h bonus)</small>`;
+//       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+//       const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+//       const minutes = Math.floor((diff / (1000 * 60)) % 60);
+//       const seconds = Math.floor((diff / 1000) % 60);
+
+//       timerEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s<br><small style="color:limegreen;">(12h bonus)</small>`;
+//     }
+
+//     updateTimer();
+//     const timerInterval = setInterval(updateTimer, 1000);
+//   } else {
+//     $("#rankboardContainer").empty();
+//   }
+// }
+
+function startLiveCountdown(endDateStr) {
+  const endDate = new Date(endDateStr).getTime();
+  const timerEl = document.getElementById("rewardCountdownTimer");
+
+  if (!timerEl) return; // Element not yet rendered
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = endDate - now;
+
+    if (distance <= 0) {
+      timerEl.innerHTML = "<span style='color:red;'>Time's up!</span>";
+      clearInterval(timerInterval);
+      return;
     }
 
-    updateTimer();
-    const timerInterval = setInterval(updateTimer, 1000);
-  } else {
-    $("#rankboardContainer").empty();
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    timerEl.innerHTML = `⏱️ ${days}d ${hours}h ${minutes}m ${seconds}s left`;
   }
+
+  updateCountdown(); // Initial call
+  const timerInterval = setInterval(updateCountdown, 1000);
 }

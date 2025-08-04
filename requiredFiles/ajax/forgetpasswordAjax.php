@@ -1,6 +1,6 @@
 <?php
 
-include ("./DBConnection.php"); //DB Connection File
+include("./DBConnection.php"); //DB Connection File
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -37,7 +37,7 @@ if ($way == "forgetPassword") {
         //Checking the forgetpassword Mail and storing the HASH Value
 
         if (mysqli_num_rows($checkforgetmailres) == 1) {
-            $updatesql = "UPDATE forgetpassword SET forgetpass_hash = '{$randomHash}' WHERE user_id = '{$userid}', remark='pending'";
+            $updatesql = "UPDATE forgetpassword SET forgetpass_hash = '{$randomHash}', remark = 'pending' WHERE user_id = '{$userid}'";
             $updateres = $con->query($updatesql);
         } else {
             $insertsql = "INSERT INTO forgetpassword (user_id, forgetpass_hash, remark) VALUES ('{$userid}','{$randomHash}','pending')";
@@ -237,25 +237,19 @@ if ($way == "forgetPassword") {
                 $response["message"] = "Forget Password Link Sended for Your Mail";
                 echo json_encode($response);
             }
-
         } catch (Exception $e) {
             $response["status"] = "failed";
             $response["message"] = "Mail Error";
             echo json_encode($response);
         }
-
-
     } else {
 
         $response["status"] = "failed";
         $response["message"] = "Invalid User ID";
         echo json_encode($response);
     }
-
 } else {
     $response["status"] = "failed";
     $response["message"] = "Try Again";
     echo json_encode($response);
 }
-
-?>
