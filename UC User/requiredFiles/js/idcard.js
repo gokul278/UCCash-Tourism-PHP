@@ -41,6 +41,7 @@ const getData = () => {
 
         $(".user_name").html(response.user_name);
 
+        $(".user_id").html(response.user_id);
         $("#memberid").html(response.user_id);
         $("#memberphone").html(response.user_phoneno);
         $("#memberaddress").html(
@@ -49,9 +50,20 @@ const getData = () => {
 
         $("#visitingCard").html(response.tabledata);
 
-        JsBarcode("#barcode", response.user_id, {
-          width: 4,
-          height: 100,
+        // JsBarcode("#barcode", response.user_id, {
+        //   width: 4,
+        //   height: 100,
+        // });
+
+        var referralurl = "https://uccashtourism.com/signup.php?referral="+response.user_id;
+
+        var qrcode = new QRCode(document.getElementById("barcode"), {
+          text: referralurl,
+          width: 80,
+          height: 80,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M,
         });
 
         $("#generateVistingCard").on("click", function () {

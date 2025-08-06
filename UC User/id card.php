@@ -30,9 +30,15 @@
     <link href="css/style.css" rel="stylesheet">
 
     <!-- Bar Code Generator -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js"
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js"
         integrity="sha512-k2wo/BkbloaRU7gc/RkCekHr4IOVe10kYxJ/Q8dRPl7u3YshAQmg3WfZtIcseEk+nGBdK03fHBeLgXTxRmWCLQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+    <!-- QRCode -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+        integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
 
 <body>
@@ -138,7 +144,7 @@
                             <a href="leadership income.php" class="dropdown-item">Leadership Income</a>
                             <a href="car & house fund.php" class="dropdown-item">Car & House Fund</a>
                             <a href="royalty income.php" class="dropdown-item">Royalty Income</a>
-<a href="rewardbonus.php" class="dropdown-item">Reward Bonus</a>
+                            <a href="rewardbonus.php" class="dropdown-item">Reward Bonus</a>
                         </div>
                     </div>
                     <a href="wallet transfer.php" class="nav-item nav-link"><i
@@ -174,7 +180,8 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-bookmark me-2"></i>Booking
-                        <p style="text-align: center;">History</p></a>
+                            <p style="text-align: center;">History</p>
+                        </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="booking history.php" class="dropdown-item">International History</a>
                             <a href="domestictourbookinghistory.php" class="dropdown-item">Domestic history</a>
@@ -191,7 +198,7 @@
 
                             $getimage = $con->query("SELECT * FROM busniesstools");
                             foreach ($getimage as $rowimage) {
-                                echo '<a href="../admin/img/businesstools/'.$rowimage["imagename"].'" target="_blank" class="dropdown-item">'.$rowimage["description"].'</a>';
+                                echo '<a href="../admin/img/businesstools/' . $rowimage["imagename"] . '" target="_blank" class="dropdown-item">' . $rowimage["description"] . '</a>';
                             }
 
                             ?>
@@ -302,9 +309,9 @@
                     font-weight: 300;
                 }
 
-                .qr-code img {
+                /* .qr-code img {
                     width: 180px;
-                }
+                } */
 
                 p {
                     /* font-size: 10px; Increase font size */
@@ -350,11 +357,10 @@
                                                 src="img/user.png">
                                         </div>
                                         <h2 class="user_name"></h2>
-                                        <div class="qr-code">
-                                            <img id="barcode" />
-                                        </div>
-                                        <p style="color: #000;">This is a <b>Premium Identity</b> card.</p>
-                                        <p style="color: #000;">It is non transferable.</p>
+                                        <div id="barcode"></div>
+                                        <p style="font-size:smaller" class="user_id"></p>
+                                        <p style="color: #000;font-size:smaller">This is a <b>Premium Identity</b> card.</p>
+                                        <p style="color: #000;font-size:smaller">It is non transferable.</p>
                                         <hr>
                                         <p><strong>Member ID : </strong><span id="memberid">UCT123456</span><br> <strong>Phone :
                                             </strong><span id="memberphone">9360248850</span></p>
