@@ -55,52 +55,16 @@ const getData = () => {
         //   height: 100,
         // });
 
-        var referralurl = "https://uccashtourism.com/signup.php?referral="+response.user_id;
+        var referralurl =
+          "https://uccashtourism.com/signup.php?referral=" + response.user_id;
 
         var qrcode = new QRCode(document.getElementById("barcode"), {
           text: referralurl,
-          width: 80,
-          height: 80,
+          width: 60,
+          height: 60,
           colorDark: "#000000",
           colorLight: "#ffffff",
           correctLevel: QRCode.CorrectLevel.M,
-        });
-
-        $("#generateVistingCard").on("click", function () {
-          $("#generateVistingCard").html("Loading ...");
-
-          var currentUrl = window.location.href;
-
-          // Use the URL constructor to parse the URL
-          var url = new URL(currentUrl);
-
-          // Get the search params (query string) from the URL
-          var searchParams = url.searchParams;
-
-          // Convert SVG to PNG
-          var svgElement = document.getElementById("visitingcard");
-          var svgData = new XMLSerializer().serializeToString(svgElement);
-          var canvas = document.createElement("canvas");
-          var ctx = canvas.getContext("2d");
-          var img = new Image();
-
-          img.onload = function () {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-
-            // Create a link element to download the image
-            var link = document.createElement("a");
-            link.download = "Visiting Card.png";
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-          };
-
-          img.src =
-            "data:image/svg+xml;base64," +
-            btoa(unescape(encodeURIComponent(svgData)));
-
-          $("#generateVistingCard").html("Download Visiting Card");
         });
       } else if (
         response.status == "auth_failed" &&
@@ -115,15 +79,72 @@ const getData = () => {
 };
 
 function downloadIDCard() {
-  const idCard = document.querySelector('#totalidcard');
+  const idCard = document.querySelector("#totalidcard");
 
   html2canvas(idCard, {
-      scale: 3, // Increase this for higher quality (e.g., 3x resolution)
-      useCORS: true // Ensures external images are handled
-  }).then(canvas => {
-      const link = document.createElement('a');
-      link.download = 'ID_Card.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+    scale: 3, // Increase this for higher quality (e.g., 3x resolution)
+    useCORS: true, // Ensures external images are handled
+  }).then((canvas) => {
+    const link = document.createElement("a");
+    link.download = "ID_Card.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
   });
 }
+
+// const downloadVisitingCard = () => {
+//   const element = document.getElementById("visitingCard"); // correct ID
+//   if (!element || element.innerHTML.trim() === "") {
+//     console.error("Visiting card element not found or empty");
+//     return;
+//   }
+
+//   html2canvas(element, { scale: 5, useCORS: true }).then((canvas) => {
+//     const imgData = canvas.toDataURL("image/png");
+//     const pdf = new jsPDF("landscape", "mm", [89, 51]);
+//     pdf.addImage(imgData, "PNG", 0, 0, 89, 51); // no negative offset
+//     pdf.save("visiting-card.pdf");
+//   });
+// };
+
+
+// const downloadVisitingCard = () => {
+//   const element = document.getElementById("visitingcards");
+
+//   const idCard = document.querySelector("#visitingcards");
+
+//   html2canvas(idCard, {
+//     scale: 3, // Increase this for higher quality (e.g., 3x resolution)
+//     useCORS: true, // Ensures external images are handled
+//   }).then((canvas) => {
+//     const link = document.createElement("a");
+//     link.download = "visitingcard.png";
+//     link.href = canvas.toDataURL("image/png");
+//     link.click();
+//   });
+// };
+
+const downloadVisitingCard = () => {
+  const { jsPDF } = window.jspdf;
+  const idCard = document.getElementById("visitingcards");
+
+  html2canvas(idCard, {
+    scale: 5, // higher quality
+    useCORS: true, // for external images
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png");
+    
+    // Create jsPDF instance
+    const pdf = new jsPDF({
+      orientation: "landscape", // or "portrait"
+      unit: "px",
+      format: [canvas.width, canvas.height], // Match canvas size
+    });
+
+    // Add image to PDF
+    pdf.addImage(imgData, "PNG", 0, 0, canvas.width, canvas.height);
+
+    // Save PDF
+    pdf.save("visitingcard.pdf");
+  });
+};

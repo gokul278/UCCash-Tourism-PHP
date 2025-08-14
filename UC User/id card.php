@@ -39,6 +39,17 @@
         integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-od0f7g0Tsyj1oK3zNbdt9pE6GzhxgYQEx+x0d/1ZzE3Q06IF1P1KHY7Flb1Tu8l5dIXAz0P0kfaZ3N0pIG9l3g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+    </script> -->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+
+
 </head>
 
 <body>
@@ -93,8 +104,8 @@
                                 class="fa fa-users me-2"></i>My Team</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="genealogy.php" class="dropdown-item">Genealogy</a>
-                            <a href="team list.php" class="dropdown-item">Team List</a>
-                            <a href="direct member list.php" class="dropdown-item">Direct Member List</a>
+                            <a href="team list.php" class="dropdown-item">TP Team List</a>
+                            <a href="direct member list.php" class="dropdown-item">Direct TP List</a>
                         </div>
                     </div>
                     <!-- <div class="nav-item dropdown">
@@ -106,15 +117,15 @@
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
+                                class="fa fa-id-card me-2"></i>TP Activation<p style="text-align: center;"> Deposit</p>
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="id activation.php" class="dropdown-item">ID Activation</a>
-                            <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
+                            <a href="id activation.php" class="dropdown-item">TP Activation</a>
+                            <a href="id reactivation.php" class="dropdown-item">TP Reactivation</a>
                         </div>
                     </div>
                     <a href="distributor activation status.php" class="nav-item nav-link"><i
-                            class="fa fa-signal me-2"></i>ID Activation <p style="text-align: center;">History</p></a>
+                            class="fa fa-signal me-2"></i>TP Activation <p style="text-align: center;">History</p></a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-wallet me-2"></i>Topup Wallet</a>
@@ -266,7 +277,8 @@
                 }
 
                 .id-card-holder {
-                    width: 300px;
+                    height: 394.1732283464567px;
+                    width: 273.22834645669295px;
                     padding: 10px;
                     margin: 0 auto;
                     background-color: #075175;
@@ -281,10 +293,12 @@
                     padding: 10px;
                     border-radius: 20px;
                     text-align: center;
+                    height: 374.1732283464567px;
+                    width: 253.22834645669295px;
                     box-shadow: 0 0 3px 0px #b9b9b9;
                 }
 
-                .id-card img {
+                /* .id-card img {
                     margin: 0 auto;
                 }
 
@@ -296,11 +310,11 @@
                 .photo img {
                     width: 120px;
                     margin-top: 15px;
-                }
+                } */
 
                 h2 {
-                    font-size: 20px;
-                    margin: 10px 0;
+                    font-size: 18px;
+                    margin: 5px 0;
                 }
 
                 h3 {
@@ -315,20 +329,21 @@
 
                 p {
                     /* font-size: 10px; Increase font size */
-                    margin: 5px;
+                    margin: 2px;
+                }
+
+                #visitingcards {
+                    width: 89mm;
+                    height: 54mm;
+                    /* border: 5px solid #f7c128;0 */
+                    /* border-radius: 10px; */
                 }
 
                 #visitingcard {
-                    width: 100%;
-                    height: auto;
-                    border: 5px solid #f7c128;
-                    border-radius: 10px;
-                }
-
-                @media (min-width: 1024px) {
-                    #visitingcard {
-                        width: 50%;
-                    }
+                    width: 89mm;
+                    height: 54mm;
+                    /* border: 5px solid #f7c128;0 */
+                    /* border-radius: 10px; */
                 }
             </style>
 
@@ -337,7 +352,7 @@
                     <div class="col-xl-12">
                         <div class="card mb-4">
                             <div class="card-header">Visiting Card</div>
-                            <div class="card-body" id="visitingCard" style="width:100%;display: flex;justify-content:center; flex-direction:column; align-items:center">
+                            <div class="card-body" id="visitingCard" style="width:100%;display: flex;justify-content:center; flex-direction:column; align-items:center;">
 
                             </div>
                         </div>
@@ -349,25 +364,28 @@
                                 <div class="id-card-hook"></div>
                                 <div class="id-card-holder mb-2" id="totalidcard">
                                     <div class="id-card">
-                                        <div class="header">
-                                            <img src="img/uc logo.png">
+                                        <div style="display: flex; justify-content:center; align-items:center" class="header">
+                                            <img style="width:110px; height:35px" src="img/uc logo.png">
                                         </div>
-                                        <div class="photo">
-                                            <img style="width: 100px;height:100px;border-radius:50%" class="user_profileimg"
+                                        <div class="photo" style="margin-top: 10px;">
+                                            <img style="width: 80px;height:80px;border-radius:50%" class="user_profileimg"
                                                 src="img/user.png">
                                         </div>
                                         <h2 class="user_name"></h2>
-                                        <div id="barcode"></div>
-                                        <p style="font-size:smaller" class="user_id"></p>
-                                        <p style="color: #000;font-size:smaller">This is a <b>Premium Identity</b> card.</p>
-                                        <p style="color: #000;font-size:smaller">It is non transferable.</p>
-                                        <hr>
+                                        <div style="margin-top: 10px;margin-bottom:10px;width:100%;display:flex;justify-content:center;">
+                                            <div id="barcode"></div>
+                                        </div>
+
+                                        <!-- <p style="font-size:smaller" class="user_id"></p> -->
+                                        <!-- <p style="color: #000;font-size:x-small">This is a <b>Premium Identity</b> card.</p>
+                                        <p style="color: #000;font-size:x-small">It is non transferable.</p> -->
+                                        <!-- <hr> -->
                                         <p><strong>Member ID : </strong><span id="memberid">UCT123456</span><br> <strong>Phone :
                                             </strong><span id="memberphone">9360248850</span></p>
                                         <p><strong>Address : </strong><span id="memberaddress">Salem, 606202</span>
                                         <p>
 
-                                        <p style="color: #000;"><strong>UCCASH TOURISM <a href="https://uccashtourism.com"
+                                        <p style="color: #000;"><strong>TRAVEL PARTNER <a href="https://uccashtourism.com"
                                                     target="_blank">www.uccashtourism.com</strong></a></p>
 
                                     </div>
@@ -410,7 +428,7 @@
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

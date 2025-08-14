@@ -214,7 +214,8 @@
                         //Bonus Travel Point Wallet
                         for ($i = 1; $i <= 9; $i++) {
 
-                            $value = $tcvalue * 0.0222; // 2.22 % * tcvalue
+                            // $value = $tcvalue * 0.0222; // 2.22 % * tcvalue
+                            $value = $tcvalue * 0.0166; // 1.66 % * tcvalue
 
                             $lvl = ${"lvl" . $i};
 
@@ -223,6 +224,7 @@
                                 VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Bonus Travel Points')");
                             }
                         }
+
 
                         //Networking Income Wallet
                         for ($i = 1; $i <= 9; $i++) {
@@ -275,18 +277,18 @@
                             }
                         }
 
-                        //Royalty Income Wallet
-                        for ($i = 1; $i <= 9; $i++) {
+                        // //Royalty Income Wallet
+                        // for ($i = 1; $i <= 9; $i++) {
 
-                            $value = $tcvalue * 0.0066; // 0.66 % * tcvalue
+                        //     $value = $tcvalue * 0.0066; // 0.66 % * tcvalue
 
-                            $lvl = ${"lvl" . $i};
+                        //     $lvl = ${"lvl" . $i};
 
-                            if (strlen($lvl) >= 5) {
-                                $btpoint = $con->query("INSERT INTO royaltyincomewallet (user_id,riw_points,riw_bonusfrom,riw_lvl,riw_action,riw_remark)
-                                VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Royalty Income')");
-                            }
-                        }
+                        //     if (strlen($lvl) >= 5) {
+                        //         $btpoint = $con->query("INSERT INTO royaltyincomewallet (user_id,riw_points,riw_bonusfrom,riw_lvl,riw_action,riw_remark)
+                        //         VALUES ('{$lvl}','{$value}','{$userid}','{$i}','credit','Royalty Income')");
+                        //     }
+                        // }
 
 
                         $approveactivation = $con->query("UPDATE idactivation SET action='paid', remark='' WHERE idactivation_id='{$idactivationid}'");

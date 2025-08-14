@@ -62,7 +62,7 @@ if ($values["status"] == "success") {
 
         if ($count >= $level['threshold']) {
           $response["testing"] = $count >= $level['threshold'];
-          $tabledata = '<svg id="visitingcard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="768" viewBox="0 0 1280 768">
+          $tabledata = '<div id="visitingcards"> <svg id="visitingcard" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="768" viewBox="0 0 1280 768">
   <defs>
     <style>
       .cls-1 {
@@ -91,9 +91,9 @@ if ($values["status"] == "success") {
   <text id="number-2" data-name="number" class="cls-2" x="70.974" y="194.125">Director</text>
   <text id="mail" class="cls-3" x="130.974" y="586.125">'.$datarow["user_email"].'</text>
 </svg>
-
+</div>
  <div style="width:100%;margin-top:10px" align="center">
-    <button class="btn btn-warning" id="generateVistingCard">Download Visiting Card</button>&nbsp;&nbsp;&nbsp;&nbsp;
+   <button class="btn btn-warning" id="generateVistingCard" onClick="downloadVisitingCard()">Download Visiting Card</button>
   </div>
 ';
                 } else {
@@ -131,4 +131,4 @@ if ($values["status"] == "success") {
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-}
+}    

@@ -82,8 +82,8 @@
                                 class="fa fa-users me-2"></i>My Team</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="genealogy.php" class="dropdown-item">Genealogy</a>
-                            <a href="team list.php" class="dropdown-item">Team List</a>
-                            <a href="direct member list.php" class="dropdown-item">Direct Member List</a>
+                            <a href="team list.php" class="dropdown-item">TP Team List</a>
+                            <a href="direct member list.php" class="dropdown-item">Direct TP List</a>
                         </div>
                     </div>
                     <!-- <div class="nav-item dropdown">
@@ -95,15 +95,15 @@
                     </div> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
-                                class="fa fa-id-card me-2"></i>ID Activation<p style="text-align: center;"> Deposit</p>
+                                class="fa fa-id-card me-2"></i>TP Activation<p style="text-align: center;"> Deposit</p>
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="id activation.php" class="dropdown-item">ID Activation</a>
-                            <a href="id reactivation.php" class="dropdown-item">ID Reactivation</a>
+                            <a href="id activation.php" class="dropdown-item">TP Activation</a>
+                            <a href="id reactivation.php" class="dropdown-item">TP Reactivation</a>
                         </div>
                     </div>
                     <a href="distributor activation status.php" class="nav-item nav-link active"><i
-                            class="fa fa-signal me-2"></i>ID Activation <p style="text-align: center;">History</p></a>
+                            class="fa fa-signal me-2"></i>TP Activation <p style="text-align: center;">History</p></a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i
                                 class="fa fa-wallet me-2"></i>Topup Wallet</a>
@@ -322,7 +322,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">ID Activation History</h6>
+                            <h6 class="mb-4">TP Activation History</h6>
                             <div class="table-responsive">
                                 <strong>
                                     <table style="color: black; text-align: center;" class="table table-bordered">
@@ -331,12 +331,12 @@
                                                 <th scope="col">S.NO</th>
                                                 <th scope="col">Activation ID</th>
                                                 <th scope="col">Activation Date</th>
-                                                <th scope="col">User ID</th>
+                                                <th scope="col">TP NO</th>
                                                 <th scope="col">Payment Type</th>
                                                 </th>
                                                 <th scope="col">Received Amount</th>
                                                 <th scope="col">Travel Coupon</th>
-                                                <th scope="col">Transaction ID</th>
+                                                <th scope="col">TXN ID</th>
                                                 <th scope="col">Status</th>
                                                 <th scope="col">Invoice</th>
                                                 <th scope="col">certificate</th>

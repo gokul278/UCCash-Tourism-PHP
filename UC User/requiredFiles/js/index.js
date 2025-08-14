@@ -239,7 +239,15 @@ const getData = () => {
 // }
 
 function startLiveCountdown(endDateStr) {
-  const endDate = new Date(endDateStr).getTime();
+  console.log(endDateStr);
+
+  // Parse the given date
+  const endDateObj = new Date(endDateStr);
+
+  // Set to end of the same day
+  endDateObj.setHours(23, 59, 59, 999);
+
+  const endDate = endDateObj.getTime();
   const timerEl = document.getElementById("rewardCountdownTimer");
 
   if (!timerEl) return; // Element not yet rendered
