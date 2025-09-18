@@ -297,7 +297,7 @@ if ($values["status"] == "success") {
             ];
             $mail->SMTPAuth = true;
             $mail->Username = 'info@uccashtourism.com';
-            $mail->Password = 'Tourism@#$2023';
+            $mail->Password = 'UccashAdmin@2025';
             $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
             $mail->addAddress($email);
             $mail->isHTML(true);
@@ -1057,7 +1057,7 @@ function successmail($name, $email, $content)
         ];
         $mail->SMTPAuth = true;
         $mail->Username = 'info@uccashtourism.com';
-        $mail->Password = 'Tourism@#$2023';
+        $mail->Password = 'UccashAdmin@2025';
         $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
         $mail->addAddress($email);
         $mail->isHTML(true);

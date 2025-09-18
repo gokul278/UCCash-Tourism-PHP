@@ -409,7 +409,16 @@ if ($values["status"] == "success") {
                 // Loop through levels 1 to 9 to count total team members
                 for ($lvls = 1; $lvls <= 9; $lvls++) {
                     $levelColumn = "lvl{$lvls}";
-                    $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
+                    $result = $con->query("
+                    SELECT
+                        g.user_id
+                    FROM
+                        genealogy g
+                    JOIN userdetails u ON
+                        u.user_id = g.user_id
+                    WHERE
+                        g.{$levelColumn} = '{$values["userid"]}' AND u.user_referalStatus = 'activated';
+                    ");
 
                     while ($row = $result->fetch_assoc()) {
                         $teamMemberCount++;
@@ -451,7 +460,16 @@ if ($values["status"] == "success") {
                 // Loop through levels 1 to 9 to count total team members
                 for ($lvls = 1; $lvls <= 9; $lvls++) {
                     $levelColumn = "lvl{$lvls}";
-                    $result = $con->query("SELECT user_id FROM genealogy WHERE {$levelColumn}='{$values["userid"]}'");
+                    $result = $con->query("
+                    SELECT
+                        g.user_id
+                    FROM
+                        genealogy g
+                    JOIN userdetails u ON
+                        u.user_id = g.user_id
+                    WHERE
+                        g.{$levelColumn} = '{$values["userid"]}' AND u.user_referalStatus = 'activated';
+                    ");
 
                     while ($row = $result->fetch_assoc()) {
                         $teamMemberCount++;
@@ -463,7 +481,7 @@ if ($values["status"] == "success") {
                     }
                 }
 
-                if ($teamMemberCount >= 125 && $directTeamIds >= 5) {
+                if ($teamMemberCount >= 625 && $directTeamIds >= 5) {
                     $debitwallet = $con->query("INSERT INTO carandhousefundwallet (user_id, chfw_points, chfw_bonusfrom, chfw_lvl, chfw_action, chfw_remark)
                     VALUES ('{$values["userid"]}', '{$transfervalue}', '', '', 'debit', 'Available Withdraw Balance')");
                     $creditwallet = $con->query("INSERT INTO availablewithdrwabalance (user_id, awb_from, awb_to, awb_points, awb_action)
@@ -472,7 +490,7 @@ if ($values["status"] == "success") {
                     echo json_encode($response);
                 } else {
                     $response["status"] = "error";
-                    $response["message"] = "A minimum of 5 direct sponsors and 125 total team members is required.";
+                    $response["message"] = "A minimum of 5 direct sponsors and 625 total team members is required.";
                     echo json_encode($response);
                 }
 

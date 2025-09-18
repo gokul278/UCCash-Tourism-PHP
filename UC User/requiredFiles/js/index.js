@@ -113,22 +113,26 @@ const getData = () => {
 
         let bannerContent = "";
 
-        if (response.rewardstatus === "notactivated") {
-          bannerContent = `
-           <div class="reward-banner locked">
-                        <div class="content">
-                            <span class="reward-icon">🔒</span>
-                            <div class="desc-group">
-                                <span class="desc bold">You need to Activate your Account</span>
-                                <span class="desc">To unlock the $25 reward</span>
-                            </div>
-                        </div>
-                        <a href="https://uccashtourism.com/UC%20User/id%20activation.php" class="button-link">
-                            <i class="bi bi-lightning-charge"></i>
-                        </a>
-                    </div>
-          `;
-        } else if (response.rewardstatus === "pending") {
+        // if (response.rewardstatus === "notactivated") {
+        //   bannerContent = `
+        //    <div class="reward-banner locked">
+        //                 <div class="content">
+        //                     <span class="reward-icon">🔒</span>
+        //                     <div class="desc-group">
+        //                         <span class="desc bold">You need to Activate your Account</span>
+        //                         <span class="desc">To unlock the $25 reward</span>
+        //                     </div>
+        //                 </div>
+        //                 <a href="https://uccashtourism.com/UC%20User/id%20activation.php" class="button-link">
+        //                     <i class="bi bi-lightning-charge"></i>
+        //                 </a>
+        //             </div>
+        //   `;
+        // } else
+        if (
+          response.rewardstatus === "pending" ||
+          response.rewardstatus === "notactivated"
+        ) {
           bannerContent = `
           <div class="reward-banner in-progress">
                         <div class="content">

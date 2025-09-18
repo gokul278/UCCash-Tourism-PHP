@@ -39,7 +39,7 @@ try {
     ];
     $mail->SMTPAuth = true;
     $mail->Username = 'support@uccashtourism.com';
-    $mail->Password = 'Tourism@#$2023';
+    $mail->Password = 'UccashAdmin@2025';
     $mail->setFrom('support@uccashtourism.com', 'UCCASH Tourism');
     // uccashtourism@gmail.com
     $mail->addAddress("uccashtourism@gmail.com");

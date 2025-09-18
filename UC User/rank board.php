@@ -317,7 +317,7 @@
                                                 <th scope="col">Level</th>
                                                 <th scope="col">Team Purchase</th>
                                                 <th scope="col">Achieved Purchase</th>
-                                                <th scope="col">Rewards Valid Timing</th>
+                                                <!-- <th scope="col">Rewards Valid Timing</th> -->
                                                 <th scope="col">Rank</th>
                                                 <th scope="col">Rank Status</th>
                                                 <th scope="col">Eligible of Award</th>

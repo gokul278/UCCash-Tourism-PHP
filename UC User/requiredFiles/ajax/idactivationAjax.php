@@ -79,21 +79,18 @@ if ($values["status"] == "success") {
 
     $id = $con->query("SELECT MAX(id) AS max_id FROM idactivationhistory");
 
-    $idactivationid = "";
-
-    if (mysqli_num_rows($id) >= 1) {
+    if ($id && mysqli_num_rows($id) >= 1) {
       $getid = $id->fetch_assoc();
       $idval = (int) $getid["max_id"];
-      $idactivationid = "IAI-" . ($idval + 1);
+      $newId = $idval + 1; // numeric ID for primary key
+      $idactivationid = "IAI-" . $newId; // custom string ID
     } else {
+      $newId = 1;
       $idactivationid = "IAI-1";
     }
 
-
-
-
-    $insertactivationid = $con->query("INSERT INTO idactivation (idactivation_id,user_id,deposite_type,txnhashid,action) VALUES
-        ('{$idactivationid}','{$user_id}','Crypto','{$txnhashid}','admin')");
+    $insertactivationid = $con->query("INSERT INTO idactivation (id,idactivation_id,user_id,deposite_type,txnhashid,action) VALUES
+        ($newId, '{$idactivationid}','{$user_id}','Crypto','{$txnhashid}','admin')");
 
     $id = $con->query("SELECT MAX(id) AS max_id FROM idactivation WHERE user_id='{$user_id}'");
 
@@ -127,7 +124,7 @@ if ($values["status"] == "success") {
         ];
         $mail->SMTPAuth = true;
         $mail->Username = 'info@uccashtourism.com';
-        $mail->Password = 'Tourism@#$2023';
+        $mail->Password = 'UccashAdmin@2025';
         $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
         $mail->addAddress('uccashtourism@gmail.com');
         $mail->isHTML(true);
@@ -540,7 +537,7 @@ if ($values["status"] == "success") {
           ];
           $mail->SMTPAuth = true;
           $mail->Username = 'info@uccashtourism.com';
-          $mail->Password = 'Tourism@#$2023';
+          $mail->Password = 'UccashAdmin@2025';
           $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
           $mail->addAddress('uccashtourism@gmail.com');
           $mail->isHTML(true);

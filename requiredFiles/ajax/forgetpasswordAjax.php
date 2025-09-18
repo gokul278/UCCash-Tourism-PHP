@@ -66,7 +66,7 @@ if ($way == "forgetPassword") {
             ];
             $mail->SMTPAuth = true;
             $mail->Username = 'info@uccashtourism.com';
-            $mail->Password = 'Tourism@#$2023';
+            $mail->Password = 'UccashAdmin@2025';
             $mail->setFrom('info@uccashtourism.com', 'UCCASH Tourism');
             $mail->addAddress($postemail);
             $mail->isHTML(true);

@@ -14,7 +14,6 @@ if ($values["status"] == "success") {
 
         $response["status"] = "success";
         echo json_encode($response);
-
     } else if ($way == "getData") {
 
         $nextid = $_POST["nextid"];
@@ -38,14 +37,20 @@ if ($values["status"] == "success") {
             if ($rowgettitle["user_referalStatus"] == "notactivated") {
 
                 $response["activation"] = "false";
-
             } else if ($rowgettitle["user_referalStatus"] == "activated") {
 
                 $tree = "";
 
-                $lvl1sponser = $con->query("SELECT * 
-            FROM genealogy 
-            WHERE lvl1 = '{$nextid}'");
+                $lvl1sponser = $con->query("
+                    SELECT
+                        *
+                    FROM
+                        genealogy g
+                        JOIN userdetails u ON u.user_id = g.user_id
+                    WHERE
+                        g.lvl1 = '{$nextid}'
+                        ORDER BY u.user_referalStatus, u.id ASC
+                ");
 
                 $index = 0;
 
@@ -100,41 +105,83 @@ if ($values["status"] == "success") {
                     <h6>Joining Date: ' . date('d-m-Y', strtotime($getuserdetails["created_at"])) . '</h6>
                     ';
 
+                        $final_rank = "Member";
 
-                        $rank = "Member";
+                        $teamMemberCount = 0;
+                        $directTeamIds = [];
 
-                        // Check if the sponsor's referral status is activated
-                        if ($getusersponser["user_referalStatus"] == "activated") {
-                            $rank = "Distributor";
-                        }
+                        // Loop through levels 1 to 9 to count total team members
+                        for ($lvls = 1; $lvls <= 9; $lvls++) {
+                            $levelColumn = "lvl{$lvls}";
+                            $result = $con->query("
+                            SELECT
+                                g.user_id
+                            FROM
+                                genealogy g
+                            JOIN userdetails u ON
+                                u.user_id = g.user_id
+                            WHERE
+                                g.{$levelColumn} = '{$getuserdetails["user_id"]}' AND u.user_referalStatus = 'activated';
+                        ");
 
-                        // Initialize arrays to hold level queries and thresholds
-                        $levels = ["lvl1" => 5, "lvl2" => 25, "lvl3" => 125, "lvl4" => 375, "lvl5" => 1500, "lvl6" => 5000, "lvl7" => 5000];
-                        $ranks = ["lvl1" => "Director", "lvl2" => "Senior Director", "lvl3" => "Bronze Director", "lvl4" => "Silver Director", "lvl5" => "Gold Director", "lvl6" => "Diamond Director", "lvl7" => "Crow Director"];
+                            while ($row = $result->fetch_assoc()) {
+                                $teamMemberCount++;
 
-                        // Loop through each level and determine the rank based on activated members
-                        foreach ($levels as $level => $threshold) {
-                            // Query to get activated members at the current level
-                            $levelQuery = $con->query("SELECT user_id FROM genealogy WHERE $level='{$getuserdetails["user_id"]}'");
-
-                            // Count the number of activated members
-                            $activatedCount = 0;
-                            while ($row = $levelQuery->fetch_assoc()) {
-                                $account = $con->query("SELECT user_referalStatus FROM userdetails WHERE user_id='{$row["user_id"]}'");
-                                $getaccount = $account->fetch_assoc();
-                                if ($getaccount["user_referalStatus"] == "activated") {
-                                    $activatedCount++;
+                                // If it's level 1, collect direct team member IDs
+                                if ($lvls === 1) {
+                                    $directTeamIds[] = $row["user_id"];
                                 }
                             }
-
-                            // Check if the count meets or exceeds the threshold for this level
-                            if ($activatedCount >= $threshold) {
-                                $rank = $ranks[$level];
-                            }
                         }
 
+                        if (count($directTeamIds) >= 5 && $teamMemberCount >= 3125) {
+                            $final_rank = "Universal Crow Director";
+                        } else if (count($directTeamIds) >= 5 && $teamMemberCount >= 625) {
+                            $final_rank = "Diamond Director";
+                        } else if (count($directTeamIds) >= 5 && $teamMemberCount >= 125) {
+                            $final_rank = "Gold Director";
+                        } else if (count($directTeamIds) >= 5 && $teamMemberCount >= 25) {
+                            $final_rank = "Silver Director";
+                        } else if (count($directTeamIds) >= 5) {
+                            $final_rank = "Director";
+                        } else if (count($directTeamIds) < 5) {
+                            $final_rank = "Member";
+                        }
+
+                        // $rank = "Member";
+
+                        // // Check if the sponsor's referral status is activated
+                        // if ($getusersponser["user_referalStatus"] == "activated") {
+                        //     $rank = "Distributor";
+                        // }
+
+                        // // Initialize arrays to hold level queries and thresholds
+                        // $levels = ["lvl1" => 5, "lvl2" => 25, "lvl3" => 125, "lvl4" => 375, "lvl5" => 1500, "lvl6" => 5000, "lvl7" => 5000];
+                        // $ranks = ["lvl1" => "Director", "lvl2" => "Senior Director", "lvl3" => "Bronze Director", "lvl4" => "Silver Director", "lvl5" => "Gold Director", "lvl6" => "Diamond Director", "lvl7" => "Crow Director"];
+
+                        // // Loop through each level and determine the rank based on activated members
+                        // foreach ($levels as $level => $threshold) {
+                        //     // Query to get activated members at the current level
+                        //     $levelQuery = $con->query("SELECT user_id FROM genealogy WHERE $level='{$getuserdetails["user_id"]}'");
+
+                        //     // Count the number of activated members
+                        //     $activatedCount = 0;
+                        //     while ($row = $levelQuery->fetch_assoc()) {
+                        //         $account = $con->query("SELECT user_referalStatus FROM userdetails WHERE user_id='{$row["user_id"]}'");
+                        //         $getaccount = $account->fetch_assoc();
+                        //         if ($getaccount["user_referalStatus"] == "activated") {
+                        //             $activatedCount++;
+                        //         }
+                        //     }
+
+                        //     // Check if the count meets or exceeds the threshold for this level
+                        //     if ($activatedCount >= $threshold) {
+                        //         $rank = $ranks[$level];
+                        //     }
+                        // }
+
                         // Output the rank in the table
-                        $tree .= '<h6>Rank: ' . $rank . '</h6>';
+                        $tree .= '<h6>Rank: ' . $final_rank . '</h6>';
 
 
                         for ($i = 1; $i <= 9; $i++) {
@@ -162,11 +209,10 @@ if ($values["status"] == "success") {
                     </div>
                     </div>
                     </div>
-                    <br><span>' . $getuserdetails["user_name"] . '</span>
+                    <br><span style="height:17px;font-size:14px;text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: inline-block; max-width: 150px;">' . $getuserdetails["user_name"] . '</span>
                     <br><span>' . $getuserdetails["user_id"] . '</span>
                     <br><a href="nextgenealogy.php?nextid=' . $getuserdetails["user_id"] . '">view</a></span>
                     </li>';
-
                     } else if ($getuserdetails["user_referalStatus"] == "notactivated") {
 
                         $tree .= '<li>';
@@ -188,7 +234,7 @@ if ($values["status"] == "success") {
                     <a style="padding-left:50px">
                     <img class="childimg" src="img/' . (isset($getuserdetails["user_profileimg"]) && strlen($getuserdetails["user_profileimg"]) > 0 ? "user/" . $getuserdetails["user_profileimg"] : "user.png") . '" style="padding: 10px;background-color:red">
                     </a>
-                    <br><span>' . $getuserdetails["user_name"] . '</span>
+                    <br><span style="height:17px;font-size:14px;text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: inline-block; max-width: 150px;">' . $getuserdetails["user_name"] . '</span>
                     <br><span>' . $getuserdetails["user_id"] . '</span>
                     <br><a style="color:white">-</a>
                     </li>';
@@ -235,25 +281,15 @@ if ($values["status"] == "success") {
 
                 $response["tree"] = $tree;
                 $response["activation"] = "true";
-
-
-
-
             }
 
             $response["status"] = "success";
             echo json_encode($response);
-
         }
-
     }
-
 } else if ($values["status"] == "auth_failed") {
 
     $response["status"] = $values["status"];
     $response["message"] = $values["message"];
     echo json_encode($response);
-
 }
-
-?>

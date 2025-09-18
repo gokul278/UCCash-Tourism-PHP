@@ -80,34 +80,81 @@ if ($values["status"] == "success") {
         ];
 
         // 4. Compute rank using a single query for each level (JOIN + COUNT)
-        $ranks = [
-            1 => ["name" => "Director",         "min" => 5],
-            2 => ["name" => "Senior Director",  "min" => 25],
-            3 => ["name" => "Bronze Director",  "min" => 125],
-            4 => ["name" => "Silver Director",  "min" => 375],
-            5 => ["name" => "Gold Director",    "min" => 1500],
-            6 => ["name" => "Diamond Director", "min" => 5000],
-            7 => ["name" => "Crow Director",    "min" => 15000],
-        ];
+        $final_rank = "Member";
+        // $ranks = [
+        //     1 => ["name" => "Director",         "min" => 5],
+        //     2 => ["name" => "Senior Director",  "min" => 25],
+        //     3 => ["name" => "Bronze Director",  "min" => 125],
+        //     4 => ["name" => "Silver Director",  "min" => 375],
+        //     5 => ["name" => "Gold Director",    "min" => 1500],
+        //     6 => ["name" => "Diamond Director", "min" => 5000],
+        //     7 => ["name" => "Crow Director",    "min" => 15000],
+        // ];
 
-        $default_rank = $user["user_referalStatus"] == "activated" ? "Distributor" : "Member";
-        $final_rank = $default_rank;
+        // $default_rank = $user["user_referalStatus"] == "activated" ? "Distributor" : "Member";
 
-        // Level counts (all at once)
-        $levels = [];
-        foreach ($ranks as $i => $rk) {
-            $lvl_col = "lvl$i";
-            $q = $con->query("
-                SELECT COUNT(*) AS cnt
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.$lvl_col = '$user_id' AND u.user_referalStatus = 'activated'
+        // // Level counts (all at once)
+        // $levels = [];
+        // foreach ($ranks as $i => $rk) {
+        //     $lvl_col = "lvl$i";
+        //     $q = $con->query("
+        //         SELECT COUNT(*) AS cnt
+        //         FROM genealogy g
+        //         JOIN userdetails u ON g.user_id = u.user_id
+        //         WHERE g.$lvl_col = '$user_id' AND u.user_referalStatus = 'activated'
+        //     ");
+        //     $row = $q->fetch_assoc();
+        //     $levels[$i] = (int)$row['cnt'];
+        //     if ($levels[$i] >= $rk['min']) $final_rank = $rk['name'];
+        // }
+        // $response["rank"] = $final_rank;
+
+        $teamMemberCount = 0;
+        $directTeamIds = [];
+
+        // Loop through levels 1 to 9 to count total team members
+        for ($lvls = 1; $lvls <= 9; $lvls++) {
+            $levelColumn = "lvl{$lvls}";
+            $result = $con->query("
+            SELECT
+                g.user_id
+            FROM
+                genealogy g
+            JOIN userdetails u ON
+                u.user_id = g.user_id
+            WHERE
+                g.{$levelColumn} = '{$values["userid"]}' AND u.user_referalStatus = 'activated';
             ");
-            $row = $q->fetch_assoc();
-            $levels[$i] = (int)$row['cnt'];
-            if ($levels[$i] >= $rk['min']) $final_rank = $rk['name'];
+
+            while ($row = $result->fetch_assoc()) {
+                $teamMemberCount++;
+
+                // If it's level 1, collect direct team member IDs
+                if ($lvls === 1) {
+                    $directTeamIds[] = $row["user_id"];
+                }
+            }
         }
+
+        if (count($directTeamIds) >= 5 && $teamMemberCount >= 3125) {
+            $final_rank = "Universal Crow Director";
+        } else if (count($directTeamIds) >= 5 && $teamMemberCount >= 625) {
+            $final_rank = "Diamond Director";
+        } else if (count($directTeamIds) >= 5 && $teamMemberCount >= 125) {
+            $final_rank = "Gold Director";
+        } else if (count($directTeamIds) >= 5 && $teamMemberCount >= 25) {
+            $final_rank = "Silver Director";
+        } else if (count($directTeamIds) >= 5) {
+            $final_rank = "Director";
+        } else if (count($directTeamIds) < 5) {
+            $final_rank = "Member";
+        }
+
+
+
         $response["rank"] = $final_rank;
+        $response["val1"] = count($directTeamIds);
+        $response["val2"] = $teamMemberCount;
 
         // -- Rankboard Status logic --
         // Helper: get lvlX achieved date
@@ -134,33 +181,33 @@ if ($values["status"] == "success") {
             return '-';
         }
 
-        $lvl_dates = [];
-        foreach ($ranks as $i => $rk) {
-            $lvl_dates[$i] = getLevelAchievedDate($con, $user_id, $i, $rk['min']);
-        }
-        date_default_timezone_set('Asia/Kolkata');
-        $daydifference = getDaysDifference(date('Y-m-d', strtotime($user["created_at"])));
-        $response["rankboardStatus"] = false;
-        // Get eligible reward texts
-        $rewardrow = $con->query("SELECT * FROM eligiblereward LIMIT 1")->fetch_assoc();
-        $rankboard_map = [
-            1 => ["days" => 31, "hour" => 12, "label" => $rewardrow["lvl1reward"] ?? ""],
-            2 => ["days" => 61, "hour" => 12, "label" => $rewardrow["lvl2reward"] ?? ""],
-            3 => ["days" => 91, "hour" => 12, "label" => $rewardrow["lvl3reward"] ?? ""],
-            4 => ["days" => 121, "hour" => 12, "label" => $rewardrow["lvl4reward"] ?? ""],
-            5 => ["days" => 151, "hour" => 12, "label" => $rewardrow["lvl5reward"] ?? ""],
-            6 => ["days" => 181, "hour" => 12, "label" => $rewardrow["lvl6reward"] ?? ""],
-            7 => ["days" => 211, "hour" => 12, "label" => $rewardrow["lvl7reward"] ?? ""],
-        ];
-        foreach ($rankboard_map as $i => $rb) {
-            if ($daydifference <= $rb["days"] && (int)date('H') < $rb["hour"] && $lvl_dates[$i] == "-") {
-                $response["rankboardStatus"] = true;
-                $response["rankboardDate"] = date('Y-m-d', strtotime($user["created_at"]));
-                $response["rankboardLabel"] = $rb["label"];
-                $response["rankboardAchiveDays"] = $rb["days"] - 1;
-                break;
-            }
-        }
+        // $lvl_dates = [];
+        // foreach ($ranks as $i => $rk) {
+        //     $lvl_dates[$i] = getLevelAchievedDate($con, $user_id, $i, $rk['min']);
+        // }
+        // date_default_timezone_set('Asia/Kolkata');
+        // $daydifference = getDaysDifference(date('Y-m-d', strtotime($user["created_at"])));
+        // $response["rankboardStatus"] = false;
+        // // Get eligible reward texts
+        // $rewardrow = $con->query("SELECT * FROM eligiblereward LIMIT 1")->fetch_assoc();
+        // $rankboard_map = [
+        //     1 => ["days" => 31, "hour" => 12, "label" => $rewardrow["lvl1reward"] ?? ""],
+        //     2 => ["days" => 61, "hour" => 12, "label" => $rewardrow["lvl2reward"] ?? ""],
+        //     3 => ["days" => 91, "hour" => 12, "label" => $rewardrow["lvl3reward"] ?? ""],
+        //     4 => ["days" => 121, "hour" => 12, "label" => $rewardrow["lvl4reward"] ?? ""],
+        //     5 => ["days" => 151, "hour" => 12, "label" => $rewardrow["lvl5reward"] ?? ""],
+        //     6 => ["days" => 181, "hour" => 12, "label" => $rewardrow["lvl6reward"] ?? ""],
+        //     7 => ["days" => 211, "hour" => 12, "label" => $rewardrow["lvl7reward"] ?? ""],
+        // ];
+        // foreach ($rankboard_map as $i => $rb) {
+        //     if ($daydifference <= $rb["days"] && (int)date('H') < $rb["hour"] && $lvl_dates[$i] == "-") {
+        //         $response["rankboardStatus"] = true;
+        //         $response["rankboardDate"] = date('Y-m-d', strtotime($user["created_at"]));
+        //         $response["rankboardLabel"] = $rb["label"];
+        //         $response["rankboardAchiveDays"] = $rb["days"] - 1;
+        //         break;
+        //     }
+        // }
 
         //Reward Status
         $rewardstatus = $user["user_referalStatus"];
@@ -168,7 +215,7 @@ if ($values["status"] == "success") {
         $startdate = "";
         $enddate = "";
 
-        if ($rewardstatus === "activated") {
+        // if ($rewardstatus === "activated") {
             $getRewardBonus = $con->query("SELECT * FROM rewardbonus WHERE user_id = '{$user_id}' ORDER BY rb_id DESC LIMIT 1")->fetch_assoc();
             if ((int)$getRewardBonus["rb_usercount"] >= 5) {
                 $rewardstatus = "finished";
@@ -179,7 +226,7 @@ if ($values["status"] == "success") {
             $userCount = $getRewardBonus["rb_usercount"] ?  $getRewardBonus["rb_usercount"] : 0;
             $startdate = $getRewardBonus["rb_start"];
             $enddate = $getRewardBonus["rb_end"];
-        }
+        // }
 
         $response["rewardstatus"] = $rewardstatus;
         $response["rewardUsercount"] = $userCount;

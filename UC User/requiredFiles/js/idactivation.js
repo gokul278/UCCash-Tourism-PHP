@@ -95,7 +95,9 @@ $(document).ready(() => {
 $("#activationcrypto").submit(function (e) {
   e.preventDefault();
 
-  $("#cryptoSubmit").html("Loading");
+$("#cryptoSubmit")
+  .html("Loading")
+  .attr("type", "button");
 
   var frm = $("#activationcrypto")[0];
   var frmdata = new FormData(frm);
