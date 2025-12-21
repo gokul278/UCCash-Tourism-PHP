@@ -20,6 +20,7 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
     $username = $getuser["user_name"];
     $email = $getuser["user_email"];
     $phoneno = $getuser["user_phoneno"];
+    $user_city = $getuser["user_city"];
 
 
     $invoiceid = $_POST["certificateid"];
@@ -50,12 +51,14 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                 <table style="width:99%">
                         <tr align="center">
                             <td style="background-color:#011B3B;color:white">Invoice No</td>
+                            <td style="background-color:#011B3B;color:white">SAC</td>
                             <td style="background-color:#011B3B;color:white">Activation Date</td>
                             <td style="background-color:#011B3B;color:white">Travel Coupoon</td>
                             <td style="background-color:#011B3B;color:white">Activation Amount</td>
                         </tr>
                         <tr align="center">
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoiceid . '</b></td>
+                            <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>9985</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoicedate . '</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>50 TC</b></td>
                             <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $netAmount . '</b></td>
@@ -72,7 +75,7 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                             <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $gstAmount . '</b></td>
                         </tr>
                         <tr align="center">
-                            <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
+                            <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:13px;">
                                 <table style="margin: 0; padding: 0;">
                                     <tr>
                                         <td style="width:65%"></td>
@@ -80,7 +83,7 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                                     </tr>
                                 </table>
                             </td>
-                            <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $totalAmount . '</b></td>
+                            <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:13px;"><b>' . $totalAmount . '</b></td>
                         </tr>
                 </table>
             </td>
@@ -108,18 +111,20 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
             <table style="width:99%">
                     <tr align="center">
                         <td style="background-color:#011B3B;color:white">Invoice No</td>
+                        <td style="background-color:#011B3B;color:white">SAC</td>
                         <td style="background-color:#011B3B;color:white">Activation Date</td>
                         <td style="background-color:#011B3B;color:white">Travel Coupoon</td>
                         <td style="background-color:#011B3B;color:white">Activation Amount</td>
                     </tr>
                     <tr align="center">
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoiceid . '</b></td>
+                        <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>9985</b></td>
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoicedate . '</b></td>
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>50 TC</b></td>
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $netAmount . '</b></td>
                     </tr>
                     <tr align="center">
-                        <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
+                        <td style="width:80%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
                             <table style="margin: 0; padding: 0;">
                                 <tr>
                                     <td style="width:65%"></td>
@@ -127,10 +132,10 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                                 </tr>
                             </table>
                         </td>
-                        <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $gstAmount . '</b></td>
+                        <td style="width:20%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $gstAmount . '</b></td>
                     </tr>
                     <tr align="center">
-                        <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
+                        <td style="width:80%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
                             <table style="margin: 0; padding: 0;">
                                 <tr>
                                     <td style="width:65%"></td>
@@ -138,7 +143,7 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                                 </tr>
                             </table>
                         </td>
-                        <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $totalAmount . '</b></td>
+                        <td style="width:20%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>' . $totalAmount . '</b></td>
                     </tr>
             </table>
         </td>
@@ -149,18 +154,20 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
             <table style="width:99%">
                     <tr align="center">
                         <td style="background-color:#011B3B;color:white">Invoice No</td>
+                        <td style="background-color:#011B3B;color:white">SAC</td>
                         <td style="background-color:#011B3B;color:white">Activation Date</td>
                         <td style="background-color:#011B3B;color:white">Travel Coupoon</td>
                         <td style="background-color:#011B3B;color:white">Activation Amount</td>
                     </tr>
                     <tr align="center">
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoiceid . '</b></td>
+                        <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>9985</b></td>
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>' . $invoicedate . '</b></td>
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>50 TC</b></td>
                         <td style="color:#6F6F6F;border: 1px solid #6F6F6F;"><b>50 points</b></td>
                     </tr>
                     <tr align="center">
-                        <td style="width:75%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
+                        <td style="width:80%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;">
                             <table style="margin: 0; padding: 0;">
                                 <tr>
                                     <td style="width:65%"></td>
@@ -168,7 +175,7 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                                 </tr>
                             </table>
                         </td>
-                        <td style="width:25%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>50 Points</b></td>
+                        <td style="width:20%;color:#6F6F6F;border: 1px solid #6F6F6F;font-size:15px;"><b>50 Points</b></td>
                     </tr>
                     <tr><td></td></tr>
             </table>
@@ -193,6 +200,7 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
         <tr>
             <td><img src="../UC User/requiredFiles/ajax/img/ActivationInvoice-Top.jpg"/></td>
         </tr>
+        <tr><td style="width:14%;font-size:15px"><b>Bill To:</b></td></tr>
         <tr>
             <td style="width:3%"></td>
             <td style="width:67%">
@@ -219,6 +227,11 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                     <td style="width:30%" align="start"><b>Contact No</b></td>
                     <td style="width:68%" align="start"><b>:</b> ' . $phoneno . '</td>
                 </tr>
+                <tr>
+                    <td style="width:2%"></td>
+                    <td style="width:30%" align="start"><b>Address</b></td>
+                    <td style="width:68%" align="start"><b>:</b> ' . $user_city . '</td>
+                </tr>
             </table>
         </div>
             </td>
@@ -226,13 +239,12 @@ if (isset($_POST["certificateid"]) && strlen($_POST["certificateid"]) > 1) {
                 <div style="font-size:13px;color:#6F6F6F;"><b>Date: ' . date('d/m/Y') . '</b></div>
             </td>
         </tr>
-        <tr><td></td></tr>
         ' . $content . '   
         <br/>
         <tr>
             <td><img src="../UC User/requiredFiles/ajax/img/ActivationInvoice-bottom.jpg"/></td>
         </tr>
-        <tr style="background-color:#F5BF26;font-size:13px" align="start">
+        <tr style="background-color:#F5BF26;font-size:11px" align="start">
             <td><div><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Copyright © UCCASH Tourism - ' . date('Y') . '. All Rights Reserved.<br></b></div></td>
         </tr>        
     </table>

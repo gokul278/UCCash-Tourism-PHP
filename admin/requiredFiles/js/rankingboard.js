@@ -18,12 +18,25 @@ $(document).ready(() => {
       } else if (response.status == "auth_failed") {
         location.replace("unauth_login.php");
       } else if (response.status == "success") {
+        $("#searchtype").prop("disabled", true);
         getAwards();
         return getData();
       }
     },
   });
 });
+
+const changeVal = () => {
+
+  var type = $("#typevalue").val();
+  if (type === "none") {
+    $("#searchtype").prop("disabled", true);
+    $("#clearsearchtype").prop("disabled", false);
+  } else {
+    $("#searchtype").prop("disabled", false);
+    $("#clearsearchtype").prop("disabled", false);
+  }
+}
 
 const getAwards = () => {
   $.ajax({
@@ -57,17 +70,14 @@ const getAwards = () => {
 };
 
 const getData = () => {
-  x += 1;
-
   $.ajax({
     type: "POST",
     url: "./requiredFiles/ajax/rankingboardAjax.php",
-    data: {
-      way: "getData",
-    },
+    data: { way: "getData" },
     success: function (res) {
       var response = JSON.parse(res);
-      if (response.status == "success") {
+
+      if (response.status === "success") {
         $(".adminname").html(response.admin_name);
 
         if (response.profile_image !== null) {
@@ -77,22 +87,32 @@ const getData = () => {
           );
         }
 
+        // 🔥 Destroy existing DataTable
+        if ($.fn.DataTable.isDataTable("#myTable")) {
+          rankingTable.clear().destroy();
+        }
+
         if (response.tabledata.length > 0) {
           $("#tabledata").html(response.tabledata);
-          if (x == 1) {
-            let table = new DataTable("#myTable", {
-              ordering: false,
-            });
-          }
+
+          // 🔥 Reinitialize DataTable
+          rankingTable = new DataTable("#myTable", {
+            ordering: false,
+            pageLength: 10,
+          });
         } else {
-          $("#tabledata").html("<tr><td colspan='5'>No Data Found</td></tr>");
+          $("#tabledata").html(
+            "<tr><td colspan='5'>No Data Found</td></tr>"
+          );
         }
-      } else if (
-        response.status == "auth_failed" &&
-        response.message == "Expired token"
+      }
+      else if (
+        response.status === "auth_failed" &&
+        response.message === "Expired token"
       ) {
         location.replace("time_expried.php");
-      } else if (response.status == "auth_failed") {
+      }
+      else if (response.status === "auth_failed") {
         location.replace("unauth_login.php");
       }
     },
@@ -102,13 +122,13 @@ const getData = () => {
 $("#clearsearchtype").click(function (e) {
   e.preventDefault();
 
-  $("#searchtype").prop("disabled", false);
+  $("#searchtype").prop("disabled", true);
   $("#clearsearchtype").prop("disabled", true);
-
   $("#typevalue").val("none");
 
-  return getData();
+  getData(); // ✅ this will reset everything
 });
+
 
 $("#searchtype").click(function (e) {
   e.preventDefault();
@@ -124,25 +144,30 @@ $("#searchtype").click(function (e) {
     },
     success: function (res) {
       var response = JSON.parse(res);
-      if (response.status == "success") {
-        $("#clearsearchtype").prop("disabled", false);
+
+      if (response.status === "success") {
+
+        if ($.fn.DataTable.isDataTable("#myTable")) {
+          rankingTable.clear().destroy();
+        }
 
         if (response.tabledata.length > 0) {
           $("#tabledata").html(response.tabledata);
+
+          rankingTable = new DataTable("#myTable", {
+            ordering: false,
+            pageLength: 10,
+          });
         } else {
-          $("#tabledata").html("<tr><td colspan='5'>No Data Found</td></tr>");
+          $("#tabledata").html(
+            "<tr><td colspan='5'>No Data Found</td></tr>"
+          );
         }
-      } else if (
-        response.status == "auth_failed" &&
-        response.message == "Expired token"
-      ) {
-        location.replace("time_expried.php");
-      } else if (response.status == "auth_failed") {
-        location.replace("unauth_login.php");
       }
     },
   });
 });
+
 
 const lvl1reward = (button) => {
   var userid = $(button).attr("userid");
@@ -160,6 +185,7 @@ const lvl1reward = (button) => {
         userid: userid,
       },
       success: function (res) {
+        $("#pagination").empty();
         var response = JSON.parse(res);
         if (response.status == "success") {
           // Call getData() on success

@@ -77,7 +77,7 @@
             padding: 20px;
             border-radius: 8px;
             width: 90%;
-            height: 90vh;
+            height: 70vh;
             max-width: 500px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             position: relative;
@@ -335,7 +335,7 @@
                         <button type="button" class="close-btn" id="closeModal">&times;</button>
                         <h4 class="mb-4">Award Deatils</h4>
                         <input type="hidden" name="way" value="updatereward">
-                        <div style="height:72vh;overflow:auto;">
+                        <div style="overflow:auto;">
                             <div class="form-floating mb-3 mt-auto text-center">
                                 <input type="text" class="form-control" id="lvl1" name="lvl1"
                                     placeholder="" required>
@@ -360,16 +360,6 @@
                                 <input type="text" class="form-control" id="lvl5" name="lvl5"
                                     placeholder="" required>
                                 <label for="lvl5">Level 5 Reward</label>
-                            </div>
-                            <div class="form-floating mb-3 mt-auto text-center">
-                                <input type="text" class="form-control" id="lvl6" name="lvl6"
-                                    placeholder="" required>
-                                <label for="lvl6">Level 6 Reward</label>
-                            </div>
-                            <div class="form-floating mb-3 mt-auto text-center">
-                                <input type="text" class="form-control" id="lvl7" name="lvl7"
-                                    placeholder="" required>
-                                <label for="lvl7">Level 7 Reward</label>
                             </div>
                         </div>
                         <div style="display: flex; justify-content: center;">
@@ -400,7 +390,7 @@
                                 </div> -->
                                 <div class="col-sm-6 col-12">
                                     <div class="input-group mb-3 mt-auto">
-                                        <select class="form-select" id="typevalue" style="max-width: 200px;">
+                                        <select onchange="changeVal()" class="form-select" id="typevalue" style="max-width: 200px;">
                                             <option value="none" selected>Select an Rank</option>
                                             <option value="Director">Director</option>
                                             <!-- <option value="Senior Director">Senior Director</option>

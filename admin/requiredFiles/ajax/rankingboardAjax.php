@@ -61,8 +61,6 @@ if ($values["status"] == "success") {
 
             if ($getdata["user_referalStatus"] == "activated") {
 
-                $rank = "Distributor";
-
                 $reward = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$getdata["user_id"]}'");
 
                 $getreward = $reward->fetch_assoc();
@@ -88,176 +86,246 @@ if ($values["status"] == "success") {
                 $lvl7rewarddate = isset($getreward["level7reward_date"]) ? $getreward["level7reward_date"] : '-';
                 $lvl7rewardstatus = isset($getreward["level7reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' disabled>Give</button>";
 
+                $details = $con->query("SELECT * FROM `eligiblereward`");
 
-                $lvl1 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl1 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                $getdetails = $details->fetch_assoc();
 
+                $teamMemberCount = 0;
+                $directTeamIds = [];
 
-                if (mysqli_num_rows($lvl1) >= 5) {
+                // Loop through levels 1 to 9 to count total team members
+                for ($lvls = 1; $lvls <= 9; $lvls++) {
+                    $levelColumn = "lvl{$lvls}";
+                    $result = $con->query("
+                SELECT
+                    g.user_id
+                FROM
+                    genealogy g
+                JOIN userdetails u ON
+                    u.user_id = g.user_id
+                WHERE
+                    g.{$levelColumn} = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated';
+                ");
 
-                    $rank = "Director";
+                    while ($row = $result->fetch_assoc()) {
+                        $teamMemberCount++;
 
-                    foreach ($lvl1 as $index => $getlvl1) {
-
-                        if ($index + 1 == 1) {
-
-                            $lvl1rewardstatus = isset($getreward["level1reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl1reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl1status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl1["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl1date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                        // If it's level 1, collect direct team member IDs
+                        if ($lvls === 1) {
+                            $directTeamIds[] = $row["user_id"];
                         }
                     }
                 }
 
-                $lvl2 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl2 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                $levels = [
+                    ['dteam' => 5, 'idteam' => 0, 'reward' => $getdetails["lvl1reward"], "rank" => "Director"],
+                    ['dteam' => 5, 'idteam' => 25, 'reward' => $getdetails["lvl2reward"], "rank" => "Silver Director"],
+                    ['dteam' => 5, 'idteam' => 125, 'reward' => $getdetails["lvl3reward"], "rank" => "Gold Director"],
+                    ['dteam' => 5, 'idteam' => 625, 'reward' => $getdetails["lvl4reward"], "rank" => "Diamond Director"],
+                    ['dteam' => 5, 'idteam' => 3125, 'reward' => $getdetails["lvl5reward"], "rank" => "Universal Crow Director"],
+                ];
 
-                if (mysqli_num_rows($lvl2) >= 25) {
-                    $rank = "Senior Director";
+                foreach ($levels as $index => $level) {
 
-                    foreach ($lvl2 as $index => $getlvl2) {
+                    $lvlvalue =  $index + 1;
 
-                        if ($index + 1 == 2) {
-
-                            $lvl2rewardstatus = isset($getreward["level2reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl2status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl2["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl2date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
+                    if ($lvlvalue === 1 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $lvl1rewardstatus = isset($getreward["level1reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $rank = "Director";
+                        $lvl1status = "<p style='color:green'>Achieved</p>";
+                    } else if ($lvlvalue === 2 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $rank = "Silver Director";
+                        $lvl2rewardstatus = isset($getreward["level2reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $lvl2status = "<p style='color:green'>Achieved</p>";
+                    } else if ($lvlvalue === 3 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $rank = "Gold Director";
+                        $lvl3rewardstatus = isset($getreward["level3reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl3reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $lvl3status = "<p style='color:green'>Achieved</p>";
+                    } else if ($lvlvalue === 4 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $rank = "Diamond Director";
+                        $lvl4rewardstatus = isset($getreward["level4reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl4reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $lvl4status = "<p style='color:green'>Achieved</p>";
+                    } else if ($lvlvalue === 5 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $rank = "Universal Crow Director";
+                        $lvl5rewardstatus = isset($getreward["level5reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl5reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $lvl5status = "<p style='color:green'>Achieved</p>";
                     }
+
+                    // $award = mysqli_num_rows($check) >= 1 ? "<p style='color:green'>Awared</p>" : "<p style='color:red'>Not Received</p>";
                 }
 
-                $lvl3 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl3 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                // $rank = "Distributor";
 
-                if (mysqli_num_rows($lvl3) >= 125) {
-                    $rank = "Bronze Director";
 
-                    foreach ($lvl3 as $index => $getlvl3) {
+                // $lvl1 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl1 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                        if ($index + 1 == 125) {
 
-                            $lvl3rewardstatus = isset($getreward["level3reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl3reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // if (mysqli_num_rows($lvl1) >= 5) {
 
-                            $lvl3status = "<p style='color:green'>Achieved</p>";
+                //     $rank = "Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl3["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl1 as $index => $getlvl1) {
 
-                            $lvl3date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 1) {
 
-                $lvl4 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl4 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                //             $lvl1rewardstatus = isset($getreward["level1reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl1reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
-                if (mysqli_num_rows($lvl4) >= 375) {
-                    $rank = "Silver Director";
+                //             $lvl1status = "<p style='color:green'>Achieved</p>";
 
-                    foreach ($lvl4 as $index => $getlvl4) {
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl1["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
 
-                        if ($index + 1 == 375) {
+                //             $lvl1date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
 
-                            $lvl4rewardstatus = isset($getreward["level4reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl4reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // $lvl2 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl2 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                            $lvl4status = "<p style='color:green'>Achieved</p>";
+                // if (mysqli_num_rows($lvl2) >= 25) {
+                //     $rank = "Senior Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl4["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl2 as $index => $getlvl2) {
 
-                            $lvl4date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 2) {
 
-                $lvl5 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl5 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                //             $lvl2rewardstatus = isset($getreward["level2reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
-                if (mysqli_num_rows($lvl5) >= 1500) {
-                    $rank = "Gold Director";
+                //             $lvl2status = "<p style='color:green'>Achieved</p>";
 
-                    foreach ($lvl5 as $index => $getlvl5) {
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl2["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
 
-                        if ($index + 1 == 1500) {
+                //             $lvl2date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
 
-                            $lvl5rewardstatus = isset($getreward["level5reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl5reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // $lvl3 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl3 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                            $lvl5status = "<p style='color:green'>Achieved</p>";
+                // if (mysqli_num_rows($lvl3) >= 125) {
+                //     $rank = "Bronze Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl5["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl3 as $index => $getlvl3) {
 
-                            $lvl5date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 125) {
 
-                $lvl6 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl6 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                //             $lvl3rewardstatus = isset($getreward["level3reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl3reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
-                if (mysqli_num_rows($lvl6) >= 5000) {
-                    $rank = "Diamond Director";
+                //             $lvl3status = "<p style='color:green'>Achieved</p>";
 
-                    foreach ($lvl6 as $index => $getlvl6) {
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl3["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
 
-                        if ($index + 1 == 5000) {
+                //             $lvl3date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
 
-                            $lvl6rewardstatus = isset($getreward["level6reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl6reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // $lvl4 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl4 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                            $lvl6status = "<p style='color:green'>Achieved</p>";
+                // if (mysqli_num_rows($lvl4) >= 375) {
+                //     $rank = "Silver Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl6["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl4 as $index => $getlvl4) {
 
-                            $lvl6date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 375) {
 
-                $lvl7 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl7 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                //             $lvl4rewardstatus = isset($getreward["level4reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl4reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
-                if (mysqli_num_rows($lvl7) >= 15000) {
-                    $rank = "Crow Director";
+                //             $lvl4status = "<p style='color:green'>Achieved</p>";
 
-                    foreach ($lvl7 as $index => $getlvl7) {
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl4["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
 
-                        if ($index + 1 == 15000) {
+                //             $lvl4date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
 
-                            $lvl7rewardstatus = isset($getreward["level7reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl7reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // $lvl5 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl5 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                            $lvl6status = "<p style='color:green'>Achieved</p>";
+                // if (mysqli_num_rows($lvl5) >= 1500) {
+                //     $rank = "Gold Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl7["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl5 as $index => $getlvl5) {
 
-                            $lvl7date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 1500) {
+
+                //             $lvl5rewardstatus = isset($getreward["level5reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl5reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+
+                //             $lvl5status = "<p style='color:green'>Achieved</p>";
+
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl5["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
+
+                //             $lvl5date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
+
+                // $lvl6 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl6 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+
+                // if (mysqli_num_rows($lvl6) >= 5000) {
+                //     $rank = "Diamond Director";
+
+                //     foreach ($lvl6 as $index => $getlvl6) {
+
+                //         if ($index + 1 == 5000) {
+
+                //             $lvl6rewardstatus = isset($getreward["level6reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl6reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+
+                //             $lvl6status = "<p style='color:green'>Achieved</p>";
+
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl6["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
+
+                //             $lvl6date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
+
+                // $lvl7 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl7 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+
+                // if (mysqli_num_rows($lvl7) >= 15000) {
+                //     $rank = "Crow Director";
+
+                //     foreach ($lvl7 as $index => $getlvl7) {
+
+                //         if ($index + 1 == 15000) {
+
+                //             $lvl7rewardstatus = isset($getreward["level7reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl7reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+
+                //             $lvl6status = "<p style='color:green'>Achieved</p>";
+
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl7["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
+
+                //             $lvl7date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
             }
 
 
@@ -287,8 +355,6 @@ if ($values["status"] == "success") {
                                                 <th scope="col">Rank</th>
                                                 <th scope="col">Rank Status</th>
                                                 <th scope="col">Achieved Members</th>
-                                                <th scope="col">Days</th>
-                                                <th scope="col">Achieved Date</th>
                                                 <th scope="col">Award Given Date</th>
                                                 <th scope="col">Award Status</th>
                                             </tr>
@@ -298,71 +364,41 @@ if ($values["status"] == "success") {
                                                 <th scope="row">1</th>
                                                 <td>Director</td>
                                                 <td>' . $lvl1status . '</td>
-                                                <td>' . mysqli_num_rows($lvl1) . '</td>
-                                                <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 30</td>
-                                                <td>' . $lvl1date . '</td>
+                                                <td>' . count($directTeamIds) . ' Direct TP Team</td>
                                                 <td>' . $lvl1rewarddate . '</td>
                                                 <td>' . $lvl1rewardstatus . '</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
-                                                <td>Senior Director</td>
+                                                <td>Silver Director</td>
                                                 <td>' . $lvl2status . '</td>
-                                                <td>' . mysqli_num_rows($lvl2) . '</td>
-                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 60</td>
-                                                <td>' . $lvl2date . '</td>
+                                                <td>' . $teamMemberCount . '  TP Team</td>
                                                 <td>' . $lvl2rewarddate . '</td>
                                                 <td>' . $lvl2rewardstatus . '</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">3</th>
-                                                <td>Bronze Director</td>
+                                                <td>Gold Director</td>
                                                 <td>' . $lvl3status . '</td>
-                                                <td>' . mysqli_num_rows($lvl3) . '</td>
-                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 90</td>
-                                                <td>' . $lvl3date . '</td>
+                                                <td>' . $teamMemberCount . '  TP Team</td>
                                                 <td>' . $lvl3rewarddate . '</td>
                                                 <td>' . $lvl3rewardstatus . '</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">4</th>
-                                                <td>Silver Director</td>
+                                                <td>Diamond Director</td>
                                                 <td>' . $lvl4status . '</td>
-                                                <td>' . mysqli_num_rows($lvl4) . '</td>
-                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 120</td>
-                                                <td>' . $lvl4date . '</td>
+                                                <td>' . $teamMemberCount . '  TP Team</td>
                                                 <td>' . $lvl4rewarddate . '</td>
                                                 <td>' . $lvl4rewardstatus . '</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">5</th>
-                                                <td>Gold Director</td>
+                                                <td>Universal Crow Director	</td>
                                                 <td>' . $lvl5status . '</td>
-                                                <td>' . mysqli_num_rows($lvl5) . '</td>
-                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 150</td>
-                                                <td>' . $lvl5date . '</td>
+                                               <td>' . $teamMemberCount . '  TP Team</td>
                                                 <td>' . $lvl5rewarddate . '</td>
                                                 <td>' . $lvl5rewardstatus . '</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">6</th>
-                                                <td>Diamond Director</td>
-                                                <td>' . $lvl6status . '</td>
-                                                <td>' . mysqli_num_rows($lvl6) . '</td>
-                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 180</td>
-                                                <td>' . $lvl6date . '</td>
-                                                <td>' . $lvl6rewarddate . '</td>
-                                                <td>' . $lvl6rewardstatus . '</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">7</th>
-                                                <td>Crow Director</td>
-                                                <td>' . $lvl7status . '</td>
-                                                <td>' . mysqli_num_rows($lvl7) . '</td>
-                                                 <td>' . getDaysDifference(date('Y-m-d', strtotime($getdata["created_at"]))) . ' / 210</td>
-                                                <td>' . $lvl7date . '</td>
-                                                <td>' . $lvl7rewarddate . '</td>
-                                                <td>' . $lvl7rewardstatus . '</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -402,8 +438,8 @@ if ($values["status"] == "success") {
         $lvl3reward = $_POST["lvl3"];
         $lvl4reward = $_POST["lvl4"];
         $lvl5reward = $_POST["lvl5"];
-        $lvl6reward = $_POST["lvl6"];
-        $lvl7reward = $_POST["lvl7"];
+        $lvl6reward = "";
+        $lvl7reward = "";
 
         // Assuming $conn is your database connection
         $query = "UPDATE eligiblereward SET 
@@ -431,7 +467,15 @@ if ($values["status"] == "success") {
     } else if ($way == "typesearch") {
         $type = $_POST["type"];
 
+        $details = $con->query("SELECT * FROM admindetails WHERE admin_id='{$values["admin_id"]}'");
+
+        $getdetails = $details->fetch_assoc();
+
+        $response["profile_image"] = $getdetails["admin_profile"];
+
         $tabledata = "";
+
+        $indexVal = 0;
 
         $data = $con->query("SELECT * FROM userdetails");
 
@@ -456,8 +500,6 @@ if ($values["status"] == "success") {
             $lvl7date = "-";
 
             if ($getdata["user_referalStatus"] == "activated") {
-
-                $rank = "Distributor";
 
                 $reward = $con->query("SELECT * FROM rankboardaward WHERE user_id='{$getdata["user_id"]}'");
 
@@ -484,282 +526,331 @@ if ($values["status"] == "success") {
                 $lvl7rewarddate = isset($getreward["level7reward_date"]) ? $getreward["level7reward_date"] : '-';
                 $lvl7rewardstatus = isset($getreward["level7reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' disabled>Give</button>";
 
+                $details = $con->query("SELECT * FROM `eligiblereward`");
 
-                $lvl1 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl1 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                $getdetails = $details->fetch_assoc();
 
+                $teamMemberCount = 0;
+                $directTeamIds = [];
 
-                if (mysqli_num_rows($lvl1) >= 5) {
+                // Loop through levels 1 to 9 to count total team members
+                for ($lvls = 1; $lvls <= 9; $lvls++) {
+                    $levelColumn = "lvl{$lvls}";
+                    $result = $con->query("
+                SELECT
+                    g.user_id
+                FROM
+                    genealogy g
+                JOIN userdetails u ON
+                    u.user_id = g.user_id
+                WHERE
+                    g.{$levelColumn} = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated';
+                ");
 
-                    $rank = "Director";
+                    while ($row = $result->fetch_assoc()) {
+                        $teamMemberCount++;
 
-                    foreach ($lvl1 as $index => $getlvl1) {
-
-                        if ($index + 1 == 5) {
-
-                            $lvl1rewardstatus = isset($getreward["level1reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl1reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl1status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl1["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl1date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                        // If it's level 1, collect direct team member IDs
+                        if ($lvls === 1) {
+                            $directTeamIds[] = $row["user_id"];
                         }
                     }
                 }
 
-                $lvl2 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl2 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                $levels = [
+                    ['dteam' => 5, 'idteam' => 0, 'reward' => $getdetails["lvl1reward"], "rank" => "Director"],
+                    ['dteam' => 5, 'idteam' => 25, 'reward' => $getdetails["lvl2reward"], "rank" => "Silver Director"],
+                    ['dteam' => 5, 'idteam' => 125, 'reward' => $getdetails["lvl3reward"], "rank" => "Gold Director"],
+                    ['dteam' => 5, 'idteam' => 625, 'reward' => $getdetails["lvl4reward"], "rank" => "Diamond Director"],
+                    ['dteam' => 5, 'idteam' => 3125, 'reward' => $getdetails["lvl5reward"], "rank" => "Universal Crow Director"],
+                ];
 
-                if (mysqli_num_rows($lvl2) >= 25) {
-                    $rank = "Senior Director";
+                foreach ($levels as $index => $level) {
 
-                    foreach ($lvl2 as $index => $getlvl2) {
+                    $lvlvalue =  $index + 1;
 
-                        if ($index + 1 == 25) {
-
-                            $lvl2rewardstatus = isset($getreward["level2reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
-
-                            $lvl2status = "<p style='color:green'>Achieved</p>";
-
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl2["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
-
-                            $lvl2date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
+                    if ($lvlvalue === 1 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $lvl1rewardstatus = isset($getreward["level1reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $rank = "Director";
+                        $lvl1status = "<p style='color:green'>Achieved</p>";
+                    } else if ($lvlvalue === 2 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $rank = "Silver Director";
+                        $lvl2rewardstatus = isset($getreward["level2reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $lvl2status = "<p style='color:green'>Achieved</p>";
+                    } else if ($lvlvalue === 3 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $rank = "Gold Director";
+                        $lvl3rewardstatus = isset($getreward["level3reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl3reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $lvl3status = "<p style='color:green'>Achieved</p>";
+                    } else if ($lvlvalue === 4 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $rank = "Diamond Director";
+                        $lvl4rewardstatus = isset($getreward["level4reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl4reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $lvl4status = "<p style='color:green'>Achieved</p>";
+                    } else if ($lvlvalue === 5 && count($directTeamIds) >= $level['dteam'] && $teamMemberCount >= $level['idteam']) {
+                        $rank = "Universal Crow Director";
+                        $lvl5rewardstatus = isset($getreward["level5reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl5reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                        $lvl5status = "<p style='color:green'>Achieved</p>";
                     }
+
+                    // $award = mysqli_num_rows($check) >= 1 ? "<p style='color:green'>Awared</p>" : "<p style='color:red'>Not Received</p>";
                 }
 
-                $lvl3 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl3 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                // $rank = "Distributor";
 
-                if (mysqli_num_rows($lvl3) >= 125) {
-                    $rank = "Bronze Director";
 
-                    foreach ($lvl3 as $index => $getlvl3) {
+                // $lvl1 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl1 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                        if ($index + 1 == 125) {
 
-                            $lvl3rewardstatus = isset($getreward["level3reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl3reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // if (mysqli_num_rows($lvl1) >= 5) {
 
-                            $lvl3status = "<p style='color:green'>Achieved</p>";
+                //     $rank = "Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl3["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl1 as $index => $getlvl1) {
 
-                            $lvl3date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 1) {
 
-                $lvl4 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl4 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                //             $lvl1rewardstatus = isset($getreward["level1reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl1reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
-                if (mysqli_num_rows($lvl4) >= 375) {
-                    $rank = "Silver Director";
+                //             $lvl1status = "<p style='color:green'>Achieved</p>";
 
-                    foreach ($lvl4 as $index => $getlvl4) {
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl1["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
 
-                        if ($index + 1 == 375) {
+                //             $lvl1date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
 
-                            $lvl4rewardstatus = isset($getreward["level4reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl4reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // $lvl2 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl2 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                            $lvl4status = "<p style='color:green'>Achieved</p>";
+                // if (mysqli_num_rows($lvl2) >= 25) {
+                //     $rank = "Senior Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl4["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl2 as $index => $getlvl2) {
 
-                            $lvl4date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 2) {
 
-                $lvl5 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl5 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                //             $lvl2rewardstatus = isset($getreward["level2reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl2reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
-                if (mysqli_num_rows($lvl5) >= 1500) {
-                    $rank = "Gold Director";
+                //             $lvl2status = "<p style='color:green'>Achieved</p>";
 
-                    foreach ($lvl5 as $index => $getlvl5) {
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl2["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
 
-                        if ($index + 1 == 1500) {
+                //             $lvl2date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
 
-                            $lvl5rewardstatus = isset($getreward["level5reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl5reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // $lvl3 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl3 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                            $lvl5status = "<p style='color:green'>Achieved</p>";
+                // if (mysqli_num_rows($lvl3) >= 125) {
+                //     $rank = "Bronze Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl5["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl3 as $index => $getlvl3) {
 
-                            $lvl5date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 125) {
 
-                $lvl6 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl6 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                //             $lvl3rewardstatus = isset($getreward["level3reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl3reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
-                if (mysqli_num_rows($lvl6) >= 5000) {
-                    $rank = "Diamond Director";
+                //             $lvl3status = "<p style='color:green'>Achieved</p>";
 
-                    foreach ($lvl6 as $index => $getlvl6) {
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl3["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
 
-                        if ($index + 1 == 5000) {
+                //             $lvl3date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
 
-                            $lvl6rewardstatus = isset($getreward["level6reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl6reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // $lvl4 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl4 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                            $lvl6status = "<p style='color:green'>Achieved</p>";
+                // if (mysqli_num_rows($lvl4) >= 375) {
+                //     $rank = "Silver Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl6["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl4 as $index => $getlvl4) {
 
-                            $lvl6date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 375) {
 
-                $lvl7 = $con->query("SELECT *
-                FROM genealogy g
-                JOIN userdetails u ON g.user_id = u.user_id
-                WHERE g.lvl7 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+                //             $lvl4rewardstatus = isset($getreward["level4reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl4reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
 
-                if (mysqli_num_rows($lvl7) >= 15000) {
-                    $rank = "Crow Director";
+                //             $lvl4status = "<p style='color:green'>Achieved</p>";
 
-                    foreach ($lvl7 as $index => $getlvl7) {
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl4["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
 
-                        if ($index + 1 == 15000) {
+                //             $lvl4date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
 
-                            $lvl7rewardstatus = isset($getreward["level7reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl7reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+                // $lvl5 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl5 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
 
-                            $lvl6status = "<p style='color:green'>Achieved</p>";
+                // if (mysqli_num_rows($lvl5) >= 1500) {
+                //     $rank = "Gold Director";
 
-                            $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl7["user_id"]}' AND remark='Activation Successful'");
-                            $getcheckdate = $checkdate->fetch_assoc();
+                //     foreach ($lvl5 as $index => $getlvl5) {
 
-                            $lvl7date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
-                        }
-                    }
-                }
+                //         if ($index + 1 == 1500) {
+
+                //             $lvl5rewardstatus = isset($getreward["level5reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl5reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+
+                //             $lvl5status = "<p style='color:green'>Achieved</p>";
+
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl5["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
+
+                //             $lvl5date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
+
+                // $lvl6 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl6 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+
+                // if (mysqli_num_rows($lvl6) >= 5000) {
+                //     $rank = "Diamond Director";
+
+                //     foreach ($lvl6 as $index => $getlvl6) {
+
+                //         if ($index + 1 == 5000) {
+
+                //             $lvl6rewardstatus = isset($getreward["level6reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl6reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+
+                //             $lvl6status = "<p style='color:green'>Achieved</p>";
+
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl6["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
+
+                //             $lvl6date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
+
+                // $lvl7 = $con->query("SELECT *
+                // FROM genealogy g
+                // JOIN userdetails u ON g.user_id = u.user_id
+                // WHERE g.lvl7 = '{$getdata["user_id"]}' AND u.user_referalStatus = 'activated'");
+
+                // if (mysqli_num_rows($lvl7) >= 15000) {
+                //     $rank = "Crow Director";
+
+                //     foreach ($lvl7 as $index => $getlvl7) {
+
+                //         if ($index + 1 == 15000) {
+
+                //             $lvl7rewardstatus = isset($getreward["level7reward_date"]) ? "<p class='green'>Granded</p>" : "<button class='btn btn-warning' onclick='lvl7reward(this)' userid='" . $getdata["user_id"] . "' data-bs-dismiss='modal'>Give</button>";
+
+                //             $lvl6status = "<p style='color:green'>Achieved</p>";
+
+                //             $checkdate = $con->query("SELECT * FROM idactivationhistory WHERE user_id='{$getlvl7["user_id"]}' AND remark='Activation Successful'");
+                //             $getcheckdate = $checkdate->fetch_assoc();
+
+                //             $lvl7date = isset($getcheckdate["paid_date"]) ? $getcheckdate["paid_date"] : '';
+                //         }
+                //     }
+                // }
             }
 
-            if ($rank == $type) {
-                $tabledata .= '<tr>
-                <th scope="row">' . ($no + 1) . '</th>
-                <td>' . $getdata["user_id"] . '</td>
-                <td>' . $getdata["user_name"] . '</td>
-                <td>' . $rank . '</td>
-                <td>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal' . $no . '"><b>View</b></button>
-                <div class="modal fade" id="exampleModal' . $no . '" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color:#191C24">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Rank Board for ' . $getdata["user_id"] . '</h1>
-                                <button type="button" class="btn-close btn btn-danger" style="background-color: red;color:white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                <hr>
-                            </div>
-                            <div class="modal-body" style="background-color:#000">
-                                <div class="table-responsive">
-                                    <table style="text-align: center;" class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Level</th>
-                                                <th scope="col">Rank</th>
-                                                <th scope="col">Rank Status</th>
-                                                <th scope="col">Achieved Members</th>
-                                                <th scope="col">Achieved Date</th>
-                                                <th scope="col">Award Given Date</th>
-                                                <th scope="col">Award Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Director</td>
-                                                <td>' . $lvl1status . '</td>
-                                                <td>' . mysqli_num_rows($lvl1) . '</td>
-                                                <td>' . $lvl1date . '</td>
-                                                <td>' . $lvl1rewarddate . '</td>
-                                                <td>' . $lvl1rewardstatus . '</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Senior Director</td>
-                                                <td>' . $lvl2status . '</td>
-                                                <td>' . mysqli_num_rows($lvl2) . '</td>
-                                                <td>' . $lvl2date . '</td>
-                                                <td>' . $lvl2rewarddate . '</td>
-                                                <td>' . $lvl2rewardstatus . '</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Bronze Director</td>
-                                                <td>' . $lvl3status . '</td>
-                                                <td>' . mysqli_num_rows($lvl3) . '</td>
-                                                <td>' . $lvl3date . '</td>
-                                                <td>' . $lvl3rewarddate . '</td>
-                                                <td>' . $lvl3rewardstatus . '</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td>Silver Director</td>
-                                                <td>' . $lvl4status . '</td>
-                                                <td>' . mysqli_num_rows($lvl4) . '</td>
-                                                <td>' . $lvl4date . '</td>
-                                                <td>' . $lvl4rewarddate . '</td>
-                                                <td>' . $lvl4rewardstatus . '</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">5</th>
-                                                <td>Gold Director</td>
-                                                <td>' . $lvl5status . '</td>
-                                                <td>' . mysqli_num_rows($lvl5) . '</td>
-                                                <td>' . $lvl5date . '</td>
-                                                <td>' . $lvl5rewarddate . '</td>
-                                                <td>' . $lvl5rewardstatus . '</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">6</th>
-                                                <td>Diamond Director</td>
-                                                <td>' . $lvl6status . '</td>
-                                                <td>' . mysqli_num_rows($lvl6) . '</td>
-                                                <td>' . $lvl6date . '</td>
-                                                <td>' . $lvl6rewarddate . '</td>
-                                                <td>' . $lvl6rewardstatus . '</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">7</th>
-                                                <td>Crow Director</td>
-                                                <td>' . $lvl7status . '</td>
-                                                <td>' . mysqli_num_rows($lvl7) . '</td>
-                                                <td>' . $lvl7date . '</td>
-                                                <td>' . $lvl7rewarddate . '</td>
-                                                <td>' . $lvl7rewardstatus . '</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+
+            if ($type === $rank) {
+                $indexVal++;
+                $tabledata .= '
+                <tr>
+                    <th scope="row">' . $indexVal . '</th>
+                    <td>' . $getdata["user_id"] . '</td>
+                    <td>' . $getdata["user_name"] . '</td>
+                    <td>' . $rank . '</td>
+                    <td>
+                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal' . $no . '"><b>View</b></button>
+                    <div class="modal fade" id="exampleModal' . $no . '" tabindex="-1" aria-labelledby="exampleModalLabel' . $no . '" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#191C24">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel' . $no . '">Rank Board for ' . $getdata["user_id"] . ' ( Account Created At: ' . date('Y-m-d', strtotime($getdata["created_at"])) . ' )</h1>
+                                    <button type="button" class="btn-close btn btn-danger" style="background-color: red;color:white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <hr>
+                                </div>
+                                <div class="modal-body" style="background-color:#000">
+                                    <div class="table-responsive">
+                                        <table style="text-align: center;" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Level</th>
+                                                    <th scope="col">Rank</th>
+                                                    <th scope="col">Rank Status</th>
+                                                    <th scope="col">Achieved Members</th>
+                                                    <th scope="col">Award Given Date</th>
+                                                    <th scope="col">Award Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Director</td>
+                                                    <td>' . $lvl1status . '</td>
+                                                    <td>' . count($directTeamIds) . ' Direct TP Team</td>
+                                                    <td>' . $lvl1rewarddate . '</td>
+                                                    <td>' . $lvl1rewardstatus . '</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Silver Director</td>
+                                                    <td>' . $lvl2status . '</td>
+                                                    <td>' . $teamMemberCount . '  TP Team</td>
+                                                    <td>' . $lvl2rewarddate . '</td>
+                                                    <td>' . $lvl2rewardstatus . '</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">3</th>
+                                                    <td>Gold Director</td>
+                                                    <td>' . $lvl3status . '</td>
+                                                    <td>' . $teamMemberCount . '  TP Team</td>
+                                                    <td>' . $lvl3rewarddate . '</td>
+                                                    <td>' . $lvl3rewardstatus . '</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">4</th>
+                                                    <td>Diamond Director</td>
+                                                    <td>' . $lvl4status . '</td>
+                                                    <td>' . $teamMemberCount . '  TP Team</td>
+                                                    <td>' . $lvl4rewarddate . '</td>
+                                                    <td>' . $lvl4rewardstatus . '</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">5</th>
+                                                    <td>Universal Crow Director	</td>
+                                                    <td>' . $lvl5status . '</td>
+                                                   <td>' . $teamMemberCount . '  TP Team</td>
+                                                    <td>' . $lvl5rewarddate . '</td>
+                                                    <td>' . $lvl5rewardstatus . '</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>                
-                </td>
-            </tr>
-            ';
+                    </div>                
+                    </td>
+                </tr>
+                ';
             }
         }
 
